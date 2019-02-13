@@ -1,5 +1,5 @@
 package com.ldtteam.minelaunch.item;
 
-public class IItemStack
+public interface IItemStack
 {
 }

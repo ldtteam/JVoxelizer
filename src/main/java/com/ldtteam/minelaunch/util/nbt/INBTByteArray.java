@@ -1,6 +1,6 @@
 package com.ldtteam.minelaunch.util.nbt;
 
-public interface INBTByteArray
+public interface INBTByteArray extends INBTBase
 {
 
     byte[] getValue();

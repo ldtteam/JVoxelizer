@@ -3,7 +3,7 @@ package com.ldtteam.minelaunch.util.math;
 /**
  * Represents a vector made up out of 3 integers.
  */
-public interface I3IntegerVector
+public interface I3IntVector
 {
 
     /**

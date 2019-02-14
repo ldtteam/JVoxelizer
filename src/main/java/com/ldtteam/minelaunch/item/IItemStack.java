@@ -1,5 +1,7 @@
 package com.ldtteam.minelaunch.item;
 
-public interface IItemStack
+import com.ldtteam.minelaunch.util.nbt.INBTSerializable;
+
+public interface IItemStack extends INBTSerializable
 {
 }

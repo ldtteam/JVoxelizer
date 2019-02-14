@@ -1,5 +1,7 @@
 package com.ldtteam.minelaunch.block.state;
 
-public class IBlockState
+import com.ldtteam.minelaunch.util.nbt.INBTSerializable;
+
+public interface IBlockState extends INBTSerializable
 {
 }

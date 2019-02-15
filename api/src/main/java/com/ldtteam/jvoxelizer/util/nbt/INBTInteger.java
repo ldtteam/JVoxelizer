@@ -1,0 +1,9 @@
+package com.ldtteam.jvoxelizer.util.nbt;
+
+public interface INBTInteger extends INBTBase
+{
+
+    int getValue();
+
+    void setValue(int value);
+}

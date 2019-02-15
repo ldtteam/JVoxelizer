@@ -1,11 +1,77 @@
-jar {
-    manifest {
-        attributes([
-            'Maven-Artifact': "${project.group}:${project.archivesBaseName}:${project.version}:api",
-            'Timestamp': System.currentTimeMillis(),
-        ])
+buildscript {
+    repositories {
+        jcenter()
+        maven { url = "https://files.minecraftforge.net/maven" }
     }
-
-    classifier 'launcher:api'
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
 }
 
+subprojects {
+    repositories {
+        maven {
+            name 'LDTTeam - Modding'
+            url 'https://ldtteam.jfrog.io/ldtteam/modding/'
+        }
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+project (':launchers:forge:1.12') {
+
+    apply plugin: 'net.minecraftforge.gradle.forge'
+    apply plugin: 'idea'
+
+    repositories {
+        maven {
+            name 'LDTTeam - Modding'
+            url 'https://ldtteam.jfrog.io/ldtteam/modding/'
+        }
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    version = System.getenv("Version")
+    group = "com.ldtteam"
+    archivesBaseName = "jvoxelizer"
+
+    sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+    compileJava {
+        sourceCompatibility = targetCompatibility = '1.8'
+    }
+
+    minecraft {
+        version = minecraft_version + "-" + forge_version
+        runDir = "run"
+
+        mappings = "snapshot_20171003"
+    }
+
+    configurations.forgeGradleUserDevPackage {
+        resolutionStrategy {
+            force 'net.minecraftforge:forge:1.12.2-14.23.5.2815:userdev'
+        }
+    }
+
+    dependencies {
+    }
+
+    processResources {
+        inputs.property "version", project.version
+        inputs.property "mcversion", project.minecraft.version
+
+        from(sourceSets.main.resources.srcDirs) {
+            include 'mcmod.info'
+            expand 'version':project.version, 'mcversion':project.minecraft.version
+        }
+
+        from(sourceSets.main.resources.srcDirs) {
+            exclude 'mcmod.info'
+        }
+    }
+
+}

@@ -1,0 +1,18 @@
+apply plugin: 'idea'
+apply plugin: 'java'
+
+dependencies {
+    compile 'com.intellij:annotations:+@jar'
+}
+
+jar {
+    manifest {
+        attributes([
+            'Maven-Artifact': "${project.group}:${project.archivesBaseName}:${project.version}:api",
+            'Timestamp': System.currentTimeMillis(),
+        ])
+    }
+
+    classifier 'api'
+}
+

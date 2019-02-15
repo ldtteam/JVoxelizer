@@ -1,5 +1,6 @@
 package com.ldtteam.jvoxelizer.block.state;
 
+import com.ldtteam.jvoxelizer.block.IBlock;
 import com.ldtteam.jvoxelizer.util.nbt.INBTSerializable;
 
 /**
@@ -16,4 +17,11 @@ public interface IBlockState extends INBTSerializable
     {
         return BlockStateProviderHolder.getInstance().provide();
     }
+
+    /**
+     * The block of which we are describing a state.
+     *
+     * @return The underlying block.
+     */
+    IBlock getBlock();
 }

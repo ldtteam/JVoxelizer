@@ -1,4 +1,4 @@
-package com.ldtteam.jvoxelizer.util;
+package com.ldtteam.jvoxelizer.util.tuple;
 
 public interface ITupleProvider
 {

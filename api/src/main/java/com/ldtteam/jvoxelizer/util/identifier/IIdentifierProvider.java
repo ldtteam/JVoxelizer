@@ -1,4 +1,4 @@
-package com.ldtteam.jvoxelizer.util;
+package com.ldtteam.jvoxelizer.util.identifier;
 
 public interface IIdentifierProvider
 {

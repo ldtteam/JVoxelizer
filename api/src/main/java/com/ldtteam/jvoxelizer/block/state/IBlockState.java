@@ -15,7 +15,7 @@ public interface IBlockState extends INBTSerializable
      */
     static IBlockState create()
     {
-        return BlockStateProviderHolder.getInstance().provide();
+        return IBlockStateProviderHolder.getInstance().provide();
     }
 
     /**

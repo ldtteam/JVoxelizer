@@ -4,6 +4,4 @@ public interface INBTDouble extends INBTBase
 {
 
     double getValue();
-
-    void setValue(double value);
 }

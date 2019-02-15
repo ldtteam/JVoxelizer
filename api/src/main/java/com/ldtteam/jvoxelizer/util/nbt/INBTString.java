@@ -4,6 +4,4 @@ public interface INBTString extends INBTBase
 {
 
     String getValue();
-
-    void setValue(String value);
 }

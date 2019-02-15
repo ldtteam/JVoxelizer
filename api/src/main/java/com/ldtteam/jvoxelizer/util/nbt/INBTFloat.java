@@ -4,6 +4,4 @@ public interface INBTFloat extends INBTBase
 {
 
     float getValue();
-
-    void setValue(float value);
 }

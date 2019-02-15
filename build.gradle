@@ -58,6 +58,7 @@ project (':launchers:forge:1.12') {
     }
 
     dependencies {
+        compile project(':api')
     }
 
     processResources {

@@ -5,7 +5,7 @@ public interface INBTProvider
 
     INBTByte provide(byte value);
 
-    INBTByteArray provide(byte[] value);
+    INBTByteArray provide(byte... value);
 
     INBTCompound provide();
 
@@ -22,4 +22,8 @@ public interface INBTProvider
     INBTShort provide(short value);
 
     INBTString provide(String value);
+
+    INBTIntArray provide(int... value);
+
+    INBTLongArray provide(long... value);
 }

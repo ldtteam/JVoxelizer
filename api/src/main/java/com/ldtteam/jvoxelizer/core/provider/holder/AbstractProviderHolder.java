@@ -11,9 +11,10 @@ public abstract class AbstractProviderHolder<P>
     private final String providedName;
     private final P provider;
 
+    @SuppressWarnings("unchecked")
     public AbstractProviderHolder(final String providedName) {
         this.providedName = providedName;
-        provider = null;
+        provider = (P) ProviderResolver.getInstance().getProvider(providedName);
     }
 
     /**

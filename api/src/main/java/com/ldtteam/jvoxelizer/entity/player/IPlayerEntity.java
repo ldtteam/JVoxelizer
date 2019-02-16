@@ -1,5 +1,7 @@
 package com.ldtteam.jvoxelizer.entity.player;
 
-public interface IPlayerEntity
+import com.ldtteam.jvoxelizer.entity.IEntity;
+
+public interface IPlayerEntity extends IEntity
 {
 }

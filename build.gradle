@@ -20,8 +20,10 @@ subprojects {
     }
 }
 
-project (':launchers:forge:1.12') {
+project (':JVoxerlizer - Api') {
+}
 
+project (':launcher:forge:JVoxelizer - Launchers - Forge - 1.12') {
     apply plugin: 'net.minecraftforge.gradle.forge'
     apply plugin: 'idea'
 
@@ -58,7 +60,7 @@ project (':launchers:forge:1.12') {
     }
 
     dependencies {
-        compile project(':api')
+        compile project(':JVoxerlizer - Api')
     }
 
     processResources {

@@ -1,4 +1,4 @@
-package com.ldtteam.jvoxelizer.util.math;
+package com.ldtteam.jvoxelizer.util.math.vector.integer;
 
 public interface I3IntVectorProvider
 {

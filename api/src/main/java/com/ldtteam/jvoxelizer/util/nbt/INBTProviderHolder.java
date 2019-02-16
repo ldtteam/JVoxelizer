@@ -1,8 +1,8 @@
 package com.ldtteam.jvoxelizer.util.nbt;
 
-import com.ldtteam.jvoxelizer.core.provider.holder.AbstractProviderHolder;
+import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
 
-final class INBTProviderHolder extends AbstractProviderHolder<INBTProviderHolder> implements INBTProvider
+final class INBTProviderHolder extends AbstractHolder<INBTProviderHolder> implements INBTProvider
 {
     private static INBTProviderHolder ourInstance = new INBTProviderHolder();
 

@@ -1,10 +1,15 @@
-package com.ldtteam.jvoxelizer.util.math;
+package com.ldtteam.jvoxelizer.util.math.vector.integer;
 
 /**
  * Represents a vector made up out of 3 integers.
  */
 public interface I3IntVector
 {
+
+    static I3IntVector create(int x, int y, int z)
+    {
+        return I3IntVectorProviderHolder.getInstance().provide(x, y, z);
+    }
 
     /**
      * The first, x, coordinate of the vector.

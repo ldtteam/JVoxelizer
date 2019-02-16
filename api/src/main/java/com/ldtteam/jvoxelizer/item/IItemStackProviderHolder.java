@@ -1,8 +1,8 @@
 package com.ldtteam.jvoxelizer.item;
 
-import com.ldtteam.jvoxelizer.core.provider.holder.AbstractProviderHolder;
+import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
 
-final class IItemStackProviderHolder extends AbstractProviderHolder<IItemStackProvider> implements IItemStackProvider
+final class IItemStackProviderHolder extends AbstractHolder<IItemStackProvider> implements IItemStackProvider
 {
     private static IItemStackProviderHolder ourInstance = new IItemStackProviderHolder();
 

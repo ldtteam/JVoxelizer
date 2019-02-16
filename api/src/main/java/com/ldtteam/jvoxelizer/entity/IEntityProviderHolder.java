@@ -1,10 +1,10 @@
 package com.ldtteam.jvoxelizer.entity;
 
-import com.ldtteam.jvoxelizer.core.provider.holder.AbstractProviderHolder;
+import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
 
 import java.util.UUID;
 
-final class IEntityProviderHolder extends AbstractProviderHolder<IEntityProvider> implements IEntityProvider
+final class IEntityProviderHolder extends AbstractHolder<IEntityProvider> implements IEntityProvider
 {
     private static IEntityProviderHolder ourInstance = new IEntityProviderHolder();
 

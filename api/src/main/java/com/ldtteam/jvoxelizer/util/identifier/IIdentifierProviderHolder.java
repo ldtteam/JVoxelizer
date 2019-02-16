@@ -1,8 +1,8 @@
 package com.ldtteam.jvoxelizer.util.identifier;
 
-import com.ldtteam.jvoxelizer.core.provider.holder.AbstractProviderHolder;
+import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
 
-final class IIdentifierProviderHolder extends AbstractProviderHolder<IIdentifierProvider> implements IIdentifierProvider
+final class IIdentifierProviderHolder extends AbstractHolder<IIdentifierProvider> implements IIdentifierProvider
 {
     private static IIdentifierProviderHolder ourInstance = new IIdentifierProviderHolder();
 

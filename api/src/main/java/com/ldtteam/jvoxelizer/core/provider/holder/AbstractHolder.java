@@ -5,14 +5,14 @@ package com.ldtteam.jvoxelizer.core.provider.holder;
  *
  * @param <P> The type of the provider to look for.
  */
-public abstract class AbstractProviderHolder<P>
+public abstract class AbstractHolder<P>
 {
 
     private final String providedName;
     private final P provider;
 
     @SuppressWarnings("unchecked")
-    public AbstractProviderHolder(final String providedName) {
+    public AbstractHolder(final String providedName) {
         this.providedName = providedName;
         provider = (P) ProviderResolver.getInstance().getProvider(providedName);
     }

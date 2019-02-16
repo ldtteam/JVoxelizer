@@ -1,8 +1,8 @@
 package com.ldtteam.jvoxelizer.util.tuple;
 
-import com.ldtteam.jvoxelizer.core.provider.holder.AbstractProviderHolder;
+import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
 
-final class TupleProviderHolder extends AbstractProviderHolder<ITupleProvider> implements ITupleProvider
+final class TupleProviderHolder extends AbstractHolder<ITupleProvider> implements ITupleProvider
 {
     private static TupleProviderHolder ourInstance = new TupleProviderHolder();
 

@@ -19,6 +19,16 @@ public interface IBlockState extends INBTSerializable
     }
 
     /**
+     * The default {@link IBlockState} used by the game.
+     * Normally this is the default state of an air block.
+     *
+     * @return The default {@link IBlockState}.
+     */
+    static IBlockState defaultState() {
+        return IBlockStateProviderHolder.getInstance().provideDefault();
+    }
+
+    /**
      * The block of which we are describing a state.
      *
      * @return The underlying block.

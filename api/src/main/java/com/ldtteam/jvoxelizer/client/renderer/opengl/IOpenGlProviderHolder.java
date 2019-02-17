@@ -748,4 +748,16 @@ final class IOpenGlProviderHolder extends AbstractHolder<IOpenGlProvider> implem
     {
         return getProvider().glGetInteger(parameterName);
     }
+
+    @Override
+    public void disableStandardItemLighting()
+    {
+        getProvider().disableStandardItemLighting();
+    }
+
+    @Override
+    public void enableStandardItemLighting()
+    {
+        getProvider().enableStandardItemLighting();
+    }
 }

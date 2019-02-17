@@ -9,6 +9,8 @@ public interface INBTProvider
 
     INBTCompound provide();
 
+    INBTCompound provideFromJson(String jsonString);
+
     INBTList provide(Iterable<INBTBase> values);
 
     INBTDouble provide(double value);

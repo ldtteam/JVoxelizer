@@ -248,4 +248,8 @@ public interface IOpenGlProvider
     void glGetInteger(int parameterName, IntBuffer parameters);
 
     int glGetInteger(int parameterName);
+
+    void disableStandardItemLighting();
+
+    void enableStandardItemLighting();
 }

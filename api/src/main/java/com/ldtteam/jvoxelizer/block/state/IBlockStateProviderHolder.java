@@ -21,4 +21,10 @@ final class IBlockStateProviderHolder extends AbstractHolder<IBlockStateProvider
     {
         return getProvider().provide();
     }
+
+    @Override
+    public IBlockState provideDefault()
+    {
+        return getProvider().provideDefault();
+    }
 }

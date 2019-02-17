@@ -41,6 +41,18 @@ public interface INBTBase
     }
 
     /**
+     * Creates a new {@link INBTCompound} entry from a given json string.
+     *
+     * @param jsonString The json string representing the {@link INBTCompound}.
+     *
+     * @return The {@link INBTCompound} that is contained in the given string.
+     */
+    static INBTCompound createFromJson(String jsonString)
+    {
+        return INBTProviderHolder.getInstance().provideFromJson(jsonString);
+    }
+
+    /**
      * Creates a new NBT entry with a {@link List} as contained data.
      *
      * @param values The contained {@link List} in {@link Iterable} form.

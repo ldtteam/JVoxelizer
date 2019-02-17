@@ -35,6 +35,12 @@ final class INBTProviderHolder extends AbstractHolder<INBTProviderHolder> implem
     }
 
     @Override
+    public INBTCompound provideFromJson(final String jsonString)
+    {
+        return getProvider().provideFromJson(jsonString);
+    }
+
+    @Override
     public INBTList provide(final Iterable<INBTBase> values)
     {
         return getProvider().provide(values);

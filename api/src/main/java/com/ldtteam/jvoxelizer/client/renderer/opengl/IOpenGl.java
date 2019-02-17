@@ -617,4 +617,14 @@ public interface IOpenGl
     {
         return IOpenGlProviderHolder.getInstance().glGetInteger(parameterName);
     }
+
+    static void disableStandardItemLighting()
+    {
+        IOpenGlProviderHolder.getInstance().disableStandardItemLighting();
+    }
+
+    static void enableStandardItemLighting()
+    {
+        IOpenGlProviderHolder.getInstance().enableStandardItemLighting();
+    }
 }

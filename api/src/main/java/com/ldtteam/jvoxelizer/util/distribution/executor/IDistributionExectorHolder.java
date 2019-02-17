@@ -1,4 +1,4 @@
-package com.ldtteam.jvoxelizer.util.distribution;
+package com.ldtteam.jvoxelizer.util.distribution.executor;
 
 import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
 

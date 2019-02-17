@@ -5,6 +5,17 @@ package com.ldtteam.jvoxelizer.util.distribution;
  */
 public interface IDistribution
 {
+
+    static IDistribution client()
+    {
+        return IDistributionProviderHolder.getInstance().provideClient();
+    }
+
+    static IDistribution server()
+    {
+        return IDistributionProviderHolder.getInstance().provideServer();
+    }
+
     /**
      * Indicates if this distribution is the dedicated server.
      * In other words, if graphical capabilities are present or not.

@@ -1,4 +1,6 @@
-package com.ldtteam.jvoxelizer.util.distribution;
+package com.ldtteam.jvoxelizer.util.distribution.executor;
+
+import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
 
 import java.util.function.Supplier;
 

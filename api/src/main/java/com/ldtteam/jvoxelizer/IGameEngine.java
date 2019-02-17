@@ -2,6 +2,7 @@ package com.ldtteam.jvoxelizer;
 
 import com.ldtteam.jvoxelizer.client.gui.IGui;
 import com.ldtteam.jvoxelizer.entity.player.ISingleplayerPlayerEntity;
+import com.ldtteam.jvoxelizer.server.IServerInstance;
 
 public interface IGameEngine
 {
@@ -14,4 +15,9 @@ public interface IGameEngine
     ISingleplayerPlayerEntity getSinglePlayerPlayerEntity();
 
     IGui getCurrentGui();
+
+
+    IServerInstance getCurrentServerInstance();
+
+
 }

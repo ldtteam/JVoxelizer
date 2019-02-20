@@ -74,4 +74,6 @@ public interface IGuiScreen<I> extends IGui<I>, IGuiYesNoCallback {
     void confirmClicked(boolean result, int id);
 
     void onResize(IGameEngine mcIn, int w, int h);
+
+
 }

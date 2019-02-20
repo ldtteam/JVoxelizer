@@ -5,7 +5,7 @@ import com.ldtteam.jvoxelizer.client.renderer.texture.ISprite;
 
 public interface IGui<I> {
 
-    I getInstance();
+    I getInstanceData();
 
     void drawHorizontalLine(int startX, int endX, int y, int color);
 

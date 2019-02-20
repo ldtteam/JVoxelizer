@@ -7,9 +7,7 @@ import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.handling.IItemHandler;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 
-public interface ISlot<I> {
-
-    I getInstance();
+public interface ISlot {
 
     void onSlotChange(IItemStack p_75220_1_, IItemStack p_75220_2_);
 

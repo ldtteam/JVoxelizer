@@ -35,6 +35,19 @@ public class NBTProvider implements INBTProvider
     }
 
     @Override
+    public INBTCompound provideFromJson(final String jsonString)
+    {
+        try
+        {
+            return new NBTCompound(JsonToNBT.getTagFromJson(jsonString));
+        }
+        catch (NBTException e)
+        {
+            return null;
+        }
+    }
+
+    @Override
     public INBTList provide(final Iterable<INBTBase> values)
     {
         final NBTList list = new NBTList(new NBTTagList());

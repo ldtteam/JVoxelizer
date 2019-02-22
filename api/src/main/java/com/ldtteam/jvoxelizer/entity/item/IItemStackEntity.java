@@ -3,7 +3,7 @@ package com.ldtteam.jvoxelizer.entity.item;
 import com.ldtteam.jvoxelizer.entity.IEntity;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.util.math.coordinate.entity.IEntityCoordinate;
-import com.ldtteam.jvoxelizer.world.IDimension;
+import com.ldtteam.jvoxelizer.dimension.IDimension;
 
 /**
  * A special {@link IEntity} case that holds an {@link IItemStack} in the {@link IDimension}

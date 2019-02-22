@@ -1,6 +1,6 @@
 package com.ldtteam.jvoxelizer.networking.handler;
 
-import com.ldtteam.jvoxelizer.entity.player.IMultiplayerPlayerEntity;
+import com.ldtteam.jvoxelizer.entity.living.player.IMultiplayerPlayerEntity;
 
 public interface IServerNetworkHandler
 {

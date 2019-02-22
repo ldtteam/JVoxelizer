@@ -2,7 +2,7 @@ package com.ldtteam.jvoxelizer.networking.utils.target;
 
 import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
 import com.ldtteam.jvoxelizer.util.math.coordinate.entity.IEntityCoordinate;
-import com.ldtteam.jvoxelizer.world.IDimension;
+import com.ldtteam.jvoxelizer.dimension.IDimension;
 
 final class INetworkTargetPointProviderHolder extends AbstractHolder<INetworkTargetPointProvider> implements INetworkTargetPointProvider
 {

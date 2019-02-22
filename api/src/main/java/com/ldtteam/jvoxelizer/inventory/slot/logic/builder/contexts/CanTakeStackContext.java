@@ -1,6 +1,6 @@
 package com.ldtteam.jvoxelizer.inventory.slot.logic.builder.contexts;
 
-import com.ldtteam.jvoxelizer.entity.player.IPlayerEntity;
+import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 
 public class CanTakeStackContext {
 

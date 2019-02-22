@@ -1,6 +1,6 @@
 package com.ldtteam.jvoxelizer.inventory;
 
-import com.ldtteam.jvoxelizer.entity.player.IPlayerEntity;
+import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 
 public interface IInventoryContainer
 {

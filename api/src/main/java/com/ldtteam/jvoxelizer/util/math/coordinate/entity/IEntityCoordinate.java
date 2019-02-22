@@ -4,7 +4,7 @@ import com.ldtteam.jvoxelizer.util.math.vector.floatingpoint.I3DoubleVector;
 import com.ldtteam.jvoxelizer.util.math.vector.integer.I3IntVector;
 
 /**
- * Represents an exact coordinate in the 3D space of the game world
+ * Represents an exact coordinate in the 3D space of the game dimension
  */
 public interface IEntityCoordinate extends I3DoubleVector
 {

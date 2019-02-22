@@ -1,7 +1,7 @@
 package com.ldtteam.jvoxelizer.common.gameevent.event.player;
 
 import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
-import com.ldtteam.jvoxelizer.entity.player.IPlayerEntity;
+import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 import com.ldtteam.jvoxelizer.inventory.IInventoryContainer;
 
 final class IPlayerEventProviderHolder extends AbstractHolder<IPlayerEventProvider> implements IPlayerEventProvider

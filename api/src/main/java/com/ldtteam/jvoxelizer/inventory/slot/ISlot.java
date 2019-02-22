@@ -3,7 +3,7 @@ package com.ldtteam.jvoxelizer.inventory.slot;
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISprite;
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISpriteMap;
 import com.ldtteam.jvoxelizer.core.logic.*;
-import com.ldtteam.jvoxelizer.entity.player.IPlayerEntity;
+import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 import com.ldtteam.jvoxelizer.item.handling.IInventory;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;

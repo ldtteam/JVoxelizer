@@ -1,18 +1,20 @@
 package com.ldtteam.jvoxelizer.client.gui.logic.builder.contexts;
 
+import com.ldtteam.jvoxelizer.client.gui.IGuiButton;
+
 public class ActionPerformedContext {
 
-    public ActionPerformedContext(GuiButton button) {
+    public ActionPerformedContext(IGuiButton button) {
         this.button = button;
     }
 
-    private GuiButton button;
+    private IGuiButton button;
 
-    public GuiButton getButton() {
+    public IGuiButton getButton() {
         return button;
     }
 
-    public void setButton(GuiButton button) {
+    public void setButton(IGuiButton button) {
         this.button = button;
     }
 }

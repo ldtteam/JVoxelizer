@@ -1,8 +1,12 @@
 package com.ldtteam.jvoxelizer.client.gui.logic.builder.contexts;
 
+import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
+
+import java.util.List;
+
 public class DrawHoveringTextWithFontAsFontRendererContext {
 
-    public DrawHoveringTextWithFontAsFontRendererContext(List<String> textLines, int x, int y, FontRenderer font) {
+    public DrawHoveringTextWithFontAsFontRendererContext(List<String> textLines, int x, int y, IFontRenderer font) {
         this.textLines = textLines;
         this.x = x;
         this.y = y;
@@ -39,13 +43,13 @@ public class DrawHoveringTextWithFontAsFontRendererContext {
         this.y = y;
     }
 
-    private FontRenderer font;
+    private IFontRenderer font;
 
-    public FontRenderer getFont() {
+    public IFontRenderer getFont() {
         return font;
     }
 
-    public void setFont(FontRenderer font) {
+    public void setFont(IFontRenderer font) {
         this.font = font;
     }
 }

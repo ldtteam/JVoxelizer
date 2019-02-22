@@ -1,18 +1,20 @@
 package com.ldtteam.jvoxelizer.client.gui.logic.builder.contexts;
 
+import com.ldtteam.jvoxelizer.item.IItemStack;
+
 public class GetItemToolTipContext {
 
-    public GetItemToolTipContext(ItemStack p_191927_1_) {
-        this.p_191927_1_ = p_191927_1_;
+    public GetItemToolTipContext(IItemStack itemStack) {
+        this.itemStack = itemStack;
     }
 
-    private ItemStack p_191927_1_;
+    private IItemStack itemStack;
 
-    public ItemStack getP_191927_1_() {
-        return p_191927_1_;
+    public IItemStack getItemStack() {
+        return itemStack;
     }
 
-    public void setP_191927_1_(ItemStack p_191927_1_) {
-        this.p_191927_1_ = p_191927_1_;
+    public void setItemStack(IItemStack itemStack) {
+        this.itemStack = itemStack;
     }
 }

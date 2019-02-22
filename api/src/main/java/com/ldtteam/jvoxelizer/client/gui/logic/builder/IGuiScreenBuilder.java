@@ -26,7 +26,7 @@ public interface IGuiScreenBuilder<C extends IGuiScreenBuilder<C, I, O>, I, O ex
 
     C DrawWorldBackground(Consumer<VoidPipelineElementContext<DrawWorldBackgroundContext, O, I>>... components);
 
-    C HandleComponentClick(Function<TypedPipelineElementContext<HandleComponentClickContext, Boolean>, Boolean>... components);
+    C HandleComponentClick(Function<TypedPipelineElementContext<HandleComponentClickContext, Boolean, O, I>, Boolean>... components);
 
     C HandleInput(Consumer<VoidPipelineElementContext<HandleInputContext, O, I>>... components);
 
@@ -38,7 +38,7 @@ public interface IGuiScreenBuilder<C extends IGuiScreenBuilder<C, I, O>, I, O ex
 
     C ActionPerformed(Consumer<VoidPipelineElementContext<ActionPerformedContext, O, I>>... components);
 
-    C GetItemToolTip(Function<TypedPipelineElementContext<GetItemToolTipContext, List<String>>, List<String>>... components);
+    C GetItemToolTip(Function<TypedPipelineElementContext<GetItemToolTipContext, List<String>, O, I>, List<String>>... components);
 
     C HandleMouseInput(Consumer<VoidPipelineElementContext<HandleMouseInputContext, O, I>>... components);
 
@@ -48,13 +48,13 @@ public interface IGuiScreenBuilder<C extends IGuiScreenBuilder<C, I, O>, I, O ex
 
     C DrawScreen(Consumer<VoidPipelineElementContext<DrawScreenContext, O, I>>... components);
 
-    C DoesGuiPauseGame(Function<TypedPipelineElementContext<DoesGuiPauseGameContext, Boolean>, Boolean>... components);
+    C DoesGuiPauseGame(Function<TypedPipelineElementContext<DoesGuiPauseGameContext, Boolean, O, I>, Boolean>... components);
 
     C HandleComponentHover(Consumer<VoidPipelineElementContext<HandleComponentHoverContext, O, I>>... components);
 
     C MouseClickMove(Consumer<VoidPipelineElementContext<MouseClickMoveContext, O, I>>... components);
 
-    <T extends IGuiButton> C AddButton(Function<TypedPipelineElementContext<AddButtonContext<? extends IGuiButton>, ? extends IGuiButton>, T>... components);
+    <T extends IGuiButton> C AddButton(Function<TypedPipelineElementContext<AddButtonContext<? extends IGuiButton>, ? extends IGuiButton, O, I>, T>... components);
 
     C SendChatMessage(Consumer<VoidPipelineElementContext<SendChatMessageContext, O, I>>... components);
 
@@ -64,7 +64,7 @@ public interface IGuiScreenBuilder<C extends IGuiScreenBuilder<C, I, O>, I, O ex
 
     C SetGuiSize(Consumer<VoidPipelineElementContext<SetGuiSizeContext, O, I>>... components);
 
-    C IsFocused(Function<TypedPipelineElementContext<IsFocusedContext, Boolean>, Boolean>... components);
+    C IsFocused(Function<TypedPipelineElementContext<IsFocusedContext, Boolean, O, I>, Boolean>... components);
 
     C OnGuiClosed(Consumer<VoidPipelineElementContext<OnGuiClosedContext, O, I>>... components);
 

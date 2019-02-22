@@ -69,12 +69,12 @@ public abstract class AbstractGuiScreenBuilder<C extends AbstractGuiScreenBuilde
     private final List<Consumer<VoidPipelineElementContext<DrawWorldBackgroundContext, O, I>>> DrawWorldBackgroundPipeline = new ArrayList<>();
 
     @Override
-    public C HandleComponentClick(Function<TypedPipelineElementContext<HandleComponentClickContext, Boolean>, Boolean>... components) {
+    public C HandleComponentClick(Function<TypedPipelineElementContext<HandleComponentClickContext, Boolean, O, I>, Boolean>... components) {
         this.HandleComponentClickPipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<HandleComponentClickContext, Boolean>, Boolean>> HandleComponentClickPipeline = new ArrayList<>();
+    private final List<Function<TypedPipelineElementContext<HandleComponentClickContext, Boolean, O, I>, Boolean>> HandleComponentClickPipeline = new ArrayList<>();
 
     @Override
     public C HandleInput(Consumer<VoidPipelineElementContext<HandleInputContext, O, I>>... components) {
@@ -116,12 +116,12 @@ public abstract class AbstractGuiScreenBuilder<C extends AbstractGuiScreenBuilde
     private final List<Consumer<VoidPipelineElementContext<ActionPerformedContext, O, I>>> ActionPerformedPipeline = new ArrayList<>();
 
     @Override
-    public C GetItemToolTip(Function<TypedPipelineElementContext<GetItemToolTipContext, List<String>>, List<String>>... components) {
+    public C GetItemToolTip(Function<TypedPipelineElementContext<GetItemToolTipContext, List<String>, O, I>, List<String>>... components) {
         this.GetItemToolTipPipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetItemToolTipContext, List<String>>, List<String>>> GetItemToolTipPipeline = new ArrayList<>();
+    private final List<Function<TypedPipelineElementContext<GetItemToolTipContext, List<String>, O, I>, List<String>>> GetItemToolTipPipeline = new ArrayList<>();
 
     @Override
     public C HandleMouseInput(Consumer<VoidPipelineElementContext<HandleMouseInputContext, O, I>>... components) {
@@ -156,12 +156,12 @@ public abstract class AbstractGuiScreenBuilder<C extends AbstractGuiScreenBuilde
     private final List<Consumer<VoidPipelineElementContext<DrawScreenContext, O, I>>> DrawScreenPipeline = new ArrayList<>();
 
     @Override
-    public C DoesGuiPauseGame(Function<TypedPipelineElementContext<DoesGuiPauseGameContext, Boolean>, Boolean>... components) {
+    public C DoesGuiPauseGame(Function<TypedPipelineElementContext<DoesGuiPauseGameContext, Boolean, O, I>, Boolean>... components) {
         this.DoesGuiPauseGamePipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<DoesGuiPauseGameContext, Boolean>, Boolean>> DoesGuiPauseGamePipeline = new ArrayList<>();
+    private final List<Function<TypedPipelineElementContext<DoesGuiPauseGameContext, Boolean, O, I>, Boolean>> DoesGuiPauseGamePipeline = new ArrayList<>();
 
     @Override
     public C HandleComponentHover(Consumer<VoidPipelineElementContext<HandleComponentHoverContext, O, I>>... components) {
@@ -180,12 +180,12 @@ public abstract class AbstractGuiScreenBuilder<C extends AbstractGuiScreenBuilde
     private final List<Consumer<VoidPipelineElementContext<MouseClickMoveContext, O, I>>> MouseClickMovePipeline = new ArrayList<>();
 
     @Override
-    public <T extends IGuiButton> C AddButton(Function<TypedPipelineElementContext<AddButtonContext<? extends IGuiButton>, ? extends IGuiButton>, T>... components) {
+    public <T extends IGuiButton> C AddButton(Function<TypedPipelineElementContext<AddButtonContext<? extends IGuiButton>, ? extends IGuiButton, O, I>, T>... components) {
         this.AddButtonPipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<AddButtonContext<? extends IGuiButton>, ? extends IGuiButton>, ? extends IGuiButton>> AddButtonPipeline = new ArrayList<>();
+    private final List<Function<TypedPipelineElementContext<AddButtonContext<? extends IGuiButton>, ? extends IGuiButton, O, I>, ? extends IGuiButton>> AddButtonPipeline = new ArrayList<>();
 
     @Override
     public C SendChatMessage(Consumer<VoidPipelineElementContext<SendChatMessageContext, O, I>>... components) {
@@ -220,12 +220,12 @@ public abstract class AbstractGuiScreenBuilder<C extends AbstractGuiScreenBuilde
     private final List<Consumer<VoidPipelineElementContext<SetGuiSizeContext, O, I>>> SetGuiSizePipeline = new ArrayList<>();
 
     @Override
-    public C IsFocused(Function<TypedPipelineElementContext<IsFocusedContext, Boolean>, Boolean>... components) {
+    public C IsFocused(Function<TypedPipelineElementContext<IsFocusedContext, Boolean, O, I>, Boolean>... components) {
         this.IsFocusedPipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<IsFocusedContext, Boolean>, Boolean>> IsFocusedPipeline = new ArrayList<>();
+    private final List<Function<TypedPipelineElementContext<IsFocusedContext, Boolean, O, I>, Boolean>> IsFocusedPipeline = new ArrayList<>();
 
     @Override
     public C OnGuiClosed(Consumer<VoidPipelineElementContext<OnGuiClosedContext, O, I>>... components) {

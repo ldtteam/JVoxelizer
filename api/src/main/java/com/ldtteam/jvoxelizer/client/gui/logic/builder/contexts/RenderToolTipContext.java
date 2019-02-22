@@ -1,20 +1,22 @@
 package com.ldtteam.jvoxelizer.client.gui.logic.builder.contexts;
 
+import com.ldtteam.jvoxelizer.item.IItemStack;
+
 public class RenderToolTipContext {
 
-    public RenderToolTipContext(ItemStack stack, int x, int y) {
+    public RenderToolTipContext(IItemStack stack, int x, int y) {
         this.stack = stack;
         this.x = x;
         this.y = y;
     }
 
-    private ItemStack stack;
+    private IItemStack stack;
 
-    public ItemStack getStack() {
+    public IItemStack getStack() {
         return stack;
     }
 
-    public void setStack(ItemStack stack) {
+    public void setStack(IItemStack stack) {
         this.stack = stack;
     }
 

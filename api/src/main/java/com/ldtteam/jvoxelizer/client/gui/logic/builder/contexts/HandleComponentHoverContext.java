@@ -1,5 +1,7 @@
 package com.ldtteam.jvoxelizer.client.gui.logic.builder.contexts;
 
+import com.ldtteam.jvoxelizer.util.textcomponent.ITextComponent;
+
 public class HandleComponentHoverContext {
 
     public HandleComponentHoverContext(ITextComponent component, int x, int y) {

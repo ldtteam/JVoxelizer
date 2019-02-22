@@ -24,21 +24,23 @@ public interface IGuiContainerBuilder<C extends IGuiContainerBuilder<C, I, O>, I
 
     C HandleMouseClick(Consumer<VoidPipelineElementContext<HandleMouseClickContext, O, I>>... components);
 
-    C GetYSize(Function<TypedPipelineElementContext<GetYSizeContext, Integer>, Integer>... components);
+    C GetYSize(Function<TypedPipelineElementContext<GetYSizeContext, Integer, O, I>, Integer>... components);
 
-    C GetGuiTop(Function<TypedPipelineElementContext<GetGuiTopContext, Integer>, Integer>... components);
+    C GetGuiTop(Function<TypedPipelineElementContext<GetGuiTopContext, Integer, O, I>, Integer>... components);
 
-    C GetGuiLeft(Function<TypedPipelineElementContext<GetGuiLeftContext, Integer>, Integer>... components);
+    C GetGuiLeft(Function<TypedPipelineElementContext<GetGuiLeftContext, Integer, O, I>, Integer>... components);
 
     C RenderHoveredToolTip(Consumer<VoidPipelineElementContext<RenderHoveredToolTipContext, O, I>>... components);
 
-    C HasClickedOutside(Function<TypedPipelineElementContext<HasClickedOutsideContext, Boolean>, Boolean>... components);
+    C HasClickedOutside(Function<TypedPipelineElementContext<HasClickedOutsideContext, Boolean, O, I>, Boolean>... components);
 
-    C GetSlotUnderMouse(Function<TypedPipelineElementContext<GetSlotUnderMouseContext, ISlot>, ISlot>... components);
+    C GetSlotUnderMouse(Function<TypedPipelineElementContext<GetSlotUnderMouseContext, ISlot, O, I>, ISlot>... components);
 
-    C IsPointInRegion(Function<TypedPipelineElementContext<IsPointInRegionContext, Boolean>, Boolean>... components);
+    C IsPointInRegion(Function<TypedPipelineElementContext<IsPointInRegionContext, Boolean, O, I>, Boolean>... components);
 
-    C CheckHotbarKeys(Function<TypedPipelineElementContext<CheckHotbarKeysContext, Boolean>, Boolean>... components);
+    C CheckHotbarKeys(Function<TypedPipelineElementContext<CheckHotbarKeysContext, Boolean, O, I>, Boolean>... components);
 
-    C GetXSize(Function<TypedPipelineElementContext<GetXSizeContext, Integer>, Integer>... components);
+    C GetXSize(Function<TypedPipelineElementContext<GetXSizeContext, Integer, O, I>, Integer>... components);
+
+    C IsMouseOverSlot(Function<TypedPipelineElementContext<IsMouseOverSlotContext, Boolean , O, I>, Boolean>... components);
 }

@@ -1,21 +1,21 @@
 package com.ldtteam.jvoxelizer.inventory.slot.logic.builder.contexts;
 
-import com.ldtteam.jvoxelizer.item.handling.IItemHandler;
+import com.ldtteam.jvoxelizer.item.handling.IInventory;
 
 public class IsHereContext {
 
-    public IsHereContext(IItemHandler inv, int slotIn) {
+    public IsHereContext(IInventory inv, int slotIn) {
         this.inv = inv;
         this.slotIn = slotIn;
     }
 
-    private IItemHandler inv;
+    private IInventory inv;
 
-    public IItemHandler getInv() {
+    public IInventory getInv() {
         return inv;
     }
 
-    public void setInv(IItemHandler inv) {
+    public void setInv(IInventory inv) {
         this.inv = inv;
     }
 

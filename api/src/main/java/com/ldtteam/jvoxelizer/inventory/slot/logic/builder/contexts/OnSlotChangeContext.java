@@ -4,28 +4,28 @@ import com.ldtteam.jvoxelizer.item.IItemStack;
 
 public class OnSlotChangeContext {
 
-    public OnSlotChangeContext(IItemStack p_75220_1_, IItemStack p_75220_2_) {
-        this.p_75220_1_ = p_75220_1_;
-        this.p_75220_2_ = p_75220_2_;
+    public OnSlotChangeContext(IItemStack oldStack, IItemStack newStack) {
+        this.oldStack = oldStack;
+        this.newStack = newStack;
     }
 
-    private IItemStack p_75220_1_;
+    private IItemStack oldStack;
 
-    public IItemStack getP_75220_1_() {
-        return p_75220_1_;
+    public IItemStack getOldStack() {
+        return oldStack;
     }
 
-    public void setP_75220_1_(IItemStack p_75220_1_) {
-        this.p_75220_1_ = p_75220_1_;
+    public void setOldStack(IItemStack oldStack) {
+        this.oldStack = oldStack;
     }
 
-    private IItemStack p_75220_2_;
+    private IItemStack newStack;
 
-    public IItemStack getP_75220_2_() {
-        return p_75220_2_;
+    public IItemStack getNewStack() {
+        return newStack;
     }
 
-    public void setP_75220_2_(IItemStack p_75220_2_) {
-        this.p_75220_2_ = p_75220_2_;
+    public void setNewStack(IItemStack newStack) {
+        this.newStack = newStack;
     }
 }

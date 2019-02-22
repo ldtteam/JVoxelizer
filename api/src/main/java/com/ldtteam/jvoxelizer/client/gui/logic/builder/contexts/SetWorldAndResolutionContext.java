@@ -1,20 +1,22 @@
 package com.ldtteam.jvoxelizer.client.gui.logic.builder.contexts;
 
+import com.ldtteam.jvoxelizer.IGameEngine;
+
 public class SetWorldAndResolutionContext {
 
-    public SetWorldAndResolutionContext(Minecraft mc, int width, int height) {
+    public SetWorldAndResolutionContext(IGameEngine mc, int width, int height) {
         this.mc = mc;
         this.width = width;
         this.height = height;
     }
 
-    private Minecraft mc;
+    private IGameEngine mc;
 
-    public Minecraft getMc() {
+    public IGameEngine getMc() {
         return mc;
     }
 
-    public void setMc(Minecraft mc) {
+    public void setMc(IGameEngine mc) {
         this.mc = mc;
     }
 

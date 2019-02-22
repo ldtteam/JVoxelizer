@@ -49,28 +49,28 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
     private final List<Consumer<VoidPipelineElementContext<HandleMouseClickContext, O, I>>> HandleMouseClickPipeline = new ArrayList<>();
 
     @Override
-    public C GetYSize(Function<TypedPipelineElementContext<GetYSizeContext, Integer>, Integer>... components) {
+    public C GetYSize(Function<TypedPipelineElementContext<GetYSizeContext, Integer, O, I>, Integer>... components) {
         this.GetYSizePipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetYSizeContext, Integer>, Integer>> GetYSizePipeline = new ArrayList<>();
+    private final List<Function<TypedPipelineElementContext<GetYSizeContext, Integer, O, I>, Integer>> GetYSizePipeline = new ArrayList<>();
 
     @Override
-    public C GetGuiTop(Function<TypedPipelineElementContext<GetGuiTopContext, Integer>, Integer>... components) {
+    public C GetGuiTop(Function<TypedPipelineElementContext<GetGuiTopContext, Integer, O, I>, Integer>... components) {
         this.GetGuiTopPipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetGuiTopContext, Integer>, Integer>> GetGuiTopPipeline = new ArrayList<>();
+    private final List<Function<TypedPipelineElementContext<GetGuiTopContext, Integer, O, I>, Integer>> GetGuiTopPipeline = new ArrayList<>();
 
     @Override
-    public C GetGuiLeft(Function<TypedPipelineElementContext<GetGuiLeftContext, Integer>, Integer>... components) {
+    public C GetGuiLeft(Function<TypedPipelineElementContext<GetGuiLeftContext, Integer, O, I>, Integer>... components) {
         this.GetGuiLeftPipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetGuiLeftContext, Integer>, Integer>> GetGuiLeftPipeline = new ArrayList<>();
+    private final List<Function<TypedPipelineElementContext<GetGuiLeftContext, Integer, O, I>, Integer>> GetGuiLeftPipeline = new ArrayList<>();
 
     @Override
     public C RenderHoveredToolTip(Consumer<VoidPipelineElementContext<RenderHoveredToolTipContext, O, I>>... components) {
@@ -81,42 +81,51 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
     private final List<Consumer<VoidPipelineElementContext<RenderHoveredToolTipContext, O, I>>> RenderHoveredToolTipPipeline = new ArrayList<>();
 
     @Override
-    public C HasClickedOutside(Function<TypedPipelineElementContext<HasClickedOutsideContext, Boolean>, Boolean>... components) {
+    public C HasClickedOutside(Function<TypedPipelineElementContext<HasClickedOutsideContext, Boolean, O, I>, Boolean>... components) {
         this.HasClickedOutsidePipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<HasClickedOutsideContext, Boolean>, Boolean>> HasClickedOutsidePipeline = new ArrayList<>();
+    private final List<Function<TypedPipelineElementContext<HasClickedOutsideContext, Boolean, O, I>, Boolean>> HasClickedOutsidePipeline = new ArrayList<>();
 
     @Override
-    public C GetSlotUnderMouse(Function<TypedPipelineElementContext<GetSlotUnderMouseContext, ISlot>, ISlot>... components) {
+    public C GetSlotUnderMouse(Function<TypedPipelineElementContext<GetSlotUnderMouseContext, ISlot, O, I>, ISlot>... components) {
         this.GetSlotUnderMousePipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetSlotUnderMouseContext, ISlot>, ISlot>> GetSlotUnderMousePipeline = new ArrayList<>();
+    private final List<Function<TypedPipelineElementContext<GetSlotUnderMouseContext, ISlot, O, I>, ISlot>> GetSlotUnderMousePipeline = new ArrayList<>();
 
     @Override
-    public C IsPointInRegion(Function<TypedPipelineElementContext<IsPointInRegionContext, Boolean>, Boolean>... components) {
+    public C IsPointInRegion(Function<TypedPipelineElementContext<IsPointInRegionContext, Boolean, O, I>, Boolean>... components) {
         this.IsPointInRegionPipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<IsPointInRegionContext, Boolean>, Boolean>> IsPointInRegionPipeline = new ArrayList<>();
+    private final List<Function<TypedPipelineElementContext<IsPointInRegionContext, Boolean, O, I>, Boolean>> IsPointInRegionPipeline = new ArrayList<>();
 
     @Override
-    public C CheckHotbarKeys(Function<TypedPipelineElementContext<CheckHotbarKeysContext, Boolean>, Boolean>... components) {
+    public C CheckHotbarKeys(Function<TypedPipelineElementContext<CheckHotbarKeysContext, Boolean, O, I>, Boolean>... components) {
         this.CheckHotbarKeysPipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<CheckHotbarKeysContext, Boolean>, Boolean>> CheckHotbarKeysPipeline = new ArrayList<>();
+    private final List<Function<TypedPipelineElementContext<CheckHotbarKeysContext, Boolean, O, I>, Boolean>> CheckHotbarKeysPipeline = new ArrayList<>();
 
     @Override
-    public C GetXSize(Function<TypedPipelineElementContext<GetXSizeContext, Integer>, Integer>... components) {
+    public C GetXSize(Function<TypedPipelineElementContext<GetXSizeContext, Integer, O, I>, Integer>... components) {
         this.GetXSizePipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetXSizeContext, Integer>, Integer>> GetXSizePipeline = new ArrayList<>();
+    private final List<Function<TypedPipelineElementContext<GetXSizeContext, Integer, O, I>, Integer>> GetXSizePipeline = new ArrayList<>();
+
+    @Override
+    public C IsMouseOverSlot(Function<TypedPipelineElementContext<IsMouseOverSlotContext, Boolean, O, I>, Boolean>... components) {
+        this.IsMouseOverSlotPipeline.addAll(Arrays.asList(components));
+        return (C) this;
+    }
+
+    private final List<Function<TypedPipelineElementContext<IsMouseOverSlotContext, Boolean, O, I>, Boolean>> IsMouseOverSlotPipeline = new ArrayList<>();
+
 }

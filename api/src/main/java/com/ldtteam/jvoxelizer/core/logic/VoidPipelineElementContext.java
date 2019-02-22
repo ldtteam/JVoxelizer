@@ -5,7 +5,7 @@ import com.ldtteam.jvoxelizer.client.gui.IGui;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class VoidPipelineElementContext<T, G extends IGui<D>, D>
+public class VoidPipelineElementContext<T, G extends IInstancedObject<D>, D>
 {
 
     private final G instance;

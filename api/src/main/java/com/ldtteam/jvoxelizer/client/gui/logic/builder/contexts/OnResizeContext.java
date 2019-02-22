@@ -1,20 +1,22 @@
 package com.ldtteam.jvoxelizer.client.gui.logic.builder.contexts;
 
+import com.ldtteam.jvoxelizer.IGameEngine;
+
 public class OnResizeContext {
 
-    public OnResizeContext(Minecraft mcIn, int w, int h) {
+    public OnResizeContext(IGameEngine mcIn, int w, int h) {
         this.mcIn = mcIn;
         this.w = w;
         this.h = h;
     }
 
-    private Minecraft mcIn;
+    private IGameEngine mcIn;
 
-    public Minecraft getMcIn() {
+    public IGameEngine getMcIn() {
         return mcIn;
     }
 
-    public void setMcIn(Minecraft mcIn) {
+    public void setMcIn(IGameEngine mcIn) {
         this.mcIn = mcIn;
     }
 

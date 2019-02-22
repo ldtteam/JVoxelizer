@@ -1,20 +1,22 @@
 package com.ldtteam.jvoxelizer.client.gui.logic.builder.contexts;
 
+import com.ldtteam.jvoxelizer.IGameEngine;
+
 public class MousePressedContext {
 
-    public MousePressedContext(Minecraft mc, int mouseX, int mouseY) {
+    public MousePressedContext(IGameEngine mc, int mouseX, int mouseY) {
         this.mc = mc;
         this.mouseX = mouseX;
         this.mouseY = mouseY;
     }
 
-    private Minecraft mc;
+    private IGameEngine mc;
 
-    public Minecraft getMc() {
+    public IGameEngine getMc() {
         return mc;
     }
 
-    public void setMc(Minecraft mc) {
+    public void setMc(IGameEngine mc) {
         this.mc = mc;
     }
 

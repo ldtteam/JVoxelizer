@@ -7,11 +7,11 @@ public interface ITextComponent extends Iterable<ITextComponent>
     /**
      * Sets the style of this component and updates the parent style of all of the sibling components.
      */
-    ITextComponent setStyle(Style style);
+    ITextComponent setStyle(ITextStyle style);
 
     /**
      * Gets the style of this component. Returns a direct reference; changes to this style will modify the style of this
-     * component (IE, there is no need to call {@link #setStyle(Style)} again after modifying it).
+     * component (IE, there is no need to call {@link #setStyle(ITextStyle)} again after modifying it).
      *
      * If this component's style is currently <code>null</code>, it will be initialized to the default style, and the
      * parent style of all sibling components will be set to that style. (IE, changes to this style will also be
@@ -19,7 +19,7 @@ public interface ITextComponent extends Iterable<ITextComponent>
      *
      * This method never returns <code>null</code>.
      */
-    Style getStyle();
+    ITextStyle getStyle();
 
     /**
      * Adds a new component to the end of the sibling list, with the specified text.

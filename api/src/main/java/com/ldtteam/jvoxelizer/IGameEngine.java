@@ -1,7 +1,7 @@
 package com.ldtteam.jvoxelizer;
 
 import com.ldtteam.jvoxelizer.client.gui.IGui;
-import com.ldtteam.jvoxelizer.entity.player.ISingleplayerPlayerEntity;
+import com.ldtteam.jvoxelizer.entity.living.player.ISingleplayerPlayerEntity;
 import com.ldtteam.jvoxelizer.server.IServerInstance;
 
 public interface IGameEngine

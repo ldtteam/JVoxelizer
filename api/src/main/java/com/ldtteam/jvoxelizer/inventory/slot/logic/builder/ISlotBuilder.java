@@ -14,6 +14,12 @@ import java.util.function.Function;
 
 public interface ISlotBuilder<C extends ISlotBuilder<C, I, O>, I, O extends ISlot<I>>
 {
+
+    static <T extends ISlotBuilder<T, S, R>, S, R extends ISlot<S>> T create(S instanceData)
+    {
+        return ISlotBuilderProviderHolder.getInstance().provide(instanceData);
+    }
+
     C DecrStackSize(Function<TypedPipelineElementContext<DecrStackSizeContext, IItemStack, O, I>, IItemStack>... components);
 
     C OnSlotChange(Consumer<VoidPipelineElementContext<OnSlotChangeContext, O, I>>... components);

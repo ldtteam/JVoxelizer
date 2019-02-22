@@ -1,9 +1,8 @@
 package com.ldtteam.jvoxelizer.entity.item;
 
 import com.ldtteam.jvoxelizer.item.IItemStack;
-import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 import com.ldtteam.jvoxelizer.util.math.coordinate.entity.IEntityCoordinate;
-import com.ldtteam.jvoxelizer.world.IDimension;
+import com.ldtteam.jvoxelizer.dimension.IDimension;
 
 public interface IItemStackEntityProvider
 {

@@ -1,7 +1,6 @@
 package com.ldtteam.jvoxelizer.server.manager;
 
-import com.ldtteam.jvoxelizer.entity.player.IMultiplayerPlayerEntity;
-import com.ldtteam.jvoxelizer.entity.player.IPlayerEntity;
+import com.ldtteam.jvoxelizer.entity.living.player.IMultiplayerPlayerEntity;
 
 import java.util.UUID;
 

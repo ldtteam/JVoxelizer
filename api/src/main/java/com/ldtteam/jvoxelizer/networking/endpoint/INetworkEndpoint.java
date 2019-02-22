@@ -1,6 +1,6 @@
 package com.ldtteam.jvoxelizer.networking.endpoint;
 
-import com.ldtteam.jvoxelizer.entity.player.IMultiplayerPlayerEntity;
+import com.ldtteam.jvoxelizer.entity.living.player.IMultiplayerPlayerEntity;
 import com.ldtteam.jvoxelizer.networking.messaging.IMessage;
 import com.ldtteam.jvoxelizer.networking.messaging.IMessageContext;
 import com.ldtteam.jvoxelizer.networking.messaging.IMessageHandler;

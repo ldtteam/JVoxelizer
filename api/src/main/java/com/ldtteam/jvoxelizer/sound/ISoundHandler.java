@@ -1,7 +1,7 @@
 package com.ldtteam.jvoxelizer.sound;
 
 import com.ldtteam.jvoxelizer.entity.IEntity;
-import com.ldtteam.jvoxelizer.entity.player.IPlayerEntity;
+import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

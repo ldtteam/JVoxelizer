@@ -1,15 +1,12 @@
 package com.ldtteam.jvoxelizer.entity;
 
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import com.ldtteam.jvoxelizer.block.IBlock;
 import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 import com.ldtteam.jvoxelizer.util.math.coordinate.entity.IEntityCoordinate;
 import com.ldtteam.jvoxelizer.util.nbt.INBTSerializable;
 import com.ldtteam.jvoxelizer.util.ticking.data.IReadOnlyTickingDataEntry;
 import com.ldtteam.jvoxelizer.util.ticking.data.ITickingDataEntry;
-import com.ldtteam.jvoxelizer.world.IDimension;
+import com.ldtteam.jvoxelizer.dimension.IDimension;
 
 import java.util.*;
 

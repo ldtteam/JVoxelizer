@@ -1,9 +1,9 @@
 package com.ldtteam.jvoxelizer.common.gameevent.event;
 
-import com.ldtteam.jvoxelizer.entity.player.IPlayerEntity;
+import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 import com.ldtteam.jvoxelizer.event.IEvent;
 import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
-import com.ldtteam.jvoxelizer.world.IDimension;
+import com.ldtteam.jvoxelizer.dimension.IDimension;
 
 /**
  * An event descriptor used to handle updates to several different types.

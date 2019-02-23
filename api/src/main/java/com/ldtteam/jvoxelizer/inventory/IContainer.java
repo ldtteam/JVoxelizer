@@ -60,4 +60,8 @@ public interface IContainer<I> extends IInstancedObject<I> {
     boolean canDragIntoSlot(ISlot slotIn);
 
     void slotChangedCraftingGrid(IDimension p_192389_1_, IPlayerEntity p_192389_2_, IInventoryCrafting p_192389_3_, IInventory p_192389_4_);
+
+    List<ISlot<?>> getInventorySlots();
+
+    List<IItemStack> getInventoryItemStacks();
 }

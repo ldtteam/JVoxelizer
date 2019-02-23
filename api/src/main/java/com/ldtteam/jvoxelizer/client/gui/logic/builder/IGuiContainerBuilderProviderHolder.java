@@ -1,5 +1,6 @@
 package com.ldtteam.jvoxelizer.client.gui.logic.builder;
 
+import com.ldtteam.jvoxelizer.client.gui.IGuiContainer;
 import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
 
 final class IGuiContainerBuilderProviderHolder extends AbstractHolder<IGuiContainerBuilderProvider> implements IGuiContainerBuilderProvider
@@ -17,7 +18,7 @@ final class IGuiContainerBuilderProviderHolder extends AbstractHolder<IGuiContai
     }
 
     @Override
-    public <I> IGuiContainerBuilder<? extends AbstractGuiContainerBuilder<?, I>, I> provide(final I instanceData)
+    public <C extends IGuiContainerBuilder<C, I, O>, I, O extends IGuiContainer<I>> C provide(final I instanceData)
     {
         return getProvider().provide(instanceData);
     }

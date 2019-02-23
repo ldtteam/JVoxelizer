@@ -10,9 +10,9 @@ import java.util.function.Function;
 
 public interface ISlotItemHandlerBuilder<C extends ISlotItemHandlerBuilder<C, I, O>, I, O extends ISlotItemHandler<I>> extends ISlotBuilder<C, I, O>
 {
-    static <T extends ISlotItemHandlerBuilder<T, S, R>, S, R extends ISlotItemHandler<S>> T create(S instanceData)
+    static <T extends ISlotItemHandlerBuilder<T, S, R>, S, R extends ISlotItemHandler<S>> T create()
     {
-        return ISlotItemHandlerProviderHolder.getInstance().provide(instanceData);
+        return ISlotItemHandlerProviderHolder.getInstance().provide();
     }
 
     C GetItemHandler(Function<TypedPipelineElementContext<GetItemHandlerContext, IItemHandler, O, I>, IItemHandler>... components);

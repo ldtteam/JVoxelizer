@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer.item;
 
 import com.ldtteam.jvoxelizer.util.nbt.INBTSerializable;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public interface IItemStack extends INBTSerializable
 {
@@ -12,6 +13,12 @@ public interface IItemStack extends INBTSerializable
     static IItemStack create()
     {
         return IItemStackProviderHolder.getInstance().provide();
+    }
+
+    static boolean areItemStackTagsEqual(IItemStack pItemStack1, IItemStack pItemStack2)
+    {
+        //TODO: Implement:
+        throw new NotImplementedException();
     }
 
     /**
@@ -27,4 +34,33 @@ public interface IItemStack extends INBTSerializable
      * @return The clone.
      */
     IItemStack copy();
+
+    /**
+     * The amount of items in the stack.
+     *
+     * @return The amount
+     */
+    int getCount();
+
+    boolean isStackable();
+
+    IItem<?> getItem();
+
+    int getItemDamage();
+
+    boolean hasTagCompound();
+
+    void setCount(int pStackSize);
+
+    int getMaxStackSize();
+
+    void grow(int mergeCount);
+
+    void shrink(int i);
+
+    boolean isItemEqual(IItemStack stack2);
+
+    boolean getHasSubtypes();
+
+    Object getTranslationKey(IItemStack pItemStack);
 }

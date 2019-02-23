@@ -68,5 +68,5 @@ public interface ISlotBuilder<C extends ISlotBuilder<C, I, O>, I, O extends ISlo
 
     C GetSlotTexture(Function<TypedPipelineElementContext<GetSlotTextureContext, String, O, I>, String>... components);
 
-    ISlot<I> build(I guiContext);
+    O build(I guiContext);
 }

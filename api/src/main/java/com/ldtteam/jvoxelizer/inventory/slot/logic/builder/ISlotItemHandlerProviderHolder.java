@@ -18,8 +18,8 @@ final class ISlotItemHandlerProviderHolder extends AbstractHolder<ISlotItemHandl
     }
 
     @Override
-    public <C extends ISlotItemHandlerBuilder<C, I, O>, I, O extends ISlotItemHandler<I>> C provide(final I instanceData)
+    public <C extends ISlotItemHandlerBuilder<C, I, O>, I, O extends ISlotItemHandler<I>> C provide()
     {
-        return getProvider().provide(instanceData);
+        return getProvider().provide();
     }
 }

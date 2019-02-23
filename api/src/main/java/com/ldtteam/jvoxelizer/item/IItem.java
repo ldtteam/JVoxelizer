@@ -32,11 +32,18 @@ import com.ldtteam.jvoxelizer.util.math.raytraceresult.IRayTraceResult;
 import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
 import com.ldtteam.jvoxelizer.util.rarity.IRarity;
 import com.ldtteam.jvoxelizer.util.tooltipflag.IToolTipFlag;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
 public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 {
+
+    static int getIdFromItem(IItem<?> item)
+    {
+        //TODO: Implement
+        throw new NotImplementedException();
+    }
 
     void addPropertyOverride(IIdentifier key, IItemPropertyGetter getter);
 
@@ -263,4 +270,6 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
     void setTileEntityItemStackRenderer(IBlockEntityRenderer teisr);
 
     IItemStack getDefaultInstance();
+
+    String getTranslationKey(IItemStack pItemStack1);
 }

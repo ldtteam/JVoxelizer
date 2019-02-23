@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer.client.gui;
 
 import com.ldtteam.jvoxelizer.inventory.IClickType;
+import com.ldtteam.jvoxelizer.inventory.IContainer;
 import com.ldtteam.jvoxelizer.inventory.slot.ISlot;
 
 public interface IGuiContainer<I> extends IGuiScreen<I> {
@@ -36,4 +37,6 @@ public interface IGuiContainer<I> extends IGuiScreen<I> {
     int getYSize();
 
     void setYSize(int ySize);
+
+    IContainer<?> getContainer();
 }

@@ -1,29 +1,32 @@
 package com.ldtteam.jvoxelizer.inventory.slot.logic.builder.contexts;
 
+import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
+import com.ldtteam.jvoxelizer.item.IItemStack;
+
 public class OnTakeContext {
 
-    public OnTakeContext(EntityPlayer thePlayer, ItemStack stack) {
+    public OnTakeContext(IPlayerEntity thePlayer, IItemStack stack) {
         this.thePlayer = thePlayer;
         this.stack = stack;
     }
 
-    private EntityPlayer thePlayer;
+    private IPlayerEntity thePlayer;
 
-    public EntityPlayer getThePlayer() {
+    public IPlayerEntity getThePlayer() {
         return thePlayer;
     }
 
-    public void setThePlayer(EntityPlayer thePlayer) {
+    public void setThePlayer(IPlayerEntity thePlayer) {
         this.thePlayer = thePlayer;
     }
 
-    private ItemStack stack;
+    private IItemStack stack;
 
-    public ItemStack getStack() {
+    public IItemStack getStack() {
         return stack;
     }
 
-    public void setStack(ItemStack stack) {
+    public void setStack(IItemStack stack) {
         this.stack = stack;
     }
 }

@@ -1,0 +1,56 @@
+package com.ldtteam.jvoxelizer.launcher.forge_1_12.util.facing;
+
+import com.ldtteam.jvoxelizer.util.facing.IFacing;
+import net.minecraft.util.EnumFacing;
+
+public class Facing implements IFacing
+{
+    private EnumFacing forgeSide;
+
+    public Facing(final EnumFacing forgeSide)
+    {
+        this.forgeSide = forgeSide;
+    }
+
+    @Override
+    public boolean isNorth()
+    {
+        return forgeSide == EnumFacing.NORTH;
+    }
+
+    @Override
+    public boolean isSouth()
+    {
+        return forgeSide == EnumFacing.SOUTH;
+    }
+
+    @Override
+    public boolean isWest()
+    {
+        return forgeSide == EnumFacing.WEST;
+    }
+
+    @Override
+    public boolean isEast()
+    {
+        return forgeSide == EnumFacing.EAST;
+    }
+
+    @Override
+    public boolean isUp()
+    {
+        return forgeSide == EnumFacing.UP;
+    }
+
+    @Override
+    public boolean isDown()
+    {
+        return forgeSide == EnumFacing.DOWN;
+    }
+
+    @Override
+    public boolean isNone()
+    {
+        return forgeSide == null;
+    }
+}

@@ -24,3 +24,7 @@ hs_err_pid*
 .gradle/
 .idea/
 **/.idea/
+
+launcher/forge/1\.12/build/
+
+*.iml

@@ -2,7 +2,7 @@ package com.ldtteam.jvoxelizer.util.actionresult;
 
 public interface IActionResultType
 {
-    boolean isSucces();
+    boolean isSuccess();
 
     boolean isFailure();
 

@@ -39,4 +39,6 @@ public interface IGuiContainer<I> extends IGuiScreen<I> {
     void setYSize(int ySize);
 
     IContainer<?> getContainer();
+
+    void setHoveredSlot(ISlot slot);
 }

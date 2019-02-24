@@ -4,10 +4,31 @@ import com.ldtteam.jvoxelizer.IGameEngine;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.util.textcomponent.ITextComponent;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
 public interface IGuiScreen<I> extends IGui<I>, IGuiYesNoCallback {
+
+    static boolean isShiftKeyDown()
+    {
+        throw new NotImplementedException();
+    }
+
+    static boolean isCtrlKeyDown()
+    {
+        throw new NotImplementedException();
+    }
+
+    static void setClipboardString(String selectedText)
+    {
+        throw new NotImplementedException();
+    }
+
+    static String getClipboardString()
+    {
+        throw new NotImplementedException();
+    }
 
     void drawScreen(int mouseX, int mouseY, float partialTicks);
 

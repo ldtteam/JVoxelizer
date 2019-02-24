@@ -5,6 +5,7 @@ import com.ldtteam.jvoxelizer.util.textcomponent.ITextStyle;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TextComponent implements ITextComponent {
     private net.minecraft.util.text.ITextComponent forgeTextComponent;
@@ -15,22 +16,22 @@ public class TextComponent implements ITextComponent {
 
     @Override
     public ITextComponent setStyle(ITextStyle style) {
-        return new TextComponent(forgeTextComponent.setStyle());
+        return new TextComponent(forgeTextComponent.setStyle(((TextStyle) style).getForgeStyle()));
     }
 
     @Override
     public ITextStyle getStyle() {
-        return new TextComponent(forgeTextComponent.getStyle());
+        return new TextStyle(forgeTextComponent.getStyle());
     }
 
     @Override
     public ITextComponent appendText(String text) {
-        return new ITextComponent(forgeTextComponent.appendText());
+        return new TextComponent(forgeTextComponent.appendText(text));
     }
 
     @Override
     public ITextComponent appendSibling(ITextComponent component) {
-        return new TextComponent(forgeTextComponent.appendSibling());
+        return new TextComponent(forgeTextComponent.appendSibling(((TextComponent) component).getForgeTextComponent()));
     }
 
     @Override
@@ -50,7 +51,7 @@ public class TextComponent implements ITextComponent {
 
     @Override
     public List<ITextComponent> getSiblings() {
-        return forgeTextComponent.getSiblings();
+        return forgeTextComponent.getSiblings().stream().map(TextComponent::new).collect(Collectors.toList());
     }
 
     @Override
@@ -60,6 +61,25 @@ public class TextComponent implements ITextComponent {
 
     @Override
     public Iterator<ITextComponent> iterator() {
-        return forgeTextComponent.iterator();
+        final Iterator<net.minecraft.util.text.ITextComponent> iterator = forgeTextComponent.iterator();
+
+        return new Iterator<ITextComponent>() {
+            @Override
+            public boolean hasNext()
+            {
+                return iterator.hasNext();
+            }
+
+            @Override
+            public ITextComponent next()
+            {
+                return new TextComponent(iterator.next());
+            }
+        };
+    }
+
+    public net.minecraft.util.text.ITextComponent getForgeTextComponent()
+    {
+        return forgeTextComponent;
     }
 }

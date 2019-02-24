@@ -8,4 +8,9 @@ public class ClickEvent implements IClickEvent {
     public ClickEvent(net.minecraft.util.text.event.ClickEvent forgeClickEvent) {
         this.forgeClickEvent = forgeClickEvent;
     }
+
+    public net.minecraft.util.text.event.ClickEvent getForgeClickEvent()
+    {
+        return forgeClickEvent;
+    }
 }

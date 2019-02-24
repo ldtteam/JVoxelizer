@@ -8,4 +8,9 @@ public class HoverEvent implements IHoverEvent {
     public HoverEvent(net.minecraft.util.text.event.HoverEvent forgeHoverEvent) {
         this.forgeHoverEvent = forgeHoverEvent;
     }
+
+    public net.minecraft.util.text.event.HoverEvent getForgeHoverEvent()
+    {
+        return forgeHoverEvent;
+    }
 }

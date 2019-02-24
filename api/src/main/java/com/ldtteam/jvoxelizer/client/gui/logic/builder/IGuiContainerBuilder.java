@@ -4,6 +4,7 @@ import com.ldtteam.jvoxelizer.client.gui.IGuiContainer;
 import com.ldtteam.jvoxelizer.client.gui.logic.builder.contexts.*;
 import com.ldtteam.jvoxelizer.core.logic.TypedPipelineElementContext;
 import com.ldtteam.jvoxelizer.core.logic.VoidPipelineElementContext;
+import com.ldtteam.jvoxelizer.inventory.IContainer;
 import com.ldtteam.jvoxelizer.inventory.slot.ISlot;
 
 import java.util.function.Consumer;
@@ -11,9 +12,9 @@ import java.util.function.Function;
 
 public interface IGuiContainerBuilder<C extends IGuiContainerBuilder<C, I, O>, I, O extends IGuiContainer<I>> extends IGuiScreenBuilder<C, I, O>
 {
-    static <T, S extends IGuiContainer<T>> IGuiContainerBuilder<?, T, S> create(T instanceData)
+    static <T, S extends IGuiContainer<T>> IGuiContainerBuilder<?, T, S> create(T instanceData, IContainer<?> container)
     {
-        return IGuiContainerBuilderProviderHolder.getInstance().provide(instanceData);
+        return IGuiContainerBuilderProviderHolder.getInstance().provide(instanceData, container);
     }
 
     C DrawGuiContainerForegroundLayer(Consumer<VoidPipelineElementContext<DrawGuiContainerForegroundLayerContext, O, I>>... components);

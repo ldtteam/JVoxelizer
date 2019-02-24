@@ -1,6 +1,10 @@
 package com.ldtteam.jvoxelizer.profiler;
 
 import com.sun.istack.internal.NotNull;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Represents a section based profiler.
@@ -8,6 +12,11 @@ import com.sun.istack.internal.NotNull;
  */
 public interface IProfiler
 {
+    static IProfiler create()
+    {
+        throw new NotImplementedException();
+    }
+
     /**
      * Starts a new (sub)section.
      *
@@ -19,4 +28,12 @@ public interface IProfiler
      * Ends the previous section.
      */
     void endSection();
+
+    void enableProfiling();
+
+    void disableProfiling();
+
+    void setProfilingMap(Map<String, Long> profilingMap);
+
+    Map<String, Long> getProfilingMap();
 }

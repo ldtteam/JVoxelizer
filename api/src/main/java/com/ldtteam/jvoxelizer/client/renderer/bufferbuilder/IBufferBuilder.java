@@ -8,5 +8,9 @@ public interface IBufferBuilder
 
     IBufferBuilder pos(double x, double y, double z);
 
+    IBufferBuilder tex(double u, double v);
+
+    IBufferBuilder color(float r, float g, float b, float a);
+
     void endVertex();
 }

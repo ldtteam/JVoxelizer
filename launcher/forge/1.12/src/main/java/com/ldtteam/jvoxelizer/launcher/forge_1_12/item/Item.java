@@ -40,9 +40,12 @@ import java.util.Set;
 
 public class Item implements IItem
 {
-    public static net.minecraft.item.Item getItemReference(IItem item)
+
+    private net.minecraft.item.Item forgeItem;
+
+    public net.minecraft.item.Item getForgeItem()
     {
-        return null;
+        return forgeItem;
     }
 
     @Override

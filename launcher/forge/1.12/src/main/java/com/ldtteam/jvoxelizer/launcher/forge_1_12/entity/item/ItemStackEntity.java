@@ -14,16 +14,10 @@ public class ItemStackEntity extends Entity implements IItemStackEntity
      */
     private EntityItem forgeItemEntity;
 
-    /**
-     * The voxel Itemstack
-     */
-    private ItemStack voxelStack;
-
     public ItemStackEntity(@NotNull final EntityItem forgeItemEntity)
     {
         super(forgeItemEntity);
         this.forgeItemEntity = forgeItemEntity;
-        voxelStack = new ItemStack(forgeItemEntity.getItem());
     }
 
     @Override
@@ -68,7 +62,7 @@ public class ItemStackEntity extends Entity implements IItemStackEntity
     @Override
     public IItemStack getItemStack()
     {
-        return voxelStack;
+        return new ItemStack(forgeItemEntity.getItem());
     }
 
     @Override

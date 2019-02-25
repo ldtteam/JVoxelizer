@@ -36,4 +36,6 @@ public interface IProfiler
     void setProfilingMap(Map<String, Long> profilingMap);
 
     Map<String, Long> getProfilingMap();
+
+    void clearProfiling();
 }

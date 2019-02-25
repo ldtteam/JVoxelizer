@@ -1,15 +1,16 @@
 package com.ldtteam.jvoxelizer.entity.living.player;
 
 import com.ldtteam.jvoxelizer.entity.living.ILivingBaseEntity;
-import com.ldtteam.jvoxelizer.inventory.IInventoryContainer;
+import com.ldtteam.jvoxelizer.inventory.IContainer;
+import com.ldtteam.jvoxelizer.inventory.IContainerListener;
 import com.ldtteam.jvoxelizer.inventory.IInventoryPlayer;
 
-public interface IPlayerEntity extends ILivingBaseEntity
+public interface IPlayerEntity extends ILivingBaseEntity, IContainerListener
 {
 
     IInventoryPlayer getInventory();
 
-    IInventoryContainer getOpenContainer();
+    IContainer<?> getOpenContainer();
 
-    IPlayerEntity setOpenContainer(IInventoryContainer container);
+    IPlayerEntity setOpenContainer(IContainer<?> container);
 }

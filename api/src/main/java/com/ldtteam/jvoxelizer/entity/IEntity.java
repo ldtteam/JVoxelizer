@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer.entity;
 
 import com.ldtteam.jvoxelizer.block.IBlock;
+import com.ldtteam.jvoxelizer.common.capability.ICapabilityProvider;
 import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 import com.ldtteam.jvoxelizer.util.math.coordinate.entity.IEntityCoordinate;
 import com.ldtteam.jvoxelizer.util.nbt.INBTSerializable;
@@ -13,7 +14,7 @@ import java.util.*;
 /**
  * Represents an entity in the game.
  */
-public interface IEntity extends INBTSerializable
+public interface IEntity extends INBTSerializable, ICapabilityProvider
 {
 
     static IEntity create(IDimension dimension)

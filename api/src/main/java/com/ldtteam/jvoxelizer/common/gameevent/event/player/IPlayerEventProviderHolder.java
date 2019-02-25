@@ -2,7 +2,7 @@ package com.ldtteam.jvoxelizer.common.gameevent.event.player;
 
 import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
 import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
-import com.ldtteam.jvoxelizer.inventory.IInventoryContainer;
+import com.ldtteam.jvoxelizer.inventory.IContainer;
 
 final class IPlayerEventProviderHolder extends AbstractHolder<IPlayerEventProvider> implements IPlayerEventProvider
 {
@@ -19,7 +19,7 @@ final class IPlayerEventProviderHolder extends AbstractHolder<IPlayerEventProvid
     }
 
     @Override
-    public IPlayerEvent.IPlayerContainerEvent.IOpen provideContainerOpenEvent(final IPlayerEntity playerEntity, final IInventoryContainer inventoryContainer)
+    public IPlayerEvent.IPlayerContainerEvent.IOpen provideContainerOpenEvent(final IPlayerEntity playerEntity, final IContainer<?> inventoryContainer)
     {
         return getProvider().provideContainerOpenEvent(playerEntity, inventoryContainer);
     }

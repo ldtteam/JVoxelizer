@@ -8,6 +8,7 @@ import com.ldtteam.jvoxelizer.client.renderer.item.IItemRenderer;
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISpriteMap;
 import com.ldtteam.jvoxelizer.client.textures.ITextureManager;
 import com.ldtteam.jvoxelizer.entity.living.player.ISingleplayerPlayerEntity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.SinglePlayerEntity;
 import com.ldtteam.jvoxelizer.server.IServerInstance;
 import net.minecraft.client.Minecraft;
 
@@ -23,9 +24,7 @@ public class GameEngine implements IGameEngine
     @Override
     public ISingleplayerPlayerEntity getSinglePlayerPlayerEntity()
     {
-        /**
-         * TODO
-         */
+        return new SinglePlayerEntity(minecraft.player);
     }
 
     @Override

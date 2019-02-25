@@ -68,11 +68,11 @@ public interface IEntity extends INBTSerializable, ICapabilityProvider
     boolean shouldEntityForceSpawn();
 
     /**
-     * The {@link IDimension} this {@link IEntity} is in.
+     * The Dimension this {@link IEntity} is in.
      *
-     * @return the {@link IDimension} this {@link IEntity} is in.
+     * @return the Dimension this {@link IEntity} is in.
      */
-    IDimension getDimension();
+    int getDimension();
 
     /**
      * The {@link IEntityCoordinate} of the {@link IEntity} origin.

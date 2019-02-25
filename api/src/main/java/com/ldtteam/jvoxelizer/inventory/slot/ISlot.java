@@ -59,4 +59,6 @@ public interface ISlot<I> extends IInstancedObject<I> {
     boolean isSameInventory(ISlot other);
 
     int getSlotNumber();
+
+    int getItemStackLimit(IItemStack itemstack);
 }

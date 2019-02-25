@@ -3,6 +3,7 @@ package com.ldtteam.jvoxelizer;
 import com.ldtteam.jvoxelizer.client.gui.IGui;
 import com.ldtteam.jvoxelizer.client.renderer.block.IBlockRenderDispatcher;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
+import com.ldtteam.jvoxelizer.client.renderer.item.IItemRenderer;
 import com.ldtteam.jvoxelizer.client.renderer.opengl.IOpenGl;
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISpriteMap;
 import com.ldtteam.jvoxelizer.client.textures.ITextureManager;
@@ -37,4 +38,6 @@ public interface IGameEngine
     IFontRenderer getDefaultFontRenderer();
 
     IBlockRenderDispatcher getBlockRendererDispatcher();
+
+    IItemRenderer getItemRenderer();
 }

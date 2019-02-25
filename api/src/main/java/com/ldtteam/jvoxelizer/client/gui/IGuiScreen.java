@@ -2,6 +2,7 @@ package com.ldtteam.jvoxelizer.client.gui;
 
 import com.ldtteam.jvoxelizer.IGameEngine;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
+import com.ldtteam.jvoxelizer.client.renderer.item.IItemRenderer;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.util.textcomponent.ITextComponent;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
@@ -96,5 +97,5 @@ public interface IGuiScreen<I> extends IGui<I>, IGuiYesNoCallback {
 
     void onResize(IGameEngine mcIn, int w, int h);
 
-
+    IItemRenderer getItemRenderer();
 }

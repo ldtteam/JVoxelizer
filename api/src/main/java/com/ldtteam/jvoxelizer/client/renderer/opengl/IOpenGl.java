@@ -15,6 +15,11 @@ public interface IOpenGl
         throw new NotImplementedException();
     }
 
+    static int getOpenGlLineRenderMode()
+    {
+        throw new NotImplementedException();
+    }
+
     static void disableAlpha()
     {
         IOpenGlProviderHolder.getInstance().disableAlpha();
@@ -632,5 +637,15 @@ public interface IOpenGl
     static void enableStandardItemLighting()
     {
         IOpenGlProviderHolder.getInstance().enableStandardItemLighting();
+    }
+
+    static void disableScissor()
+    {
+        throw new NotImplementedException();
+    }
+
+    static void enableScissor(int x, int y, int w, int h)
+    {
+        throw new NotImplementedException();
     }
 }

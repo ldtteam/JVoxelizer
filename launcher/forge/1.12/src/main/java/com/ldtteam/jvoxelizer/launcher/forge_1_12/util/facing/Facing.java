@@ -53,4 +53,9 @@ public class Facing implements IFacing
     {
         return forgeSide == null;
     }
+
+    public EnumFacing getForgeSide()
+    {
+        return forgeSide;
+    }
 }

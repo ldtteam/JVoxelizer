@@ -4,24 +4,29 @@ import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 import net.minecraft.util.math.BlockPos;
 
 public class BlockCoordinate implements IBlockCoordinate {
-    private BlockPos forgeIBlockCoordinate;
+    private BlockPos forgeBlockPos;
 
-    public BlockCoordinate(BlockPos forgeIBlockCoordinate) {
-        this.forgeIBlockCoordinate = forgeIBlockCoordinate;
+    public BlockCoordinate(BlockPos forgeBlockPos) {
+        this.forgeBlockPos = forgeBlockPos;
     }
 
     @Override
     public int getX() {
-        return forgeIBlockCoordinate.getX();
+        return forgeBlockPos.getX();
     }
 
     @Override
     public int getY() {
-        return forgeIBlockCoordinate.getY();
+        return forgeBlockPos.getY();
     }
 
     @Override
     public int getZ() {
-        return forgeIBlockCoordinate.getZ();
+        return forgeBlockPos.getZ();
+    }
+
+    public BlockPos getForgeBlockPos()
+    {
+        return forgeBlockPos;
     }
 }

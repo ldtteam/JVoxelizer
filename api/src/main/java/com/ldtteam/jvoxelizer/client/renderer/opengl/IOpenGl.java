@@ -2,6 +2,7 @@ package com.ldtteam.jvoxelizer.client.renderer.opengl;
 
 import com.ldtteam.jvoxelizer.client.renderer.opengl.util.*;
 import org.lwjgl.util.vector.Quaternion;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -9,6 +10,11 @@ import java.nio.IntBuffer;
 
 public interface IOpenGl
 {
+    static int getOpenGlQuadsRenderMode()
+    {
+        throw new NotImplementedException();
+    }
+
     static void disableAlpha()
     {
         IOpenGlProviderHolder.getInstance().disableAlpha();

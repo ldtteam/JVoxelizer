@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer;
 
 import com.ldtteam.jvoxelizer.client.gui.IGui;
+import com.ldtteam.jvoxelizer.client.renderer.block.IBlockRenderDispatcher;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
 import com.ldtteam.jvoxelizer.client.renderer.opengl.IOpenGl;
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISpriteMap;
@@ -34,4 +35,6 @@ public interface IGameEngine
     ISpriteMap getTextureMapBlocks();
 
     IFontRenderer getDefaultFontRenderer();
+
+    IBlockRenderDispatcher getBlockRendererDispatcher();
 }

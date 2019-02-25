@@ -1,6 +1,10 @@
 package com.ldtteam.jvoxelizer.block.state;
 
 import com.ldtteam.jvoxelizer.block.IBlock;
+import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
+import com.ldtteam.jvoxelizer.dimension.IDimensionReader;
+import com.ldtteam.jvoxelizer.util.facing.IFacing;
+import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 import com.ldtteam.jvoxelizer.util.nbt.INBTSerializable;
 
 /**
@@ -34,4 +38,6 @@ public interface IBlockState extends INBTSerializable
      * @return The underlying block.
      */
     IBlock getBlock();
+
+    boolean isSideSolid(IDimensionReader<?> dimensionReader, IBlockCoordinate pos, IFacing side);
 }

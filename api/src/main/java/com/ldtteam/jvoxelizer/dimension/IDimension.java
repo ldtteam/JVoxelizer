@@ -1,9 +1,9 @@
 package com.ldtteam.jvoxelizer.dimension;
 
 /**
- * Represents a single dimension, also called dimension, in the game
+ * Represents a single world, also called dimension, in the game
  */
-public interface IDimension
+public interface IDimension extends IDimensionReader
 {
 
     int getId();

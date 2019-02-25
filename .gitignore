@@ -26,5 +26,11 @@ hs_err_pid*
 **/.idea/
 
 launcher/forge/1\.12/build/
+api/build/
 
 *.iml
+
+.project
+.classpath
+.vscode/
+.settings/

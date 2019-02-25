@@ -3,7 +3,6 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12;
 import com.ldtteam.jvoxelizer.core.provider.holder.ProviderResolver;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt.NBTProvider;
 import com.ldtteam.jvoxelizer.util.nbt.INBTBase;
-import com.sun.istack.internal.NotNull;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;

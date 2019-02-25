@@ -1,11 +1,10 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.util.enchantmentType;
 
 import com.ldtteam.jvoxelizer.item.IItem;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.Item;
 import com.ldtteam.jvoxelizer.util.enchantmenttype.IEnchantmentType;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import org.jetbrains.annotations.NotNull;
-
-import static com.ldtteam.jvoxelizer.launcher.forge_1_12.item.Item.getItemReference;
 
 /**
  * Replaces EnumEnchantmentType from Minecraft.
@@ -23,8 +22,8 @@ public class EnchantmentType implements IEnchantmentType
     }
 
     @Override
-    public boolean canEnchantItem(final IItem item)
+    public boolean canEnchantItem(final IItem itemInput)
     {
-        return minecraftEnchantMentType.canEnchantItem(getItemReference(item));
+        return minecraftEnchantMentType.canEnchantItem(((Item)itemInput).getForgeItem());
     }
 }

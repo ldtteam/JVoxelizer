@@ -3,7 +3,7 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.item;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Multimap;
 import com.ldtteam.jvoxelizer.block.state.IBlockState;
-import com.ldtteam.jvoxelizer.capabilities.ICapabilityManager;
+import com.ldtteam.jvoxelizer.common.capability.ICapabilityManager;
 import com.ldtteam.jvoxelizer.client.gui.IScaledResolution;
 import com.ldtteam.jvoxelizer.client.model.IModelBiped;
 import com.ldtteam.jvoxelizer.client.renderer.blockentity.IBlockEntityRenderer;

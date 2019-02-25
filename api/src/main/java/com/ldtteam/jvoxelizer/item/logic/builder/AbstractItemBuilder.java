@@ -2,7 +2,7 @@ package com.ldtteam.jvoxelizer.item.logic.builder;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Multimap;
-import com.ldtteam.jvoxelizer.capabilities.ICapabilityManager;
+import com.ldtteam.jvoxelizer.common.capability.ICapabilityManager;
 import com.ldtteam.jvoxelizer.client.model.IModelBiped;
 import com.ldtteam.jvoxelizer.client.renderer.blockentity.IBlockEntityRenderer;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;

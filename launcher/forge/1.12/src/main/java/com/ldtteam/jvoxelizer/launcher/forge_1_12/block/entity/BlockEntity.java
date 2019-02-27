@@ -3,12 +3,13 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.block.entity;
 import com.ldtteam.jvoxelizer.block.entity.IBlockEntity;
 import com.ldtteam.jvoxelizer.common.capability.ICapability;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability.Capability;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.Dimension;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.facing.Facing;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block.BlockCoordinate;
 import com.ldtteam.jvoxelizer.util.facing.IFacing;
 import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 import net.minecraft.tileentity.TileEntity;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class BlockEntity implements IBlockEntity
 {
@@ -31,14 +32,12 @@ public class BlockEntity implements IBlockEntity
     @Override
     public boolean hasCapability(final ICapability<?> capability, final IFacing facing)
     {
-        //TODO: Capability implementation.
-        throw new NotImplementedException();
+        return forgeTileEntity.hasCapability(((Capability) capability).getForgeCapability(), ((Facing) facing).getForgeSide());
     }
 
     @Override
     public <T> T getCapability(final ICapability<T> capability, final IFacing facing)
     {
-        //TODO: Capability implementation;
-        throw new NotImplementedException();
+        return (T) forgeTileEntity.getCapability(((Capability) capability).getForgeCapability(), ((Facing) facing).getForgeSide());
     }
 }

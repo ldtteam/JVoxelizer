@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer;
 
 import com.ldtteam.jvoxelizer.client.gui.IGui;
+import com.ldtteam.jvoxelizer.client.gui.IGuiScreen;
 import com.ldtteam.jvoxelizer.client.renderer.block.IBlockRenderDispatcher;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
 import com.ldtteam.jvoxelizer.client.renderer.item.IItemRenderer;
@@ -18,13 +19,15 @@ public interface IGameEngine
         return IGameEngineProviderHolder.getInstance().provide();
     }
 
+    boolean isDedicatedServer();
+
     ISingleplayerPlayerEntity getSinglePlayerPlayerEntity();
 
     int getDisplayWidth();
 
     int getDisplayHeight();
 
-    IGui<?> getCurrentGui();
+    IGuiScreen<?> getCurrentGui();
 
     void displayGuiScreen(IGui<?> gui);
 

@@ -6,5 +6,5 @@ import com.ldtteam.jvoxelizer.inventory.IContainer;
 public interface IGuiContainerBuilderProvider
 {
 
-    <C extends IGuiContainerBuilder<C, I, O>, I, O extends IGuiContainer<I>> C provide(I instanceData, final IContainer<?> container);
+    <I> IGuiContainerBuilder<?, I, IGuiContainer<I>> provide(I instanceData, final IContainer<?> container);
 }

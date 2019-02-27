@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class Entity implements IEntity
 {
-    net.minecraft.entity.Entity forgeEntity;
+    public net.minecraft.entity.Entity forgeEntity;
 
     public Entity(@NotNull final net.minecraft.entity.Entity forgeEntity)
     {

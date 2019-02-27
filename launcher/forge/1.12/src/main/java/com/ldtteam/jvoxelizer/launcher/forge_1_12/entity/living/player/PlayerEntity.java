@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class PlayerEntity extends LivingBaseEntity implements IPlayerEntity
 {
-    private EntityPlayer forgePlayer;
+    public EntityPlayer forgePlayer;
 
     public PlayerEntity(@NotNull final EntityPlayer forgeEntity)
     {

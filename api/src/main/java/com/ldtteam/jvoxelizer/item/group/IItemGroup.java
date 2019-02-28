@@ -43,7 +43,7 @@ public interface IItemGroup<I> extends IInstancedObject<I> {
 
     boolean hasRelevantEnchantmentType(IEnchantmentType enchantmentType);
 
-    void displayAllRelevantItems(List<IItemStack> p_78018_1_);
+    void displayAllRelevantItems(List<IItemStack> list);
 
     int getTabPage();
 

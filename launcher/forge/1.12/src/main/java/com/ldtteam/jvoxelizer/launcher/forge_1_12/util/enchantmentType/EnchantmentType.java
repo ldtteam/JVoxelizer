@@ -26,4 +26,13 @@ public class EnchantmentType implements IEnchantmentType
     {
         return minecraftEnchantMentType.canEnchantItem(((Item)itemInput).getForgeItem());
     }
+
+    /**
+     * Getter for the wrapped forge element.
+     * @return the EnumEnchantmentType.
+     */
+    public EnumEnchantmentType getForgeType()
+    {
+       return this.minecraftEnchantMentType;
+    }
 }

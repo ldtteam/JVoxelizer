@@ -25,15 +25,21 @@ import com.ldtteam.jvoxelizer.item.group.IItemGroup;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockState;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.Dimension;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.ai.AttributeModifier;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.LivingBaseEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.PlayerEntity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.group.ItemGroup;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.action.ActionType;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResult;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResultType;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.equipmentslot.EquipmentSlot;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.facing.Facing;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.hand.Hand;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.Identifier;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block.BlockCoordinate;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.raytraceresult.RayTraceResult;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt.NBTCompound;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.rarity.Rarity;
 import com.ldtteam.jvoxelizer.util.action.IActionType;
 import com.ldtteam.jvoxelizer.util.actionresult.IActionResult;
 import com.ldtteam.jvoxelizer.util.actionresult.IActionResultType;
@@ -47,10 +53,12 @@ import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
 import com.ldtteam.jvoxelizer.util.rarity.IRarity;
 import com.ldtteam.jvoxelizer.util.tooltipflag.IToolTipFlag;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Item implements IItem
 {
@@ -118,6 +126,7 @@ public class Item implements IItem
         return forgeItem.getDestroySpeed(((ItemStack)stack).getForgeItem(), ((BlockState)state).getForgeBlockState());
     }
 
+    //todo orion
     @Override
     public IActionResult<IItemStack> onItemRightClick(
       final IDimension worldIn, final IPlayerEntity playerIn, final IHand handIn)
@@ -302,85 +311,89 @@ public class Item implements IItem
     @Override
     public String getItemStackDisplayName(final IItemStack stack)
     {
-        return null;
+        return forgeItem.getItemStackDisplayName(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public boolean hasEffect(final IItemStack stack)
     {
-        return false;
+        return forgeItem.hasEffect(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public IRarity getRarity(final IItemStack stack)
     {
-        return null;
+        return new Rarity(forgeItem.getRarity(((ItemStack)stack).getForgeItem()));
     }
 
     @Override
     public boolean isEnchantable(final IItemStack stack)
     {
-        return false;
+        return forgeItem.isEnchantable(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public IRayTraceResult rayTrace(final IDimension worldIn, final IPlayerEntity playerIn, final boolean useLiquids)
     {
-        return null;
+        return new RayTraceResult(forgeItem.ray);
     }
 
     @Override
     public int getItemEnchantability()
     {
-        return 0;
+        return forgeItem.getItemEnchantability();
     }
 
     @Override
     public IItemGroup<?> getCreativeTab()
     {
-        return null;
+        return new ItemGroup(forgeItem.getCreativeTab());
     }
 
     @Override
     public boolean canItemEditBlocks()
     {
-        return false;
+        return forgeItem.canItemEditBlocks();
     }
 
     @Override
     public boolean getIsRepairable(final IItemStack toRepair, final IItemStack repair)
     {
-        return false;
+        return forgeItem.getIsRepairable(((ItemStack)toRepair).getForgeItem(), ((ItemStack)repair).getForgeItem());
     }
 
     @Override
     public Multimap<String, IAttributeModifier> getItemAttributeModifiers(final IEquipmentSlot equipmentSlot)
     {
-        return null;
+        //todo orion
+        return forgeItem.getItemAttributeModifiers(((EquipmentSlot)equipmentSlot).getForgeEquipmentSlot()).entries()
+                 .collect(Collectors.toMap(e -> e.getKey(), v -> new AttributeModifier(v.ge())
+    ));
     }
 
     @Override
     public Multimap<String, IAttributeModifier> getAttributeModifiers(final IEquipmentSlot slot, final IItemStack stack)
     {
-        return null;
+        //todo orion
+        return forgeItem;
     }
 
     @Override
-    public boolean onDroppedByPlayer(final IItemStack IItem, final IPlayerEntity player)
+    public boolean onDroppedByPlayer(final IItemStack iItem, final IPlayerEntity player)
     {
-        return false;
+        return forgeItem.onDroppedByPlayer(((ItemStack) iItem).getForgeItem(), ((PlayerEntity)player).forgePlayer);
     }
 
     @Override
-    public String getHighlightTip(final IItemStack IItem, final String displayName)
+    public String getHighlightTip(final IItemStack iItem, final String displayName)
     {
-        return null;
+        return forgeItem.getHighlightTip(((ItemStack) iItem).getForgeItem(), displayName);
     }
 
     @Override
     public IActionResult onItemUseFirst(
       final IPlayerEntity player,
-      final IDimension IDimension,
+      final IDimension iDimension,
       final IBlockCoordinate pos,
       final IFacing side,
       final float hitX,
@@ -388,43 +401,44 @@ public class Item implements IItem
       final float hitZ,
       final IHand hand)
     {
-        return null;
+        //todo orion
+        return new ActionResult(forgeItem.onItemUse(((PlayerEntity)player).forgePlayer, ((Dimension)iDimension).getForgeWorld(), ((BlockCoordinate)pos).getForgeBlockPos(), ((Hand)hand).getForgeHand(), ((Facing)side).getForgeSide(), hitX, hitY, hitZ));
     }
 
     @Override
     public boolean isRepairable()
     {
-        return false;
+        return forgeItem.isRepairable();
     }
 
     @Override
     public IItem setNoRepair()
     {
-        return null;
+        return new Item(forgeItem.setNoRepair());
     }
 
     @Override
     public float getXpRepairRatio(final IItemStack stack)
     {
-        return 0;
+        return forgeItem.getXpRepairRatio(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public INBTCompound getNBTShareTag(final IItemStack stack)
     {
-        return null;
+        return new NBTCompound(forgeItem.getNBTShareTag(((ItemStack)stack).getForgeItem()));
     }
-
+    //todo orion are those how?
     @Override
     public void readNBTShareTag(final IItemStack stack, final INBTCompound nbt)
     {
-
+        forgeItem.readNBTShareTag(((ItemStack)stack).getForgeItem(), ((NBTTagCompound)nbt).getCompoundTag());
     }
 
     @Override
     public boolean onBlockStartBreak(final IItemStack IItemStack, final IBlockCoordinate pos, final IPlayerEntity player)
     {
-        return false;
+        return f;
     }
 
     @Override

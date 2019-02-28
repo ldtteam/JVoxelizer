@@ -23,4 +23,13 @@ public class Hand implements IHand
     {
         return forgeHand == EnumHand.OFF_HAND;
     }
+
+    /**
+     * Get the wrapped enum.
+     * @return the EnumHand.
+     */
+    public EnumHand getForgeHand()
+    {
+        return this.forgeHand;
+    }
 }

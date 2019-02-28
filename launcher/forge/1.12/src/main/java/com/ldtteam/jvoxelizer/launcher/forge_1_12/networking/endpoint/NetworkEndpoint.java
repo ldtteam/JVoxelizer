@@ -27,7 +27,7 @@ public class NetworkEndpoint implements INetworkEndpoint
     @Override
     public <REQ extends IMessage, REPLY extends IMessage> void registerMessage(final Class<? extends IMessageHandler<REQ, REPLY>> messageHandler, final Class<REQ> requestMessageType, final int discriminator, final IDistribution distribution)
     {
-        manager.registerMessage(((MessageHandler<? extends IMessageHandler<REQ, REPLY>>) messageHandler).getForgeHandler().getClass(), requestMessageType, discriminator, ((Distribution) distribution).getForgeSide());
+        manager.registerMessage(((MessageHandler) messageHandler).getForgeHandler().getClass(), requestMessageType, discriminator, ((Distribution) distribution).getForgeSide());
     }
 
     @Override

@@ -22,6 +22,18 @@ import com.ldtteam.jvoxelizer.item.IItem;
 import com.ldtteam.jvoxelizer.item.IItemPropertyGetter;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.group.IItemGroup;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockState;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.Dimension;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.LivingBaseEntity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.PlayerEntity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.action.ActionType;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResult;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResultType;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.facing.Facing;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.hand.Hand;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.Identifier;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block.BlockCoordinate;
 import com.ldtteam.jvoxelizer.util.action.IActionType;
 import com.ldtteam.jvoxelizer.util.actionresult.IActionResult;
 import com.ldtteam.jvoxelizer.util.actionresult.IActionResultType;
@@ -34,6 +46,8 @@ import com.ldtteam.jvoxelizer.util.math.raytraceresult.IRayTraceResult;
 import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
 import com.ldtteam.jvoxelizer.util.rarity.IRarity;
 import com.ldtteam.jvoxelizer.util.tooltipflag.IToolTipFlag;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 import java.util.Set;
@@ -48,34 +62,40 @@ public class Item implements IItem
         return forgeItem;
     }
 
+    public Item(final net.minecraft.item.Item forgeItem)
+    {
+        this.forgeItem = forgeItem;
+    }
+
     @Override
     public void addPropertyOverride(final IIdentifier key, final IItemPropertyGetter getter)
     {
-
+        forgeItem.addPropertyOverride(((Identifier) key).getForgeIdentifier(), ((ItemPropertyGetter)getter).getForgePropertyGetter());
     }
 
     @Override
     public IItemPropertyGetter getPropertyGetter(final IIdentifier key)
     {
-        return null;
+        return new ItemPropertyGetter(forgeItem.getPropertyGetter(((Identifier)key).getForgeIdentifier()));
     }
 
+    //todo Orion confirm
     @Override
     public boolean updateItemStackNBT(final INBTCompound nbt)
     {
-        return false;
+        return forgeItem.updateItemStackNBT(((NBTTagCompound) nbt));
     }
 
     @Override
     public boolean hasCustomProperties()
     {
-        return false;
+        return forgeItem.hasCustomProperties();
     }
 
     @Override
     public IItem setMaxStackSize(final int maxStackSize)
     {
-        return null;
+        return new Item(forgeItem.setMaxStackSize(maxStackSize));
     }
 
     @Override
@@ -89,194 +109,194 @@ public class Item implements IItem
       final float hitY,
       final float hitZ)
     {
-        return null;
+        return new ActionResultType(forgeItem.onItemUse(((PlayerEntity)player).forgePlayer, ((Dimension)worldIn).getForgeWorld(), ((BlockCoordinate) pos).getForgeBlockPos(), ((Hand)hand).getForgeHand(), ((Facing)facing).getForgeSide(), hitX, hitY, hitZ));
     }
 
     @Override
     public float getDestroySpeed(final IItemStack stack, final IBlockState state)
     {
-        return 0;
+        return forgeItem.getDestroySpeed(((ItemStack)stack).getForgeItem(), ((BlockState)state).getForgeBlockState());
     }
 
     @Override
     public IActionResult<IItemStack> onItemRightClick(
       final IDimension worldIn, final IPlayerEntity playerIn, final IHand handIn)
     {
-        return null;
+        return new ActionResult(forgeItem.onItemRightClick(((Dimension)worldIn).getForgeWorld(), ((PlayerEntity)playerIn).forgePlayer, ((Hand) handIn).getForgeHand()));
     }
 
     @Override
     public IItemStack onItemUseFinish(final IItemStack stack, final IDimension worldIn, final ILivingBaseEntity entityLiving)
     {
-        return null;
+        return new ItemStack(forgeItem.onItemUseFinish(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), ((LivingBaseEntity)entityLiving).getForgeEntity()));
     }
 
     @Override
     public int getItemStackLimit()
     {
-        return 0;
+        return forgeItem.getItemStackLimit();
     }
 
     @Override
     public int getMetadata(final int damage)
     {
-        return 0;
+        return forgeItem.getMetadata(damage);
     }
 
     @Override
     public boolean getHasSubtypes()
     {
-        return false;
+        return forgeItem.getHasSubtypes();
     }
 
     @Override
     public IItem setHasSubtypes(final boolean hasSubtypes)
     {
-        return null;
+        return new Item(forgeItem.setHasSubtypes(hasSubtypes));
     }
 
     @Override
     public int getMaxDamage()
     {
-        return 0;
+        return forgeItem.getMaxDamage();
     }
 
     @Override
     public IItem setMaxDamage(final int maxDamageIn)
     {
-        return null;
+        return new Item(forgeItem.setMaxDamage(maxDamageIn));
     }
 
     @Override
     public boolean isDamageable()
     {
-        return false;
+        return forgeItem.isDamageable();
     }
 
     @Override
     public boolean hitEntity(final IItemStack stack, final ILivingBaseEntity target, final ILivingBaseEntity attacker)
     {
-        return false;
+        return forgeItem.hitEntity(((ItemStack)stack).getForgeItem(), ((LivingBaseEntity)target).getForgeEntity(), ((LivingBaseEntity)attacker).getForgeEntity());
     }
 
     @Override
     public boolean onBlockDestroyed(final IItemStack stack, final IDimension worldIn, final IBlockState state, final IBlockCoordinate pos, final ILivingBaseEntity entityLiving)
     {
-        return false;
+        return forgeItem.onBlockDestroyed(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), ((BlockState)state).getForgeBlockState(), ((BlockCoordinate)pos).getForgeBlockPos(), ((LivingBaseEntity)entityLiving).getForgeEntity());
     }
 
     @Override
     public boolean canHarvestBlock(final IBlockState blockIn)
     {
-        return false;
+        return forgeItem.canHarvestBlock(((BlockState)blockIn).getForgeBlockState());
     }
 
     @Override
     public boolean itemInteractionForEntity(final IItemStack stack, final IPlayerEntity playerIn, final ILivingBaseEntity target, final IHand hand)
     {
-        return false;
+        return forgeItem.itemInteractionForEntity(((ItemStack)stack).getForgeItem(), ((PlayerEntity)playerIn).forgePlayer, ((LivingBaseEntity)target).getForgeEntity(), ((Hand)hand).getForgeHand());
     }
 
     @Override
     public IItem setFull3D()
     {
-        return null;
+        return new Item(forgeItem.setFull3D());
     }
 
     @Override
     public boolean isFull3D()
     {
-        return false;
+        return forgeItem.isFull3D();
     }
 
     @Override
     public boolean shouldRotateAroundWhenRendering()
     {
-        return false;
+        return forgeItem.shouldRotateAroundWhenRendering();
     }
 
     @Override
     public IItem setUnlocalizedName(final String unlocalizedName)
     {
-        return null;
+        return new Item(forgeItem.setUnlocalizedName(unlocalizedName));
     }
 
     @Override
     public String getUnlocalizedNameInefficiently(final IItemStack stack)
     {
-        return null;
+        return forgeItem.getUnlocalizedNameInefficiently(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public String getUnlocalizedName()
     {
-        return null;
+        return forgeItem.getUnlocalizedName();
     }
 
     @Override
     public String getUnlocalizedName(final IItemStack stack)
     {
-        return null;
+        return forgeItem.getUnlocalizedName(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public IItem setContainerItem(final IItem containerItem)
     {
-        return null;
+        return new Item(forgeItem.setContainerItem(((Item)containerItem).forgeItem));
     }
 
     @Override
     public boolean getShareTag()
     {
-        return false;
+        return forgeItem.getShareTag();
     }
 
     @Override
     public IItem getContainerItem()
     {
-        return null;
+        return new Item(forgeItem.getContainerItem());
     }
 
     @Override
     public boolean hasContainerItem()
     {
-        return false;
+        return forgeItem.hasContainerItem();
     }
 
     @Override
     public void onUpdate(final IItemStack stack, final IDimension worldIn, final IEntity entityIn, final int itemSlot, final boolean isSelected)
     {
-
+        forgeItem.onUpdate(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), ((Entity)entityIn).forgeEntity, itemSlot, isSelected);
     }
 
     @Override
     public void onCreated(final IItemStack stack, final IDimension worldIn, final IPlayerEntity playerIn)
     {
-
+        forgeItem.onCreated(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), ((PlayerEntity)playerIn).forgePlayer);
     }
 
     @Override
     public boolean isMap()
     {
-        return false;
+        return forgeItem.isMap();
     }
 
     @Override
     public IActionType getItemUseAction(final IItemStack stack)
     {
-        return null;
+        return new ActionType(forgeItem.getItemUseAction(((ItemStack)stack).getForgeItem()));
     }
 
     @Override
     public int getMaxItemUseDuration(final IItemStack stack)
     {
-        return 0;
+        return forgeItem.getMaxItemUseDuration(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public void onPlayerStoppedUsing(final IItemStack stack, final IDimension worldIn, final ILivingBaseEntity entityLiving, final int timeLeft)
     {
-
+        forgeItem.onPlayerStoppedUsing(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), ((LivingBaseEntity)entityLiving).getForgeEntity(), timeLeft);
     }
 
     @Override

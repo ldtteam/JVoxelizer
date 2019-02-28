@@ -19,4 +19,13 @@ public class Distribution implements IDistribution {
     public boolean isClient() {
         return forgeDistribution.isClient();
     }
+
+    /**
+     * Getter to get the wrapped forge element.
+     * @return the Side.
+     */
+    public Side getForgeSide()
+    {
+        return this.forgeDistribution;
+    }
 }

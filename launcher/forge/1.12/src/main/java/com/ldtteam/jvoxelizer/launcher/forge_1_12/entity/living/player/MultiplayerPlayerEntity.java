@@ -32,4 +32,13 @@ public class MultiplayerPlayerEntity extends PlayerEntity implements IMultiplaye
     {
         return forgeMPPlayer.currentWindowId;
     }
+
+    /**
+     * Getter for the wrapped forge object.
+     * @return the EntityPlayerMP.
+     */
+    public EntityPlayerMP getForgePlayer()
+    {
+        return this.forgeMPPlayer;
+    }
 }

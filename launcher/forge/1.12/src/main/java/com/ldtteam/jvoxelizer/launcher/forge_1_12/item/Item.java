@@ -3,7 +3,6 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.item;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Multimap;
 import com.ldtteam.jvoxelizer.block.state.IBlockState;
-import com.ldtteam.jvoxelizer.common.capability.ICapabilityManager;
 import com.ldtteam.jvoxelizer.client.gui.IScaledResolution;
 import com.ldtteam.jvoxelizer.client.model.IModelBiped;
 import com.ldtteam.jvoxelizer.client.renderer.blockentity.IBlockEntityRenderer;
@@ -25,14 +24,19 @@ import com.ldtteam.jvoxelizer.item.group.IItemGroup;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockState;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolution;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.model.ModelType;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.blockentity.BlockEntityRenderer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.animation.TimedValue;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability.CapabilityProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.Dimension;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.enchantment.Enchantment;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.ai.AttributeModifier;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.item.ItemStackEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.LivingBaseEntity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.LivingEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.PlayerEntity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.passive.HorseArmorType;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.group.ItemGroup;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.action.ActionType;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResult;
@@ -57,11 +61,13 @@ import com.ldtteam.jvoxelizer.util.math.raytraceresult.IRayTraceResult;
 import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
 import com.ldtteam.jvoxelizer.util.rarity.IRarity;
 import com.ldtteam.jvoxelizer.util.tooltipflag.IToolTipFlag;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -692,94 +698,102 @@ public class Item implements IItem
     }
 
     @Override
-    public ICapabilityManager initCapabilities(final IItemStack stack, final INBTCompound nbt)
+    public CapabilityProvider initCapabilities(final IItemStack stack, final INBTCompound nbt)
     {
-        return forgeItem.initCapabilities(((ItemStack)stack).getForgeItem(), ((NBTCompound)nbt).forgeNbtCompound);
+        return new CapabilityProvider(forgeItem.initCapabilities(((ItemStack)stack).getForgeItem(), ((NBTCompound)nbt).forgeNbtCompound));
     }
 
     @Override
     public ImmutableMap<String, ITimedValue> getAnimationParameters(
-      final IItemStack stack, final IDimension IDimension, final ILivingBaseEntity IEntity)
+      final IItemStack stack, final IDimension world, final ILivingBaseEntity iEntity)
     {
-        return null;
+        final Map<String, TimedValue> value = forgeItem.getAnimationParameters(((ItemStack)stack).getForgeItem(), ((Dimension)world).getForgeWorld(), ((LivingBaseEntity)iEntity).getForgeEntity())
+                                                .entrySet().stream()
+                                                    .collect(Collectors.toMap(
+                                                      Map.Entry::getKey,
+                                                      e -> new TimedValue(e.getValue())
+                                                    ));
+        return ImmutableMap.<String, ITimedValue>builder().putAll(value).build();
     }
 
     @Override
-    public boolean canDisableShield(final IItemStack stack, final IItemStack shield, final ILivingBaseEntity IEntity, final ILivingBaseEntity attacker)
+    public boolean canDisableShield(final IItemStack stack, final IItemStack shield, final ILivingBaseEntity iEntity, final ILivingBaseEntity attacker)
     {
-        return false;
+        return forgeItem.canDisableShield(((ItemStack)stack).getForgeItem(), ((ItemStack)shield).getForgeItem(), ((LivingBaseEntity)iEntity).getForgeEntity(), ((LivingBaseEntity)attacker).getForgeEntity());
     }
 
     @Override
-    public boolean isShield(final IItemStack stack, final ILivingBaseEntity IEntity)
+    public boolean isShield(final IItemStack stack, final ILivingBaseEntity iEntity)
     {
-        return false;
+        return forgeItem.isShield(((ItemStack)stack).getForgeItem(), ((LivingBaseEntity)iEntity).getForgeEntity());
     }
 
     @Override
-    public int getItemBurnTime(final IItemStack IItemStack)
+    public int getItemBurnTime(final IItemStack stack)
     {
-        return 0;
+        return forgeItem.getItemBurnTime(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public IHorseArmorType getHorseArmorType(final IItemStack stack)
     {
-        return null;
+        return new HorseArmorType(forgeItem.getHorseArmorType(((ItemStack)stack).getForgeItem()));
     }
 
     @Override
     public String getHorseArmorTexture(final ILivingEntity wearer, final IItemStack stack)
     {
-        return null;
+        return forgeItem.getHorseArmorTexture((EntityLiving) ((LivingEntity)wearer).forgeEntity, ((ItemStack)stack).getForgeItem());
     }
 
     @Override
-    public void onHorseArmorTick(final IDimension IDimension, final ILivingEntity horse, final IItemStack armor)
+    public void onHorseArmorTick(final IDimension world, final ILivingEntity horse, final IItemStack armor)
     {
-
+        forgeItem.onHorseArmorTick(((Dimension)world).getForgeWorld(), (EntityLiving) ((LivingEntity)horse).forgeEntity, ((ItemStack)armor).getForgeItem());
     }
 
     @Override
     public IBlockEntityRenderer getTileEntityItemStackRenderer()
     {
-        return null;
+        return new BlockEntityRenderer(forgeItem.getTileEntityItemStackRenderer());
     }
 
     @Override
     public void setTileEntityItemStackRenderer(final IBlockEntityRenderer teisr)
     {
-
+        forgeItem.setTileEntityItemStackRenderer(((BlockEntityRenderer)teisr).getForgeRenderer());
     }
 
     @Override
     public IItemStack getDefaultInstance()
     {
-        return null;
+        return new ItemStack(forgeItem.getDefaultInstance());
     }
 
     @Override
     public String getTranslationKey(final IItemStack pItemStack1)
     {
-        return null;
+        return forgeItem.getUnlocalizedName();
     }
 
     @Override
     public IItem setCreativeTab(final IItemGroup tab)
     {
-        return null;
+        return new Item(forgeItem.setCreativeTab(((ItemGroup)tab).getForgeItemGroup()));
     }
 
     @Override
     public boolean isInCreativeTab(final IItemGroup targetTab)
     {
-        return false;
+        return forgeItem.isInCreativeTab(((ItemGroup)targetTab).getForgeItemGroup());
     }
 
     @Override
     public void getSubItems(final IItemGroup tab, final List items)
     {
-
+        final NonNullList<net.minecraft.item.ItemStack> nonNullList = NonNullList.create();
+        forgeItem.getSubItems(((ItemGroup)tab).getForgeItemGroup(), nonNullList);
+        nonNullList.forEach();
     }
 
     @Override

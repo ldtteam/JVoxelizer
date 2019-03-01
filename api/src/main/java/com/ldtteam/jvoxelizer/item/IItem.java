@@ -8,6 +8,7 @@ import com.ldtteam.jvoxelizer.client.model.IModelBiped;
 import com.ldtteam.jvoxelizer.client.renderer.blockentity.IBlockEntityRenderer;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
 import com.ldtteam.jvoxelizer.common.animation.ITimedValue;
+import com.ldtteam.jvoxelizer.common.capability.ICapabilityProvider;
 import com.ldtteam.jvoxelizer.core.logic.IInstancedObject;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.enchantment.IEnchantment;
@@ -249,7 +250,7 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     String getCreatorModId(IItemStack IItemStack);
 
-    ICapabilityManager initCapabilities(IItemStack stack, INBTCompound nbt);
+    ICapabilityProvider initCapabilities(IItemStack stack, INBTCompound nbt);
 
     com.google.common.collect.ImmutableMap<String, ITimedValue> getAnimationParameters(final IItemStack stack, final IDimension IDimension, final ILivingBaseEntity IEntity);
 

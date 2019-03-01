@@ -170,4 +170,13 @@ public class ItemGroup implements IItemGroup
     {
         return DummyInstanceData[];
     }
+
+    /**
+     * Getter to get the wrapped forge class.
+     * @return CreativeTabs.
+     */
+    public CreativeTabs getForgeItemGroup()
+    {
+        return this.creativeTab;
+    }
 }

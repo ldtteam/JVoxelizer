@@ -95,4 +95,9 @@ public class GameEngine implements IGameEngine
         //TODO: Implement JVox side.
         return Minecraft.getMinecraft().getItemRenderer();
     }
+
+    public Minecraft getForgeGameEngine()
+    {
+        return Minecraft.getMinecraft();
+    }
 }

@@ -4,46 +4,49 @@ import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
 
 public class FontRenderer implements IFontRenderer
 {
-    private net.minecraft.client.gui.FontRenderer fontRenderer;
 
-    public FontRenderer(final net.minecraft.client.gui.FontRenderer fontRenderer)
-    {
-        this.fontRenderer = fontRenderer;
-    }
+    private final net.minecraft.client.gui.FontRenderer forgeFontRenderer;
+
+    public FontRenderer(final net.minecraft.client.gui.FontRenderer forgeFontRenderer) {this.forgeFontRenderer = forgeFontRenderer;}
 
     @Override
     public void drawSplitString(final String str, final int x, final int y, final int wrapWidth, final int textColor)
     {
-        fontRenderer.drawSplitString(str, x, y, wrapWidth, textColor);
+        forgeFontRenderer.drawSplitString(str, x, y, wrapWidth, textColor);
     }
 
     @Override
     public String trimStringToWidth(final String substring, final int width)
     {
-        return fontRenderer.trimStringToWidth(substring, width);
+        return forgeFontRenderer.trimStringToWidth(substring, width);
     }
 
     @Override
     public String trimStringToWidth(final String contents, final int width, final boolean reverse)
     {
-        return fontRenderer.trimStringToWidth(contents, width, reverse);
+        return forgeFontRenderer.trimStringToWidth(contents, width, reverse);
     }
 
     @Override
     public int drawStringWithShadow(final String text, final float drawStartX, final float drawStartY, final int rgb)
     {
-        return fontRenderer.drawStringWithShadow(text, drawStartX, drawStartY, rgb);
+        return forgeFontRenderer.drawStringWithShadow(text, drawStartX, drawStartY, rgb);
     }
 
     @Override
     public int getFontHeight()
     {
-        return fontRenderer.FONT_HEIGHT;
+        return forgeFontRenderer.FONT_HEIGHT;
     }
 
     @Override
     public int getStringWidth(final String substring)
     {
-        return fontRenderer.getStringWidth(substring);
+        return forgeFontRenderer.getStringWidth(substring);
+    }
+
+    public net.minecraft.client.gui.FontRenderer getForgeFontRenderer()
+    {
+        return forgeFontRenderer;
     }
 }

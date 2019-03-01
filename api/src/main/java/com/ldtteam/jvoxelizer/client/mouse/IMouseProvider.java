@@ -8,4 +8,6 @@ public interface IMouseProvider
     double provideY();
 
     int provideDWheel();
+
+    int provideEventButton();
 }

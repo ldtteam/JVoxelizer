@@ -17,4 +17,6 @@ public interface IMouse
     {
         return IMouseProviderHolder.getInstance().provideDWheel();
     }
+
+    static int getEventButton() { return IMouseProviderHolder.getInstance().provideEventButton();}
 }

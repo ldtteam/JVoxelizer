@@ -98,7 +98,7 @@ public class SoundHandler implements ISoundHandler
     @Override
     public boolean isSoundPlaying(final ISound sound)
     {
-        return forgeSoundHandler.isSoundPlaying(sound);
+        return forgeSoundHandler.isSoundPlaying(((Sound) sound).forgeSound);
     }
 
     @Override
@@ -117,5 +117,10 @@ public class SoundHandler implements ISoundHandler
     public void stop(final String p_189520_1_, final ISoundCategory p_189520_2_)
     {
         forgeSoundHandler.stop(p_189520_1_, ((SoundCategory)p_189520_2_).forgeSoundCategory);
+    }
+
+    public net.minecraft.client.audio.SoundHandler getForgeSoundHandler()
+    {
+        return forgeSoundHandler;
     }
 }

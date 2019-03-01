@@ -23,5 +23,14 @@ public class ToolTipFlag implements IToolTipFlag
     {
         return flag == ITooltipFlag.TooltipFlags.ADVANCED;
     }
+
+    /**
+     * Get the wrapped forge flag.
+     * @return the ITooltipFlag.
+     */
+    public ITooltipFlag getForgeFlag()
+    {
+        return this.flag;
+    }
 }
 

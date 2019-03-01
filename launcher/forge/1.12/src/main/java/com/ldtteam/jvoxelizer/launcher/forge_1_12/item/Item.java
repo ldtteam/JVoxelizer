@@ -8,6 +8,7 @@ import com.ldtteam.jvoxelizer.client.model.IModelBiped;
 import com.ldtteam.jvoxelizer.client.renderer.blockentity.IBlockEntityRenderer;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
 import com.ldtteam.jvoxelizer.common.animation.ITimedValue;
+import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.enchantment.IEnchantment;
 import com.ldtteam.jvoxelizer.entity.IEntity;
@@ -49,6 +50,7 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block.Blo
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.raytraceresult.RayTraceResult;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt.NBTCompound;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.rarity.Rarity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.tooltipflag.ToolTipFlag;
 import com.ldtteam.jvoxelizer.util.action.IActionType;
 import com.ldtteam.jvoxelizer.util.actionresult.IActionResult;
 import com.ldtteam.jvoxelizer.util.actionresult.IActionResultType;
@@ -789,40 +791,40 @@ public class Item implements IItem
     }
 
     @Override
-    public void getSubItems(final IItemGroup tab, final List items)
+    public void getSubItems(IItemGroup<?> tab, List<IItemStack> items)
     {
         final NonNullList<net.minecraft.item.ItemStack> nonNullList = NonNullList.create();
         forgeItem.getSubItems(((ItemGroup)tab).getForgeItemGroup(), nonNullList);
-        nonNullList.forEach();
+        nonNullList.forEach(item -> items.add(new ItemStack(item)));
     }
 
     @Override
-    public void addInformation(final IItemStack stack, final IDimension worldIn, final List tooltip, final IToolTipFlag flagIn)
+    public void addInformation(final IItemStack stack, final IDimension worldIn, final List<String> tooltip, final IToolTipFlag flagIn)
     {
-
+        forgeItem.addInformation(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), tooltip, ((ToolTipFlag)flagIn).getForgeFlag());
     }
 
     @Override
     public Object getInstanceData()
     {
-        return null;
+        return DummyInstanceData[];
     }
 
     @Override
     public Object setRegistryName(final IIdentifier name)
     {
-        return null;
+        return forgeItem.setRegistryName(((Identifier)name).getForgeIdentifier());
     }
 
     @Override
     public IIdentifier getRegistryName()
     {
-        return null;
+        return new Identifier(forgeItem.getRegistryName());
     }
 
     @Override
     public Class getRegistryType()
     {
-        return null;
+        return forgeItem.getRegistryType();
     }
 }

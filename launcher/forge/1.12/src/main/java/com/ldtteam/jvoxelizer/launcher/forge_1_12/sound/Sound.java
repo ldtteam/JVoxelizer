@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class Sound implements ISound
 {
-    net.minecraft.client.audio.Sound forgeSound;
+    net.minecraft.client.audio.ISound forgeSound;
 
     public Sound(@NotNull final net.minecraft.client.audio.Sound forgeSound)
     {
@@ -19,12 +19,6 @@ public class Sound implements ISound
     public IIdentifier getSoundLocation()
     {
         return new Identifier(forgeSound.getSoundLocation());
-    }
-
-    @Override
-    public IIdentifier getSoundAsOggLocation()
-    {
-        return new Identifier(forgeSound.getSoundAsOggLocation());
     }
 
     @Override
@@ -40,30 +34,12 @@ public class Sound implements ISound
     }
 
     @Override
-    public int getWeight()
-    {
-        return forgeSound.getWeight();
-    }
-
-    @Override
     public ISound cloneEntry()
     {
         return this;
     }
 
-    @Override
-    public ISoundType getType()
-    {
-        return new SoundType(forgeSound.getType());
-    }
-
-    @Override
-    public boolean isStreaming()
-    {
-        return forgeSound.isStreaming();
-    }
-
-    public net.minecraft.client.audio.Sound getForgeSound()
+    public net.minecraft.client.audio.ISound getForgeSound()
     {
         return forgeSound;
     }

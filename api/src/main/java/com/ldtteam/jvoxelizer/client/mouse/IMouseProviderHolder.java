@@ -33,4 +33,10 @@ final class IMouseProviderHolder extends AbstractHolder<IMouseProvider> implemen
     {
         return getProvider().provideDWheel();
     }
+
+    @Override
+    public int provideEventButton()
+    {
+        return getProvider().provideEventButton();
+    }
 }

@@ -2,15 +2,15 @@ package com.ldtteam.jvoxelizer.client.renderer.texture;
 
 public interface ISprite
 {
-    int getMinU();
+    float getMinU();
 
-    int getInterpolatedV(int h);
+    float getInterpolatedV(double h);
 
-    int getInterpolatedU(int w);
+    float getInterpolatedU(double w);
 
-    int getMaxU();
+    float getMaxU();
 
-    int getMaxV();
+    float getMaxV();
 
-    int getMinV();
+    float getMinV();
 }

@@ -14,6 +14,7 @@ jar {
         attributes([
             'Maven-Artifact': "${project.group}:${project.archivesBaseName}:${project.version}:api",
             'Timestamp': System.currentTimeMillis(),
+            'FMLAT': "jvoxelizer_at.cfg"
         ])
     }
 

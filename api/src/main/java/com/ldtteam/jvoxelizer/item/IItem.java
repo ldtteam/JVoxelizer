@@ -153,7 +153,7 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     String getHighlightTip(IItemStack IItem, String displayName);
 
-    IActionResult onItemUseFirst(IPlayerEntity player, IDimension IDimension, IBlockCoordinate pos, IFacing side, float hitX, float hitY, float hitZ, IHand hand);
+    IActionResultType onItemUseFirst(IPlayerEntity player, IDimension IDimension, IBlockCoordinate pos, IFacing side, float hitX, float hitY, float hitZ, IHand hand);
 
     boolean isRepairable();
 

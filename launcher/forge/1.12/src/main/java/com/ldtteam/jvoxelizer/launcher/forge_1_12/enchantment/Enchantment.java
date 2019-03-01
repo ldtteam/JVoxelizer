@@ -10,4 +10,13 @@ public class Enchantment implements IEnchantment
     {
         this.enchantment = enchantment;
     }
+
+    /**
+     * Getter for the wrapped forge class.
+     * @return net.minecraft.enchantment.Enchantment.
+     */
+    public net.minecraft.enchantment.Enchantment getForgeEnchantment()
+    {
+        return this.enchantment;
+    }
 }

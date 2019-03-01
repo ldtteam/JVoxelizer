@@ -11,7 +11,7 @@ public class ActionResult<T> implements IActionResult<T>
 
     public ActionResult(EnumActionResult typeIn, T resultIn)
     {
-        actionResult = new net.minecraft.util.ActionResult<T>(typeIn, resultIn);
+        actionResult = new net.minecraft.util.ActionResult<>(typeIn, resultIn);
     }
 
     @Override

@@ -23,9 +23,14 @@ import com.ldtteam.jvoxelizer.item.IItemPropertyGetter;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.group.IItemGroup;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockState;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolution;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.model.ModelType;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.Dimension;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.enchantment.Enchantment;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.ai.AttributeModifier;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.item.ItemStackEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.LivingBaseEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.PlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.group.ItemGroup;
@@ -52,10 +57,10 @@ import com.ldtteam.jvoxelizer.util.math.raytraceresult.IRayTraceResult;
 import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
 import com.ldtteam.jvoxelizer.util.rarity.IRarity;
 import com.ldtteam.jvoxelizer.util.tooltipflag.IToolTipFlag;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTUtil;
-import net.minecraft.util.ResourceLocation;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -87,11 +92,10 @@ public class Item implements IItem
         return new ItemPropertyGetter(forgeItem.getPropertyGetter(((Identifier)key).getForgeIdentifier()));
     }
 
-    //todo Orion confirm
     @Override
     public boolean updateItemStackNBT(final INBTCompound nbt)
     {
-        return forgeItem.updateItemStackNBT(((NBTTagCompound) nbt));
+        return forgeItem.updateItemStackNBT(((NBTCompound) nbt).forgeNbtCompound);
     }
 
     @Override
@@ -126,12 +130,12 @@ public class Item implements IItem
         return forgeItem.getDestroySpeed(((ItemStack)stack).getForgeItem(), ((BlockState)state).getForgeBlockState());
     }
 
-    //todo orion
     @Override
-    public IActionResult<IItemStack> onItemRightClick(
-      final IDimension worldIn, final IPlayerEntity playerIn, final IHand handIn)
+    public IActionResult<IItemStack> onItemRightClick(final IDimension worldIn, final IPlayerEntity playerIn, final IHand handIn)
     {
-        return new ActionResult(forgeItem.onItemRightClick(((Dimension)worldIn).getForgeWorld(), ((PlayerEntity)playerIn).forgePlayer, ((Hand) handIn).getForgeHand()));
+        final net.minecraft.util.ActionResult<net.minecraft.item.ItemStack>
+          result = forgeItem.onItemRightClick(((Dimension)worldIn).getForgeWorld(), ((PlayerEntity)playerIn).forgePlayer, ((Hand) handIn).getForgeHand());
+        return new ActionResult<>(result.getType(), new ItemStack(result.getResult()));
     }
 
     @Override
@@ -391,7 +395,7 @@ public class Item implements IItem
     }
 
     @Override
-    public IActionResult onItemUseFirst(
+    public ActionResultType onItemUseFirst(
       final IPlayerEntity player,
       final IDimension iDimension,
       final IBlockCoordinate pos,
@@ -401,8 +405,7 @@ public class Item implements IItem
       final float hitZ,
       final IHand hand)
     {
-        //todo orion
-        return new ActionResult(forgeItem.onItemUse(((PlayerEntity)player).forgePlayer, ((Dimension)iDimension).getForgeWorld(), ((BlockCoordinate)pos).getForgeBlockPos(), ((Hand)hand).getForgeHand(), ((Facing)side).getForgeSide(), hitX, hitY, hitZ));
+        return new ActionResultType(forgeItem.onItemUse(((PlayerEntity)player).forgePlayer, ((Dimension)iDimension).getForgeWorld(), ((BlockCoordinate)pos).getForgeBlockPos(), ((Hand)hand).getForgeHand(), ((Facing)side).getForgeSide(), hitX, hitY, hitZ));
     }
 
     @Override
@@ -428,270 +431,270 @@ public class Item implements IItem
     {
         return new NBTCompound(forgeItem.getNBTShareTag(((ItemStack)stack).getForgeItem()));
     }
-    //todo orion are those how?
+
     @Override
     public void readNBTShareTag(final IItemStack stack, final INBTCompound nbt)
     {
-        forgeItem.readNBTShareTag(((ItemStack)stack).getForgeItem(), ((NBTTagCompound)nbt).getCompoundTag());
+        forgeItem.readNBTShareTag(((ItemStack)stack).getForgeItem(), ((NBTCompound)nbt).forgeNbtCompound);
     }
 
     @Override
-    public boolean onBlockStartBreak(final IItemStack IItemStack, final IBlockCoordinate pos, final IPlayerEntity player)
+    public boolean onBlockStartBreak(final IItemStack iItemStack, final IBlockCoordinate pos, final IPlayerEntity player)
     {
-        return f;
+        return forgeItem.onBlockStartBreak(((ItemStack)iItemStack).getForgeItem(), ((BlockCoordinate)pos).getForgeBlockPos(), ((PlayerEntity)player).forgePlayer);
     }
 
     @Override
     public void onUsingTick(final IItemStack stack, final ILivingBaseEntity player, final int count)
     {
-
+        forgeItem.onUsingTick(((ItemStack)stack).getForgeItem(), ((LivingBaseEntity)player).getForgeEntity(), count);
     }
 
     @Override
-    public boolean onLeftClickEntity(final IItemStack stack, final IPlayerEntity player, final IEntity IEntity)
+    public boolean onLeftClickEntity(final IItemStack stack, final IPlayerEntity player, final IEntity iEntity)
     {
-        return false;
+        return forgeItem.onLeftClickEntity(((ItemStack)stack).getForgeItem(), ((PlayerEntity)player).forgePlayer, ((Entity)iEntity).forgeEntity);
     }
 
     @Override
-    public IItemStack getContainerItem(final IItemStack IItemStack)
+    public IItemStack getContainerItem(final IItemStack iItemStack)
     {
-        return null;
+        return new ItemStack(forgeItem.getContainerItem(((ItemStack)iItemStack).getForgeItem()));
     }
 
     @Override
     public boolean hasContainerItem(final IItemStack stack)
     {
-        return false;
+        return forgeItem.hasContainerItem(((ItemStack)stack).getForgeItem());
     }
 
     @Override
-    public int getEntityLifespan(final IItemStack IItemStack, final IDimension IDimension)
+    public int getEntityLifespan(final IItemStack iItemStack, final IDimension iDimension)
     {
-        return 0;
+        return forgeItem.getEntityLifespan(((ItemStack)iItemStack).getForgeItem(), ((Dimension)iDimension).getForgeWorld());
     }
 
     @Override
     public boolean hasCustomEntity(final IItemStack stack)
     {
-        return false;
+        return forgeItem.hasCustomEntity(((ItemStack)stack).getForgeItem());
     }
 
     @Override
-    public IEntity createEntity(final IDimension IDimension, final IEntity location, final IItemStack IItemStack)
+    public IEntity createEntity(final IDimension iDimension, final IEntity location, final IItemStack stack)
     {
-        return null;
+        return new Entity(forgeItem.createEntity(((Dimension)iDimension).getForgeWorld(), ((Entity)location).forgeEntity, ((ItemStack)stack).getForgeItem()));
     }
 
     @Override
     public boolean onEntityItemUpdate(final IItemStackEntity entityItem)
     {
-        return false;
+        return forgeItem.onEntityItemUpdate((EntityItem) ((ItemStackEntity)entityItem).forgeEntity);
     }
 
     @Override
     public IItemGroup<?>[] getCreativeTabs()
     {
-        return new IItemGroup[0];
+        return Arrays.stream(forgeItem.getCreativeTabs()).map(ItemGroup::new).toArray(ItemGroup[]::new);
     }
 
     @Override
-    public float getSmeltingExperience(final IItemStack IItem)
+    public float getSmeltingExperience(final IItemStack iItem)
     {
-        return 0;
+        return forgeItem.getSmeltingExperience(((ItemStack)iItem).getForgeItem());
     }
 
     @Override
     public boolean doesSneakBypassUse(final IItemStack stack, final IDimension world, final IBlockCoordinate pos, final IPlayerEntity player)
     {
-        return false;
+        return forgeItem.doesSneakBypassUse(((ItemStack)stack).getForgeItem(), ((Dimension)world).getForgeWorld(), ((BlockCoordinate)pos).getForgeBlockPos(), ((PlayerEntity)player).forgePlayer);
     }
 
     @Override
-    public void onArmorTick(final IDimension IDimension, final IPlayerEntity player, final IItemStack IItemStack)
+    public void onArmorTick(final IDimension iDimension, final IPlayerEntity player, final IItemStack iItemStack)
     {
-
+        forgeItem.onArmorTick(((Dimension)iDimension).getForgeWorld(), ((PlayerEntity)player).forgePlayer, ((ItemStack)iItemStack).getForgeItem());
     }
 
     @Override
-    public boolean isValidArmor(final IItemStack stack, final IEquipmentSlot armorType, final IEntity IEntity)
+    public boolean isValidArmor(final IItemStack stack, final IEquipmentSlot armorType, final IEntity iEntity)
     {
-        return false;
+        return forgeItem.isValidArmor(((ItemStack)stack).getForgeItem(), ((EquipmentSlot)armorType).getForgeEquipmentSlot(), ((Entity)iEntity).forgeEntity);
     }
 
     @Override
     public IEquipmentSlot getEquipmentSlot(final IItemStack stack)
     {
-        return null;
+        return new EquipmentSlot(forgeItem.getEquipmentSlot(((ItemStack)stack).getForgeItem()));
     }
 
     @Override
     public boolean isBookEnchantable(final IItemStack stack, final IItemStack book)
     {
-        return false;
+        return forgeItem.isBookEnchantable(((ItemStack)stack).getForgeItem(), ((ItemStack)book).getForgeItem());
     }
 
     @Override
-    public String getArmorTexture(final IItemStack stack, final IEntity IEntity, final IEquipmentSlot slot, final String type)
+    public String getArmorTexture(final IItemStack stack, final IEntity iEntity, final IEquipmentSlot slot, final String type)
     {
-        return null;
+        return forgeItem.getArmorTexture(((ItemStack)stack).getForgeItem(), ((Entity)iEntity).forgeEntity, ((EquipmentSlot)slot).getForgeEquipmentSlot(), type);
     }
 
     @Override
     public IFontRenderer getFontRenderer(final IItemStack stack)
     {
-        return null;
+        return new FontRenderer(forgeItem.getFontRenderer(((ItemStack)stack).getForgeItem()));
     }
 
     @Override
     public IModelBiped getArmorModel(
       final ILivingBaseEntity entityLiving, final IItemStack IItemStack, final IEquipmentSlot armorSlot, final IModelBiped _default)
     {
-        return null;
+        return new ModelType(forgeItem.getArmorModel(((LivingBaseEntity)entityLiving).getForgeEntity(), ((ItemStack)IItemStack).getForgeItem(), ((EquipmentSlot)armorSlot).getForgeEquipmentSlot(), ((ModelType)_default).getForgeModelType()));
     }
 
     @Override
     public boolean onEntitySwing(final ILivingBaseEntity entityLiving, final IItemStack stack)
     {
-        return false;
+        return forgeItem.onEntitySwing(((LivingBaseEntity)entityLiving).getForgeEntity(), ((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public void renderHelmetOverlay(final IItemStack stack, final IPlayerEntity player, final IScaledResolution resolution, final float partialTicks)
     {
-
+        forgeItem.renderHelmetOverlay(((ItemStack)stack).getForgeItem(), ((PlayerEntity)player).forgePlayer, ((ScaledResolution)resolution).getForgeResolution(), partialTicks);
     }
 
     @Override
     public int getDamage(final IItemStack stack)
     {
-        return 0;
+        return forgeItem.getDamage(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public int getMetadata(final IItemStack stack)
     {
-        return 0;
+        return forgeItem.getMetadata(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public boolean showDurabilityBar(final IItemStack stack)
     {
-        return false;
+        return forgeItem.showDurabilityBar(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public double getDurabilityForDisplay(final IItemStack stack)
     {
-        return 0;
+        return forgeItem.getDurabilityForDisplay(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public int getRGBDurabilityForDisplay(final IItemStack stack)
     {
-        return 0;
+        return forgeItem.getRGBDurabilityForDisplay(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public int getMaxDamage(final IItemStack stack)
     {
-        return 0;
+        return forgeItem.getMaxDamage(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public boolean isDamaged(final IItemStack stack)
     {
-        return false;
+        return forgeItem.isDamaged(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public void setDamage(final IItemStack stack, final int damage)
     {
-
+        forgeItem.setDamage(((ItemStack)stack).getForgeItem(), damage);
     }
 
     @Override
     public boolean canDestroyBlockInCreative(final IDimension IDimension, final IBlockCoordinate pos, final IItemStack stack, final IPlayerEntity player)
     {
-        return false;
+        return forgeItem.canDestroyBlockInCreative(((Dimension)IDimension).getForgeWorld(), ((BlockCoordinate)pos).getForgeBlockPos(), ((ItemStack)stack).getForgeItem(), ((PlayerEntity)player).forgePlayer);
     }
 
     @Override
     public boolean canHarvestBlock(final IBlockState state, final IItemStack stack)
     {
-        return false;
+        return forgeItem.canHarvestBlock(((BlockState)state).getForgeBlockState(), ((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public int getItemStackLimit(final IItemStack stack)
     {
-        return 0;
+        return forgeItem.getItemStackLimit(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public void setHarvestLevel(final String toolClass, final int level)
     {
-
+        forgeItem.setHarvestLevel(toolClass, level);
     }
 
     @Override
     public Set<String> getToolClasses(final IItemStack stack)
     {
-        return null;
+        return forgeItem.getToolClasses(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public int getHarvestLevel(final IItemStack stack, final String toolClass, final IPlayerEntity player, final IBlockState blockState)
     {
-        return 0;
+        return forgeItem.getHarvestLevel(((ItemStack)stack).getForgeItem(), toolClass, ((PlayerEntity)player).forgePlayer, ((BlockState)blockState).getForgeBlockState());
     }
 
     @Override
     public int getItemEnchantability(final IItemStack stack)
     {
-        return 0;
+        return forgeItem.getItemEnchantability(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public boolean canApplyAtEnchantingTable(final IItemStack stack, final IEnchantment enchantment)
     {
-        return false;
+        return forgeItem.canApplyAtEnchantingTable(((ItemStack)stack).getForgeItem(), ((Enchantment)enchantment).getForgeEnchantment());
     }
 
     @Override
     public boolean isBeaconPayment(final IItemStack stack)
     {
-        return false;
+        return forgeItem.isBeaconPayment(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public boolean shouldCauseReequipAnimation(final IItemStack oldStack, final IItemStack newStack, final boolean slotChanged)
     {
-        return false;
+        return forgeItem.shouldCauseReequipAnimation(((ItemStack)oldStack).getForgeItem(), ((ItemStack)newStack).getForgeItem(), slotChanged);
     }
 
     @Override
     public boolean shouldCauseBlockBreakReset(final IItemStack oldStack, final IItemStack newStack)
     {
-        return false;
+        return forgeItem.shouldCauseBlockBreakReset(((ItemStack)oldStack).getForgeItem(), ((ItemStack)newStack).getForgeItem());
     }
 
     @Override
     public boolean canContinueUsing(final IItemStack oldStack, final IItemStack newStack)
     {
-        return false;
+        return forgeItem.canContinueUsing(((ItemStack)oldStack).getForgeItem(), ((ItemStack)newStack).getForgeItem());
     }
 
     @Override
-    public String getCreatorModId(final IItemStack IItemStack)
+    public String getCreatorModId(final IItemStack stack)
     {
-        return null;
+        return forgeItem.getCreatorModId(((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public ICapabilityManager initCapabilities(final IItemStack stack, final INBTCompound nbt)
     {
-        return null;
+        return forgeItem.initCapabilities(((ItemStack)stack).getForgeItem(), ((NBTCompound)nbt).forgeNbtCompound);
     }
 
     @Override

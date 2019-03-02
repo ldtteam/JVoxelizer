@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class Sound implements ISound
 {
-    net.minecraft.client.audio.ISound forgeSound;
+    net.minecraft.client.audio.Sound forgeSound;
 
     public Sound(@NotNull final net.minecraft.client.audio.Sound forgeSound)
     {
@@ -39,8 +39,13 @@ public class Sound implements ISound
         return this;
     }
 
-    public net.minecraft.client.audio.ISound getForgeSound()
+    public net.minecraft.client.audio.Sound getForgeSound()
     {
         return forgeSound;
+    }
+
+    public static net.minecraft.client.audio.Sound asForge(ISound sound)
+    {
+        return ((Sound) sound).getForgeSound();
     }
 }

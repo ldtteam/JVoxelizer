@@ -16,6 +16,11 @@ public class ItemStack implements IItemStack
         this.forgeItemStack = forgeItemStack;
     }
 
+    public static net.minecraft.item.ItemStack asForge(final IItemStack stack)
+    {
+        return ((ItemStack) stack).getForgeItem();
+    }
+
     @Override
     public boolean isEmpty()
     {

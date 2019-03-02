@@ -100,4 +100,9 @@ public class GameEngine implements IGameEngine
     {
         return Minecraft.getMinecraft();
     }
+
+    public static Minecraft asForge(IGameEngine engine)
+    {
+        return ((GameEngine) engine).getForgeGameEngine();
+    }
 }

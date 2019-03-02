@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class Entity implements IEntity
 {
-    public net.minecraft.entity.Entity forgeEntity;
+    private final net.minecraft.entity.Entity forgeEntity;
 
     public Entity(@NotNull final net.minecraft.entity.Entity forgeEntity)
     {
@@ -161,5 +161,15 @@ public class Entity implements IEntity
     public void read(final INBTCompound data)
     {
         forgeEntity.readFromNBT(((NBTCompound) data).forgeNbtCompound);
+    }
+
+    public net.minecraft.entity.Entity getForgeEntity()
+    {
+        return forgeEntity;
+    }
+
+    public static net.minecraft.entity.Entity asForge(IEntity entity)
+    {
+        return ((Entity) entity).getForgeEntity();
     }
 }

@@ -19,11 +19,6 @@ public abstract class AbstractForgeMod
 
     private Logger logger;
 
-    public Logger getLogger()
-    {
-        return logger;
-    }
-
     @Mod.EventHandler
     public void preInit(final FMLPreInitializationEvent event)
     {
@@ -52,4 +47,6 @@ public abstract class AbstractForgeMod
     }
 
     protected abstract void registerModProviders();
+
+
 }

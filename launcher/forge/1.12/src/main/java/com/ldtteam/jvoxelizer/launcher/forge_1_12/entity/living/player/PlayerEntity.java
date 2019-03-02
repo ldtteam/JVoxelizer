@@ -38,4 +38,14 @@ public class PlayerEntity extends LivingBaseEntity implements IPlayerEntity
         forgePlayer.inventoryContainer;
         return this;
     }
+
+    public EntityPlayer getForgePlayer()
+    {
+        return forgePlayer;
+    }
+
+    public static EntityPlayer asForge(IPlayerEntity playerEntity)
+    {
+        return ((PlayerEntity) playerEntity).getForgePlayer();
+    }
 }

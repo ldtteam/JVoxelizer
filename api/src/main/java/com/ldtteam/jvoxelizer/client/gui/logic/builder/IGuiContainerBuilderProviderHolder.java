@@ -19,7 +19,7 @@ final class IGuiContainerBuilderProviderHolder extends AbstractHolder<IGuiContai
     }
 
     @Override
-    public <C extends IGuiContainerBuilder<C, I, O>, I, O extends IGuiContainer<I>> C provide(final I instanceData, final IContainer<?> container)
+    public <I> IGuiContainerBuilder<?, I, IGuiContainer<I>> provide(final I instanceData, final IContainer<?> container)
     {
         return getProvider().provide(instanceData, container);
     }

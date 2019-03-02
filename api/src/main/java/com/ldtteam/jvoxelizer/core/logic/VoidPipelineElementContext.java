@@ -1,23 +1,21 @@
 package com.ldtteam.jvoxelizer.core.logic;
 
-import com.ldtteam.jvoxelizer.client.gui.IGui;
-
 import java.util.List;
 import java.util.function.Consumer;
 
 public class VoidPipelineElementContext<T, G extends IInstancedObject<D>, D>
 {
 
-    private final G instance;
-    private final T                                             context;
-    private final List<Consumer<VoidPipelineElementContext<T, G, D>>> elements;
-    private final Consumer<VoidPipelineElementContext<T, G, D>> superCallback;
-    private final int                                           index;
+    private final G                                                                            instance;
+    private final T                                                                            context;
+    private final List<Consumer<VoidPipelineElementContext<T, G, D>>>                          elements;
+    private final PipelineProcessor.PipelineSuperCallback<VoidPipelineElementContext<T, G, D>> superCallback;
+    private final int                                                                          index;
 
     public VoidPipelineElementContext(
       final G instance, final T context,
       final List<Consumer<VoidPipelineElementContext<T, G, D>>> elements,
-      final Consumer<VoidPipelineElementContext<T, G, D>> superCallback)
+      final PipelineProcessor.PipelineSuperCallback<VoidPipelineElementContext<T, G, D>> superCallback)
     {
         this.instance = instance;
         this.context = context;
@@ -29,7 +27,7 @@ public class VoidPipelineElementContext<T, G extends IInstancedObject<D>, D>
     public VoidPipelineElementContext(
       final G instance, final T context,
       final List<Consumer<VoidPipelineElementContext<T, G, D>>> elements,
-      final Consumer<VoidPipelineElementContext<T, G, D>> superCallback,
+      final PipelineProcessor.PipelineSuperCallback<VoidPipelineElementContext<T, G, D>> superCallback,
       final int index) {
         this.instance = instance;
         this.context = context;
@@ -63,6 +61,13 @@ public class VoidPipelineElementContext<T, G extends IInstancedObject<D>, D>
 
     public void callSuper()
     {
-        superCallback.accept(this);
+        try
+        {
+            superCallback.apply(this);
+        }
+        catch (Exception e)
+        {
+            throw new IllegalStateException("Super exception in pipeline", e);
+        }
     }
 }

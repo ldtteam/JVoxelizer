@@ -7,17 +7,17 @@ import java.util.function.Function;
 
 public class TypedPipelineElementContext<T, R, O extends IInstancedObject<I>, I>
 {
-    private final O instance;
-    private final T                                             context;
-    private final List<Function<TypedPipelineElementContext<T, R, O, I>, R>> elements;
-    private final Function<TypedPipelineElementContext<T, R, O, I>, R>       superCallback;
-    private final int                                           index;
+    private final O                                                                                   instance;
+    private final T                                                                                   context;
+    private final List<Function<TypedPipelineElementContext<T, R, O, I>, R>>                          elements;
+    private final PipelineProcessor.PipelineSuperFunction<TypedPipelineElementContext<T, R, O, I>, R> superCallback;
+    private final int                                                                                 index;
 
     public TypedPipelineElementContext(
       final O instance,
       final T context,
       final List<Function<TypedPipelineElementContext<T, R, O, I>, R>> elements,
-      final Function<TypedPipelineElementContext<T, R, O, I>, R> superCallback)
+      final PipelineProcessor.PipelineSuperFunction<TypedPipelineElementContext<T, R, O, I>, R> superCallback)
     {
         this.instance = instance;
         this.context = context;
@@ -30,7 +30,7 @@ public class TypedPipelineElementContext<T, R, O extends IInstancedObject<I>, I>
       final O instance,
       final T context,
       final List<Function<TypedPipelineElementContext<T, R, O, I>, R>> elements,
-      final Function<TypedPipelineElementContext<T, R, O, I>, R> superCallback,
+      final PipelineProcessor.PipelineSuperFunction<TypedPipelineElementContext<T, R, O, I>, R> superCallback,
       final int index) {
         this.instance = instance;
         this.context = context;
@@ -64,6 +64,13 @@ public class TypedPipelineElementContext<T, R, O extends IInstancedObject<I>, I>
 
     public R callSuper()
     {
-        return superCallback.apply(this);
+        try
+        {
+            return superCallback.apply(this);
+        }
+        catch (Exception e)
+        {
+            throw new IllegalStateException("Super exception in pipeline", e);
+        }
     }
 }

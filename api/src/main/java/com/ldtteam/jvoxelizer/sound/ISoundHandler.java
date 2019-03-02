@@ -15,16 +15,6 @@ public interface ISoundHandler
 
     ISoundEventAccessor getAccessor(IIdentifier location);
 
-    /**
-     * Play a sound
-     */
-    void playSound(ISound sound);
-
-    /**
-     * Plays the sound in n ticks
-     */
-    void playDelayedSound(ISound sound, int delay);
-
     void setListener(IPlayerEntity player, float p_147691_2_);
 
     void setListener(IEntity entity, float partialTicks);
@@ -35,18 +25,11 @@ public interface ISoundHandler
 
     void unloadSounds();
 
-    /**
-     * Like the old updateEntity(), except more generic.
-     */
     void update();
 
     void resumeSounds();
 
     void setSoundLevel(ISoundCategory category, float volume);
-
-    void stopSound(ISound soundIn);
-
-    boolean isSoundPlaying(ISound sound);
 
     void addListener(ISoundEventListener listener);
 

@@ -2,18 +2,21 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.sound;
 
 import com.ldtteam.jvoxelizer.sound.ISoundEventAccessor;
 
-// TODO
-public class SoundEventAccessor implements ISoundEventAccessor<T>
+public class SoundEventAccessor implements ISoundEventAccessor<Sound>
 {
+    private final net.minecraft.client.audio.SoundEventAccessor forgeSourceEventAccessor;
+
+    public SoundEventAccessor(final net.minecraft.client.audio.SoundEventAccessor forgeSourceEventAccessor) {this.forgeSourceEventAccessor = forgeSourceEventAccessor;}
+
     @Override
     public int getWeight()
     {
-        return 0;
+        return forgeSourceEventAccessor.getWeight();
     }
 
     @Override
-    public Object cloneEntry()
+    public Sound cloneEntry()
     {
-        return null;
+        return new Sound(forgeSourceEventAccessor.cloneEntry());
     }
 }

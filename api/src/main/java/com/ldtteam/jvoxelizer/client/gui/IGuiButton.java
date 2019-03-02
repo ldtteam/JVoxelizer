@@ -5,11 +5,7 @@ import com.ldtteam.jvoxelizer.sound.ISoundHandler;
 
 public interface IGuiButton<I> extends IGui<I> {
 
-    int getHoverState(boolean mouseOver);
-
     void drawButton(IGameEngine mc, int mouseX, int mouseY, float partialTicks);
-
-    void mouseDragged(IGameEngine mc, int mouseX, int mouseY);
 
     void mouseReleased(int mouseX, int mouseY);
 

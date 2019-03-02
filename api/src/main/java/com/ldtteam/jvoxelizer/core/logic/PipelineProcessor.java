@@ -1,7 +1,6 @@
 package com.ldtteam.jvoxelizer.core.logic;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -27,15 +26,22 @@ public final class PipelineProcessor
      * @param <G> The type of the object for which the pipeline is processes.
      * @param <D> The type of the instance data on the object.
      */
-    public static <T, G extends IInstancedObject<D>, D> void processVoidPipeline(G instance, T context, List<Consumer<VoidPipelineElementContext<T, G, D>>> pipeline, Consumer<T> superCallCallback)
+    public static <T, G extends IInstancedObject<D>, D> void processVoidPipeline(G instance, T context, List<Consumer<VoidPipelineElementContext<T, G, D>>> pipeline, PipelineSuperCallback<T> superCallCallback)
     {
         if (pipeline.isEmpty())
         {
-            superCallCallback.accept(context);
+            try
+            {
+                superCallCallback.apply(context);
+            }
+            catch (Exception e)
+            {
+                throw new IllegalStateException("Super exception in pipeline", e);
+            }
             return;
         }
 
-        final VoidPipelineElementContext<T,G,D> voidPipelineElementContext = new VoidPipelineElementContext<>(instance, context, pipeline, (v) -> superCallCallback.accept(v.getContext()));
+        final VoidPipelineElementContext<T,G,D> voidPipelineElementContext = new VoidPipelineElementContext<>(instance, context, pipeline, (v) -> superCallCallback.apply(v.getContext()));
         voidPipelineElementContext.next();
     }
 
@@ -52,14 +58,33 @@ public final class PipelineProcessor
      * @param <D> The type of the instance data on said object.
      * @return The pipelines result.
      */
-    public static <T, R, G extends IInstancedObject<D>, D> R processTypedPipeline(G instance, T context, List<Function<TypedPipelineElementContext<T, R, G, D>, R>> pipeline, Function<T, R> superCallCallback)
+    public static <T, R, G extends IInstancedObject<D>, D> R processTypedPipeline(G instance, T context, List<Function<TypedPipelineElementContext<T, R, G, D>, R>> pipeline, PipelineSuperFunction<T, R> superCallCallback)
     {
         if (pipeline.isEmpty())
         {
-            return superCallCallback.apply(context);
+            try
+            {
+                return superCallCallback.apply(context);
+            }
+            catch (Exception e)
+            {
+                throw new IllegalStateException("Super exception in pipeline", e);
+            }
         }
 
         final TypedPipelineElementContext<T, R, G, D> typedPipelineElementContext = new TypedPipelineElementContext<>(instance, context, pipeline, (v) -> superCallCallback.apply(v.getContext()));
         return typedPipelineElementContext.next();
+    }
+
+    @FunctionalInterface
+    public interface PipelineSuperCallback<T>
+    {
+        void apply(T value) throws Exception;
+    }
+
+    @FunctionalInterface
+    public interface PipelineSuperFunction<T, R>
+    {
+        R apply(T value) throws Exception;
     }
 }

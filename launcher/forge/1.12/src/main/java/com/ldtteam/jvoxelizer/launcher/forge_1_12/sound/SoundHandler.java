@@ -18,37 +18,22 @@ public class SoundHandler implements ISoundHandler
         this.forgeSoundHandler = forgeSoundHandler;
     }
 
-    // TODO
     @Override
     public ISoundEventAccessor getAccessor(final IIdentifier location)
     {
-        return forgeSoundHandler.getAccessor(((Identifier) location).getForgeIdentifier());
-    }
-
-    // TODO: SoundEventAccessor
-    @Override
-    public void playSound(final ISound sound)
-    {
-        forgeSoundHandler.playSound(sound);
-    }
-
-    // TODO: SoundEventAccessor
-    @Override
-    public void playDelayedSound(final ISound sound, final int delay)
-    {
-        forgeSoundHandler.playDelayedSound(sound, delay);
+        return new SoundEventAccessor(forgeSoundHandler.getAccessor(Identifier.asForge(location)));
     }
 
     @Override
     public void setListener(final IPlayerEntity player, final float p_147691_2_)
     {
-        forgeSoundHandler.setListener(((PlayerEntity)player).forgePlayer, p_147691_2_);
+        forgeSoundHandler.setListener(PlayerEntity.asForge(player), p_147691_2_);
     }
 
     @Override
     public void setListener(final IEntity entity, final float partialTicks)
     {
-        forgeSoundHandler.setListener(((Entity)entity).forgeEntity,partialTicks);
+        forgeSoundHandler.setListener(Entity.asForge(entity) ,partialTicks);
     }
 
     @Override
@@ -87,30 +72,16 @@ public class SoundHandler implements ISoundHandler
         forgeSoundHandler.setSoundLevel(((SoundCategory)category).forgeSoundCategory ,volume);
     }
 
-    // TODO: SoundEventAccessor
-    @Override
-    public void stopSound(final ISound soundIn)
-    {
-        forgeSoundHandler.stopSound(((Sound)soundIn).forgeSound);
-    }
-
-    // TODO: SoundEventAccessor
-    @Override
-    public boolean isSoundPlaying(final ISound sound)
-    {
-        return forgeSoundHandler.isSoundPlaying(((Sound) sound).forgeSound);
-    }
-
     @Override
     public void addListener(final ISoundEventListener listener)
     {
-        forgeSoundHandler.addListener();
+        forgeSoundHandler.addListener(SoundEventListener.asForge(listener));
     }
 
     @Override
     public void removeListener(final ISoundEventListener listener)
     {
-        forgeSoundHandler.removeListener();
+        forgeSoundHandler.removeListener(SoundEventListener.asForge(listener));
     }
 
     @Override
@@ -122,5 +93,10 @@ public class SoundHandler implements ISoundHandler
     public net.minecraft.client.audio.SoundHandler getForgeSoundHandler()
     {
         return forgeSoundHandler;
+    }
+
+    public static net.minecraft.client.audio.SoundHandler asForge(ISoundHandler soundHandler)
+    {
+        return ((SoundHandler) soundHandler).getForgeSoundHandler();
     }
 }

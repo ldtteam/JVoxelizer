@@ -54,7 +54,7 @@ public class ForgeGuiScreenPipeline<O extends IGui<I>, I> extends ForgeGuiPipeli
 
     private final List<Consumer<VoidPipelineElementContext<MouseClickMoveContext, O, I>>> MouseClickMovePipeline;
 
-    private final List<Function<TypedPipelineElementContext<AddButtonContext<? extends IGuiButton>, ? extends IGuiButton, O, I>, ? extends IGuiButton>> AddButtonPipeline;
+    private final List<Function<TypedPipelineElementContext<AddButtonContext<? extends IGuiButton<?>>, ? extends IGuiButton<?>, O, I>, ? extends IGuiButton<?>>> AddButtonPipeline;
 
     private final List<Consumer<VoidPipelineElementContext<SendChatMessageContext, O, I>>> SendChatMessagePipeline;
 
@@ -108,7 +108,7 @@ public class ForgeGuiScreenPipeline<O extends IGui<I>, I> extends ForgeGuiPipeli
       final List<Function<TypedPipelineElementContext<DoesGuiPauseGameContext, Boolean, O, I>, Boolean>> doesGuiPauseGamePipeline,
       final List<Consumer<VoidPipelineElementContext<HandleComponentHoverContext, O, I>>> handleComponentHoverPipeline,
       final List<Consumer<VoidPipelineElementContext<MouseClickMoveContext, O, I>>> mouseClickMovePipeline,
-      final List<Function<TypedPipelineElementContext<AddButtonContext<? extends IGuiButton>, ? extends IGuiButton, O, I>, ? extends IGuiButton>> addButtonPipeline,
+      final List<Function<TypedPipelineElementContext<AddButtonContext<? extends IGuiButton<?>>, ? extends IGuiButton<?>, O, I>, ? extends IGuiButton<?>>> addButtonPipeline,
       final List<Consumer<VoidPipelineElementContext<SendChatMessageContext, O, I>>> sendChatMessagePipeline,
       final List<Consumer<VoidPipelineElementContext<SendChatMessageWithAddToChatAsbooleanContext, O, I>>> sendChatMessageWithAddToChatAsbooleanPipeline,
       final List<Consumer<VoidPipelineElementContext<InitGuiContext, O, I>>> initGuiPipeline,
@@ -269,7 +269,7 @@ public class ForgeGuiScreenPipeline<O extends IGui<I>, I> extends ForgeGuiPipeli
         return MouseClickMovePipeline;
     }
 
-    public List<Function<TypedPipelineElementContext<AddButtonContext<? extends IGuiButton>, ? extends IGuiButton, O, I>, ? extends IGuiButton>> getAddButtonPipeline()
+    public List<Function<TypedPipelineElementContext<AddButtonContext<? extends IGuiButton<?>>, ? extends IGuiButton<?>, O, I>, ? extends IGuiButton<?>>> getAddButtonPipeline()
     {
         return AddButtonPipeline;
     }

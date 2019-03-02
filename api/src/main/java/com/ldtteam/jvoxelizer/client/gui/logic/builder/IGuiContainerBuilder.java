@@ -12,7 +12,7 @@ import java.util.function.Function;
 
 public interface IGuiContainerBuilder<C extends IGuiContainerBuilder<C, I, O>, I, O extends IGuiContainer<I>> extends IGuiScreenBuilder<C, I, O>
 {
-    static <T, S extends IGuiContainer<T>> IGuiContainerBuilder<?, T, S> create(T instanceData, IContainer<?> container)
+    static <I> IGuiContainerBuilder<?, I, IGuiContainer<I>> create(I instanceData, IContainer<?> container)
     {
         return IGuiContainerBuilderProviderHolder.getInstance().provide(instanceData, container);
     }

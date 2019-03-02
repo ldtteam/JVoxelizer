@@ -2,6 +2,8 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font;
 
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
 
+import org.jetbrains.annotations.NotNull;
+
 public class FontRenderer implements IFontRenderer
 {
 
@@ -48,5 +50,10 @@ public class FontRenderer implements IFontRenderer
     public net.minecraft.client.gui.FontRenderer getForgeFontRenderer()
     {
         return forgeFontRenderer;
+    }
+
+    public static net.minecraft.client.gui.FontRenderer asForge(@NotNull final IFontRenderer fontRenderer)
+    {
+        return ((FontRenderer) fontRenderer).getForgeFontRenderer();
     }
 }

@@ -27,4 +27,9 @@ public class Identifier implements IIdentifier {
     {
         return forgeIdentifier;
     }
+
+    public static ResourceLocation asForge(IIdentifier identifier)
+    {
+        return ((Identifier) identifier).getForgeIdentifier();
+    }
 }

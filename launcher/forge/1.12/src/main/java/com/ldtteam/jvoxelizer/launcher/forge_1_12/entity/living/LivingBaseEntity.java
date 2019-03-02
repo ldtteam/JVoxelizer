@@ -7,9 +7,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class LivingBaseEntity extends Entity implements ILivingBaseEntity
 {
-    public LivingBaseEntity(@NotNull final net.minecraft.entity.Entity forgeEntity)
+    private final EntityLivingBase entityLivingBase;
+
+    public LivingBaseEntity(@NotNull final net.minecraft.entity.EntityLivingBase forgeEntity)
     {
         super(forgeEntity);
+        entityLivingBase = forgeEntity;
     }
 
     /**
@@ -18,6 +21,6 @@ public class LivingBaseEntity extends Entity implements ILivingBaseEntity
      */
     public EntityLivingBase getForgeEntity()
     {
-        return (EntityLivingBase) this.forgeEntity;
+        return this.entityLivingBase;
     }
 }

@@ -4,17 +4,17 @@ import com.ldtteam.jvoxelizer.client.gui.IGuiButton;
 
 public class ActionPerformedContext {
 
-    public ActionPerformedContext(IGuiButton button) {
+    public ActionPerformedContext(IGuiButton<?> button) {
         this.button = button;
     }
 
-    private IGuiButton button;
+    private IGuiButton<?> button;
 
-    public IGuiButton getButton() {
+    public IGuiButton<?> getButton() {
         return button;
     }
 
-    public void setButton(IGuiButton button) {
+    public void setButton(IGuiButton<?> button) {
         this.button = button;
     }
 }

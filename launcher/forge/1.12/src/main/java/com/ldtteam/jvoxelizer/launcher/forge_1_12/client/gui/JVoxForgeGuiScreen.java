@@ -10,8 +10,10 @@ import com.ldtteam.jvoxelizer.client.renderer.texture.ISprite;
 import com.ldtteam.jvoxelizer.core.logic.IInstancedObject;
 import com.ldtteam.jvoxelizer.core.logic.PipelineProcessor;
 import com.ldtteam.jvoxelizer.item.IItemStack;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.GameEngine;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.pipeline.ForgeGuiScreenPipeline;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.Sprite;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.textcomponent.TextComponent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -23,6 +25,17 @@ import net.minecraft.util.text.ITextComponent;
 import java.io.IOException;
 import java.nio.channels.Pipe;
 import java.util.List;
+
+import static com.ldtteam.jvoxelizer.core.logic.PipelineProcessor.processTypedPipeline;
+import static com.ldtteam.jvoxelizer.core.logic.PipelineProcessor.processVoidPipeline;
+import static com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.GuiButton.asForge;
+import static com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.GuiButton.fromForge;
+import static com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.asForge;
+import static com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.fromForge;
+import static com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.Sprite.asForge;
+import static com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.Sprite.fromForge;
+import static com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge;
+import static com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge;
 
 public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
 {
@@ -36,13 +49,10 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
         this.pipeline = pipeline;
     }
 
-    /**
-     * Draws the screen and all the components in it.
-     */
     @Override
     public void drawScreen(final int mouseX, final int mouseY, final float partialTicks)
     {
-        PipelineProcessor.processVoidPipeline(
+        processVoidPipeline(
           this,
           new DrawScreenContext(mouseX, mouseY, partialTicks),
           pipeline.getDrawScreenPipeline(),
@@ -50,14 +60,10 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
         );
     }
 
-    /**
-     * Fired when a key is typed (except F11 which toggles full screen). This is the equivalent of
-     * KeyListener.keyTyped(KeyEvent e). Args : character (character on the key), keyCode (lwjgl Keyboard key code)
-     */
     @Override
     protected void keyTyped(final char typedChar, final int keyCode) throws IOException
     {
-        PipelineProcessor.processVoidPipeline(
+        processVoidPipeline(
           this,
           new KeyTypedContext(typedChar, keyCode),
           pipeline.getKeyTypedPipeline(),
@@ -65,343 +71,421 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
         );
     }
 
-    /**
-     * Adds a control to this GUI's button list. Any type that subclasses button may be added (particularly, GuiSlider,
-     * but not text fields).
-     *
-     * @param buttonIn The control to add
-     * @return The control passed in.
-     */
-    @Override
-    protected <T extends GuiButton> T addButton(final T buttonIn)
-    {
-        return com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.GuiButton.asForge(PipelineProcessor.processTypedPipeline(
-          this,
-          new AddButtonContext<IGuiButton<?>>(com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.GuiButton.fromForge(buttonIn)),
-          pipeline.getAddButtonPipeline(),
-          (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.GuiButton.fromForge(super.addButton(com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.GuiButton.asForge(c.getButtonIn())))
-        ));
-    }
-
     @Override
     protected void renderToolTip(final ItemStack stack, final int x, final int y)
     {
-        super.renderToolTip(stack, x, y);
+        processVoidPipeline(
+          this,
+          new RenderToolTipContext(fromForge(stack), x, y),
+          pipeline.getRenderToolTipPipeline(),
+          (c) -> super.renderToolTip(asForge(c.getStack()), c.getX(), c.getY())
+        );
     }
 
     @Override
     public List<String> getItemToolTip(final ItemStack p_191927_1_)
     {
-        return super.getItemToolTip(p_191927_1_);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetItemToolTipContext(fromForge(p_191927_1_)),
+          pipeline.getGetItemToolTipPipeline(),
+          (c) -> super.getItemToolTip(asForge(c.getItemStack()))
+        );
     }
 
-    /**
-     * Draws the given text as a tooltip.
-     */
     @Override
     public void drawHoveringText(final String text, final int x, final int y)
     {
-        super.drawHoveringText(text, x, y);
+        processVoidPipeline(
+          this,
+          new DrawHoveringTextContext(text, x, y),
+          pipeline.getDrawHoveringTextPipeline(),
+          (c) -> super.drawHoveringText(c.getText(), c.getX(), c.getY())
+        );
     }
 
     @Override
     public void setFocused(final boolean hasFocusedControlIn)
     {
-        super.setFocused(hasFocusedControlIn);
+        processVoidPipeline(
+          this,
+          new SetFocusedContext(hasFocusedControlIn),
+          pipeline.getSetFocusedPipeline(),
+          (c) -> super.setFocused(c.getHasFocusedControlIn())
+        );
     }
 
     @Override
     public boolean isFocused()
     {
-        return super.isFocused();
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new IsFocusedContext(),
+          pipeline.getIsFocusedPipeline(),
+          (c) -> super.isFocused()
+        );
     }
 
-    /**
-     * Draws a List of strings as a tooltip. Every entry is drawn on a seperate line.
-     */
     @Override
     public void drawHoveringText(final List<String> textLines, final int x, final int y)
     {
-        super.drawHoveringText(textLines, x, y);
+        processVoidPipeline(
+          this,
+          new DrawHoveringTextWithTextLinesAsStringListContext(textLines, x, y),
+          pipeline.getDrawHoveringTextWithTextLinesAsStringListPipeline(),
+          (c)-> super.drawHoveringText(c.getTextLines(), c.getX(), c.getY())
+        );
     }
 
     @Override
     protected void drawHoveringText(final List<String> textLines, final int x, final int y, final FontRenderer font)
     {
-        super.drawHoveringText(textLines, x, y, font);
+        processVoidPipeline(
+          this,
+          new DrawHoveringTextWithFontAsFontRendererContext(textLines, x, y, fromForge(font)),
+          pipeline.getDrawHoveringTextWithFontAsFontRendererPipeline(),
+          (c)-> super.drawHoveringText(c.getTextLines(), c.getX(), c.getY(), asForge(c.getFont()))
+        );
     }
 
-    /**
-     * Draws the hover event specified by the given chat component
-     */
     @Override
     protected void handleComponentHover(final ITextComponent component, final int x, final int y)
     {
-        super.handleComponentHover(component, x, y);
+        processVoidPipeline(
+          this,
+          new HandleComponentHoverContext(new TextComponent(component), x, y),
+          pipeline.getHandleComponentHoverPipeline(),
+          (c) -> super.handleComponentHover(TextComponent.asForge(c.getComponent()), c.getX(), c.getY())
+        );
     }
 
-    /**
-     * Sets the text of the chat
-     */
     @Override
     protected void setText(final String newChatText, final boolean shouldOverwrite)
     {
-        super.setText(newChatText, shouldOverwrite);
+        processVoidPipeline(
+          this,
+          new SetTextContext(newChatText, shouldOverwrite),
+          pipeline.getSetTextPipeline(),
+          (c)-> super.setText(c.getNewChatText(), c.getShouldOverwrite())
+        );
     }
 
-    /**
-     * Executes the click event specified by the given chat component
-     */
     @Override
     public boolean handleComponentClick(final ITextComponent component)
     {
-        return super.handleComponentClick(component);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new HandleComponentClickContext(new TextComponent(component)),
+          pipeline.getHandleComponentClickPipeline(),
+          (c)-> super.handleComponentClick(TextComponent.asForge(c.getComponent()))
+        );
     }
 
-    /**
-     * Used to add chat messages to the client's GuiChat.
-     */
     @Override
     public void sendChatMessage(final String msg)
     {
-        super.sendChatMessage(msg);
+        processVoidPipeline(
+          this,
+          new SendChatMessageContext(msg),
+          pipeline.getSendChatMessagePipeline(),
+          (c) -> super.sendChatMessage(c.getMsg())
+        );
     }
 
     @Override
     public void sendChatMessage(final String msg, final boolean addToChat)
     {
-        super.sendChatMessage(msg, addToChat);
+        processVoidPipeline(
+          this,
+          new SendChatMessageWithAddToChatAsbooleanContext(msg, addToChat),
+          pipeline.getSendChatMessageWithAddToChatAsbooleanPipeline(),
+          (c)-> super.sendChatMessage(c.getMsg(), c.getAddToChat())
+        );
     }
 
-    /**
-     * Called when the mouse is clicked. Args : mouseX, mouseY, clickedButton
-     */
     @Override
     protected void mouseClicked(final int mouseX, final int mouseY, final int mouseButton) throws IOException
     {
-        super.mouseClicked(mouseX, mouseY, mouseButton);
+        processVoidPipeline(
+          this,
+          new MouseClickedContext(mouseX, mouseY, mouseButton),
+          pipeline.getMouseClickedPipeline(),
+          (c)-> super.mouseClicked(c.getMouseX(), c.getMouseY(), c.getMouseButton())
+        );
     }
 
-    /**
-     * Called when a mouse button is released.
-     */
     @Override
     protected void mouseReleased(final int mouseX, final int mouseY, final int state)
     {
-        super.mouseReleased(mouseX, mouseY, state);
+        processVoidPipeline(
+          this,
+          new MouseReleasedContext(mouseX, mouseY, state),
+          pipeline.getMouseReleasedPipeline(),
+          (c) -> super.mouseReleased(c.getMouseX(), c.getMouseY(), c.getState())
+        );
     }
 
-    /**
-     * Called when a mouse button is pressed and the mouse is moved around. Parameters are : mouseX, mouseY,
-     * lastButtonClicked & timeSinceMouseClick.
-     */
     @Override
     protected void mouseClickMove(final int mouseX, final int mouseY, final int clickedMouseButton, final long timeSinceLastClick)
     {
-        super.mouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
+        processVoidPipeline(
+          this,
+          new MouseClickMoveContext(mouseX, mouseY, clickedMouseButton, timeSinceLastClick),
+          pipeline.getMouseClickMovePipeline(),
+          (c) -> super.mouseClickMove(c.getMouseX(), c.getMouseY(), c.getClickedMouseButton(), c.getTimeSinceLastClick())
+        );
     }
 
-    /**
-     * Called by the controls from the buttonList when activated. (Mouse pressed for buttons)
-     */
     @Override
     protected void actionPerformed(final GuiButton button) throws IOException
     {
-        super.actionPerformed(button);
+        processVoidPipeline(
+          this,
+          new ActionPerformedContext(fromForge(button)),
+          pipeline.getActionPerformedPipeline(),
+          (c) -> super.actionPerformed(asForge(c.getButton()))
+        );
     }
 
-    /**
-     * Causes the screen to lay out its subcomponents again. This is the equivalent of the Java call
-     * Container.validate()
-     */
     @Override
     public void setWorldAndResolution(final Minecraft mc, final int width, final int height)
     {
-        super.setWorldAndResolution(mc, width, height);
+        processVoidPipeline(
+          this,
+          new SetWorldAndResolutionContext(getGameEngine(), width, height),
+          pipeline.getSetWorldAndResolutionPipeline(),
+          (c) -> super.setWorldAndResolution(GameEngine.asForge(c.getMc()), c.getWidth(), c.getHeight())
+        );
     }
 
-    /**
-     * Set the gui to the specified width and height
-     */
     @Override
     public void setGuiSize(final int w, final int h)
     {
-        super.setGuiSize(w, h);
+        processVoidPipeline(
+          this,
+          new SetGuiSizeContext(w, h),
+          pipeline.getSetGuiSizePipeline(),
+          (c) -> super.setGuiSize(c.getW(), c.getH())
+        );
     }
 
-    /**
-     * Adds the buttons (and other controls) to the screen in question. Called when the GUI is displayed and when the
-     * window resizes, the buttonList is cleared beforehand.
-     */
     @Override
     public void initGui()
     {
-        super.initGui();
+        processVoidPipeline(
+          this,
+          new InitGuiContext(),
+          pipeline.getInitGuiPipeline(),
+          (c)-> super.initGui()
+        );
     }
 
-    /**
-     * Delegates mouse and keyboard input.
-     */
     @Override
     public void handleInput() throws IOException
     {
-        super.handleInput();
+        processVoidPipeline(
+          this,
+          new HandleInputContext(),
+          pipeline.getHandleInputPipeline(),
+          (c)-> super.handleInput()
+        );
     }
 
-    /**
-     * Handles mouse input.
-     */
     @Override
     public void handleMouseInput() throws IOException
     {
-        super.handleMouseInput();
+        processVoidPipeline(
+          this,
+          new HandleMouseInputContext(),
+          pipeline.getHandleMouseInputPipeline(),
+          (c) -> super.handleMouseInput()
+        );
     }
 
-    /**
-     * Handles keyboard input.
-     */
     @Override
     public void handleKeyboardInput() throws IOException
     {
-        super.handleKeyboardInput();
+        processVoidPipeline(
+          this,
+          new HandleKeyboardInputContext(),
+          pipeline.getHandleKeyboardInputPipeline(),
+          (c) -> super.handleKeyboardInput()
+        );
     }
 
-    /**
-     * Called from the main game loop to update the screen.
-     */
     @Override
     public void updateScreen()
     {
-        super.updateScreen();
+        processVoidPipeline(
+          this,
+          new UpdateScreenContext(),
+          pipeline.getUpdateScreenPipeline(),
+          (c) -> super.updateScreen()
+        );
     }
 
-    /**
-     * Called when the screen is unloaded. Used to disable keyboard repeat events
-     */
     @Override
     public void onGuiClosed()
     {
-        super.onGuiClosed();
+        processVoidPipeline(
+          this,
+          new OnGuiClosedContext(),
+          pipeline.getOnGuiClosedPipeline(),
+          (c) -> super.onGuiClosed()
+        );
     }
 
-    /**
-     * Draws either a gradient over the background screen (when it exists) or a flat gradient over background.png
-     */
     @Override
     public void drawDefaultBackground()
     {
-        super.drawDefaultBackground();
+        processVoidPipeline(
+          this,
+          new DrawDefaultBackgroundContext(),
+          pipeline.getDrawDefaultBackgroundPipeline(),
+          (c) -> super.drawDefaultBackground()
+        );
     }
 
     @Override
     public void drawWorldBackground(final int tint)
     {
-        super.drawWorldBackground(tint);
+        processVoidPipeline(
+          this,
+          new DrawWorldBackgroundContext(tint),
+          pipeline.getDrawWorldBackgroundPipeline(),
+          (c) -> super.drawWorldBackground(c.getTint())
+        );
     }
 
-    /**
-     * Draws the background (i is always 0 as of 1.2.2)
-     */
     @Override
     public void drawBackground(final int tint)
     {
-        super.drawBackground(tint);
+        processVoidPipeline(
+          this,
+          new DrawBackgroundContext(tint),
+          pipeline.getDrawBackgroundPipeline(),
+          (c) -> super.drawBackground(c.getTint())
+        );
     }
 
-    /**
-     * Returns true if this GUI should pause the game when it is displayed in single-player
-     */
     @Override
     public boolean doesGuiPauseGame()
     {
-        return super.doesGuiPauseGame();
+        return processTypedPipeline(
+          this,
+          new DoesGuiPauseGameContext(),
+          pipeline.getDoesGuiPauseGamePipeline(),
+          (c) -> super.doesGuiPauseGame()
+        );
     }
 
     @Override
     public void confirmClicked(final boolean result, final int id)
     {
-        super.confirmClicked(result, id);
+        processVoidPipeline(
+          this,
+          new ConfirmClickedContext(result, id),
+          pipeline.getConfirmClickedPipeline(),
+          (c) -> super.confirmClicked(c.getResult(), c.getId())
+        );
     }
 
-    /**
-     * Called when the GUI is resized in order to update the world and the resolution
-     */
     @Override
     public void onResize(final Minecraft mcIn, final int w, final int h)
     {
-        super.onResize(mcIn, w, h);
+        processVoidPipeline(
+          this,
+          new OnResizeContext(getGameEngine(), w, h),
+          pipeline.getOnResizePipeline(),
+          (c) -> super.onResize(GameEngine.asForge(c.getMcIn()), c.getW(), c.getH())
+        );
     }
 
-    /**
-     * Draws a thin horizontal line between two points.
-     */
     @Override
     public void drawHorizontalLine(final int startX, final int endX, final int y, final int color)
     {
-        super.drawHorizontalLine(startX, endX, y, color);
+        processVoidPipeline(
+          this,
+          new DrawHorizontalLineContext(startX, endX, y, color),
+          pipeline.getDrawHorizontalLinePipeline(),
+          (c) -> super.drawHorizontalLine(c.getStartX(), c.getEndX(), c.getY(), c.getColor())
+        );
     }
 
-    /**
-     * Draw a 1 pixel wide vertical line. Args : x, y1, y2, color
-     */
     @Override
     public void drawVerticalLine(final int x, final int startY, final int endY, final int color)
     {
-        super.drawVerticalLine(x, startY, endY, color);
+        processVoidPipeline(
+          this,
+          new DrawVerticalLineContext(x, startY, endY, color),
+          pipeline.getDrawVerticalLinePipeline(),
+          (c) -> drawVerticalLine(c.getX(), c.getStartY(), c.getEndY(), c.getColor())
+        );
     }
 
-    /**
-     * Draws a rectangle with a vertical gradient between the specified colors (ARGB format). Args : x1, y1, x2, y2,
-     * topColor, bottomColor
-     */
     @Override
     public void drawGradientRect(final int left, final int top, final int right, final int bottom, final int startColor, final int endColor)
     {
-        super.drawGradientRect(left, top, right, bottom, startColor, endColor);
+        processVoidPipeline(
+          this,
+          new DrawGradientRectContext(left, top, right, bottom, startColor, endColor),
+          pipeline.getDrawGradientRectPipeline(),
+          (c) -> super.drawGradientRect(c.getLeft(), c.getTop(), c.getRight(), c.getBottom(), c.getStartColor(), c.getEndColor())
+        );
     }
 
-    /**
-     * Renders the specified text to the screen, center-aligned. Args : renderer, string, x, y, color
-     */
     @Override
     public void drawCenteredString(final FontRenderer fontRendererIn, final String text, final int x, final int y, final int color)
     {
-        super.drawCenteredString(fontRendererIn, text, x, y, color);
+        processVoidPipeline(
+          this,
+          new DrawCenteredStringContext(fromForge(fontRenderer), text, x, y, color),
+          pipeline.getDrawCenteredStringPipeline(),
+          (c) -> super.drawCenteredString(asForge(c.getFontRendererIn()), c.getText(), c.getX(), c.getY(), c.getColor())
+        );
     }
 
-    /**
-     * Renders the specified text to the screen. Args : renderer, string, x, y, color
-     */
     @Override
     public void drawString(final FontRenderer fontRendererIn, final String text, final int x, final int y, final int color)
     {
-        super.drawString(fontRendererIn, text, x, y, color);
+        processVoidPipeline(
+          this, 
+          new DrawStringContext(fromForge(fontRendererIn), text, x, y, color),
+          pipeline.getDrawStringPipeline(),
+          (c) -> super.drawString(asForge(c.getFontRendererIn()), c.getText(), c.getX(), c.getY(), c.getColor())
+        );
     }
 
-    /**
-     * Draws a textured rectangle at the current z-value.
-     */
     @Override
     public void drawTexturedModalRect(final int x, final int y, final int textureX, final int textureY, final int width, final int height)
     {
-        super.drawTexturedModalRect(x, y, textureX, textureY, width, height);
+        processVoidPipeline(
+          this,
+          new DrawTexturedModalRectContext(x, y, textureX, textureY, width, height),
+          pipeline.getDrawTexturedModalRectPipeline(),
+          (c) -> super.drawTexturedModalRect(c.getX(), c.getY(), c.getTextureX(), c.getTextureY(), c.getWidth(), c.getHeight())
+        );
     }
 
-    /**
-     * Draws a textured rectangle using the texture currently bound to the TextureManager
-     */
     @Override
     public void drawTexturedModalRect(final float xCoord, final float yCoord, final int minU, final int minV, final int maxU, final int maxV)
     {
-        super.drawTexturedModalRect(xCoord, yCoord, minU, minV, maxU, maxV);
+        processVoidPipeline(
+          this,
+          new DrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsIntContext(xCoord, yCoord, minU, minV, maxU, maxV),
+          pipeline.getDrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsIntPipeline(),
+          (c)-> super.drawTexturedModalRect(c.getXCoord(), c.getYCoord(), c.getMinU(), c.getMinV(), c.getMaxU(), c.getMaxV())
+        );
     }
 
-    /**
-     * Draws a texture rectangle using the texture currently bound to the TextureManager
-     */
     @Override
     public void drawTexturedModalRect(final int xCoord, final int yCoord, final TextureAtlasSprite textureSprite, final int widthIn, final int heightIn)
     {
-        super.drawTexturedModalRect(xCoord, yCoord, textureSprite, widthIn, heightIn);
+        processVoidPipeline(
+          this,
+          new DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntContext(xCoord, yCoord, fromForge(textureSprite), widthIn, heightIn),
+          pipeline.getDrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntPipeline(),
+          (c) -> super.drawTexturedModalRect(c.getXCoord(), c.getYCoord(), asForge(c.getTextureSprite()), c.getWidthIn(), c.getHeightIn())
+        );
     }
 }

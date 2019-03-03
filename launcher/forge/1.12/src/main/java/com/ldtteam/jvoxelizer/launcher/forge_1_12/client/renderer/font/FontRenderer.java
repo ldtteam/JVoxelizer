@@ -56,4 +56,9 @@ public class FontRenderer implements IFontRenderer
     {
         return ((FontRenderer) fontRenderer).getForgeFontRenderer();
     }
+
+    public static FontRenderer fromForge(net.minecraft.client.gui.FontRenderer fontRenderer)
+    {
+        return new FontRenderer(fontRenderer);
+    }
 }

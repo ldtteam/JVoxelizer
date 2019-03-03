@@ -55,4 +55,9 @@ public class Sprite implements ISprite
     {
         return ((Sprite) sprite).getForgeSprite();
     }
+
+    public static Sprite fromForge(TextureAtlasSprite sprite)
+    {
+        return new Sprite(sprite);
+    }
 }

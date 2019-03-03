@@ -16,11 +16,6 @@ public class ItemStack implements IItemStack
         this.forgeItemStack = forgeItemStack;
     }
 
-    public static net.minecraft.item.ItemStack asForge(final IItemStack stack)
-    {
-        return ((ItemStack) stack).getForgeItem();
-    }
-
     @Override
     public boolean isEmpty()
     {
@@ -120,13 +115,18 @@ public class ItemStack implements IItemStack
         forgeItemStack = new net.minecraft.item.ItemStack(((NBTTagCompound)data).getCompoundTag())
     }
 
-    /**
-     * Get the wrapped forge item stack.
-     * @return net.minecraft.item.ItemStack.
-     */
     public net.minecraft.item.ItemStack getForgeItem()
     {
         return this.forgeItemStack;
     }
 
+    public static net.minecraft.item.ItemStack asForge(IItemStack stack)
+    {
+        return ((ItemStack) stack).getForgeItem();
+    }
+
+    public static ItemStack fromForge(net.minecraft.item.ItemStack itemStack)
+    {
+        return new ItemStack(itemStack);
+    }
 }

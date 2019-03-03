@@ -54,8 +54,6 @@ public class ForgeGuiScreenPipeline<O extends IGui<I>, I> extends ForgeGuiPipeli
 
     private final List<Consumer<VoidPipelineElementContext<MouseClickMoveContext, O, I>>> MouseClickMovePipeline;
 
-    private final List<Function<TypedPipelineElementContext<AddButtonContext<? extends IGuiButton<?>>, ? extends IGuiButton<?>, O, I>, ? extends IGuiButton<?>>> AddButtonPipeline;
-
     private final List<Consumer<VoidPipelineElementContext<SendChatMessageContext, O, I>>> SendChatMessagePipeline;
 
     private final List<Consumer<VoidPipelineElementContext<SendChatMessageWithAddToChatAsbooleanContext, O, I>>> SendChatMessageWithAddToChatAsbooleanPipeline;
@@ -108,7 +106,6 @@ public class ForgeGuiScreenPipeline<O extends IGui<I>, I> extends ForgeGuiPipeli
       final List<Function<TypedPipelineElementContext<DoesGuiPauseGameContext, Boolean, O, I>, Boolean>> doesGuiPauseGamePipeline,
       final List<Consumer<VoidPipelineElementContext<HandleComponentHoverContext, O, I>>> handleComponentHoverPipeline,
       final List<Consumer<VoidPipelineElementContext<MouseClickMoveContext, O, I>>> mouseClickMovePipeline,
-      final List<Function<TypedPipelineElementContext<AddButtonContext<? extends IGuiButton<?>>, ? extends IGuiButton<?>, O, I>, ? extends IGuiButton<?>>> addButtonPipeline,
       final List<Consumer<VoidPipelineElementContext<SendChatMessageContext, O, I>>> sendChatMessagePipeline,
       final List<Consumer<VoidPipelineElementContext<SendChatMessageWithAddToChatAsbooleanContext, O, I>>> sendChatMessageWithAddToChatAsbooleanPipeline,
       final List<Consumer<VoidPipelineElementContext<InitGuiContext, O, I>>> initGuiPipeline,
@@ -150,7 +147,6 @@ public class ForgeGuiScreenPipeline<O extends IGui<I>, I> extends ForgeGuiPipeli
         DoesGuiPauseGamePipeline = doesGuiPauseGamePipeline;
         HandleComponentHoverPipeline = handleComponentHoverPipeline;
         MouseClickMovePipeline = mouseClickMovePipeline;
-        AddButtonPipeline = addButtonPipeline;
         SendChatMessagePipeline = sendChatMessagePipeline;
         SendChatMessageWithAddToChatAsbooleanPipeline = sendChatMessageWithAddToChatAsbooleanPipeline;
         InitGuiPipeline = initGuiPipeline;
@@ -267,11 +263,6 @@ public class ForgeGuiScreenPipeline<O extends IGui<I>, I> extends ForgeGuiPipeli
     public List<Consumer<VoidPipelineElementContext<MouseClickMoveContext, O, I>>> getMouseClickMovePipeline()
     {
         return MouseClickMovePipeline;
-    }
-
-    public List<Function<TypedPipelineElementContext<AddButtonContext<? extends IGuiButton<?>>, ? extends IGuiButton<?>, O, I>, ? extends IGuiButton<?>>> getAddButtonPipeline()
-    {
-        return AddButtonPipeline;
     }
 
     public List<Consumer<VoidPipelineElementContext<SendChatMessageContext, O, I>>> getSendChatMessagePipeline()

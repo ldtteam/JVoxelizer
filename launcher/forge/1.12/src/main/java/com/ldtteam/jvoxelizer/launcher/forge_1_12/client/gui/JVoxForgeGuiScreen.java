@@ -61,6 +61,12 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
     }
 
     @Override
+    public List<String> getItemToolTip(final IItemStack p_191927_1_)
+    {
+        return this.getItemToolTip(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(p_191927_1_));
+    }
+
+    @Override
     protected void keyTyped(final char typedChar, final int keyCode) throws IOException
     {
         processVoidPipeline(
@@ -138,6 +144,12 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
     }
 
     @Override
+    public boolean handleComponentClick(final com.ldtteam.jvoxelizer.util.textcomponent.ITextComponent component)
+    {
+        return this.handleComponentClick(TextComponent.asForge(component));
+    }
+
+    @Override
     protected void drawHoveringText(final List<String> textLines, final int x, final int y, final FontRenderer font)
     {
         processVoidPipeline(
@@ -201,6 +213,12 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
           pipeline.getSendChatMessageWithAddToChatAsbooleanPipeline(),
           (c)-> super.sendChatMessage(c.getMsg(), c.getAddToChat())
         );
+    }
+
+    @Override
+    public void setWorldAndResolution(final IGameEngine mc, final int width, final int height)
+    {
+        this.setWorldAndResolution(GameEngine.asForge(mc), width, height);
     }
 
     @Override
@@ -391,6 +409,18 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
     }
 
     @Override
+    public void onResize(final IGameEngine mcIn, final int w, final int h)
+    {
+        this.onResize(GameEngine.asForge(mcIn), w, h);
+    }
+
+    @Override
+    public IItemRenderer getItemRenderer()
+    {
+        return getGameEngine().getItemRenderer();
+    }
+
+    @Override
     public void onResize(final Minecraft mcIn, final int w, final int h)
     {
         processVoidPipeline(
@@ -432,6 +462,18 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
           pipeline.getDrawGradientRectPipeline(),
           (c) -> super.drawGradientRect(c.getLeft(), c.getTop(), c.getRight(), c.getBottom(), c.getStartColor(), c.getEndColor())
         );
+    }
+
+    @Override
+    public void drawCenteredString(final IFontRenderer fontRendererIn, final String text, final int x, final int y, final int color)
+    {
+        this.drawCenteredString(com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.asForge(fontRendererIn), text, x, y, color);
+    }
+
+    @Override
+    public void drawString(final IFontRenderer fontRendererIn, final String text, final int x, final int y, final int color)
+    {
+        this.drawString(com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.asForge(fontRendererIn), text, x, y, color);
     }
 
     @Override
@@ -479,6 +521,18 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
     }
 
     @Override
+    public void drawTexturedModalRect(final int xCoord, final int yCoord, final ISprite textureSprite, final int widthIn, final int heightIn)
+    {
+        this.drawTexturedModalRect(xCoord, yCoord, Sprite.asForge(textureSprite), widthIn, heightIn);
+    }
+
+    @Override
+    public IGameEngine getGameEngine()
+    {
+        return IGameEngine.getInstance();
+    }
+
+    @Override
     public void drawTexturedModalRect(final int xCoord, final int yCoord, final TextureAtlasSprite textureSprite, final int widthIn, final int heightIn)
     {
         processVoidPipeline(
@@ -487,5 +541,11 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
           pipeline.getDrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntPipeline(),
           (c) -> super.drawTexturedModalRect(c.getXCoord(), c.getYCoord(), asForge(c.getTextureSprite()), c.getWidthIn(), c.getHeightIn())
         );
+    }
+
+    @Override
+    public I getInstanceData()
+    {
+        return instanceData;
     }
 }

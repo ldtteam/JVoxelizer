@@ -125,4 +125,9 @@ public class NBTCompound implements INBTCompound
 
         return map;
     }
+
+    public static NBTTagCompound asForge(INBTCompound compound)
+    {
+        return ((NBTCompound)compound).forgeNbtCompound;
+    }
 }

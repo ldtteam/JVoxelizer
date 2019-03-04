@@ -23,8 +23,6 @@ public interface IContainer<I> extends IInstancedObject<I> {
         throw new NotImplementedException();
     }
 
-    ISlot addSlotToContainer(ISlot slotIn);
-
     void addListener(IContainerListener listener);
 
     List<IItemStack> getInventory();
@@ -47,8 +45,6 @@ public interface IContainer<I> extends IInstancedObject<I> {
 
     void onContainerClosed(IPlayerEntity playerIn);
 
-    void clearContainer(IPlayerEntity playerIn, IDimension worldIn, IInventory inventoryIn);
-
     void onCraftMatrixChanged(IInventory inventoryIn);
 
     void putStackInSlot(int slotID, IItemStack stack);
@@ -65,13 +61,7 @@ public interface IContainer<I> extends IInstancedObject<I> {
 
     boolean canInteractWith(IPlayerEntity playerIn);
 
-    boolean mergeItemStack(IItemStack stack, int startIndex, int endIndex, boolean reverseDirection);
-
-    void resetDrag();
-
     boolean canDragIntoSlot(ISlot slotIn);
-
-    void slotChangedCraftingGrid(IDimension p_192389_1_, IPlayerEntity p_192389_2_, IInventoryCrafting p_192389_3_, IInventory p_192389_4_);
 
     List<ISlot<?>> getInventorySlots();
 

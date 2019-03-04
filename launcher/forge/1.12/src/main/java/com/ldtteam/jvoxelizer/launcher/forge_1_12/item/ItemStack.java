@@ -125,7 +125,7 @@ public class ItemStack implements IItemStack
         return ((ItemStack) stack).getForgeItem();
     }
 
-    public static ItemStack fromForge(net.minecraft.item.ItemStack itemStack)
+    public static IItemStack fromForge(net.minecraft.item.ItemStack itemStack)
     {
         return new ItemStack(itemStack);
     }

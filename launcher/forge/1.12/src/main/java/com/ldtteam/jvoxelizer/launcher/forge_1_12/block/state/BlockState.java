@@ -59,4 +59,20 @@ public class BlockState implements IBlockState
     {
         return forgeBlockState;
     }
+
+    public static net.minecraft.block.state.IBlockState asForge(IBlockState blockState)
+    {
+        if (blockState instanceof net.minecraft.block.state.IBlockState)
+            return (net.minecraft.block.state.IBlockState) blockState;
+
+        return ((BlockState) blockState).getForgeBlockState();
+    }
+
+    public static IBlockState fromForge(net.minecraft.block.state.IBlockState blockState)
+    {
+        if (blockState instanceof IBlockState)
+            return (IBlockState) blockState;
+
+        return new BlockState(blockState);
+    }
 }

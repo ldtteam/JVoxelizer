@@ -21,7 +21,7 @@ public interface IInventoryPlayer extends IInventory
         return index >= 0 && index < 9;
     }
 
-    IItemStack getCurrentItem();
+    IItemStack getCurrentItemStack();
 
     int getFirstEmptyStack();
 

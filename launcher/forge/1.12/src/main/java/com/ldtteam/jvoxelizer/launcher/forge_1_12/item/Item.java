@@ -807,7 +807,7 @@ public class Item implements IItem
     @Override
     public Object getInstanceData()
     {
-        return DummyInstanceData[];
+        return new DummyInstanceData();
     }
 
     @Override
@@ -826,5 +826,21 @@ public class Item implements IItem
     public Class getRegistryType()
     {
         return forgeItem.getRegistryType();
+    }
+
+    public static net.minecraft.item.Item asForge(IItem<?> item)
+    {
+        if (item instanceof net.minecraft.item.Item)
+            return (net.minecraft.item.Item) item;
+
+        return ((Item) item).getForgeItem();
+    }
+
+    public static IItem<?> fromForge(net.minecraft.item.Item item)
+    {
+        if (item instanceof IItem)
+            return (IItem<?>) item;
+
+        return new Item(item);
     }
 }

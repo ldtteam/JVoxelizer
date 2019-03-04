@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import com.ldtteam.jvoxelizer.core.logic.*;
 
-public abstract class AbstractGuiBuilder<C extends AbstractGuiBuilder<C, I, O>, I, O extends IGui<I>> implements IGuiBuilder<C, I, O>
+public abstract class AbstractGuiBuilder<C extends IGuiBuilder<C, I, O>, I, O extends IGui<I>> implements IGuiBuilder<C, I, O>
 {
 
     @Override
@@ -17,7 +17,7 @@ public abstract class AbstractGuiBuilder<C extends AbstractGuiBuilder<C, I, O>, 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<DrawCenteredStringContext, O, I>>> DrawCenteredStringPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<DrawCenteredStringContext, O, I>>> DrawCenteredStringPipeline = new ArrayList<>();
 
     @Override
     public C DrawGradientRect(Consumer<VoidPipelineElementContext<DrawGradientRectContext, O, I>>... components) {
@@ -25,7 +25,7 @@ public abstract class AbstractGuiBuilder<C extends AbstractGuiBuilder<C, I, O>, 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<DrawGradientRectContext, O, I>>> DrawGradientRectPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<DrawGradientRectContext, O, I>>> DrawGradientRectPipeline = new ArrayList<>();
 
     @Override
     public C DrawTexturedModalRect(Consumer<VoidPipelineElementContext<DrawTexturedModalRectContext, O, I>>... components) {
@@ -33,7 +33,7 @@ public abstract class AbstractGuiBuilder<C extends AbstractGuiBuilder<C, I, O>, 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<DrawTexturedModalRectContext, O, I>>> DrawTexturedModalRectPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<DrawTexturedModalRectContext, O, I>>> DrawTexturedModalRectPipeline = new ArrayList<>();
 
     @Override
     public C DrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsInt(Consumer<VoidPipelineElementContext<DrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsIntContext, O, I>>... components) {
@@ -41,7 +41,7 @@ public abstract class AbstractGuiBuilder<C extends AbstractGuiBuilder<C, I, O>, 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<DrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsIntContext, O, I>>> DrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsIntPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<DrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsIntContext, O, I>>> DrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsIntPipeline = new ArrayList<>();
 
     @Override
     public C DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsInt(Consumer<VoidPipelineElementContext<DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntContext, O, I>>... components) {
@@ -49,7 +49,7 @@ public abstract class AbstractGuiBuilder<C extends AbstractGuiBuilder<C, I, O>, 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntContext, O, I>>> DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntContext, O, I>>> DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntPipeline = new ArrayList<>();
 
     @Override
     public C DrawHorizontalLine(Consumer<VoidPipelineElementContext<DrawHorizontalLineContext, O, I>>... components) {
@@ -57,7 +57,7 @@ public abstract class AbstractGuiBuilder<C extends AbstractGuiBuilder<C, I, O>, 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<DrawHorizontalLineContext, O, I>>> DrawHorizontalLinePipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<DrawHorizontalLineContext, O, I>>> DrawHorizontalLinePipeline = new ArrayList<>();
 
     @Override
     public C DrawString(Consumer<VoidPipelineElementContext<DrawStringContext, O, I>>... components) {
@@ -65,7 +65,7 @@ public abstract class AbstractGuiBuilder<C extends AbstractGuiBuilder<C, I, O>, 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<DrawStringContext, O, I>>> DrawStringPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<DrawStringContext, O, I>>> DrawStringPipeline = new ArrayList<>();
 
     @Override
     public C DrawVerticalLine(Consumer<VoidPipelineElementContext<DrawVerticalLineContext, O, I>>... components) {
@@ -73,5 +73,7 @@ public abstract class AbstractGuiBuilder<C extends AbstractGuiBuilder<C, I, O>, 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<DrawVerticalLineContext, O, I>>> DrawVerticalLinePipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<DrawVerticalLineContext, O, I>>> DrawVerticalLinePipeline = new ArrayList<>();
+    
+    
 }

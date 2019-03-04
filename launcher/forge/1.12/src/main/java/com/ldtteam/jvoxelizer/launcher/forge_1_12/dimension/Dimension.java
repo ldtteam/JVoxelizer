@@ -1,5 +1,6 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension;
 
+import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.entity.IEntity;
 import net.minecraft.world.World;
@@ -32,5 +33,21 @@ public class Dimension<I> extends DimensionReader<I> implements IDimension<I>
     public World getForgeWorld()
     {
         return forgeWorld;
+    }
+
+    public static World asForge(IDimension<?> dimension)
+    {
+        if (dimension instanceof World)
+            return (World) dimension;
+
+        return ((Dimension) dimension).getForgeWorld();
+    }
+
+    public static IDimension<?> fromForge(World world)
+    {
+        if (world instanceof IDimension)
+            return (IDimension<?>) world;
+
+        return new Dimension<DummyInstanceData>(world);
     }
 }

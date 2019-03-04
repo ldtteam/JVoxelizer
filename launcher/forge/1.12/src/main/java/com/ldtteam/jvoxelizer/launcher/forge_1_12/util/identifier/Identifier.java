@@ -32,4 +32,12 @@ public class Identifier implements IIdentifier {
     {
         return ((Identifier) identifier).getForgeIdentifier();
     }
+
+    public static IIdentifier fromForge(ResourceLocation location)
+    {
+        if (location instanceof IIdentifier)
+            return (IIdentifier) location;
+
+        return new Identifier(location);
+    }
 }

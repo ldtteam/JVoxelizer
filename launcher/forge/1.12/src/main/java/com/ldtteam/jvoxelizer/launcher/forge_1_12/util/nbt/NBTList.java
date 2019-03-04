@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-class NBTList implements INBTList
+public class NBTList implements INBTList
 {
     public final NBTTagList forgeNbtList;
 
@@ -122,5 +122,15 @@ class NBTList implements INBTList
         forgeNbtList.forEach(nbt -> list.add(NBTConversionHandler.toINbtBase(nbt)));
 
         return list;
+    }
+
+    public static INBTList fromForge(NBTTagList list)
+    {
+        return new NBTList(list);
+    }
+
+    public static NBTTagList asForge(INBTList list)
+    {
+        return ((NBTList) list).forgeNbtList;
     }
 }

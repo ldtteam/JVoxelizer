@@ -21,7 +21,7 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<DrawGuiContainerForegroundLayerContext, O, I>>> DrawGuiContainerForegroundLayerPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<DrawGuiContainerForegroundLayerContext, O, I>>> DrawGuiContainerForegroundLayerPipeline = new ArrayList<>();
 
     @Override
     public C DrawGuiContainerBackgroundLayer(Consumer<VoidPipelineElementContext<DrawGuiContainerBackgroundLayerContext, O, I>>... components) {
@@ -29,7 +29,7 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<DrawGuiContainerBackgroundLayerContext, O, I>>> DrawGuiContainerBackgroundLayerPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<DrawGuiContainerBackgroundLayerContext, O, I>>> DrawGuiContainerBackgroundLayerPipeline = new ArrayList<>();
 
     @Override
     public C DrawSlot(final Consumer<VoidPipelineElementContext<DrawSlotContext, O, I>>... components)
@@ -38,7 +38,7 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<DrawSlotContext, O, I>>> DrawSlotPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<DrawSlotContext, O, I>>> DrawSlotPipeline = new ArrayList<>();
 
     @Override
     public C HandleMouseClick(Consumer<VoidPipelineElementContext<HandleMouseClickContext, O, I>>... components) {
@@ -46,7 +46,7 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<HandleMouseClickContext, O, I>>> HandleMouseClickPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<HandleMouseClickContext, O, I>>> HandleMouseClickPipeline = new ArrayList<>();
 
     @Override
     public C GetYSize(Function<TypedPipelineElementContext<GetYSizeContext, Integer, O, I>, Integer>... components) {
@@ -54,7 +54,7 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetYSizeContext, Integer, O, I>, Integer>> GetYSizePipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetYSizeContext, Integer, O, I>, Integer>> GetYSizePipeline = new ArrayList<>();
 
     @Override
     public C GetGuiTop(Function<TypedPipelineElementContext<GetGuiTopContext, Integer, O, I>, Integer>... components) {
@@ -62,7 +62,7 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetGuiTopContext, Integer, O, I>, Integer>> GetGuiTopPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetGuiTopContext, Integer, O, I>, Integer>> GetGuiTopPipeline = new ArrayList<>();
 
     @Override
     public C GetGuiLeft(Function<TypedPipelineElementContext<GetGuiLeftContext, Integer, O, I>, Integer>... components) {
@@ -70,7 +70,7 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetGuiLeftContext, Integer, O, I>, Integer>> GetGuiLeftPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetGuiLeftContext, Integer, O, I>, Integer>> GetGuiLeftPipeline = new ArrayList<>();
 
     @Override
     public C RenderHoveredToolTip(Consumer<VoidPipelineElementContext<RenderHoveredToolTipContext, O, I>>... components) {
@@ -78,7 +78,7 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<RenderHoveredToolTipContext, O, I>>> RenderHoveredToolTipPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<RenderHoveredToolTipContext, O, I>>> RenderHoveredToolTipPipeline = new ArrayList<>();
 
     @Override
     public C HasClickedOutside(Function<TypedPipelineElementContext<HasClickedOutsideContext, Boolean, O, I>, Boolean>... components) {
@@ -86,7 +86,7 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<HasClickedOutsideContext, Boolean, O, I>, Boolean>> HasClickedOutsidePipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<HasClickedOutsideContext, Boolean, O, I>, Boolean>> HasClickedOutsidePipeline = new ArrayList<>();
 
     @Override
     public C GetSlotUnderMouse(Function<TypedPipelineElementContext<GetSlotUnderMouseContext, ISlot, O, I>, ISlot>... components) {
@@ -94,7 +94,7 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetSlotUnderMouseContext, ISlot, O, I>, ISlot>> GetSlotUnderMousePipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetSlotUnderMouseContext, ISlot, O, I>, ISlot>> GetSlotUnderMousePipeline = new ArrayList<>();
 
     @Override
     public C IsPointInRegion(Function<TypedPipelineElementContext<IsPointInRegionContext, Boolean, O, I>, Boolean>... components) {
@@ -102,7 +102,7 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<IsPointInRegionContext, Boolean, O, I>, Boolean>> IsPointInRegionPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<IsPointInRegionContext, Boolean, O, I>, Boolean>> IsPointInRegionPipeline = new ArrayList<>();
 
     @Override
     public C CheckHotbarKeys(Function<TypedPipelineElementContext<CheckHotbarKeysContext, Boolean, O, I>, Boolean>... components) {
@@ -110,7 +110,7 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<CheckHotbarKeysContext, Boolean, O, I>, Boolean>> CheckHotbarKeysPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<CheckHotbarKeysContext, Boolean, O, I>, Boolean>> CheckHotbarKeysPipeline = new ArrayList<>();
 
     @Override
     public C GetXSize(Function<TypedPipelineElementContext<GetXSizeContext, Integer, O, I>, Integer>... components) {
@@ -118,7 +118,7 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetXSizeContext, Integer, O, I>, Integer>> GetXSizePipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetXSizeContext, Integer, O, I>, Integer>> GetXSizePipeline = new ArrayList<>();
 
     @Override
     public C IsMouseOverSlot(Function<TypedPipelineElementContext<IsMouseOverSlotContext, Boolean, O, I>, Boolean>... components) {
@@ -126,6 +126,6 @@ public abstract class AbstractGuiContainerBuilder<C extends AbstractGuiContainer
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<IsMouseOverSlotContext, Boolean, O, I>, Boolean>> IsMouseOverSlotPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<IsMouseOverSlotContext, Boolean, O, I>, Boolean>> IsMouseOverSlotPipeline = new ArrayList<>();
 
 }

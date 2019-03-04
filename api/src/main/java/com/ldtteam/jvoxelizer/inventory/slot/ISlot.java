@@ -12,12 +12,6 @@ public interface ISlot<I> extends IInstancedObject<I> {
 
     void onSlotChange(IItemStack p_75220_1_, IItemStack p_75220_2_);
 
-    void onCrafting(IItemStack stack, int amount);
-
-    void onSwapCraft(int p_190900_1_);
-
-    void onCrafting(IItemStack stack);
-
     IItemStack onTake(IPlayerEntity thePlayer, IItemStack stack);
 
     boolean isItemValid(IItemStack stack);
@@ -51,8 +45,6 @@ public interface ISlot<I> extends IInstancedObject<I> {
     void setBackgroundName(String name);
 
     ISprite getBackgroundSprite();
-
-    ISpriteMap getBackgroundMap();
 
     int getSlotIndex();
 

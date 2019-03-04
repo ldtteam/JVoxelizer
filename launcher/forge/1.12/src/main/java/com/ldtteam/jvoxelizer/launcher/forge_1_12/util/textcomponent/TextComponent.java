@@ -14,10 +14,7 @@ public class TextComponent implements ITextComponent {
         this.forgeTextComponent = forgeTextComponent;
     }
 
-    public static net.minecraft.util.text.ITextComponent asForge(final ITextComponent component)
-    {
-        return ((TextComponent) component).getForgeTextComponent();
-    }
+
 
     @Override
     public ITextComponent setStyle(ITextStyle style) {
@@ -86,5 +83,15 @@ public class TextComponent implements ITextComponent {
     public net.minecraft.util.text.ITextComponent getForgeTextComponent()
     {
         return forgeTextComponent;
+    }
+
+    public static net.minecraft.util.text.ITextComponent asForge(final ITextComponent component)
+    {
+        return ((TextComponent) component).getForgeTextComponent();
+    }
+
+    public static ITextComponent fromForge(final net.minecraft.util.text.ITextComponent textComponent)
+    {
+        return new TextComponent(textComponent);
     }
 }

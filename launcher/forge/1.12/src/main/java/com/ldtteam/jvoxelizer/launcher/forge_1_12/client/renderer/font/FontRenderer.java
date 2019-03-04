@@ -9,7 +9,7 @@ public class FontRenderer implements IFontRenderer
 
     private final net.minecraft.client.gui.FontRenderer forgeFontRenderer;
 
-    public FontRenderer(final net.minecraft.client.gui.FontRenderer forgeFontRenderer) {this.forgeFontRenderer = forgeFontRenderer;}
+    private FontRenderer(final net.minecraft.client.gui.FontRenderer forgeFontRenderer) {this.forgeFontRenderer = forgeFontRenderer;}
 
     @Override
     public void drawSplitString(final String str, final int x, final int y, final int wrapWidth, final int textColor)
@@ -54,11 +54,17 @@ public class FontRenderer implements IFontRenderer
 
     public static net.minecraft.client.gui.FontRenderer asForge(@NotNull final IFontRenderer fontRenderer)
     {
+        if (fontRenderer instanceof net.minecraft.client.gui.FontRenderer)
+            return (net.minecraft.client.gui.FontRenderer) fontRenderer;
+
         return ((FontRenderer) fontRenderer).getForgeFontRenderer();
     }
 
-    public static FontRenderer fromForge(net.minecraft.client.gui.FontRenderer fontRenderer)
+    public static IFontRenderer fromForge(net.minecraft.client.gui.FontRenderer fontRenderer)
     {
+        if (fontRenderer instanceof IFontRenderer)
+            return (IFontRenderer) fontRenderer;
+
         return new FontRenderer(fontRenderer);
     }
 }

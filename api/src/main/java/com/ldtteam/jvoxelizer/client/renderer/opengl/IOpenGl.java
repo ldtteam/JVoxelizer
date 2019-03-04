@@ -12,12 +12,12 @@ public interface IOpenGl
 {
     static int getOpenGlQuadsRenderMode()
     {
-        throw new NotImplementedException();
+        return IOpenGlProviderHolder.getInstance().getOpenGlQuadsRenderMode();
     }
 
     static int getOpenGlLineRenderMode()
     {
-        throw new NotImplementedException();
+        return IOpenGlProviderHolder.getInstance().getOpenGlLineRenderMode();
     }
 
     static void disableAlpha()

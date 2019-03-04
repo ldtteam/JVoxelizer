@@ -1,23 +1,35 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.blockentity;
 
 import com.ldtteam.jvoxelizer.client.renderer.blockentity.IBlockEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 
 public class BlockEntityRenderer implements IBlockEntityRenderer
 {
-    private TileEntityItemStackRenderer stackRenderer;
+    private TileEntitySpecialRenderer forgeBlockRenderer;
 
-    public BlockEntityRenderer(final TileEntityItemStackRenderer stackRenderer)
+    private BlockEntityRenderer(final TileEntitySpecialRenderer forgeBlockRenderer)
     {
-        this.stackRenderer = stackRenderer;
+        this.forgeBlockRenderer = forgeBlockRenderer;
     }
 
-    /**
-     * Get the wrapped forge class.
-     * @return TileEntityItemStackRenderer.
-     */
-    public TileEntityItemStackRenderer getForgeRenderer()
+    public TileEntitySpecialRenderer getForgeBlockRenderer()
     {
-        return this.stackRenderer;
+        return forgeBlockRenderer;
+    }
+
+    public static TileEntitySpecialRenderer<?> asForge(IBlockEntityRenderer blockEntityRenderer)
+    {
+        if (blockEntityRenderer instanceof TileEntitySpecialRenderer)
+            return (TileEntitySpecialRenderer<?>) blockEntityRenderer;
+
+        return ((BlockEntityRenderer) blockEntityRenderer).getForgeBlockRenderer();
+    }
+
+    public static IBlockEntityRenderer fromForge(TileEntitySpecialRenderer<?> tileEntitySpecialRenderer)
+    {
+        if (tileEntitySpecialRenderer instanceof IBlockEntityRenderer)
+            return (IBlockEntityRenderer) tileEntitySpecialRenderer;
+
+        return new BlockEntityRenderer(tileEntitySpecialRenderer);
     }
 }

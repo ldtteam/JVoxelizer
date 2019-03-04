@@ -7,7 +7,7 @@ public interface IScaledResolution
 {
     static IScaledResolution create(IGameEngine gameEngine)
     {
-        throw new NotImplementedException();
+        return IScaledResolutionProviderHolder.getInstance().provide(gameEngine);
     }
 
     int getScaledWidth();

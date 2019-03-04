@@ -252,4 +252,8 @@ public interface IOpenGlProvider
     void disableStandardItemLighting();
 
     void enableStandardItemLighting();
+
+    int getOpenGlQuadsRenderMode();
+
+    int getOpenGlLineRenderMode();
 }

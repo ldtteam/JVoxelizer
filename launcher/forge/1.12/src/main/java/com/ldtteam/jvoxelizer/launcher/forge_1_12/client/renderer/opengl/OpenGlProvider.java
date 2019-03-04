@@ -1,392 +1,450 @@
-package com.ldtteam.jvoxelizer.client.renderer.opengl;
+package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.opengl;
 
+import com.ldtteam.jvoxelizer.client.renderer.opengl.IOpenGlProvider;
 import com.ldtteam.jvoxelizer.client.renderer.opengl.util.*;
-import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Quaternion;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
-final class IOpenGlProviderHolder extends AbstractHolder<IOpenGlProvider> implements IOpenGlProvider
+public class OpenGlProvider implements IOpenGlProvider
 {
-    private static IOpenGlProviderHolder ourInstance = new IOpenGlProviderHolder();
+    private static OpenGlProvider ourInstance = new OpenGlProvider();
 
-    public static IOpenGlProviderHolder getInstance()
+    public static OpenGlProvider getInstance()
     {
         return ourInstance;
     }
 
-    private IOpenGlProviderHolder()
+    private OpenGlProvider()
     {
-        super(IOpenGl.class.getName());
     }
 
     @Override
     public void disableAlpha()
     {
-        getProvider().disableAlpha();
+        GlStateManager.disableAlpha();
     }
 
     @Override
     public void enableAlpha()
     {
-        getProvider().enableAlpha();
+        GlStateManager.enableAlpha();
     }
 
     @Override
     public void alphaFunc(final int func, final float ref)
     {
-        getProvider().alphaFunc(func, ref);
+        GlStateManager.alphaFunc(func, ref);
     }
 
     @Override
     public void enableLighting()
     {
-        getProvider().enableLighting();
+        GlStateManager.enableLighting();
     }
 
     @Override
     public void disableLighting()
     {
-        getProvider().disableLighting();
+        GlStateManager.disableLighting();
     }
 
     @Override
     public void enableLight(final int light)
     {
-        getProvider().enableLight(light);
+        GlStateManager.enableLight(light);
     }
 
     @Override
     public void disableLight(final int light)
     {
-        getProvider().disableLight(light);
+        GlStateManager.disableLight(light);
     }
 
     @Override
     public void enableColorMaterial()
     {
-        getProvider().enableColorMaterial();
+        GlStateManager.enableColorMaterial();
     }
 
     @Override
     public void disableColorMaterial()
     {
-        getProvider().disableColorMaterial();
+        GlStateManager.disableColorMaterial();
     }
 
     @Override
     public void colorMaterial(final int face, final int mode)
     {
-        getProvider().colorMaterial(face, mode);
+        GlStateManager.colorMaterial(face, mode);
     }
 
     @Override
     public void glLight(final int light, final int pname, final FloatBuffer params)
     {
-        getProvider().glLight(light, pname, params);
+        GlStateManager.glLight(light, pname, params);
     }
 
     @Override
     public void glLightModel(final int pname, final FloatBuffer params)
     {
-        getProvider().glLightModel(pname, params);
+        GlStateManager.glLightModel(pname, params);
     }
 
     @Override
     public void glNormal3f(final float nx, final float ny, final float nz)
     {
-        getProvider().glNormal3f(nx, ny, nz);
+        GlStateManager.glNormal3f(nx, ny, nz);
     }
 
     @Override
     public void disableDepth()
     {
-        getProvider().disableDepth();
+        GlStateManager.disableDepth();
     }
 
     @Override
     public void enableDepth()
     {
-        getProvider().enableDepth();
+        GlStateManager.enableDepth();
     }
 
     @Override
     public void depthFunc(final int depthFunc)
     {
-        getProvider().depthFunc(depthFunc);
+        GlStateManager.depthFunc(depthFunc);
     }
 
     @Override
     public void depthMask(final boolean flagIn)
     {
-        getProvider().depthMask(flagIn);
+        GlStateManager.depthMask(flagIn);
     }
 
     @Override
     public void disableBlend()
     {
-        getProvider().disableBlend();
+        GlStateManager.disableBlend();
     }
 
     @Override
     public void enableBlend()
     {
-        getProvider().enableBlend();
+        GlStateManager.enableBlend();
     }
 
     @Override
     public void blendFunc(final SourceFactor srcFactor, final DestinationFactor dstFactor)
     {
-        getProvider().blendFunc(srcFactor, dstFactor);
+        GlStateManager.blendFunc(srcFactor.getFactor(), dstFactor.getFactor());
     }
 
     @Override
     public void blendFunc(final int srcFactor, final int dstFactor)
     {
-        getProvider().blendFunc(srcFactor, dstFactor);
+        GlStateManager.blendFunc(srcFactor, dstFactor);
     }
 
     @Override
     public void tryBlendFuncSeparate(
       final SourceFactor srcFactor, final DestinationFactor dstFactor, final SourceFactor srcFactorAlpha, final DestinationFactor dstFactorAlpha)
     {
-        getProvider().tryBlendFuncSeparate(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
+        GlStateManager.tryBlendFuncSeparate(srcFactor.getFactor(), dstFactor.getFactor(), srcFactorAlpha.getFactor(), dstFactorAlpha.getFactor());
     }
 
     @Override
     public void tryBlendFuncSeparate(final int srcFactor, final int dstFactor, final int srcFactorAlpha, final int dstFactorAlpha)
     {
-        getProvider().tryBlendFuncSeparate(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
+        GlStateManager.tryBlendFuncSeparate(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
     }
 
     @Override
     public void glBlendEquation(final int blendEquation)
     {
-        getProvider().glBlendEquation(blendEquation);
+        GlStateManager.glBlendEquation(blendEquation);
     }
 
     @Override
     public void enableOutlineMode(final int color)
     {
-        getProvider().enableOutlineMode(color);
+        GlStateManager.enableOutlineMode(color);
     }
 
     @Override
     public void disableOutlineMode()
     {
-        getProvider().disableOutlineMode();
+        GlStateManager.disableOutlineMode();
     }
 
     @Override
     public void enableFog()
     {
-        getProvider().enableFog();
+        GlStateManager.enableFog();
     }
 
     @Override
     public void disableFog()
     {
-        getProvider().disableFog();
+        GlStateManager.disableFog();
     }
 
     @Override
     public void setFog(final FogMode fogMode)
     {
-        getProvider().setFog(fogMode);
+        GlStateManager.setFog(fogMode.getCapabilityId());
     }
 
     @Override
     public void setFogDensity(final float param)
     {
-        getProvider().setFogDensity(param);
+        GlStateManager.setFogDensity(param);
     }
 
     @Override
     public void setFogStart(final float param)
     {
-        getProvider().setFogStart(param);
+        GlStateManager.setFogStart(param);
     }
 
     @Override
     public void setFogEnd(final float param)
     {
-        getProvider().setFogEnd(param);
+        GlStateManager.setFogEnd(param);
     }
 
     @Override
     public void glFog(final int pname, final FloatBuffer param)
     {
-        getProvider().glFog(pname, param);
+        GlStateManager.glFog(pname, param);
     }
 
     @Override
     public void glFogi(final int pname, final int param)
     {
-        getProvider().glFogi(pname, param);
+        GlStateManager.glFogi(pname, param);
     }
 
     @Override
     public void enableCull()
     {
-        getProvider().enableCull();
+        GlStateManager.enableCull();
     }
 
     @Override
     public void disableCull()
     {
-        getProvider().disableCull();
+        GlStateManager.disableCull();
     }
 
     @Override
     public void cullFace(final CullFace cullFace)
     {
-        getProvider().cullFace(cullFace);
+        GlStateManager.cullFace(cullFace.getMode());
     }
 
     @Override
     public void glPolygonMode(final int face, final int mode)
     {
-        getProvider().glPolygonMode(face, mode);
+        GlStateManager.glPolygonMode(face, mode);
     }
 
     @Override
     public void enablePolygonOffset()
     {
-        getProvider().enablePolygonOffset();
+        GlStateManager.enablePolygonOffset();
     }
 
     @Override
     public void disablePolygonOffset()
     {
-        getProvider().disablePolygonOffset();
+        GlStateManager.disablePolygonOffset();
     }
 
     @Override
     public void doPolygonOffset(final float factor, final float units)
     {
-        getProvider().doPolygonOffset(factor, units);
+        GlStateManager.doPolygonOffset(factor, units);
     }
 
     @Override
     public void enableColorLogic()
     {
-        getProvider().enableColorLogic();
+        GlStateManager.enableColorLogic();
     }
 
     @Override
     public void disableColorLogic()
     {
-        getProvider().disableColorLogic();
+        GlStateManager.disableColorLogic();
     }
 
     @Override
     public void colorLogicOp(final LogicOp logicOperation)
     {
-        getProvider().colorLogicOp(logicOperation);
+        GlStateManager.colorLogicOp(logicOperation.getOpcode());
     }
 
     @Override
     public void colorLogicOp(final int opcode)
     {
-        getProvider().colorLogicOp(opcode);
+        GlStateManager.colorLogicOp(opcode);
     }
 
     @Override
     public void enableTexGenCoord(final TexGen texGen)
     {
-        getProvider().enableTexGenCoord(texGen);
+        switch (texGen)
+        {
+            case S:
+                GlStateManager.enableTexGenCoord(GlStateManager.TexGen.S);
+                break;
+            case T:
+                GlStateManager.enableTexGenCoord(GlStateManager.TexGen.T);
+                break;
+            case R:
+                GlStateManager.enableTexGenCoord(GlStateManager.TexGen.R);
+                break;
+            case Q:
+                GlStateManager.enableTexGenCoord(GlStateManager.TexGen.Q);
+                break;
+        }
     }
 
     @Override
     public void disableTexGenCoord(final TexGen texGen)
     {
-        getProvider().disableTexGenCoord(texGen);
+        switch (texGen)
+        {
+            case S:
+                GlStateManager.disableTexGenCoord(GlStateManager.TexGen.S);
+                break;
+            case T:
+                GlStateManager.disableTexGenCoord(GlStateManager.TexGen.T);
+                break;
+            case R:
+                GlStateManager.disableTexGenCoord(GlStateManager.TexGen.R);
+                break;
+            case Q:
+                GlStateManager.disableTexGenCoord(GlStateManager.TexGen.Q);
+                break;
+        }
     }
 
     @Override
     public void texGen(final TexGen texGen, final int param)
     {
-        getProvider().texGen(texGen, param);
+        switch (texGen)
+        {
+            case S:
+                GlStateManager.texGen(GlStateManager.TexGen.S, param);
+                break;
+            case T:
+                GlStateManager.texGen(GlStateManager.TexGen.T, param);
+                break;
+            case R:
+                GlStateManager.texGen(GlStateManager.TexGen.R, param);
+                break;
+            case Q:
+                GlStateManager.texGen(GlStateManager.TexGen.Q, param);
+                break;
+        }
     }
 
     @Override
     public void texGen(final TexGen texGen, final int pname, final FloatBuffer params)
     {
-        getProvider().texGen(texGen, pname, params);
+        switch (texGen)
+        {
+            case S:
+                GlStateManager.texGen(GlStateManager.TexGen.S, pname, params);
+                break;
+            case T:
+                GlStateManager.texGen(GlStateManager.TexGen.T, pname, params);
+                break;
+            case R:
+                GlStateManager.texGen(GlStateManager.TexGen.R, pname, params);
+                break;
+            case Q:
+                GlStateManager.texGen(GlStateManager.TexGen.Q, pname, params);
+                break;
+        }
     }
 
     @Override
     public void setActiveTexture(final int texture)
     {
-        getProvider().setActiveTexture(texture);
+        GlStateManager.setActiveTexture(texture);
     }
 
     @Override
     public void enableTexture2D()
     {
-        getProvider().enableTexture2D();
+        GlStateManager.enableTexture2D();
     }
 
     @Override
     public void disableTexture2D()
     {
-        getProvider().disableTexture2D();
+        GlStateManager.disableTexture2D();
     }
 
     @Override
     public void glTexEnv(final int target, final int parameterName, final FloatBuffer parameters)
     {
-        getProvider().glTexEnv(target, parameterName, parameters);
+        GlStateManager.glTexEnv(target, parameterName, parameters);
     }
 
     @Override
     public void glTexEnvi(final int target, final int parameterName, final int parameter)
     {
-        getProvider().glTexEnvi(target, parameterName, parameter);
+        GlStateManager.glTexEnvi(target, parameterName, parameter);
     }
 
     @Override
     public void glTexEnvf(final int target, final int parameterName, final float parameter)
     {
-        getProvider().glTexEnvf(target, parameterName, parameter);
+        GlStateManager.glTexEnvf(target, parameterName, parameter);
     }
 
     @Override
     public void glTexParameterf(final int target, final int parameterName, final float parameter)
     {
-        getProvider().glTexParameterf(target, parameterName, parameter);
+        GlStateManager.glTexParameterf(target, parameterName, parameter);
     }
 
     @Override
     public void glTexParameteri(final int target, final int parameterName, final int parameter)
     {
-        getProvider().glTexParameteri(target, parameterName, parameter);
+        GlStateManager.glTexParameteri(target, parameterName, parameter);
     }
 
     @Override
     public int glGetTexLevelParameteri(final int target, final int level, final int parameterName)
     {
-        return getProvider().glGetTexLevelParameteri(target, level, parameterName);
+        return GlStateManager.glGetTexLevelParameteri(target, level, parameterName);
     }
 
     @Override
     public int generateTexture()
     {
-        return getProvider().generateTexture();
+        return GlStateManager.generateTexture();
     }
 
     @Override
     public void deleteTexture(final int texture)
     {
-        getProvider().deleteTexture(texture);
+        GlStateManager.deleteTexture(texture);
     }
 
     @Override
     public void bindTexture(final int texture)
     {
-        getProvider().bindTexture(texture);
+        GlStateManager.bindTexture(texture);
     }
 
     @Override
@@ -401,7 +459,7 @@ final class IOpenGlProviderHolder extends AbstractHolder<IOpenGlProvider> implem
       final int type,
       final IntBuffer pixels)
     {
-        getProvider().glTexImage2D(target, level, internalFormat, width, height, border, format, type, pixels);
+        GlStateManager.glTexImage2D(target, level, internalFormat, width, height, border, format, type, pixels);
     }
 
     @Override
@@ -416,360 +474,360 @@ final class IOpenGlProviderHolder extends AbstractHolder<IOpenGlProvider> implem
       final int type,
       final IntBuffer pixels)
     {
-        getProvider().glTexSubImage2D(target, level, xOffset, yOffset, width, height, format, type, pixels);
+        GlStateManager.glTexSubImage2D(target, level, xOffset, yOffset, width, height, format, type, pixels);
     }
 
     @Override
     public void glCopyTexSubImage2D(final int target, final int level, final int xOffset, final int yOffset, final int x, final int y, final int width, final int height)
     {
-        getProvider().glCopyTexSubImage2D(target, level, xOffset, yOffset, x, y, width, height);
+        GlStateManager.glCopyTexSubImage2D(target, level, xOffset, yOffset, x, y, width, height);
     }
 
     @Override
     public void glGetTexImage(final int target, final int level, final int format, final int type, final IntBuffer pixels)
     {
-        getProvider().glGetTexImage(target, level, format, type, pixels);
+        GlStateManager.glGetTexImage(target, level, format, type, pixels);
     }
 
     @Override
     public void enableNormalize()
     {
-        getProvider().enableNormalize();
+        GlStateManager.enableNormalize();
     }
 
     @Override
     public void disableNormalize()
     {
-        getProvider().disableNormalize();
+        GlStateManager.disableNormalize();
     }
 
     @Override
     public void shadeModel(final int mode)
     {
-        getProvider().shadeModel(mode);
+        GlStateManager.shadeModel(mode);
     }
 
     @Override
     public void enableRescaleNormal()
     {
-        getProvider().enableRescaleNormal();
+        GlStateManager.enableRescaleNormal();
     }
 
     @Override
     public void disableRescaleNormal()
     {
-        getProvider().disableRescaleNormal();
+        GlStateManager.disableRescaleNormal();
     }
 
     @Override
     public void viewport(final int x, final int y, final int width, final int height)
     {
-        getProvider().viewport(x, y, width, height);
+        GlStateManager.viewport(x, y, width, height);
     }
 
     @Override
     public void colorMask(final boolean red, final boolean green, final boolean blue, final boolean alpha)
     {
-        getProvider().colorMask(red, green, blue, alpha);
+        GlStateManager.colorMask(red, green, blue, alpha);
     }
 
     @Override
     public void clearDepth(final double depth)
     {
-        getProvider().clearDepth(depth);
+        GlStateManager.clearDepth(depth);
     }
 
     @Override
     public void clearColor(final float red, final float green, final float blue, final float alpha)
     {
-        getProvider().clearColor(red, green, blue, alpha);
+        GlStateManager.clearColor(red, green, blue, alpha);
     }
 
     @Override
     public void clear(final int mask)
     {
-        getProvider().clear(mask);
+        GlStateManager.clear(mask);
     }
 
     @Override
     public void matrixMode(final int mode)
     {
-        getProvider().matrixMode(mode);
+        GlStateManager.matrixMode(mode);
     }
 
     @Override
     public void loadIdentity()
     {
-        getProvider().loadIdentity();
+        GlStateManager.loadIdentity();
     }
 
     @Override
     public void pushMatrix()
     {
-        getProvider().pushMatrix();
+        GlStateManager.pushMatrix();
     }
 
     @Override
     public void popMatrix()
     {
-        getProvider().popMatrix();
+        GlStateManager.popMatrix();
     }
 
     @Override
     public void getFloat(final int pname, final FloatBuffer params)
     {
-        getProvider().getFloat(pname, params);
+        GlStateManager.getFloat(pname, params);
     }
 
     @Override
     public void ortho(final double left, final double right, final double bottom, final double top, final double zNear, final double zFar)
     {
-        getProvider().ortho(left, right, bottom, top, zNear, zFar);
+        GlStateManager.ortho(left, right, bottom, top, zNear, zFar);
     }
 
     @Override
     public void rotate(final float angle, final float x, final float y, final float z)
     {
-        getProvider().rotate(angle, x, y, z);
+        GlStateManager.rotate(angle, x, y, z);
     }
 
     @Override
     public void scale(final float x, final float y, final float z)
     {
-        getProvider().scale(x, y, z);
+        GlStateManager.scale(x, y, z);
     }
 
     @Override
     public void scale(final double x, final double y, final double z)
     {
-        getProvider().scale(x, y, z);
+        GlStateManager.scale(x, y, z);
     }
 
     @Override
     public void translate(final float x, final float y, final float z)
     {
-        getProvider().translate(x, y, z);
+        GlStateManager.translate(x, y, z);
     }
 
     @Override
     public void translate(final double x, final double y, final double z)
     {
-        getProvider().translate(x, y, z);
+        GlStateManager.translate(x, y, z);
     }
 
     @Override
     public void multMatrix(final FloatBuffer matrix)
     {
-        getProvider().multMatrix(matrix);
+        GlStateManager.multMatrix(matrix);
     }
 
     @Override
     public void rotate(final Quaternion quaternionIn)
     {
-        getProvider().rotate(quaternionIn);
+        GlStateManager.rotate(quaternionIn);
     }
 
     @Override
     public FloatBuffer quatToGlMatrix(final FloatBuffer buffer, final Quaternion quaternionIn)
     {
-        return getProvider().quatToGlMatrix(buffer, quaternionIn);
+        return GlStateManager.quatToGlMatrix(buffer, quaternionIn);
     }
 
     @Override
     public void color(final float colorRed, final float colorGreen, final float colorBlue, final float colorAlpha)
     {
-        getProvider().color(colorRed, colorGreen, colorBlue, colorAlpha);
+        GlStateManager.color(colorRed, colorGreen, colorBlue, colorAlpha);
     }
 
     @Override
     public void color(final float colorRed, final float colorGreen, final float colorBlue)
     {
-        getProvider().color(colorRed, colorGreen, colorBlue);
+        GlStateManager.color(colorRed, colorGreen, colorBlue);
     }
 
     @Override
     public void glTexCoord2f(final float sCoord, final float tCoord)
     {
-        getProvider().glTexCoord2f(sCoord, tCoord);
+        GlStateManager.glTexCoord2f(sCoord, tCoord);
     }
 
     @Override
     public void glVertex3f(final float x, final float y, final float z)
     {
-        getProvider().glVertex3f(x, y, z);
+        GlStateManager.glVertex3f(x, y, z);
     }
 
     @Override
     public void resetColor()
     {
-        getProvider().resetColor();
+        GlStateManager.resetColor();
     }
 
     @Override
     public void glNormalPointer(final int type, final int stride, final ByteBuffer buffer)
     {
-        getProvider().glNormalPointer(type, stride, buffer);
+        GlStateManager.glNormalPointer(type, stride, buffer);
     }
 
     @Override
     public void glTexCoordPointer(final int size, final int type, final int stride, final int buffer_offset)
     {
-        getProvider().glTexCoordPointer(size, type, stride, buffer_offset);
+        GlStateManager.glTexCoordPointer(size, type, stride, buffer_offset);
     }
 
     @Override
     public void glTexCoordPointer(final int size, final int type, final int stride, final ByteBuffer buffer)
     {
-        getProvider().glTexCoordPointer(size, type, stride, buffer);
+        GlStateManager.glTexCoordPointer(size, type, stride, buffer);
     }
 
     @Override
     public void glVertexPointer(final int size, final int type, final int stride, final int buffer_offset)
     {
-        getProvider().glVertexPointer(size, type, stride, buffer_offset);
+        GlStateManager.glVertexPointer(size, type, stride, buffer_offset);
     }
 
     @Override
     public void glVertexPointer(final int size, final int type, final int stride, final ByteBuffer buffer)
     {
-        getProvider().glVertexPointer(size, type, stride, buffer);
+        GlStateManager.glVertexPointer(size, type, stride, buffer);
     }
 
     @Override
     public void glColorPointer(final int size, final int type, final int stride, final int buffer_offset)
     {
-        getProvider().glColorPointer(size, type, stride, buffer_offset);
+        GlStateManager.glColorPointer(size, type, stride, buffer_offset);
     }
 
     @Override
     public void glColorPointer(final int size, final int type, final int stride, final ByteBuffer buffer)
     {
-        getProvider().glColorPointer(size, type, stride, buffer);
+        GlStateManager.glColorPointer(size, type, stride, buffer);
     }
 
     @Override
     public void glDisableClientState(final int cap)
     {
-        getProvider().glDisableClientState(cap);
+        GlStateManager.glDisableClientState(cap);
     }
 
     @Override
     public void glEnableClientState(final int cap)
     {
-        getProvider().glEnableClientState(cap);
+        GlStateManager.glEnableClientState(cap);
     }
 
     @Override
     public void glBegin(final int mode)
     {
-        getProvider().glBegin(mode);
+        GlStateManager.glBegin(mode);
     }
 
     @Override
     public void glEnd()
     {
-        getProvider().glEnd();
+        GlStateManager.glEnd();
     }
 
     @Override
     public void glDrawArrays(final int mode, final int first, final int count)
     {
-        getProvider().glDrawArrays(mode, first, count);
+        GlStateManager.glDrawArrays(mode, first, count);
     }
 
     @Override
     public void glLineWidth(final float width)
     {
-        getProvider().glLineWidth(width);
+        GlStateManager.glLineWidth(width);
     }
 
     @Override
     public void callList(final int list)
     {
-        getProvider().callList(list);
+        GlStateManager.callList(list);
     }
 
     @Override
     public void glDeleteLists(final int list, final int range)
     {
-        getProvider().glDeleteLists(list, range);
+        GlStateManager.glDeleteLists(list, range);
     }
 
     @Override
     public void glNewList(final int list, final int mode)
     {
-        getProvider().glNewList(list, mode);
+        GlStateManager.glNewList(list, mode);
     }
 
     @Override
     public void glEndList()
     {
-        getProvider().glEndList();
+        GlStateManager.glEndList();
     }
 
     @Override
     public int glGenLists(final int range)
     {
-        return getProvider().glGenLists(range);
+        return GlStateManager.glGenLists(range);
     }
 
     @Override
     public void glPixelStorei(final int parameterName, final int param)
     {
-        getProvider().glPixelStorei(parameterName, param);
+        GlStateManager.glPixelStorei(parameterName, param);
     }
 
     @Override
     public void glReadPixels(final int x, final int y, final int width, final int height, final int format, final int type, final IntBuffer pixels)
     {
-        getProvider().glReadPixels(x, y, width, height, format, type, pixels);
+        GlStateManager.glReadPixels(x, y, width, height, format, type, pixels);
     }
 
     @Override
     public int glGetError()
     {
-        return getProvider().glGetError();
+        return GlStateManager.glGetError();
     }
 
     @Override
     public String glGetString(final int name)
     {
-        return getProvider().glGetString(name);
+        return GlStateManager.glGetString(name);
     }
 
     @Override
     public void glGetInteger(final int parameterName, final IntBuffer parameters)
     {
-        getProvider().glGetInteger(parameterName, parameters);
+        GlStateManager.glGetInteger(parameterName, parameters);
     }
 
     @Override
     public int glGetInteger(final int parameterName)
     {
-        return getProvider().glGetInteger(parameterName);
+        return GlStateManager.glGetInteger(parameterName);
     }
 
     @Override
     public void disableStandardItemLighting()
     {
-        getProvider().disableStandardItemLighting();
+        RenderHelper.disableStandardItemLighting();
     }
 
     @Override
     public void enableStandardItemLighting()
     {
-        getProvider().enableStandardItemLighting();
+        RenderHelper.enableStandardItemLighting();
     }
 
     @Override
     public int getOpenGlQuadsRenderMode()
     {
-        return getProvider().getOpenGlQuadsRenderMode();
+        return GL11.GL_QUADS;
     }
 
     @Override
     public int getOpenGlLineRenderMode()
     {
-        return getProvider().getOpenGlLineRenderMode();
+        return GL11.GL_LINE;
     }
 }

@@ -20,6 +20,6 @@ public class BiomeProvider implements IBiomeProvider
     @Override
     public IBiome getPlains()
     {
-        return new Biome(Biomes.PLAINS);
+        return Biome.fromForge(Biomes.PLAINS);
     }
 }

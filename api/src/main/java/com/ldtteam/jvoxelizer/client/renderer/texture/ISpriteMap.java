@@ -6,7 +6,7 @@ public interface ISpriteMap
 {
     static String getLocationOfBlocksTexture()
     {
-        throw new NotImplementedException();
+        return ISpriteMapProviderHolder.getInstance().getLocationOfBlocksTexture();
     }
 
     ISprite getAtlasSprite(String spriteName);

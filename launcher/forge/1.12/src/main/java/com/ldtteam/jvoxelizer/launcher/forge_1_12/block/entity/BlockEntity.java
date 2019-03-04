@@ -26,7 +26,7 @@ public class BlockEntity implements IBlockEntity
     @Override
     public IBlockCoordinate getPosition()
     {
-        return new BlockCoordinate(forgeTileEntity.getPos());
+        return BlockCoordinate.fromForge(forgeTileEntity.getPos());
     }
 
     @Override

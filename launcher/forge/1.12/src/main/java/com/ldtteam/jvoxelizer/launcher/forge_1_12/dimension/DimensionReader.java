@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension;
 
 import com.ldtteam.jvoxelizer.biome.IBiome;
+import com.ldtteam.jvoxelizer.block.IBlock;
 import com.ldtteam.jvoxelizer.block.entity.IBlockEntity;
 import com.ldtteam.jvoxelizer.block.state.IBlockState;
 import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
@@ -15,46 +16,46 @@ import com.ldtteam.jvoxelizer.util.facing.IFacing;
 import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 import net.minecraft.world.IBlockAccess;
 
-public class DimensionReader<I> implements IDimensionReader<I>
+public class DimensionReader implements IDimensionReader<DummyInstanceData>
 {
     private final IBlockAccess forgeBlockAcces;
 
-    public DimensionReader(final IBlockAccess forgeBlockAcces) {this.forgeBlockAcces = forgeBlockAcces;}
+    private DimensionReader(final IBlockAccess forgeBlockAcces) {this.forgeBlockAcces = forgeBlockAcces;}
 
     @Override
     public IBlockEntity getBlockEntity(final IBlockCoordinate pos)
     {
-        return new BlockEntity(forgeBlockAcces.getTileEntity(((BlockCoordinate) pos).getForgeBlockPos()));
+        return new BlockEntity(forgeBlockAcces.getTileEntity(BlockCoordinate.asForge(pos)));
     }
 
     @Override
     public int getCombinedLight(final IBlockCoordinate pos, final int lightValue)
     {
-        return forgeBlockAcces.getCombinedLight(((BlockCoordinate) pos).getForgeBlockPos(), lightValue);
+        return forgeBlockAcces.getCombinedLight(BlockCoordinate.asForge(pos), lightValue);
     }
 
     @Override
     public IBlockState getBlockState(final IBlockCoordinate pos)
     {
-        return new BlockState(forgeBlockAcces.getBlockState(((BlockCoordinate) pos).getForgeBlockPos()));
+        return new BlockState(forgeBlockAcces.getBlockState(BlockCoordinate.asForge(pos)));
     }
 
     @Override
     public boolean isAirBlock(final IBlockCoordinate pos)
     {
-        return forgeBlockAcces.isAirBlock(((BlockCoordinate) pos).getForgeBlockPos());
+        return forgeBlockAcces.isAirBlock(BlockCoordinate.asForge(pos));
     }
 
     @Override
     public IBiome getBiome(final IBlockCoordinate pos)
     {
-        return new Biome(forgeBlockAcces.getBiome(((BlockCoordinate) pos).getForgeBlockPos()));
+        return Biome.fromForge(forgeBlockAcces.getBiome(BlockCoordinate.asForge(pos)));
     }
 
     @Override
     public int getStrongPower(final IBlockCoordinate pos, final IFacing direction)
     {
-        return forgeBlockAcces.getStrongPower(((BlockCoordinate) pos).getForgeBlockPos(), ((Facing) direction).getForgeSide());
+        return forgeBlockAcces.getStrongPower(BlockCoordinate.asForge(pos), ((Facing) direction).getForgeSide());
     }
 
     @Override
@@ -66,17 +67,33 @@ public class DimensionReader<I> implements IDimensionReader<I>
     @Override
     public boolean isSideSolid(final IBlockCoordinate pos, final IFacing side, final boolean _default)
     {
-        return forgeBlockAcces.isSideSolid(((BlockCoordinate) pos).getForgeBlockPos(), ((Facing) side).getForgeSide(), _default);
+        return forgeBlockAcces.isSideSolid(BlockCoordinate.asForge(pos), ((Facing) side).getForgeSide(), _default);
     }
 
     @Override
-    public I getInstanceData()
+    public DummyInstanceData getInstanceData()
     {
-        return (I) (forgeBlockAcces instanceof IDimensionReader ? ((IDimensionReader<?>) forgeBlockAcces).getInstanceData() : new DummyInstanceData());
+        return new DummyInstanceData();
     }
 
-    public IBlockAccess getForgeBlockAcces()
+    private IBlockAccess getForgeBlockAcces()
     {
         return forgeBlockAcces;
+    }
+
+    public static IBlockAccess asForge(IDimensionReader<?> dimensionReader)
+    {
+        if (dimensionReader instanceof IBlockAccess)
+            return (IBlockAccess) dimensionReader;
+
+        return ((DimensionReader) dimensionReader).getForgeBlockAcces();
+    }
+
+    public static IDimensionReader<?> fromForge(IBlockAccess blockAccess)
+    {
+        if (blockAccess instanceof IDimensionReader)
+            return (IDimensionReader<?>) blockAccess;
+
+        return new DimensionReader(blockAccess);
     }
 }

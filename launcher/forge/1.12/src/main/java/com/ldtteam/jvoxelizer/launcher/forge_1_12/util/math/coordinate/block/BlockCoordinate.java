@@ -6,7 +6,7 @@ import net.minecraft.util.math.BlockPos;
 public class BlockCoordinate implements IBlockCoordinate {
     private BlockPos forgeBlockPos;
 
-    public BlockCoordinate(BlockPos forgeBlockPos) {
+    private BlockCoordinate(BlockPos forgeBlockPos) {
         this.forgeBlockPos = forgeBlockPos;
     }
 
@@ -25,8 +25,24 @@ public class BlockCoordinate implements IBlockCoordinate {
         return forgeBlockPos.getZ();
     }
 
-    public BlockPos getForgeBlockPos()
+    private BlockPos getForgeBlockPos()
     {
         return forgeBlockPos;
+    }
+
+    public static BlockPos asForge(IBlockCoordinate blockCoordinate)
+    {
+        if (blockCoordinate instanceof BlockPos)
+            return (BlockPos) blockCoordinate;
+
+        return ((BlockCoordinate) blockCoordinate).getForgeBlockPos();
+    }
+
+    public static IBlockCoordinate fromForge(BlockPos blockPos)
+    {
+        if (blockPos instanceof IBlockCoordinate)
+            return (IBlockCoordinate) blockPos;
+
+        return new BlockCoordinate(blockPos);
     }
 }

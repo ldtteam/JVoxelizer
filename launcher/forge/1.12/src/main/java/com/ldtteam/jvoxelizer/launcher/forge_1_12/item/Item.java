@@ -24,7 +24,6 @@ import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.group.IItemGroup;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockState;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolution;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.model.ModelType;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.blockentity.BlockEntityRenderer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.animation.TimedValue;
@@ -558,7 +557,7 @@ public class Item implements IItem
     public IModelBiped getArmorModel(
       final ILivingBaseEntity entityLiving, final IItemStack IItemStack, final IEquipmentSlot armorSlot, final IModelBiped _default)
     {
-        return new ModelType(forgeItem.getArmorModel(((LivingBaseEntity)entityLiving).getForgeEntity(), ((ItemStack)IItemStack).getForgeItem(), ((EquipmentSlot)armorSlot).getForgeEquipmentSlot(), ((ModelType)_default).getForgeModelType()));
+        return new ModelBiped(forgeItem.getArmorModel(((LivingBaseEntity)entityLiving).getForgeEntity(), ((ItemStack)IItemStack).getForgeItem(), ((EquipmentSlot)armorSlot).getForgeEquipmentSlot(), ((ModelBiped)_default).getForgeModelType()));
     }
 
     @Override

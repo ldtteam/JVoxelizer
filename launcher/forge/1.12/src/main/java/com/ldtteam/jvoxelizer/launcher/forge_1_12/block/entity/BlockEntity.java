@@ -11,11 +11,15 @@ import com.ldtteam.jvoxelizer.util.facing.IFacing;
 import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 import net.minecraft.tileentity.TileEntity;
 
+/**
+ * Forge implementation of the IBlockEntity interface.
+ * Falls back onto TileEntity.
+ */
 public class BlockEntity implements IBlockEntity
 {
     private final TileEntity forgeTileEntity;
 
-    public BlockEntity(final TileEntity forgeTileEntity) {this.forgeTileEntity = forgeTileEntity;}
+    private BlockEntity(final TileEntity forgeTileEntity) {this.forgeTileEntity = forgeTileEntity;}
 
     @Override
     public IDimension getDimension()
@@ -32,12 +36,33 @@ public class BlockEntity implements IBlockEntity
     @Override
     public boolean hasCapability(final ICapability<?> capability, final IFacing facing)
     {
-        return forgeTileEntity.hasCapability(((Capability) capability).getForgeCapability(), ((Facing) facing).getForgeSide());
+        return forgeTileEntity.hasCapability(Capability.asForge(capability), Facing.asForge(facing));
     }
 
     @Override
     public <T> T getCapability(final ICapability<T> capability, final IFacing facing)
     {
-        return (T) forgeTileEntity.getCapability(((Capability) capability).getForgeCapability(), ((Facing) facing).getForgeSide());
+        return (T) forgeTileEntity.getCapability(Capability.asForge(capability), Facing.asForge(facing));
+    }
+
+    public TileEntity getForgeTileEntity()
+    {
+        return forgeTileEntity;
+    }
+
+    public static TileEntity asForge(IBlockEntity blockEntity)
+    {
+        if (blockEntity instanceof TileEntity)
+            return (TileEntity) blockEntity;
+
+        return ((BlockEntity) blockEntity).getForgeTileEntity();
+    }
+
+    public static IBlockEntity fromForge(TileEntity tileEntity)
+    {
+        if (tileEntity instanceof IBlockEntity)
+            return (IBlockEntity) tileEntity;
+
+        return new BlockEntity(tileEntity);
     }
 }

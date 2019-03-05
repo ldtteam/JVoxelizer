@@ -2,6 +2,9 @@ package com.ldtteam.jvoxelizer.block.state;
 
 import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
 
+/**
+ * The provider holder for blockstates.
+ */
 final class IBlockStateProviderHolder extends AbstractHolder<IBlockStateProvider> implements IBlockStateProvider
 {
     private static IBlockStateProviderHolder ourInstance = new IBlockStateProviderHolder();

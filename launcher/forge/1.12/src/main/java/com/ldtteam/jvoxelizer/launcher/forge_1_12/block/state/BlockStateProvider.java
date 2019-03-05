@@ -2,6 +2,7 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state;
 
 import com.ldtteam.jvoxelizer.block.state.IBlockState;
 import com.ldtteam.jvoxelizer.block.state.IBlockStateProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.Block;
 import net.minecraft.init.Blocks;
 
 public class BlockStateProvider implements IBlockStateProvider
@@ -20,12 +21,12 @@ public class BlockStateProvider implements IBlockStateProvider
     @Override
     public IBlockState provide()
     {
-        return new BlockState();
+        return BlockState.fromForge(null);
     }
 
     @Override
     public IBlockState provideDefault()
     {
-        return new BlockState(Blocks.AIR.getDefaultState());
+        return BlockState.fromForge(Blocks.AIR.getDefaultState());
     }
 }

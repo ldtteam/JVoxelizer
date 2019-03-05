@@ -19,11 +19,11 @@ public class BlockState implements IBlockState
 
     private net.minecraft.block.state.IBlockState forgeBlockState;
 
-    public BlockState()
+    private BlockState()
     {
     }
 
-    public BlockState(final net.minecraft.block.state.IBlockState forgeBlockState)
+    private BlockState(final net.minecraft.block.state.IBlockState forgeBlockState)
     {
         this.forgeBlockState = forgeBlockState;
     }
@@ -40,7 +40,7 @@ public class BlockState implements IBlockState
     public boolean isSideSolid(
       final IDimensionReader<?> dimensionReader, final IBlockCoordinate pos, final IFacing side)
     {
-        return forgeBlockState.isSideSolid(((DimensionReader) dimensionReader).getForgeBlockAcces(), ((BlockCoordinate) pos).getForgeBlockPos(), ((Facing) side).getForgeSide());
+        return forgeBlockState.isSideSolid(DimensionReader.asForge(dimensionReader), BlockCoordinate.asForge(pos), Facing.asForge(side));
     }
 
     @Override

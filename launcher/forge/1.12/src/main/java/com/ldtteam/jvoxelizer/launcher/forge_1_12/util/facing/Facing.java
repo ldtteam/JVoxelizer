@@ -7,7 +7,7 @@ public class Facing implements IFacing
 {
     private EnumFacing forgeSide;
 
-    public Facing(final EnumFacing forgeSide)
+    private Facing(final EnumFacing forgeSide)
     {
         this.forgeSide = forgeSide;
     }
@@ -54,8 +54,18 @@ public class Facing implements IFacing
         return forgeSide == null;
     }
 
-    public EnumFacing getForgeSide()
+    private EnumFacing getForgeSide()
     {
         return forgeSide;
+    }
+
+    public static EnumFacing asForge(IFacing facing)
+    {
+        return ((Facing) facing).getForgeSide();
+    }
+
+    public static IFacing fromForge(EnumFacing facing)
+    {
+        return new Facing(facing);
     }
 }

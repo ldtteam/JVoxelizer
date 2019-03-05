@@ -2,6 +2,9 @@ package com.ldtteam.jvoxelizer.client.mouse;
 
 import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
 
+/**
+ * The mouse provider holder.
+ */
 final class IMouseProviderHolder extends AbstractHolder<IMouseProvider> implements IMouseProvider
 {
     private static IMouseProviderHolder ourInstance = new IMouseProviderHolder();

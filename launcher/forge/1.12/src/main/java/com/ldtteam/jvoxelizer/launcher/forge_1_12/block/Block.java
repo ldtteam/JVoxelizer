@@ -11,10 +11,9 @@ import net.minecraft.block.BlockAir;
 
 public class Block implements IBlock
 {
-
     private net.minecraft.block.Block forgeBlock;
 
-    public Block(final net.minecraft.block.Block forgeBlock)
+    private Block(final net.minecraft.block.Block forgeBlock)
     {
         this.forgeBlock = forgeBlock;
     }
@@ -29,6 +28,19 @@ public class Block implements IBlock
     public IBlockEntity createBlockEntity(
       final IDimension dimension, final IBlockState state)
     {
-        return new BlockEntity(forgeBlock.createTileEntity(((Dimension) dimension).getForgeWorld(), ((BlockState) state).getForgeBlockState()));
+        return BlockEntity.fromForge(forgeBlock.createTileEntity(((Dimension) dimension).getForgeWorld(), ((BlockState) state).getForgeBlockState()));
+    }
+
+    public net.minecraft.block.Block getForgeBlock()
+    {
+        return forgeBlock;
+    }
+
+    public static net.minecraft.block.Block asForge(IBlock block)
+    {
+        if (block instanceof net.minecraft.block.Block)
+            return (net.minecraft.block.Block) block;
+
+        return ((Block) block).getForgeBlock();
     }
 }

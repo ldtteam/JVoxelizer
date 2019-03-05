@@ -39,5 +39,14 @@ public interface IBlockState extends INBTSerializable
      */
     IBlock getBlock();
 
+    /**
+     * Indicates if the given side is solid in the given dimension if a block is located on the given position.
+     *
+     * @param dimensionReader The dimension to check in.
+     * @param pos The position to check in.
+     * @param side The side to check for.
+     *
+     * @return True when solid, false when not.
+     */
     boolean isSideSolid(IDimensionReader<?> dimensionReader, IBlockCoordinate pos, IFacing side);
 }

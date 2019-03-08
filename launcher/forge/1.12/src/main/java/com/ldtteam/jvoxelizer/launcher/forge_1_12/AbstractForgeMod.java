@@ -15,6 +15,8 @@ import com.ldtteam.jvoxelizer.client.renderer.texture.ISpriteMap;
 import com.ldtteam.jvoxelizer.common.capability.ICapability;
 import com.ldtteam.jvoxelizer.common.gameevent.event.player.IPlayerEvent;
 import com.ldtteam.jvoxelizer.core.provider.holder.ProviderResolver;
+import com.ldtteam.jvoxelizer.dimension.IDimension;
+import com.ldtteam.jvoxelizer.dimension.logic.builder.IDimensionReaderBuilder;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.biome.BiomeProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockStateProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolutionProvider;
@@ -30,6 +32,8 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.tessellator.Te
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.SpriteMapProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.animation.CapabilityLogicProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.gameevent.event.player.PlayerEventProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.DimensionProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.logic.builder.provider.DimensionReaderBuilderProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.DistributionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt.NBTProvider;
 import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
@@ -37,6 +41,8 @@ import com.ldtteam.jvoxelizer.util.nbt.INBTBase;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
+
+import java.security.Provider;
 
 public abstract class AbstractForgeMod
 {
@@ -78,11 +84,13 @@ public abstract class AbstractForgeMod
         ProviderResolver.getInstance().registerProvider(ITessellator.class.getName(), TessellatorProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(ISpriteMap.class.getName(), SpriteMapProvider.getInstance());
 
-        //Capability
+        //Common
         ProviderResolver.getInstance().registerProvider(ICapability.class.getName(), CapabilityLogicProvider.getInstance());
-
-        //PlayerEvent
         ProviderResolver.getInstance().registerProvider(IPlayerEvent.class.getName(), PlayerEventProvider.getInstance());
+
+        //Dimension
+        ProviderResolver.getInstance().registerProvider(IDimensionReaderBuilder.class.getName(), DimensionReaderBuilderProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(IDimension.class.getName(), DimensionProvider.getInstance());
 
         //Util
         ProviderResolver.getInstance().registerProvider(IDistribution.class.getName(), DistributionProvider.getInstance());

@@ -5,5 +5,5 @@ import com.ldtteam.jvoxelizer.dimension.IDimensionReader;
 public interface IDimensionReaderBuilderProvider
 {
 
-    <C extends IDimensionReaderBuilder<C, I, O>, I, O extends IDimensionReader<I>> C provide();
+    <I> IDimensionReaderBuilder<?, I, ? extends IDimensionReader<I>> provide();
 }

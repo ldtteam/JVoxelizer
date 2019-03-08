@@ -8,11 +8,11 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
-public class Dimension<I> extends DimensionReader<I> implements IDimension<I>
+public class Dimension extends DimensionReader implements IDimension<DummyInstanceData>
 {
     private final World forgeWorld;
 
-    public Dimension(final World world)
+    private Dimension(final World world)
     {
         super(world);
         this.forgeWorld = world;
@@ -48,6 +48,6 @@ public class Dimension<I> extends DimensionReader<I> implements IDimension<I>
         if (world instanceof IDimension)
             return (IDimension<?>) world;
 
-        return new Dimension<DummyInstanceData>(world);
+        return new Dimension(world);
     }
 }

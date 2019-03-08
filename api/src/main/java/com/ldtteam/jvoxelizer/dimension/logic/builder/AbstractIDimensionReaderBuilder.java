@@ -20,7 +20,7 @@ public abstract class AbstractIDimensionReaderBuilder<C extends IDimensionReader
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetBlockEntityContext, IBlockEntity, O, I>, IBlockEntity>> GetBlockEntityPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetBlockEntityContext, IBlockEntity, O, I>, IBlockEntity>> GetBlockEntityPipeline = new ArrayList<>();
 
     @Override
     public C GetCombinedLight(Function<TypedPipelineElementContext<GetCombinedLightContext, Integer, O, I>, Integer>... components) {
@@ -28,7 +28,7 @@ public abstract class AbstractIDimensionReaderBuilder<C extends IDimensionReader
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetCombinedLightContext, Integer, O, I>, Integer>> GetCombinedLightPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetCombinedLightContext, Integer, O, I>, Integer>> GetCombinedLightPipeline = new ArrayList<>();
 
     @Override
     public C IsAirBlock(Function<TypedPipelineElementContext<IsAirBlockContext, Boolean, O, I>, Boolean>... components) {
@@ -36,7 +36,7 @@ public abstract class AbstractIDimensionReaderBuilder<C extends IDimensionReader
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<IsAirBlockContext, Boolean, O, I>, Boolean>> IsAirBlockPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<IsAirBlockContext, Boolean, O, I>, Boolean>> IsAirBlockPipeline = new ArrayList<>();
 
     @Override
     public C GetStrongPower(Function<TypedPipelineElementContext<GetStrongPowerContext, Integer, O, I>, Integer>... components) {
@@ -44,7 +44,7 @@ public abstract class AbstractIDimensionReaderBuilder<C extends IDimensionReader
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetStrongPowerContext, Integer, O, I>, Integer>> GetStrongPowerPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetStrongPowerContext, Integer, O, I>, Integer>> GetStrongPowerPipeline = new ArrayList<>();
 
     @Override
     public C GetBlockState(Function<TypedPipelineElementContext<GetBlockStateContext, IBlockState, O, I>, IBlockState>... components) {
@@ -52,7 +52,7 @@ public abstract class AbstractIDimensionReaderBuilder<C extends IDimensionReader
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetBlockStateContext, IBlockState, O, I>, IBlockState>> GetBlockStatePipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetBlockStateContext, IBlockState, O, I>, IBlockState>> GetBlockStatePipeline = new ArrayList<>();
 
     @Override
     public C GetWorldType(Function<TypedPipelineElementContext<GetWorldTypeContext, IDimensionType, O, I>, IDimensionType>... components) {
@@ -60,7 +60,7 @@ public abstract class AbstractIDimensionReaderBuilder<C extends IDimensionReader
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetWorldTypeContext, IDimensionType, O, I>, IDimensionType>> GetWorldTypePipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetWorldTypeContext, IDimensionType, O, I>, IDimensionType>> GetWorldTypePipeline = new ArrayList<>();
 
     @Override
     public C GetBiome(Function<TypedPipelineElementContext<GetBiomeContext, IBiome, O, I>, IBiome>... components) {
@@ -68,7 +68,7 @@ public abstract class AbstractIDimensionReaderBuilder<C extends IDimensionReader
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetBiomeContext, IBiome, O, I>, IBiome>> GetBiomePipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetBiomeContext, IBiome, O, I>, IBiome>> GetBiomePipeline = new ArrayList<>();
 
     @Override
     public C IsSideSolid(Function<TypedPipelineElementContext<IsSideSolidContext, Boolean, O, I>, Boolean>... components) {
@@ -76,5 +76,5 @@ public abstract class AbstractIDimensionReaderBuilder<C extends IDimensionReader
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<IsSideSolidContext, Boolean, O, I>, Boolean>> IsSideSolidPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<IsSideSolidContext, Boolean, O, I>, Boolean>> IsSideSolidPipeline = new ArrayList<>();
 }

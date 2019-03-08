@@ -21,7 +21,7 @@ public interface IDimensionReader<I> extends IInstancedObject<I> {
 
     int getStrongPower(IBlockCoordinate pos, IFacing direction);
 
-    IDimensionType getWorldType();
+    IDimensionType getDimensionType();
 
     boolean isSideSolid(IBlockCoordinate pos, IFacing side, boolean _default);
 }

@@ -20,12 +20,12 @@ public class DimensionReader implements IDimensionReader<DummyInstanceData>
 {
     private final IBlockAccess forgeBlockAcces;
 
-    private DimensionReader(final IBlockAccess forgeBlockAcces) {this.forgeBlockAcces = forgeBlockAcces;}
+    protected DimensionReader(final IBlockAccess forgeBlockAcces) {this.forgeBlockAcces = forgeBlockAcces;}
 
     @Override
     public IBlockEntity getBlockEntity(final IBlockCoordinate pos)
     {
-        return new BlockEntity(forgeBlockAcces.getTileEntity(BlockCoordinate.asForge(pos)));
+        return BlockEntity.fromForge(forgeBlockAcces.getTileEntity(BlockCoordinate.asForge(pos)));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class DimensionReader implements IDimensionReader<DummyInstanceData>
     @Override
     public IBlockState getBlockState(final IBlockCoordinate pos)
     {
-        return new BlockState(forgeBlockAcces.getBlockState(BlockCoordinate.asForge(pos)));
+        return BlockState.fromForge(forgeBlockAcces.getBlockState(BlockCoordinate.asForge(pos)));
     }
 
     @Override
@@ -55,19 +55,19 @@ public class DimensionReader implements IDimensionReader<DummyInstanceData>
     @Override
     public int getStrongPower(final IBlockCoordinate pos, final IFacing direction)
     {
-        return forgeBlockAcces.getStrongPower(BlockCoordinate.asForge(pos), ((Facing) direction).getForgeSide());
+        return forgeBlockAcces.getStrongPower(BlockCoordinate.asForge(pos), Facing.asForge(direction));
     }
 
     @Override
-    public IDimensionType getWorldType()
+    public IDimensionType getDimensionType()
     {
-        return new DimensionType(forgeBlockAcces.getWorldType());
+        return DimensionType.fromForge(forgeBlockAcces.getWorldType());
     }
 
     @Override
     public boolean isSideSolid(final IBlockCoordinate pos, final IFacing side, final boolean _default)
     {
-        return forgeBlockAcces.isSideSolid(BlockCoordinate.asForge(pos), ((Facing) side).getForgeSide(), _default);
+        return forgeBlockAcces.isSideSolid(BlockCoordinate.asForge(pos), Facing.asForge(side), _default);
     }
 
     @Override

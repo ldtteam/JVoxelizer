@@ -8,10 +8,26 @@ public class DimensionType implements IDimensionType
 
     private final WorldType forgeWorldType;
 
-    public DimensionType(final WorldType forgeWorldType) {this.forgeWorldType = forgeWorldType;}
+    private DimensionType(final WorldType forgeWorldType) {this.forgeWorldType = forgeWorldType;}
 
-    public WorldType getForgeWorldType()
+    private WorldType getForgeWorldType()
     {
         return forgeWorldType;
+    }
+
+    public static WorldType asForge(IDimensionType dimensionType)
+    {
+        if (dimensionType instanceof WorldType)
+            return (WorldType) dimensionType;
+
+        return ((DimensionType) dimensionType).getForgeWorldType();
+    }
+
+    public static IDimensionType fromForge(WorldType worldType)
+    {
+        if (worldType instanceof IDimensionType)
+            return (IDimensionType) worldType;
+
+        return new DimensionType(worldType);
     }
 }

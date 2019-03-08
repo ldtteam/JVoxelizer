@@ -4,6 +4,9 @@ import com.google.common.collect.Maps;
 
 import java.util.Map;
 
+/**
+ * Handles resolving and registration of logic providers that bridge gaps between JVox and its implementations.
+ */
 public class ProviderResolver
 {
     private static ProviderResolver ourInstance = new ProviderResolver();

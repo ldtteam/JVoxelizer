@@ -5,6 +5,14 @@ import com.ldtteam.jvoxelizer.client.gui.IGui;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+ * Pipeline component used when the pipeline returns an object.
+ *
+ * @param <T> The type of the context.
+ * @param <R> The type returned by the pipeline.
+ * @param <O> THe instance for which the pipeline is executed.
+ * @param <I> THe type of the data carried by the instance.
+ */
 public class TypedPipelineElementContext<T, R, O extends IInstancedObject<I>, I>
 {
     private final O                                                                                   instance;
@@ -39,21 +47,43 @@ public class TypedPipelineElementContext<T, R, O extends IInstancedObject<I>, I>
         this.index = index;
     }
 
+    /**
+     * The instance that the pipeline is executed for.
+     *
+     * @return The instance that the pipeline is executed for.
+     */
     public O getInstance()
     {
         return instance;
     }
 
+    /**
+     * The additional data that the instance carries.
+     *
+     * @return The additional data that the instance carries.
+     */
     public I getInstanceData()
     {
         return getInstance().getInstanceData();
     }
 
+    /**
+     * The pipeline context.
+     * Gives access to the current parameters of the method for which the pipeline is executed and their values.
+     *
+     * @return The pipeline context.
+     */
     public T getContext()
     {
         return context;
     }
 
+    /**
+     * Calls the next method in the pipeline if available.
+     * If no method exists in the pipeline, null is returned.
+     *
+     * @return The result of the next method in the pipeline, or null.
+     */
     public R next()
     {
         if (index == elements.size())
@@ -62,6 +92,12 @@ public class TypedPipelineElementContext<T, R, O extends IInstancedObject<I>, I>
         return elements.get(index).apply(new TypedPipelineElementContext<>(instance, context, elements, superCallback, index + 1));
     }
 
+    /**
+     * Used to call the super of the method for which the pipeline is executed.
+     * If the pipeline is executed for an abstract method it will throw an exception.
+     *
+     * @return The result of the super call.
+     */
     public R callSuper()
     {
         try

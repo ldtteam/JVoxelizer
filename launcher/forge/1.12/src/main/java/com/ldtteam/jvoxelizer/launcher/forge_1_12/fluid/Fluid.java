@@ -7,22 +7,43 @@ import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 
 public class Fluid implements IFluid
 {
-    private net.minecraftforge.fluids.Fluid fluid;
+    private net.minecraftforge.fluids.Fluid forgeFluid;
 
-    public Fluid(final net.minecraftforge.fluids.Fluid fluid)
+    private Fluid(final net.minecraftforge.fluids.Fluid forgeFluid)
     {
-        this.fluid = fluid;
+        this.forgeFluid = forgeFluid;
     }
 
     @Override
     public IIdentifier getStill(final IFluidStack fluid)
     {
-        return new Identifier(this.fluid.getStill(((FluidStack) fluid).getFluidStack()));
+        return new Identifier(this.forgeFluid.getStill(FluidStack.asForge(fluid)));
     }
 
     @Override
     public int getColor(final IFluidStack fluid)
     {
-        return this.fluid.getColor(((FluidStack) fluid).getFluidStack());
+        return this.forgeFluid.getColor(FluidStack.asForge(fluid));
+    }
+
+    public net.minecraftforge.fluids.Fluid getForgeFluid()
+    {
+        return forgeFluid;
+    }
+
+    public static net.minecraftforge.fluids.Fluid asForge(IFluid fluid)
+    {
+        if (fluid instanceof net.minecraftforge.fluids.Fluid)
+            return (net.minecraftforge.fluids.Fluid) fluid;
+
+        return ((Fluid) fluid).getForgeFluid();
+    }
+
+    public static IFluid fromForge(net.minecraftforge.fluids.Fluid fluid)
+    {
+        if (fluid instanceof IFluid)
+            return (IFluid) fluid;
+
+        return new Fluid(fluid);
     }
 }

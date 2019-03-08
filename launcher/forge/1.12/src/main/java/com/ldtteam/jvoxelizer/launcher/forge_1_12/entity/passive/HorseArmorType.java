@@ -6,17 +6,23 @@ public class HorseArmorType implements IHorseArmorType
 {
     private net.minecraft.entity.passive.HorseArmorType armorType;
 
-    public HorseArmorType(final net.minecraft.entity.passive.HorseArmorType armorType)
+    private HorseArmorType(final net.minecraft.entity.passive.HorseArmorType armorType)
     {
         this.armorType = armorType;
     }
 
-    /**
-     * Getter for the wrapped armor type.
-     * @return the net.minecraft.entity.passive.HorseArmorType.
-     */
-    public net.minecraft.entity.passive.HorseArmorType getForgeArmorType()
+    private net.minecraft.entity.passive.HorseArmorType getForgeArmorType()
     {
         return this.armorType;
+    }
+
+    public static net.minecraft.entity.passive.HorseArmorType asForge(IHorseArmorType armorType)
+    {
+        return ((HorseArmorType) armorType).getForgeArmorType();
+    }
+
+    public static IHorseArmorType fromForgeA(net.minecraft.entity.passive.HorseArmorType armorType)
+    {
+        return new HorseArmorType(armorType);
     }
 }

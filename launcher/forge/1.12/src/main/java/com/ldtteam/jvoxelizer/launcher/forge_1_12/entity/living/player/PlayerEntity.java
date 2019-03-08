@@ -4,14 +4,16 @@ import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 import com.ldtteam.jvoxelizer.inventory.IContainer;
 import com.ldtteam.jvoxelizer.inventory.IInventoryPlayer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.LivingBaseEntity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.Container;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.InventoryPlayer;
 import net.minecraft.entity.player.EntityPlayer;
 import org.jetbrains.annotations.NotNull;
 
 public class PlayerEntity extends LivingBaseEntity implements IPlayerEntity
 {
-    public EntityPlayer forgePlayer;
+    private final EntityPlayer forgePlayer;
 
-    public PlayerEntity(@NotNull final EntityPlayer forgeEntity)
+    protected PlayerEntity(@NotNull final EntityPlayer forgeEntity)
     {
         super(forgeEntity);
         forgePlayer = forgeEntity;
@@ -20,32 +22,40 @@ public class PlayerEntity extends LivingBaseEntity implements IPlayerEntity
     @Override
     public IInventoryPlayer getInventory()
     {
-        // TODO
-        return forgePlayer.inventory;
+        return InventoryPlayer.fromForge(forgePlayer.inventory);
     }
 
     @Override
     public IContainer<?> getOpenContainer()
     {
-        // TODO
-        return forgePlayer.openContainer;
+        return Container.fromForge(forgePlayer.openContainer);
     }
 
     @Override
     public IPlayerEntity setOpenContainer(final IContainer<?> container)
     {
-        // TODO
-        forgePlayer.inventoryContainer;
+        forgePlayer.openContainer = Container.asForge(container);
         return this;
     }
 
-    public EntityPlayer getForgePlayer()
+    private EntityPlayer getForgePlayer()
     {
         return forgePlayer;
     }
 
     public static EntityPlayer asForge(IPlayerEntity playerEntity)
     {
+        if (playerEntity instanceof EntityPlayer)
+            return (EntityPlayer) playerEntity;
+
         return ((PlayerEntity) playerEntity).getForgePlayer();
+    }
+
+    public static IPlayerEntity fromForge(EntityPlayer player)
+    {
+        if (player instanceof IPlayerEntity)
+            return (IPlayerEntity) player;
+
+        return new PlayerEntity(player);
     }
 }

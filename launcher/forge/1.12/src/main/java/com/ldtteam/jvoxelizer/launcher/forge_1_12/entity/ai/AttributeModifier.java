@@ -13,7 +13,7 @@ public class AttributeModifier implements IAttributeModifier
      */
     private net.minecraft.entity.ai.attributes.AttributeModifier forgeAttributeModifier;
 
-    public AttributeModifier(@NotNull final net.minecraft.entity.ai.attributes.AttributeModifier attributeModifier)
+    private AttributeModifier(@NotNull final net.minecraft.entity.ai.attributes.AttributeModifier attributeModifier)
     {
         this.forgeAttributeModifier = attributeModifier;
     }
@@ -53,5 +53,18 @@ public class AttributeModifier implements IAttributeModifier
     {
         forgeAttributeModifier.setSaved(saved);
         return this;
+    }
+
+    public net.minecraft.entity.ai.attributes.AttributeModifier getForgeAttributeModifier()
+    {
+        return forgeAttributeModifier;
+    }
+
+    public static net.minecraft.entity.ai.attributes.AttributeModifier asForge(IAttributeModifier modifier)
+    {
+        if (modifier instanceof net.minecraft.entity.ai.attributes.AttributeModifier)
+            return (net.minecraft.entity.ai.attributes.AttributeModifier) modifier;
+
+        return ((AttributeModifier) modifier).getForgeAttributeModifier();
     }
 }

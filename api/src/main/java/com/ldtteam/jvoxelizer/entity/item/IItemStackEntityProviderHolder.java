@@ -5,6 +5,9 @@ import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.util.math.coordinate.entity.IEntityCoordinate;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
 
+/**
+ * Holder that holds the logic for creating itemstack entities.
+ */
 public class IItemStackEntityProviderHolder extends AbstractHolder<IItemStackEntityProvider> implements IItemStackEntityProvider
 {
     private static IItemStackEntityProviderHolder ourInstance = new IItemStackEntityProviderHolder();

@@ -17,10 +17,15 @@ import java.util.*;
 public interface IEntity extends INBTSerializable, ICapabilityProvider
 {
 
+    /**
+     * Constructs a new entity that lives the given dimension at 0,0,0.
+     *
+     * @param dimension The dimension to create the entity in.
+     * @return The entity created.
+     */
     static IEntity create(IDimension dimension)
     {
-        //TODO: Implement.
-        return null;
+        return IEntityProviderHolder.getInstance().provide(dimension);
     }
 
     /**

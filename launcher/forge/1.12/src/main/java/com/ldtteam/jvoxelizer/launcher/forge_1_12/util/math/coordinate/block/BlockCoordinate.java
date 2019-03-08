@@ -10,6 +10,11 @@ public class BlockCoordinate implements IBlockCoordinate {
         this.forgeBlockPos = forgeBlockPos;
     }
 
+    public BlockCoordinate(double x, double y, double z)
+    {
+        this(new BlockPos(x, y, z));
+    }
+
     @Override
     public int getX() {
         return forgeBlockPos.getX();

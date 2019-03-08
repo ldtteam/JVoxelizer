@@ -9,18 +9,30 @@ public class LivingBaseEntity extends Entity implements ILivingBaseEntity
 {
     private final EntityLivingBase entityLivingBase;
 
-    public LivingBaseEntity(@NotNull final net.minecraft.entity.EntityLivingBase forgeEntity)
+    protected LivingBaseEntity(@NotNull final net.minecraft.entity.EntityLivingBase forgeEntity)
     {
         super(forgeEntity);
         entityLivingBase = forgeEntity;
     }
 
-    /**
-     * Getter for the wrapped forge element.
-     * @return EntityLivingBase.
-     */
-    public EntityLivingBase getForgeEntity()
+    private EntityLivingBase getForgeEntity()
     {
         return this.entityLivingBase;
+    }
+
+    public static EntityLivingBase asForge(ILivingBaseEntity entity)
+    {
+        if (entity instanceof EntityLivingBase)
+            return (EntityLivingBase) entity;
+
+        return ((LivingBaseEntity) entity).getForgeEntity();
+    }
+
+    public static ILivingBaseEntity fromForge(EntityLivingBase entityLivingBase)
+    {
+        if (entityLivingBase instanceof ILivingBaseEntity)
+            return (ILivingBaseEntity) entityLivingBase;
+
+        return new LivingBaseEntity(entityLivingBase);
     }
 }

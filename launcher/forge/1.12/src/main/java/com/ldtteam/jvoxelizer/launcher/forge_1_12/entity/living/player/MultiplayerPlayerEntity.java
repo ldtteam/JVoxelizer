@@ -9,7 +9,7 @@ public class MultiplayerPlayerEntity extends PlayerEntity implements IMultiplaye
 {
     private EntityPlayerMP forgeMPPlayer;
 
-    public MultiplayerPlayerEntity(@NotNull final EntityPlayerMP forgeEntity)
+    private MultiplayerPlayerEntity(@NotNull final EntityPlayerMP forgeEntity)
     {
         super(forgeEntity);
         forgeMPPlayer = forgeEntity;
@@ -33,12 +33,24 @@ public class MultiplayerPlayerEntity extends PlayerEntity implements IMultiplaye
         return forgeMPPlayer.currentWindowId;
     }
 
-    /**
-     * Getter for the wrapped forge object.
-     * @return the EntityPlayerMP.
-     */
-    public EntityPlayerMP getForgePlayer()
+    private EntityPlayerMP getForgePlayer()
     {
         return this.forgeMPPlayer;
+    }
+
+    public EntityPlayerMP asForge(IMultiplayerPlayerEntity playerEntity)
+    {
+        if (playerEntity instanceof EntityPlayerMP)
+            return (EntityPlayerMP) playerEntity;
+
+        return ((MultiplayerPlayerEntity) playerEntity).getForgePlayer();
+    }
+
+    public IMultiplayerPlayerEntity fromForge(EntityPlayerMP playerMP)
+    {
+        if (playerMP instanceof IMultiplayerPlayerEntity)
+            return (IMultiplayerPlayerEntity) playerMP;
+
+        return new MultiplayerPlayerEntity(playerMP);
     }
 }

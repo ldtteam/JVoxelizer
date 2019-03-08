@@ -14,7 +14,7 @@ public class ItemStackEntity extends Entity implements IItemStackEntity
      */
     private EntityItem forgeItemEntity;
 
-    public ItemStackEntity(@NotNull final EntityItem forgeItemEntity)
+    private ItemStackEntity(@NotNull final EntityItem forgeItemEntity)
     {
         super(forgeItemEntity);
         this.forgeItemEntity = forgeItemEntity;
@@ -70,5 +70,26 @@ public class ItemStackEntity extends Entity implements IItemStackEntity
     {
         forgeItemEntity.setItem(((ItemStack) stack).getForgeItem());
         return this;
+    }
+
+    private EntityItem getForgeItemEntity()
+    {
+        return forgeItemEntity;
+    }
+
+    public static EntityItem asForge(IItemStackEntity entity)
+    {
+        if (entity instanceof EntityItem)
+            return (EntityItem) entity;
+
+        return ((ItemStackEntity) entity).getForgeItemEntity();
+    }
+
+    public static IItemStackEntity fromForge(EntityItem entityItem)
+    {
+        if (entityItem instanceof IItemStackEntity)
+            return (IItemStackEntity) entityItem;
+
+        return new ItemStackEntity(entityItem);
     }
 }

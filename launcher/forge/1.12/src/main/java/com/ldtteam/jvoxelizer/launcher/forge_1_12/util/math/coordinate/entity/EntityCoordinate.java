@@ -10,6 +10,11 @@ public class EntityCoordinate implements IEntityCoordinate
 {
     private I3DoubleVector vector;
 
+    public EntityCoordinate(double x, double y, double z)
+    {
+        this(I3DoubleVector.create(x, y, z));
+    }
+
     public EntityCoordinate(final I3DoubleVector vector)
     {
         this.vector = vector;

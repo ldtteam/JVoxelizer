@@ -26,7 +26,7 @@ public class Fluid implements IFluid
         return this.forgeFluid.getColor(FluidStack.asForge(fluid));
     }
 
-    public net.minecraftforge.fluids.Fluid getForgeFluid()
+    private net.minecraftforge.fluids.Fluid getForgeFluid()
     {
         return forgeFluid;
     }

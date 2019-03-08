@@ -6,7 +6,7 @@ import net.minecraftforge.fml.relauncher.Side;
 public class Distribution implements IDistribution {
     private Side forgeDistribution;
 
-    public Distribution(Side forgeDistribution) {
+    private Distribution(Side forgeDistribution) {
         this.forgeDistribution = forgeDistribution;
     }
 
@@ -24,8 +24,18 @@ public class Distribution implements IDistribution {
      * Getter to get the wrapped forge element.
      * @return the Side.
      */
-    public Side getForgeSide()
+    private Side getForgeSide()
     {
         return this.forgeDistribution;
+    }
+
+    public static Side asForge(IDistribution distribution)
+    {
+        return ((Distribution) distribution).getForgeSide();
+    }
+
+    public static IDistribution fromForge(Side side)
+    {
+        return new Distribution(side);
     }
 }

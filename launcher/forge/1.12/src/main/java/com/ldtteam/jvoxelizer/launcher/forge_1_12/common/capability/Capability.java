@@ -4,7 +4,6 @@ import com.ldtteam.jvoxelizer.common.capability.ICapability;
 
 public class Capability<T> implements ICapability<T>
 {
-
     private final net.minecraftforge.common.capabilities.Capability<?> forgeCapability;
 
     private Capability(final net.minecraftforge.common.capabilities.Capability<?> forgeCapability) {this.forgeCapability = forgeCapability;}
@@ -22,10 +21,10 @@ public class Capability<T> implements ICapability<T>
         return ((Capability<?>) capability).getForgeCapability();
     }
 
-    public static ICapability<?> fromForge(net.minecraftforge.common.capabilities.Capability<?> capability)
+    public static <S> ICapability<S> fromForge(net.minecraftforge.common.capabilities.Capability<?> capability)
     {
         if (capability instanceof ICapability)
-            return (ICapability<?>) capability;
+            return (ICapability<S>) capability;
 
         return new Capability<>(capability);
     }

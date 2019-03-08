@@ -18,6 +18,9 @@ public interface IPlayerEvent extends IEvent
     {
     }
 
+    /**
+     * Triggered on an interaction of a player with the container
+     */
     interface IPlayerContainerEvent extends IPlayerEvent
     {
         IContainer<?> getContainer();

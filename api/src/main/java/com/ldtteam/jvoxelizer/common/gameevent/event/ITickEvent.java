@@ -77,7 +77,7 @@ public interface ITickEvent extends IEvent
     /**
      * Ticked every time a frame is rendered.
      */
-    interface RenderTickEvent extends ITickEvent
+    interface IRenderTickEvent extends ITickEvent
     {
         /**
          * A value between 0 and 1 indicating how far along we are between two ticks.

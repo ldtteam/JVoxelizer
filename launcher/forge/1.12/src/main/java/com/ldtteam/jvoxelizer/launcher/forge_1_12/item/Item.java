@@ -27,7 +27,6 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolution;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.blockentity.BlockEntityRenderer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.animation.TimedValue;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability.CapabilityProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.Dimension;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.enchantment.Enchantment;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity;

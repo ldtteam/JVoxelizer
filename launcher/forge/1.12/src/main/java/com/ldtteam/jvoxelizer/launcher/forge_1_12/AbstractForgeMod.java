@@ -12,6 +12,8 @@ import com.ldtteam.jvoxelizer.client.renderer.opengl.IOpenGl;
 import com.ldtteam.jvoxelizer.client.renderer.opengl.util.vertexformat.IVertexFormat;
 import com.ldtteam.jvoxelizer.client.renderer.tessellator.ITessellator;
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISpriteMap;
+import com.ldtteam.jvoxelizer.common.capability.ICapability;
+import com.ldtteam.jvoxelizer.common.gameevent.event.player.IPlayerEvent;
 import com.ldtteam.jvoxelizer.core.provider.holder.ProviderResolver;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.biome.BiomeProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockStateProvider;
@@ -26,7 +28,11 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.opengl.vertexf
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.tessellator.Tessellator;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.tessellator.TessellatorProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.SpriteMapProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.animation.CapabilityLogicProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.gameevent.event.player.PlayerEventProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.DistributionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt.NBTProvider;
+import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
 import com.ldtteam.jvoxelizer.util.nbt.INBTBase;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -72,7 +78,14 @@ public abstract class AbstractForgeMod
         ProviderResolver.getInstance().registerProvider(ITessellator.class.getName(), TessellatorProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(ISpriteMap.class.getName(), SpriteMapProvider.getInstance());
 
+        //Capability
+        ProviderResolver.getInstance().registerProvider(ICapability.class.getName(), CapabilityLogicProvider.getInstance());
+
+        //PlayerEvent
+        ProviderResolver.getInstance().registerProvider(IPlayerEvent.class.getName(), PlayerEventProvider.getInstance());
+
         //Util
+        ProviderResolver.getInstance().registerProvider(IDistribution.class.getName(), DistributionProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(INBTBase.class.getName(), NBTProvider.getInstance());
     }
 

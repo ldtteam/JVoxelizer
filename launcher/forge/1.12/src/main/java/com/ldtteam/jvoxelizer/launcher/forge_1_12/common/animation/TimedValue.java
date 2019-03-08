@@ -7,7 +7,7 @@ public class TimedValue implements ITimedValue
 {
     private ITimeValue timeValue;
 
-    public TimedValue(final ITimeValue timeValue)
+    private TimedValue(final ITimeValue timeValue)
     {
         this.timeValue = timeValue;
     }
@@ -16,8 +16,16 @@ public class TimedValue implements ITimedValue
      * Get the wrapped forge class.
      * @return the ITimeValue.
      */
-    public ITimeValue getForgeTimeValue()
+    private ITimeValue getForgeTimeValue()
     {
         return this.timeValue;
+    }
+
+    public ITimeValue asForge(ITimedValue value)
+    {
+        if (value instanceof ITimeValue)
+            return (ITimeValue) value;
+
+        return ((TimedValue) value).getForgeTimeValue();
     }
 }

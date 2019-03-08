@@ -22,9 +22,9 @@ public class TextureManager implements ITextureManager
     }
 
     @Override
-    public ISpriteMap getSpriteMap(final String spriteName)
+    public ISpriteMap getSpriteMap(final IIdentifier spriteName)
     {
-        return SpriteMap.fromForge((TextureMap) forgeTextureManager.getTexture(new ResourceLocation(spriteName)));
+        return SpriteMap.fromForge((TextureMap) forgeTextureManager.getTexture(Identifier.asForge(spriteName)));
     }
 
     public net.minecraft.client.renderer.texture.TextureManager getForgeTextureManager()

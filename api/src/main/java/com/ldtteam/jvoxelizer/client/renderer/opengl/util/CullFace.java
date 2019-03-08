@@ -1,5 +1,8 @@
 package com.ldtteam.jvoxelizer.client.renderer.opengl.util;
 
+/**
+ * The culling face in OpenGL.
+ */
 public enum CullFace
 {
     FRONT(1028),

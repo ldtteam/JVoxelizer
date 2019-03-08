@@ -8,6 +8,9 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+/**
+ * Holder for the IOpenGl provider.
+ */
 final class IOpenGlProviderHolder extends AbstractHolder<IOpenGlProvider> implements IOpenGlProvider
 {
     private static IOpenGlProviderHolder ourInstance = new IOpenGlProviderHolder();

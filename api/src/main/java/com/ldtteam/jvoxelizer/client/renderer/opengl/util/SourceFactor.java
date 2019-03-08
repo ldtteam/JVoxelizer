@@ -1,5 +1,8 @@
 package com.ldtteam.jvoxelizer.client.renderer.opengl.util;
 
+/**
+ * The blending factor for the source when rendering in OpenGL.
+ */
 public enum SourceFactor
 {
     CONSTANT_ALPHA(32771),

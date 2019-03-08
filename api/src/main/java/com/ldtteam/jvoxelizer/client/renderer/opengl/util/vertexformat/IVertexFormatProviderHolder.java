@@ -2,6 +2,9 @@ package com.ldtteam.jvoxelizer.client.renderer.opengl.util.vertexformat;
 
 import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
 
+/**
+ * Holder for the logic that provides the default vertex formats.
+ */
 final class IVertexFormatProviderHolder extends AbstractHolder<IVertexFormatProvider> implements IVertexFormatProvider
 {
     private static IVertexFormatProviderHolder ourInstance = new IVertexFormatProviderHolder();

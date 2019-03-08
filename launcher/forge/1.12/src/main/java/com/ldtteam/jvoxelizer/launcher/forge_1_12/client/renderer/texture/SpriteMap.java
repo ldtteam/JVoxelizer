@@ -12,9 +12,9 @@ public class SpriteMap implements ISpriteMap
     public SpriteMap(final TextureMap forgeMap) {this.forgeMap = forgeMap;}
 
     @Override
-    public ISprite getAtlasSprite(final String spriteName)
+    public ISprite getSrite(final String spriteName)
     {
-        return null;
+        return Sprite.fromForge(forgeMap.getAtlasSprite(spriteName));
     }
 
     public TextureMap getForgeMap()

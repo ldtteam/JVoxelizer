@@ -7,6 +7,9 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+/**
+ * Provider for the OpenGl method logic.
+ */
 public interface IOpenGlProvider
 {
     void disableAlpha();

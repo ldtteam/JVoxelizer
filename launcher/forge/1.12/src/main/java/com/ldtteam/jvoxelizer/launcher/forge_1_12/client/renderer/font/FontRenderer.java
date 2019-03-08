@@ -18,15 +18,15 @@ public class FontRenderer implements IFontRenderer
     }
 
     @Override
-    public String trimStringToWidth(final String substring, final int width)
+    public String trimStringToWidth(final String stringToTrim, final int width)
     {
-        return forgeFontRenderer.trimStringToWidth(substring, width);
+        return forgeFontRenderer.trimStringToWidth(stringToTrim, width);
     }
 
     @Override
-    public String trimStringToWidth(final String contents, final int width, final boolean reverse)
+    public String trimStringToWidth(final String stringToTrim, final int width, final boolean reverse)
     {
-        return forgeFontRenderer.trimStringToWidth(contents, width, reverse);
+        return forgeFontRenderer.trimStringToWidth(stringToTrim, width, reverse);
     }
 
     @Override

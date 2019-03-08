@@ -1,5 +1,10 @@
 package com.ldtteam.jvoxelizer.client.renderer.opengl.util.vertexformat;
 
+/**
+ * Represents a single vertex format used during rendering.
+ *
+ * Static methods give access to the default formats used by the game.
+ */
 public interface IVertexFormat
 {
     static IVertexFormat block()

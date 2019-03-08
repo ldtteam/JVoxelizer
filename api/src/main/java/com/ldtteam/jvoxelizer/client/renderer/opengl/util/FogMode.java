@@ -1,5 +1,8 @@
 package com.ldtteam.jvoxelizer.client.renderer.opengl.util;
 
+/**
+ * The fog mode to render with.
+ */
 public enum FogMode
 {
     LINEAR(9729),

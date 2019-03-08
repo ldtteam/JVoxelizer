@@ -1,5 +1,8 @@
 package com.ldtteam.jvoxelizer.client.renderer.opengl.util;
 
+/**
+ * Defines the color and material operation type when rendering in OpenGL.
+ */
 public enum LogicOp
 {
     AND(5377),

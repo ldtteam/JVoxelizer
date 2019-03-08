@@ -1,5 +1,8 @@
 package com.ldtteam.jvoxelizer.client.renderer.opengl.util;
 
+/**
+ * The blending factor for the destination when rendering in OpenGL.
+ */
 public enum DestinationFactor
 {
     CONSTANT_ALPHA(32771),

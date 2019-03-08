@@ -8,6 +8,14 @@ import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
+/**
+ * The OpenGL rendering engine of the game.
+ * No comment on the methods.
+ *
+ * All methods are pretty much self explanatory.
+ *
+ * Each method is static, since the actual OpenGL methods are static as well.
+ */
 public interface IOpenGl
 {
     static int getOpenGlQuadsRenderMode()

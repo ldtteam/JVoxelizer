@@ -1,8 +1,10 @@
 package com.ldtteam.jvoxelizer.client.renderer.opengl.util.vertexformat;
 
+/**
+ * Represents the logic for providing the default vertex formats.
+ */
 public interface IVertexFormatProvider
 {
-
     IVertexFormat block();
     IVertexFormat item();
     IVertexFormat oldModelPositionTexNormal();

@@ -19,7 +19,7 @@ public class Slot implements ISlot<DummyInstanceData>
 {
     private final net.minecraft.inventory.Slot forgeSlot;
 
-    public Slot(final net.minecraft.inventory.Slot forgeSlot) {this.forgeSlot = forgeSlot;}
+    private Slot(final net.minecraft.inventory.Slot forgeSlot) {this.forgeSlot = forgeSlot;}
 
     @Override
     public void onSlotChange(final IItemStack p_75220_1_, final IItemStack p_75220_2_)

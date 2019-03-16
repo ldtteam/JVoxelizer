@@ -2,6 +2,7 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt;
 
 import com.ldtteam.jvoxelizer.util.nbt.INBTBase;
 import com.ldtteam.jvoxelizer.util.nbt.INBTByte;
+import com.ldtteam.jvoxelizer.util.nbt.INBTEnd;
 import net.minecraft.nbt.*;
 
 public final class NBTConversionHandler
@@ -59,7 +60,7 @@ public final class NBTConversionHandler
         switch (type)
         {
             case 0:
-                return new NBTTagEnd();
+                return NBTEnd.asForge((INBTEnd) nbtBase);
             case 1:
                 return NBTByte.asForge((INBTByte) nbtBase);
             case 2:

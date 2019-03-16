@@ -27,13 +27,19 @@ public class EnchantmentType implements IEnchantmentType
         return minecraftEnchantMentType.canEnchantItem(((Item)itemInput).getForgeItem());
     }
 
-    public static EnumEnchantmentType asForge(IEnchantmentType distribution)
+    public static EnumEnchantmentType asForge(IEnchantmentType type)
     {
-        return ((EnchantmentType) distribution).minecraftEnchantMentType;
+        if (type instanceof EnumEnchantmentType)
+            return (EnumEnchantmentType) type;
+
+        return ((EnchantmentType) type).minecraftEnchantMentType;
     }
 
-    public static IEnchantmentType fromForge(EnumEnchantmentType side)
+    public static IEnchantmentType fromForge(EnumEnchantmentType type)
     {
-        return new EnchantmentType(side);
+        if (type instanceof IEnchantmentType)
+            return (IEnchantmentType) type;
+
+        return new EnchantmentType(type);
     }
 }

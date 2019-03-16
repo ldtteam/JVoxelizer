@@ -23,11 +23,17 @@ class NBTFloat implements INBTFloat
 
     public static NBTTagFloat asForge(INBTFloat compound)
     {
+        if (compound instanceof NBTTagFloat)
+            return (NBTTagFloat) compound;
+
         return ((NBTFloat)compound).forgeNbtFloat;
     }
 
     public static INBTFloat fromForge(NBTTagFloat compound)
     {
+        if (compound instanceof INBTFloat)
+            return (INBTFloat) compound;
+
         return new NBTFloat(compound);
     }
 }

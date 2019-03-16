@@ -1,17 +1,15 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui;
 
 import com.ldtteam.jvoxelizer.IGameEngine;
+import com.ldtteam.jvoxelizer.client.gui.IGui;
 import com.ldtteam.jvoxelizer.client.gui.IGuiScreen;
 import com.ldtteam.jvoxelizer.client.renderer.item.IItemRenderer;
 import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.item.IItemStack;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.GameEngine;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.item.ItemRenderer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.GameEngine;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.textcomponent.TextComponent;
 import com.ldtteam.jvoxelizer.util.textcomponent.ITextComponent;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiIngame;
 
 import java.io.IOException;
 import java.util.List;
@@ -169,5 +167,15 @@ public class GuiScreen extends Gui implements IGuiScreen<DummyInstanceData>
     public IItemRenderer getItemRenderer()
     {
         return IGameEngine.getInstance().getItemRenderer();
+    }
+
+    public static net.minecraft.client.gui.GuiScreen asForge(IGuiScreen<?> gui)
+    {
+        return ((GuiScreen) gui).forgeGuiScreen;
+    }
+
+    public static IGuiScreen<?> fromForge(final net.minecraft.client.gui.GuiScreen ingameGUI)
+    {
+        return new GuiScreen(ingameGUI);
     }
 }

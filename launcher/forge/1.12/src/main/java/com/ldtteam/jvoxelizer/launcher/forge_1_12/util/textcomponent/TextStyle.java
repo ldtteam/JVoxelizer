@@ -24,7 +24,7 @@ public class TextStyle implements ITextStyle
     @Override
     public ITextFormatting getColor()
     {
-        return new TextFormatting(forgeStyle.getColor());
+        return TextFormatting.fromForge(forgeStyle.getColor());
     }
 
     /**
@@ -115,7 +115,7 @@ public class TextStyle implements ITextStyle
     @Override
     public ITextStyle setColor(final ITextFormatting color)
     {
-        forgeStyle.setColor(((TextFormatting) color).getForgeTextFormatting());
+        forgeStyle.setColor(TextFormatting.asForge(color));
         return this;
     }
 
@@ -250,11 +250,17 @@ public class TextStyle implements ITextStyle
 
     public static Style asForge(ITextStyle style)
     {
+        if (style instanceof Style)
+            return (Style) style;
+
         return ((TextStyle) style).forgeStyle;
     }
 
     public static ITextStyle fromForge(Style style)
     {
+        if (style instanceof ITextStyle)
+            return (ITextStyle) style;
+
         return new TextStyle(style);
     }
 }

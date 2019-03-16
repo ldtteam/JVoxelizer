@@ -23,11 +23,17 @@ class NBTIntArray implements INBTIntArray
 
     public static NBTTagIntArray asForge(INBTIntArray compound)
     {
+        if (compound instanceof NBTTagIntArray)
+            return (NBTTagIntArray) compound;
+
         return ((NBTIntArray)compound).forgeNbtIntArray;
     }
 
     public static INBTIntArray fromForge(NBTTagIntArray compound)
     {
+        if (compound instanceof INBTIntArray)
+            return (INBTIntArray) compound;
+
         return new NBTIntArray(compound);
     }
 }

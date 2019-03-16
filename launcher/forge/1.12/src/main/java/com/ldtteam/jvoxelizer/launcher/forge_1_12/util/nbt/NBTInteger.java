@@ -23,11 +23,17 @@ class NBTInteger implements INBTInteger
 
     public static NBTTagInt asForge(INBTInteger compound)
     {
+        if (compound instanceof NBTTagInt)
+            return (NBTTagInt) compound;
+
         return ((NBTInteger)compound).forgeNbtInt;
     }
 
     public static INBTInteger fromForge(NBTTagInt compound)
     {
+        if (compound instanceof INBTInteger)
+            return (INBTInteger) compound;
+
         return new NBTInteger(compound);
     }
 }

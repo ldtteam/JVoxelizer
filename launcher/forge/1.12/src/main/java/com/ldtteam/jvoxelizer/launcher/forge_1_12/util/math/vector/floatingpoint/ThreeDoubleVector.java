@@ -30,13 +30,19 @@ public class ThreeDoubleVector implements I3DoubleVector
         return vec3d.z;
     }
 
-    public static Vec3d asForge(I3DoubleVector distribution)
+    public static Vec3d asForge(I3DoubleVector vec)
     {
-        return ((ThreeDoubleVector) distribution).vec3d;
+        if (vec instanceof Vec3d)
+            return (Vec3d) vec;
+
+        return ((ThreeDoubleVector) vec).vec3d;
     }
 
-    public static I3DoubleVector fromForge(Vec3d side)
+    public static I3DoubleVector fromForge(Vec3d vec)
     {
-        return new ThreeDoubleVector(side);
+        if (vec instanceof I3DoubleVector)
+            return (I3DoubleVector) vec;
+
+        return new ThreeDoubleVector(vec);
     }
 }

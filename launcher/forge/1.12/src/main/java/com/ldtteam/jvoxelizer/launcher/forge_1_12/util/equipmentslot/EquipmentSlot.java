@@ -12,13 +12,13 @@ public class EquipmentSlot implements IEquipmentSlot
         this.forgeEquipmentSlot = forgeEquipmentSlot;
     }
 
-    public static EntityEquipmentSlot asForge(IEquipmentSlot distribution)
+    public static EntityEquipmentSlot asForge(IEquipmentSlot slot)
     {
-        return ((EquipmentSlot) distribution).forgeEquipmentSlot;
+        return ((EquipmentSlot) slot).forgeEquipmentSlot;
     }
 
-    public static IEquipmentSlot fromForge(EntityEquipmentSlot side)
+    public static IEquipmentSlot fromForge(EntityEquipmentSlot slot)
     {
-        return new EquipmentSlot(side);
+        return new EquipmentSlot(slot);
     }
 }

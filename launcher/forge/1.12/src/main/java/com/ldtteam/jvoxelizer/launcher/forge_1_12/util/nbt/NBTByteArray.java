@@ -23,11 +23,17 @@ class NBTByteArray implements INBTByteArray
 
     public static NBTTagByteArray asForge(INBTByteArray compound)
     {
+        if (compound instanceof NBTTagByteArray)
+            return (NBTTagByteArray) compound;
+
         return ((NBTByteArray) compound).forgeNbtByteArray;
     }
 
     public static INBTByteArray fromForge(NBTTagByteArray compound)
     {
+        if (compound instanceof INBTByteArray)
+            return (INBTByteArray) compound;
+
         return new NBTByteArray(compound);
     }
 }

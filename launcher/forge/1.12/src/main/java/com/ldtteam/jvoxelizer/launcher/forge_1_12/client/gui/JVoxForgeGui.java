@@ -5,7 +5,6 @@ import com.ldtteam.jvoxelizer.client.gui.IGui;
 import com.ldtteam.jvoxelizer.client.gui.logic.builder.contexts.*;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISprite;
-import com.ldtteam.jvoxelizer.core.logic.PipelineProcessor;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.pipeline.ForgeGuiPipeline;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.Sprite;
@@ -58,13 +57,13 @@ public class JVoxForgeGui<I> extends Gui implements IGui<I>
     @Override
     public void drawCenteredString(final net.minecraft.client.gui.FontRenderer fontRendererIn, final String text, final int x, final int y, final int color)
     {
-        this.drawCenteredString(new FontRenderer(fontRendererIn), text, x, y, color);
+        this.drawCenteredString(FontRenderer.fromForge(fontRendererIn), text, x, y, color);
     }
 
     @Override
     public void drawString(final net.minecraft.client.gui.FontRenderer fontRendererIn, final String text, final int x, final int y, final int color)
     {
-        this.drawString(new FontRenderer(fontRendererIn), text, x, y, color);
+        this.drawString(FontRenderer.fromForge(fontRendererIn), text, x, y, color);
     }
 
     @Override

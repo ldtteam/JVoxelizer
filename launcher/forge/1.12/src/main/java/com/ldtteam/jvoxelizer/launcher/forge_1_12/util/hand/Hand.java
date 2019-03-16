@@ -24,13 +24,13 @@ public class Hand implements IHand
         return forgeHand == EnumHand.OFF_HAND;
     }
 
-    public static EnumHand asForge(IHand distribution)
+    public static EnumHand asForge(IHand hand)
     {
-        return ((Hand) distribution).forgeHand;
+        return ((Hand) hand).forgeHand;
     }
 
-    public static IHand fromForge(EnumHand side)
+    public static IHand fromForge(EnumHand hand)
     {
-        return new Hand(side);
+        return new Hand(hand);
     }
 }

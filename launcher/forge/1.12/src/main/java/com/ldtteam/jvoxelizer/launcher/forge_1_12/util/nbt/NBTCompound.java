@@ -127,11 +127,17 @@ public class NBTCompound implements INBTCompound
 
     public static NBTTagCompound asForge(INBTCompound compound)
     {
+        if (compound instanceof NBTTagCompound)
+            return (NBTTagCompound) compound;
+
         return ((NBTCompound)compound).forgeNbtCompound;
     }
 
     public static INBTCompound fromForge(NBTTagCompound compound)
     {
+        if (compound instanceof INBTCompound)
+            return (INBTCompound) compound;
+
         return new NBTCompound(compound);
     }
 }

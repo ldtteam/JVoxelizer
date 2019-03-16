@@ -29,16 +29,22 @@ public class Nameable implements INameable
     @Override
     public ITextComponent getDisplayName()
     {
-        return new TextComponent(nameable.getDisplayName());
+        return TextComponent.fromForge(nameable.getDisplayName());
     }
 
-    public static IWorldNameable asForge(INameable distribution)
+    public static IWorldNameable asForge(INameable nameable)
     {
-        return ((Nameable) distribution).nameable;
+        if (nameable instanceof IWorldNameable)
+            return (IWorldNameable) nameable;
+
+        return ((Nameable) nameable).nameable;
     }
 
-    public static INameable fromForge(IWorldNameable side)
+    public static INameable fromForge(IWorldNameable nameable)
     {
-        return new Nameable(side);
+        if (nameable instanceof INameable)
+            return (INameable) nameable;
+
+        return new Nameable(nameable);
     }
 }

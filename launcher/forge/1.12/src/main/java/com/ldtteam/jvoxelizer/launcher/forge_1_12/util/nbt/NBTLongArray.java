@@ -24,11 +24,17 @@ class NBTLongArray implements INBTLongArray
 
     public static NBTTagLongArray asForge(INBTLongArray compound)
     {
+        if (compound instanceof NBTTagLongArray)
+            return (NBTTagLongArray) compound;
+
         return ((NBTLongArray)compound).forgeNbtLongArray;
     }
 
     public static INBTLongArray fromForge(NBTTagLongArray compound)
     {
+        if (compound instanceof INBTLongArray)
+            return (INBTLongArray) compound;
+
         return new NBTLongArray(compound);
     }
 }

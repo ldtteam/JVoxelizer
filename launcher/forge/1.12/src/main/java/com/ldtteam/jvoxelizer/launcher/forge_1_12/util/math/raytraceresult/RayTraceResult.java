@@ -10,13 +10,19 @@ public class RayTraceResult implements IRayTraceResult
         this.rayTraceResult = rayTraceResult;
     }
 
-    public static net.minecraft.util.math.RayTraceResult asForge(IRayTraceResult distribution)
+    public static net.minecraft.util.math.RayTraceResult asForge(IRayTraceResult result)
     {
-        return ((RayTraceResult) distribution).rayTraceResult;
+        if (result instanceof net.minecraft.util.math.RayTraceResult)
+            return (net.minecraft.util.math.RayTraceResult) result;
+
+        return ((RayTraceResult) result).rayTraceResult;
     }
 
-    public static IRayTraceResult fromForge(net.minecraft.util.math.RayTraceResult side)
+    public static IRayTraceResult fromForge(net.minecraft.util.math.RayTraceResult result)
     {
-        return new RayTraceResult(side);
+        if (result instanceof IRayTraceResult)
+            return (IRayTraceResult) result;
+
+        return new RayTraceResult(result);
     }
 }

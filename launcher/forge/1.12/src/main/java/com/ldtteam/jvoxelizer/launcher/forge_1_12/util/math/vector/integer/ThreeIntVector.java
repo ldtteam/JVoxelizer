@@ -30,13 +30,19 @@ public class ThreeIntVector implements I3IntVector
         return vec3i.getZ();
     }
 
-    public static Vec3i asForge(I3IntVector distribution)
+    public static Vec3i asForge(I3IntVector vec)
     {
-        return ((ThreeIntVector) distribution).vec3i;
+        if (vec instanceof Vec3i)
+            return (Vec3i) vec;
+
+        return ((ThreeIntVector) vec).vec3i;
     }
 
-    public static I3IntVector fromForge(Vec3i side)
+    public static I3IntVector fromForge(Vec3i vec)
     {
-        return new ThreeIntVector(side);
+        if (vec instanceof I3IntVector)
+            return (I3IntVector) vec;
+
+        return new ThreeIntVector(vec);
     }
 }

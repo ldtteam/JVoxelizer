@@ -28,6 +28,9 @@ public class ActionResult<T> implements IActionResult<T>
 
     public static net.minecraft.util.ActionResult asForge(IActionResult actionType)
     {
+        if (actionType instanceof net.minecraft.util.ActionResult)
+            return (net.minecraft.util.ActionResult) actionType;
+
         return ((ActionResult) actionType).actionResult;
     }
 

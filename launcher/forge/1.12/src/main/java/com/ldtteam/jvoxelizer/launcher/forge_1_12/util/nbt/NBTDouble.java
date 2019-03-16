@@ -23,11 +23,17 @@ class NBTDouble implements INBTDouble
 
     public static NBTTagDouble asForge(INBTDouble compound)
     {
+        if (compound instanceof NBTTagDouble)
+            return (NBTTagDouble) compound;
+
         return ((NBTDouble)compound).forgeNbtDouble;
     }
 
     public static INBTDouble fromForge(NBTTagDouble compound)
     {
+        if (compound instanceof INBTDouble)
+            return (INBTDouble) compound;
+
         return new NBTDouble(compound);
     }
 }

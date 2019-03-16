@@ -13,11 +13,17 @@ public class HoverEvent implements IHoverEvent
 
     public static net.minecraft.util.text.event.HoverEvent asForge(IHoverEvent event)
     {
+        if (event instanceof net.minecraft.util.text.event.HoverEvent)
+            return (net.minecraft.util.text.event.HoverEvent) event;
+
         return ((HoverEvent) event).forgeHoverEvent;
     }
 
     public static IHoverEvent fromForge(net.minecraft.util.text.event.HoverEvent event)
     {
+        if (event instanceof IHoverEvent)
+            return (IHoverEvent) event;
+
         return new HoverEvent(event);
     }
 }

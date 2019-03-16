@@ -17,11 +17,17 @@ class NBTEnd implements INBTEnd
 
     public static NBTTagEnd asForge(INBTEnd compound)
     {
+        if (compound instanceof NBTTagEnd)
+            return (NBTTagEnd) compound;
+
         return ((NBTEnd)compound).forgeNbtEnd;
     }
 
     public static INBTEnd fromForge(NBTTagEnd compound)
     {
+        if (compound instanceof INBTEnd)
+            return (INBTEnd) compound;
+
         return new NBTEnd(compound);
     }
 }

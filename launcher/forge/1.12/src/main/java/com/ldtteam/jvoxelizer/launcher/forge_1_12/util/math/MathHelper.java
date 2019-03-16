@@ -2,7 +2,6 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math;
 
 public final class MathHelper
 {
-
     private MathHelper()
     {
         throw new IllegalStateException("Tried to initialize: MathHelper but this is a Utility class.");
@@ -25,5 +24,4 @@ public final class MathHelper
             return num > max ? max : num;
         }
     }
-
 }

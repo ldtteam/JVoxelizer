@@ -9,7 +9,7 @@ public class ActionResult<T> implements IActionResult<T>
 {
     private net.minecraft.util.ActionResult<T> actionResult;
 
-    public ActionResult(EnumActionResult typeIn, T resultIn)
+    private ActionResult(EnumActionResult typeIn, T resultIn)
     {
         actionResult = new net.minecraft.util.ActionResult<>(typeIn, resultIn);
     }
@@ -23,6 +23,17 @@ public class ActionResult<T> implements IActionResult<T>
     @Override
     public IActionResultType getType()
     {
-        return new ActionResultType(actionResult.getType());
+        return ActionResultType.fromForge(actionResult.getType());
+    }
+
+    public static net.minecraft.util.ActionResult asForge(IActionResult actionType)
+    {
+        return ((ActionResult) actionType).actionResult;
+    }
+
+    //TODO orion wants to look at this here.
+    public static IActionResult fromForge(net.minecraft.util.EnumActionResult actionType, Object resultIn)
+    {
+        return new ActionResult<>(actionType, resultIn);
     }
 }

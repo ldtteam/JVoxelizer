@@ -6,9 +6,9 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 class NBTLongArray implements INBTLongArray
 {
-    public final NBTTagLongArray forgeNbtLongArray;
+    private final NBTTagLongArray forgeNbtLongArray;
 
-    NBTLongArray(final NBTTagLongArray forgeNbtLongArray) {this.forgeNbtLongArray = forgeNbtLongArray;}
+    private NBTLongArray(final NBTTagLongArray forgeNbtLongArray) {this.forgeNbtLongArray = forgeNbtLongArray;}
 
     @Override
     public long[] getValue()
@@ -20,5 +20,15 @@ class NBTLongArray implements INBTLongArray
     public byte getType()
     {
         return forgeNbtLongArray.getId();
+    }
+
+    public static NBTTagLongArray asForge(INBTLongArray compound)
+    {
+        return ((NBTLongArray)compound).forgeNbtLongArray;
+    }
+
+    public static INBTLongArray fromForge(NBTTagLongArray compound)
+    {
+        return new NBTLongArray(compound);
     }
 }

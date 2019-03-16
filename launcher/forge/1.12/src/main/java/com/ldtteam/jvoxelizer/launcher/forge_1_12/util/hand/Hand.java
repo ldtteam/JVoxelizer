@@ -7,7 +7,7 @@ public class Hand implements IHand
 {
     private EnumHand forgeHand;
 
-    public Hand(final EnumHand forgeHand)
+    private Hand(final EnumHand forgeHand)
     {
         this.forgeHand = forgeHand;
     }
@@ -24,12 +24,13 @@ public class Hand implements IHand
         return forgeHand == EnumHand.OFF_HAND;
     }
 
-    /**
-     * Get the wrapped enum.
-     * @return the EnumHand.
-     */
-    public EnumHand getForgeHand()
+    public static EnumHand asForge(IHand distribution)
     {
-        return this.forgeHand;
+        return ((Hand) distribution).forgeHand;
+    }
+
+    public static IHand fromForge(EnumHand side)
+    {
+        return new Hand(side);
     }
 }

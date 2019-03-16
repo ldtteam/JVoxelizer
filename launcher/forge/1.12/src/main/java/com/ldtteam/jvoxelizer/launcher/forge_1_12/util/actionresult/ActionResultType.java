@@ -8,7 +8,7 @@ public class ActionResultType implements IActionResultType
 {
     private EnumActionResult forgeActionResult;
 
-    public ActionResultType(final EnumActionResult forgeActionResult)
+    private ActionResultType(final EnumActionResult forgeActionResult)
     {
         this.forgeActionResult = forgeActionResult;
     }
@@ -29,5 +29,15 @@ public class ActionResultType implements IActionResultType
     public boolean isPass()
     {
         return this.forgeActionResult == EnumActionResult.PASS;
+    }
+
+    public static EnumActionResult asForge(IActionResultType distribution)
+    {
+        return ((ActionResultType) distribution).forgeActionResult;
+    }
+
+    public static IActionResultType fromForge(EnumActionResult side)
+    {
+        return new ActionResultType(side);
     }
 }

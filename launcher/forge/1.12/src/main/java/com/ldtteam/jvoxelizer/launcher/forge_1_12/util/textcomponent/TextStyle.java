@@ -11,13 +11,12 @@ import net.minecraft.util.text.Style;
 
 public class TextStyle implements ITextStyle
 {
-
     private final Style forgeStyle;
 
-    public TextStyle(final Style style) {
+    private TextStyle(final Style style)
+    {
         this.forgeStyle = style;
     }
-
 
     /**
      * Gets the effective color of this ChatStyle.
@@ -88,7 +87,7 @@ public class TextStyle implements ITextStyle
     @Override
     public IClickEvent getClickEvent()
     {
-        return new ClickEvent(forgeStyle.getClickEvent());
+        return ClickEvent.fromForge(forgeStyle.getClickEvent());
     }
 
     /**
@@ -97,7 +96,7 @@ public class TextStyle implements ITextStyle
     @Override
     public IHoverEvent getHoverEvent()
     {
-        return new HoverEvent(forgeStyle.getHoverEvent());
+        return HoverEvent.fromForge(forgeStyle.getHoverEvent());
     }
 
     /**
@@ -181,7 +180,8 @@ public class TextStyle implements ITextStyle
     @Override
     public ITextStyle setClickEvent(final IClickEvent event)
     {
-        forgeStyle.setClickEvent(((ClickEvent) event).getForgeClickEvent());
+
+        forgeStyle.setClickEvent(ClickEvent.asForge(event));
         return this;
     }
 
@@ -191,7 +191,7 @@ public class TextStyle implements ITextStyle
     @Override
     public ITextStyle setHoverEvent(final IHoverEvent event)
     {
-        forgeStyle.setHoverEvent(((HoverEvent) event).getForgeHoverEvent());
+        forgeStyle.setHoverEvent(HoverEvent.asForge(event));
         return this;
     }
 
@@ -212,7 +212,7 @@ public class TextStyle implements ITextStyle
     @Override
     public ITextStyle setParentStyle(final ITextStyle parent)
     {
-        forgeStyle.setParentStyle(((TextStyle) parent).getForgeStyle());
+        forgeStyle.setParentStyle(TextStyle.asForge(parent));
         return this;
     }
 
@@ -248,8 +248,13 @@ public class TextStyle implements ITextStyle
         return new TextStyle(forgeStyle.createDeepCopy());
     }
 
-    public Style getForgeStyle()
+    public static Style asForge(ITextStyle style)
     {
-        return forgeStyle;
+        return ((TextStyle) style).forgeStyle;
+    }
+
+    public static ITextStyle fromForge(Style style)
+    {
+        return new TextStyle(style);
     }
 }

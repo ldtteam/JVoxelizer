@@ -15,12 +15,22 @@ public class BlockRenderDispatcher implements IBlockRenderDispatcher
 {
     private final BlockRendererDispatcher forgeBlockRenderDispatcher;
 
-    public BlockRenderDispatcher(final BlockRendererDispatcher forgeBlockRenderDispatcher) {this.forgeBlockRenderDispatcher = forgeBlockRenderDispatcher;}
+    private BlockRenderDispatcher(final BlockRendererDispatcher forgeBlockRenderDispatcher) {this.forgeBlockRenderDispatcher = forgeBlockRenderDispatcher;}
 
     @Override
     public void renderBlock(
       final IBlockState state, final IBlockCoordinate pos, final IDimensionReader<?> dimensionReader, final IBufferBuilder buf)
     {
         forgeBlockRenderDispatcher.renderBlock(BlockState.asForge(state), BlockCoordinate.asForge(pos), DimensionReader.asForge(dimensionReader), BufferBuilder.asForge(buf));
+    }
+
+    public static BlockRendererDispatcher asForge(final IBlockRenderDispatcher dispatcher)
+    {
+        return ((BlockRenderDispatcher) dispatcher).forgeBlockRenderDispatcher;
+    }
+
+    public static IBlockRenderDispatcher fromForge(final BlockRendererDispatcher dispatcher)
+    {
+        return new BlockRenderDispatcher(dispatcher);
     }
 }

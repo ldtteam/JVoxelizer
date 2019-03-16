@@ -5,9 +5,9 @@ import net.minecraft.nbt.NBTTagString;
 
 class NBTString implements INBTString
 {
-    public final NBTTagString forgeNbtString;
+    private final NBTTagString forgeNbtString;
 
-    NBTString(final NBTTagString forgeNbtString) {this.forgeNbtString = forgeNbtString;}
+    private NBTString(final NBTTagString forgeNbtString) {this.forgeNbtString = forgeNbtString;}
 
     @Override
     public String getValue()
@@ -19,5 +19,15 @@ class NBTString implements INBTString
     public byte getType()
     {
         return forgeNbtString.getId();
+    }
+
+    public static NBTTagString asForge(INBTString compound)
+    {
+        return ((NBTString)compound).forgeNbtString;
+    }
+
+    public static INBTString fromForge(NBTTagString compound)
+    {
+        return new NBTString(compound);
     }
 }

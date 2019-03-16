@@ -5,9 +5,9 @@ import net.minecraft.nbt.NBTTagByte;
 
 class NBTByte implements INBTByte
 {
-    public final NBTTagByte forgeNbtByte;
+    private final NBTTagByte forgeNbtByte;
 
-    NBTByte(final NBTTagByte forgeNbtByte) {this.forgeNbtByte = forgeNbtByte;}
+    private NBTByte(final NBTTagByte forgeNbtByte) {this.forgeNbtByte = forgeNbtByte;}
 
     @Override
     public byte getValue()
@@ -19,6 +19,16 @@ class NBTByte implements INBTByte
     public byte getType()
     {
         return forgeNbtByte.getId();
+    }
+
+    public static NBTTagByte asForge(INBTByte compound)
+    {
+        return ((NBTByte) compound).forgeNbtByte;
+    }
+
+    public static INBTByte fromForge(NBTTagByte compound)
+    {
+        return new NBTByte(compound);
     }
 }
 

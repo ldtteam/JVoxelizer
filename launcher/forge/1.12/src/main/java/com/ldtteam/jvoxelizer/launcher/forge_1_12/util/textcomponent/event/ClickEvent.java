@@ -2,15 +2,22 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.util.textcomponent.event;
 
 import com.ldtteam.jvoxelizer.util.textcomponent.event.IClickEvent;
 
-public class ClickEvent implements IClickEvent {
+public class ClickEvent implements IClickEvent
+{
     private net.minecraft.util.text.event.ClickEvent forgeClickEvent;
 
-    public ClickEvent(net.minecraft.util.text.event.ClickEvent forgeClickEvent) {
+    private ClickEvent(net.minecraft.util.text.event.ClickEvent forgeClickEvent)
+    {
         this.forgeClickEvent = forgeClickEvent;
     }
 
-    public net.minecraft.util.text.event.ClickEvent getForgeClickEvent()
+    public static net.minecraft.util.text.event.ClickEvent asForge(IClickEvent event)
     {
-        return forgeClickEvent;
+        return ((ClickEvent) event).forgeClickEvent;
+    }
+
+    public static IClickEvent fromForge(net.minecraft.util.text.event.ClickEvent event)
+    {
+        return new ClickEvent(event);
     }
 }

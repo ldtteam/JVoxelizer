@@ -19,19 +19,19 @@ public class NBTProvider implements INBTProvider
     @Override
     public INBTByte provide(final byte value)
     {
-        return new NBTByte(new NBTTagByte(value));
+        return NBTByte.fromForge(new NBTTagByte(value));
     }
 
     @Override
     public INBTByteArray provide(final byte... value)
     {
-        return new NBTByteArray(new NBTTagByteArray(value));
+        return NBTByteArray.fromForge(new NBTTagByteArray(value));
     }
 
     @Override
     public INBTCompound provide()
     {
-        return new NBTCompound(new NBTTagCompound());
+        return NBTCompound.fromForge(new NBTTagCompound());
     }
 
     @Override
@@ -39,7 +39,7 @@ public class NBTProvider implements INBTProvider
     {
         try
         {
-            return new NBTCompound(JsonToNBT.getTagFromJson(jsonString));
+            return NBTCompound.fromForge(JsonToNBT.getTagFromJson(jsonString));
         }
         catch (NBTException e)
         {
@@ -50,7 +50,7 @@ public class NBTProvider implements INBTProvider
     @Override
     public INBTList provide(final Iterable<INBTBase> values)
     {
-        final NBTList list = new NBTList(new NBTTagList());
+        final INBTList list = NBTList.fromForge(new NBTTagList());
 
         for (final INBTBase value : values)
         {
@@ -63,48 +63,48 @@ public class NBTProvider implements INBTProvider
     @Override
     public INBTDouble provide(final double value)
     {
-        return new NBTDouble(new NBTTagDouble(value));
+        return NBTDouble.fromForge(new NBTTagDouble(value));
     }
 
     @Override
     public INBTFloat provide(final float value)
     {
-        return new NBTFloat(new NBTTagFloat(value));
+        return NBTFloat.fromForge(new NBTTagFloat(value));
     }
 
     @Override
     public INBTInteger provide(final int value)
     {
-        return new NBTInteger(new NBTTagInt(value));
+        return NBTInteger.fromForge(new NBTTagInt(value));
     }
 
     @Override
     public INBTLong provide(final long value)
     {
-        return new NBTLong(new NBTTagLong(value));
+        return NBTLong.fromForge(new NBTTagLong(value));
     }
 
     @Override
     public INBTShort provide(final short value)
     {
-        return new NBTShort(new NBTTagShort(value));
+        return NBTShort.fromForge(new NBTTagShort(value));
     }
 
     @Override
     public INBTString provide(final String value)
     {
-        return new NBTString(new NBTTagString(value));
+        return NBTString.fromForge(new NBTTagString(value));
     }
 
     @Override
     public INBTIntArray provide(final int... value)
     {
-        return new NBTIntArray(new NBTTagIntArray(value));
+        return NBTIntArray.fromForge(new NBTTagIntArray(value));
     }
 
     @Override
     public INBTLongArray provide(final long... value)
     {
-        return new NBTLongArray(new NBTTagLongArray(value));
+        return NBTLongArray.fromForge(new NBTTagLongArray(value));
     }
 }

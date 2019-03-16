@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt;
 
 import com.ldtteam.jvoxelizer.util.nbt.INBTBase;
+import com.ldtteam.jvoxelizer.util.nbt.INBTByte;
 import net.minecraft.nbt.*;
 
 public final class NBTConversionHandler
@@ -21,31 +22,31 @@ public final class NBTConversionHandler
         switch (type)
         {
             case 0:
-                return new NBTEnd((NBTTagEnd) nbtBase);
+                return NBTEnd.fromForge((NBTTagEnd) nbtBase);
             case 1:
-                return new NBTByte((NBTTagByte) nbtBase);
+                return NBTByte.fromForge((NBTTagByte) nbtBase);
             case 2:
-                return new NBTShort((NBTTagShort) nbtBase);
+                return NBTShort.fromForge((NBTTagShort) nbtBase);
             case 3:
-                return new NBTInteger((NBTTagInt) nbtBase);
+                return NBTInteger.fromForge((NBTTagInt) nbtBase);
             case 4:
-                return new NBTLong((NBTTagLong) nbtBase);
+                return NBTLong.fromForge((NBTTagLong) nbtBase);
             case 5:
-                return new NBTFloat((NBTTagFloat) nbtBase);
+                return NBTFloat.fromForge((NBTTagFloat) nbtBase);
             case 6:
-                return new NBTDouble((NBTTagDouble) nbtBase);
+                return NBTDouble.fromForge((NBTTagDouble) nbtBase);
             case 7:
-                return new NBTByteArray((NBTTagByteArray) nbtBase);
+                return NBTByteArray.fromForge((NBTTagByteArray) nbtBase);
             case 8:
-                return new NBTString((NBTTagString) nbtBase);
+                return NBTString.fromForge((NBTTagString) nbtBase);
             case 9:
-                return new NBTList((NBTTagList) nbtBase);
+                return NBTList.fromForge((NBTTagList) nbtBase);
             case 10:
-                return new NBTCompound((NBTTagCompound) nbtBase);
+                return NBTCompound.fromForge((NBTTagCompound) nbtBase);
             case 11:
-                return new NBTIntArray((NBTTagIntArray) nbtBase);
+                return NBTIntArray.fromForge((NBTTagIntArray) nbtBase);
             case 12:
-                return new NBTLongArray((NBTTagLongArray) nbtBase);
+                return NBTLongArray.fromForge((NBTTagLongArray) nbtBase);
             default:
                 return null;
         }
@@ -60,29 +61,29 @@ public final class NBTConversionHandler
             case 0:
                 return new NBTTagEnd();
             case 1:
-                return ((NBTByte) nbtBase).forgeNbtByte;
+                return NBTByte.asForge((INBTByte) nbtBase);
             case 2:
-                return ((NBTShort) nbtBase).forgeNbtShort;
+                return NBTShort.asForge((NBTShort) nbtBase);
             case 3:
-                return ((NBTInteger) nbtBase).forgeNbtInt;
+                return NBTInteger.asForge((NBTInteger) nbtBase);
             case 4:
-                return ((NBTLong) nbtBase).forgeNbtLong;
+                return NBTLong.asForge((NBTLong) nbtBase);
             case 5:
-                return ((NBTFloat) nbtBase).forgeNbtFloat;
+                return NBTFloat.asForge((NBTFloat) nbtBase);
             case 6:
-                return ((NBTDouble) nbtBase).forgeNbtDouble;
+                return NBTDouble.asForge((NBTDouble) nbtBase);
             case 7:
-                return ((NBTByteArray) nbtBase).forgeNbtByteArray;
+                return NBTByteArray.asForge((NBTByteArray) nbtBase);
             case 8:
-                return ((NBTString) nbtBase).forgeNbtString;
+                return NBTString.asForge((NBTString) nbtBase);
             case 9:
-                return ((NBTList) nbtBase).forgeNbtList;
+                return NBTList.asForge((NBTList) nbtBase);
             case 10:
-                return ((NBTCompound) nbtBase).forgeNbtCompound;
+                return NBTCompound.asForge((NBTCompound) nbtBase);
             case 11:
-                return ((NBTIntArray) nbtBase).forgeNbtIntArray;
+                return NBTIntArray.asForge((NBTIntArray) nbtBase);
             case 12:
-                return ((NBTLongArray) nbtBase).forgeNbtLongArray;
+                return NBTLongArray.asForge((NBTLongArray) nbtBase);
             default:
                 return null;
         }

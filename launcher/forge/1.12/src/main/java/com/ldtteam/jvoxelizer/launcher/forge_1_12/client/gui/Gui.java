@@ -74,13 +74,13 @@ public class Gui implements IGui<DummyInstanceData>
         return new DummyInstanceData();
     }
 
-    public net.minecraft.client.gui.Gui getForgeGui()
+    public static net.minecraft.client.gui.Gui asForge(IGui<?> gui)
     {
-        return forgeGui;
+        return ((Gui) gui).forgeGui;
     }
 
-    public static net.minecraft.client.gui.Gui asForge(IGui<DummyInstanceData> gui)
+    public static IGui<?> fromForge(final net.minecraft.client.gui.Gui ingameGUI)
     {
-        return ((Gui) gui).getForgeGui();
+        return new Gui(ingameGUI);
     }
 }

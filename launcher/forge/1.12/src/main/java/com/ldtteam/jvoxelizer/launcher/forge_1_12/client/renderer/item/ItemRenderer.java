@@ -12,7 +12,7 @@ public class ItemRenderer implements IItemRenderer
 
     private final RenderItem forgeItemRenderer;
 
-    public ItemRenderer(final RenderItem forgeItemRenderer) {this.forgeItemRenderer = forgeItemRenderer;}
+    private ItemRenderer(final RenderItem forgeItemRenderer) {this.forgeItemRenderer = forgeItemRenderer;}
 
     @Override
     public void setZLevel(final float v)
@@ -30,5 +30,15 @@ public class ItemRenderer implements IItemRenderer
     public void renderItemOverlayIntoGUI(final IFontRenderer font, final IItemStack stack, final int x, final int y, final String s)
     {
         forgeItemRenderer.renderItemOverlayIntoGUI(FontRenderer.asForge(font), ItemStack.asForge(stack), x, y, s);
+    }
+
+    public static RenderItem asForge(final IItemRenderer renderer)
+    {
+        return ((ItemRenderer) renderer).forgeItemRenderer;
+    }
+
+    public static IItemRenderer fromForge(final RenderItem renderer)
+    {
+        return new ItemRenderer(renderer);
     }
 }

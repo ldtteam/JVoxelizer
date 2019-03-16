@@ -5,13 +5,23 @@ import net.minecraft.nbt.NBTTagEnd;
 
 class NBTEnd implements INBTEnd
 {
-    public final NBTTagEnd forgeNbtEnd;
+    private final NBTTagEnd forgeNbtEnd;
 
-    NBTEnd(final NBTTagEnd forgeNbtEnd) {this.forgeNbtEnd = forgeNbtEnd;}
+    private NBTEnd(final NBTTagEnd forgeNbtEnd) {this.forgeNbtEnd = forgeNbtEnd;}
 
     @Override
     public byte getType()
     {
         return forgeNbtEnd.getId();
+    }
+
+    public static NBTTagEnd asForge(INBTEnd compound)
+    {
+        return ((NBTEnd)compound).forgeNbtEnd;
+    }
+
+    public static INBTEnd fromForge(NBTTagEnd compound)
+    {
+        return new NBTEnd(compound);
     }
 }

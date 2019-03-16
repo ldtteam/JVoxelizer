@@ -16,7 +16,7 @@ public class EnchantmentType implements IEnchantmentType
      */
     private EnumEnchantmentType minecraftEnchantMentType;
 
-    public EnchantmentType(@NotNull final EnumEnchantmentType minecraftEnchantMentType)
+    private EnchantmentType(@NotNull final EnumEnchantmentType minecraftEnchantMentType)
     {
         this.minecraftEnchantMentType = minecraftEnchantMentType;
     }
@@ -27,12 +27,13 @@ public class EnchantmentType implements IEnchantmentType
         return minecraftEnchantMentType.canEnchantItem(((Item)itemInput).getForgeItem());
     }
 
-    /**
-     * Getter for the wrapped forge element.
-     * @return the EnumEnchantmentType.
-     */
-    public EnumEnchantmentType getForgeType()
+    public static EnumEnchantmentType asForge(IEnchantmentType distribution)
     {
-       return this.minecraftEnchantMentType;
+        return ((EnchantmentType) distribution).minecraftEnchantMentType;
+    }
+
+    public static IEnchantmentType fromForge(EnumEnchantmentType side)
+    {
+        return new EnchantmentType(side);
     }
 }

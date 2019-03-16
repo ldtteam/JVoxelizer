@@ -3,7 +3,6 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt;
 import com.google.common.collect.Maps;
 import com.ldtteam.jvoxelizer.util.nbt.INBTBase;
 import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -14,9 +13,9 @@ import java.util.Set;
 
 public class NBTCompound implements INBTCompound
 {
-    public final NBTTagCompound forgeNbtCompound;
+    private final NBTTagCompound forgeNbtCompound;
 
-    public NBTCompound(final NBTTagCompound forgeNbtCompound) {this.forgeNbtCompound = forgeNbtCompound;}
+    private NBTCompound(final NBTTagCompound forgeNbtCompound) {this.forgeNbtCompound = forgeNbtCompound;}
 
     @Override
     public byte getType()
@@ -129,5 +128,10 @@ public class NBTCompound implements INBTCompound
     public static NBTTagCompound asForge(INBTCompound compound)
     {
         return ((NBTCompound)compound).forgeNbtCompound;
+    }
+
+    public static INBTCompound fromForge(NBTTagCompound compound)
+    {
+        return new NBTCompound(compound);
     }
 }

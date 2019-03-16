@@ -2,70 +2,83 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.util.textcomponent;
 
 import com.ldtteam.jvoxelizer.util.textcomponent.ITextComponent;
 import com.ldtteam.jvoxelizer.util.textcomponent.ITextStyle;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TextComponent implements ITextComponent {
+public class TextComponent implements ITextComponent
+{
     private net.minecraft.util.text.ITextComponent forgeTextComponent;
 
-    public TextComponent(net.minecraft.util.text.ITextComponent forgeTextComponent) {
+    private TextComponent(net.minecraft.util.text.ITextComponent forgeTextComponent)
+    {
         this.forgeTextComponent = forgeTextComponent;
     }
 
-
-
     @Override
-    public ITextComponent setStyle(ITextStyle style) {
-        return new TextComponent(forgeTextComponent.setStyle(((TextStyle) style).getForgeStyle()));
+    public ITextComponent setStyle(ITextStyle style)
+    {
+        return new TextComponent(forgeTextComponent.setStyle(TextStyle.asForge(style)));
     }
 
     @Override
-    public ITextStyle getStyle() {
-        return new TextStyle(forgeTextComponent.getStyle());
+    public ITextStyle getStyle()
+    {
+        return TextStyle.fromForge(forgeTextComponent.getStyle());
     }
 
     @Override
-    public ITextComponent appendText(String text) {
+    public ITextComponent appendText(String text)
+    {
         return new TextComponent(forgeTextComponent.appendText(text));
     }
 
     @Override
-    public ITextComponent appendSibling(ITextComponent component) {
+    public ITextComponent appendSibling(ITextComponent component)
+    {
         return new TextComponent(forgeTextComponent.appendSibling(((TextComponent) component).getForgeTextComponent()));
     }
 
     @Override
-    public String getUnformattedComponentText() {
+    public String getUnformattedComponentText()
+    {
         return forgeTextComponent.getUnformattedComponentText();
     }
 
     @Override
-    public String getUnformattedText() {
+    public String getUnformattedText()
+    {
         return forgeTextComponent.getFormattedText();
     }
 
     @Override
-    public String getFormattedText() {
+    public String getFormattedText()
+    {
         return forgeTextComponent.getFormattedText();
     }
 
     @Override
-    public List<ITextComponent> getSiblings() {
+    public List<ITextComponent> getSiblings()
+    {
         return forgeTextComponent.getSiblings().stream().map(TextComponent::new).collect(Collectors.toList());
     }
 
     @Override
-    public ITextComponent createCopy() {
+    public ITextComponent createCopy()
+    {
         return new TextComponent(forgeTextComponent.createCopy());
     }
 
+    @NotNull
     @Override
-    public Iterator<ITextComponent> iterator() {
+    public Iterator<ITextComponent> iterator()
+    {
         final Iterator<net.minecraft.util.text.ITextComponent> iterator = forgeTextComponent.iterator();
 
-        return new Iterator<ITextComponent>() {
+        return new Iterator<ITextComponent>()
+        {
             @Override
             public boolean hasNext()
             {

@@ -5,9 +5,9 @@ import net.minecraft.nbt.NBTTagShort;
 
 class NBTShort implements INBTShort
 {
-    public final NBTTagShort forgeNbtShort;
+    private final NBTTagShort forgeNbtShort;
 
-    NBTShort(final NBTTagShort forgeNbtShort) {this.forgeNbtShort = forgeNbtShort;}
+    private NBTShort(final NBTTagShort forgeNbtShort) {this.forgeNbtShort = forgeNbtShort;}
 
     @Override
     public short getValue()
@@ -19,6 +19,16 @@ class NBTShort implements INBTShort
     public byte getType()
     {
         return forgeNbtShort.getId();
+    }
+
+    public static NBTTagShort asForge(INBTShort compound)
+    {
+        return ((NBTShort)compound).forgeNbtShort;
+    }
+
+    public static INBTShort fromForge(NBTTagShort compound)
+    {
+        return new NBTShort(compound);
     }
 }
 

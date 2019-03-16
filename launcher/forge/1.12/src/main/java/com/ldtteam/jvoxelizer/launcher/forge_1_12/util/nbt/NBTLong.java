@@ -5,9 +5,9 @@ import net.minecraft.nbt.NBTTagLong;
 
 class NBTLong implements INBTLong
 {
-    public final NBTTagLong forgeNbtLong;
+    private final NBTTagLong forgeNbtLong;
 
-    NBTLong(final NBTTagLong forgeNbtLong) {this.forgeNbtLong = forgeNbtLong;}
+    private NBTLong(final NBTTagLong forgeNbtLong) {this.forgeNbtLong = forgeNbtLong;}
 
     @Override
     public long getValue()
@@ -19,6 +19,16 @@ class NBTLong implements INBTLong
     public byte getType()
     {
         return forgeNbtLong.getId();
+    }
+
+    public static NBTTagLong asForge(INBTLong compound)
+    {
+        return ((NBTLong)compound).forgeNbtLong;
+    }
+
+    public static INBTLong fromForge(NBTTagLong compound)
+    {
+        return new NBTLong(compound);
     }
 }
 

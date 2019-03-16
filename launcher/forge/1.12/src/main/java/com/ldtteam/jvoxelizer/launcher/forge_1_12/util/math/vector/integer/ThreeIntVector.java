@@ -7,7 +7,7 @@ public class ThreeIntVector implements I3IntVector
 {
     private Vec3i vec3i;
 
-    public ThreeIntVector(final Vec3i vec3i)
+    private ThreeIntVector(final Vec3i vec3i)
     {
         this.vec3i = vec3i;
     }
@@ -28,5 +28,15 @@ public class ThreeIntVector implements I3IntVector
     public int getZ()
     {
         return vec3i.getZ();
+    }
+
+    public static Vec3i asForge(I3IntVector distribution)
+    {
+        return ((ThreeIntVector) distribution).vec3i;
+    }
+
+    public static I3IntVector fromForge(Vec3i side)
+    {
+        return new ThreeIntVector(side);
     }
 }

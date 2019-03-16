@@ -5,9 +5,9 @@ import net.minecraft.nbt.NBTTagInt;
 
 class NBTInteger implements INBTInteger
 {
-    public final NBTTagInt forgeNbtInt;
+    private final NBTTagInt forgeNbtInt;
 
-    NBTInteger(final NBTTagInt forgeNbtInt) {this.forgeNbtInt = forgeNbtInt;}
+    private NBTInteger(final NBTTagInt forgeNbtInt) {this.forgeNbtInt = forgeNbtInt;}
 
     @Override
     public int getValue()
@@ -19,5 +19,15 @@ class NBTInteger implements INBTInteger
     public byte getType()
     {
         return forgeNbtInt.getId();
+    }
+
+    public static NBTTagInt asForge(INBTInteger compound)
+    {
+        return ((NBTInteger)compound).forgeNbtInt;
+    }
+
+    public static INBTInteger fromForge(NBTTagInt compound)
+    {
+        return new NBTInteger(compound);
     }
 }

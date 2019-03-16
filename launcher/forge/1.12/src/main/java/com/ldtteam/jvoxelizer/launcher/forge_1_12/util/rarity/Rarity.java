@@ -7,7 +7,7 @@ public class Rarity implements IRarity
 {
     private EnumRarity rarity;
 
-    public Rarity(final EnumRarity rarity)
+    private Rarity(final EnumRarity rarity)
     {
         this.rarity = rarity;
     }
@@ -34,5 +34,15 @@ public class Rarity implements IRarity
     public boolean isEpic()
     {
         return rarity == EnumRarity.EPIC;
+    }
+
+    public static EnumRarity asForge(IRarity rarity)
+    {
+        return ((Rarity) rarity).rarity;
+    }
+
+    public static IRarity fromForge(EnumRarity rarity)
+    {
+        return new Rarity(rarity);
     }
 }

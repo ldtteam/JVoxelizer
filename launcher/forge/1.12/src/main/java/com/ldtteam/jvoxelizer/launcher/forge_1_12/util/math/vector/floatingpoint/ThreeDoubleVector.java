@@ -7,7 +7,7 @@ public class ThreeDoubleVector implements I3DoubleVector
 {
     private Vec3d vec3d;
 
-    public ThreeDoubleVector(final Vec3d vec3d)
+    private ThreeDoubleVector(final Vec3d vec3d)
     {
         this.vec3d = vec3d;
     }
@@ -28,5 +28,15 @@ public class ThreeDoubleVector implements I3DoubleVector
     public double getZ()
     {
         return vec3d.z;
+    }
+
+    public static Vec3d asForge(I3DoubleVector distribution)
+    {
+        return ((ThreeDoubleVector) distribution).vec3d;
+    }
+
+    public static I3DoubleVector fromForge(Vec3d side)
+    {
+        return new ThreeDoubleVector(side);
     }
 }

@@ -9,7 +9,7 @@ public class Nameable implements INameable
 {
     private IWorldNameable nameable;
 
-    public Nameable(final IWorldNameable nameable)
+    private Nameable(final IWorldNameable nameable)
     {
         this.nameable = nameable;
     }
@@ -30,5 +30,15 @@ public class Nameable implements INameable
     public ITextComponent getDisplayName()
     {
         return new TextComponent(nameable.getDisplayName());
+    }
+
+    public static IWorldNameable asForge(INameable distribution)
+    {
+        return ((Nameable) distribution).nameable;
+    }
+
+    public static INameable fromForge(IWorldNameable side)
+    {
+        return new Nameable(side);
     }
 }

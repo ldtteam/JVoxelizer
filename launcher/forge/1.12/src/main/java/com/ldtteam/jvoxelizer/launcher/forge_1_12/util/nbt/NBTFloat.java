@@ -5,9 +5,9 @@ import net.minecraft.nbt.NBTTagFloat;
 
 class NBTFloat implements INBTFloat
 {
-    public final NBTTagFloat forgeNbtFloat;
+    private final NBTTagFloat forgeNbtFloat;
 
-    NBTFloat(final NBTTagFloat forgeNbtFloat) {this.forgeNbtFloat = forgeNbtFloat;}
+    private NBTFloat(final NBTTagFloat forgeNbtFloat) {this.forgeNbtFloat = forgeNbtFloat;}
 
     @Override
     public float getValue()
@@ -19,5 +19,15 @@ class NBTFloat implements INBTFloat
     public byte getType()
     {
         return forgeNbtFloat.getId();
+    }
+
+    public static NBTTagFloat asForge(INBTFloat compound)
+    {
+        return ((NBTFloat)compound).forgeNbtFloat;
+    }
+
+    public static INBTFloat fromForge(NBTTagFloat compound)
+    {
+        return new NBTFloat(compound);
     }
 }

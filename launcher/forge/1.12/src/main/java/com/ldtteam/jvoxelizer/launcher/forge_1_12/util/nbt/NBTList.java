@@ -13,9 +13,9 @@ import java.util.List;
 
 public class NBTList implements INBTList
 {
-    public final NBTTagList forgeNbtList;
+    private final NBTTagList forgeNbtList;
 
-    NBTList(final NBTTagList forgeNbtList) {this.forgeNbtList = forgeNbtList;}
+    private NBTList(final NBTTagList forgeNbtList) {this.forgeNbtList = forgeNbtList;}
 
     @Override
     public byte getType()

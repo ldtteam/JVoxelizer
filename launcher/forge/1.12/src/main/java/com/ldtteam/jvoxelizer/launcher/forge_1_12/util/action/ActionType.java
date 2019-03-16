@@ -8,7 +8,7 @@ public class ActionType implements IActionType
 {
     private EnumAction forgeAction;
 
-    public ActionType(final EnumAction forgeAction)
+    private ActionType(final EnumAction forgeAction)
     {
         this.forgeAction = forgeAction;
     }
@@ -41,5 +41,15 @@ public class ActionType implements IActionType
     public boolean isDrink()
     {
         return this.forgeAction == EnumAction.DRINK;
+    }
+
+    public static EnumAction asForge(IActionType actionType)
+    {
+        return ((ActionType) actionType).forgeAction;
+    }
+
+    public static IActionType fromForge(EnumAction actionType)
+    {
+        return new ActionType(actionType);
     }
 }

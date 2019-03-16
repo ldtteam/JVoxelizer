@@ -11,6 +11,7 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.textcomponent.TextComponent;
 import com.ldtteam.jvoxelizer.util.textcomponent.ITextComponent;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiIngame;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,7 +21,8 @@ public class GuiScreen extends Gui implements IGuiScreen<DummyInstanceData>
 
     private final net.minecraft.client.gui.GuiScreen forgeGuiScreen;
 
-    public GuiScreen(final net.minecraft.client.gui.GuiScreen forgeGuiScreen) {
+    public GuiScreen(final net.minecraft.client.gui.GuiScreen forgeGuiScreen)
+    {
         super(forgeGuiScreen);
         this.forgeGuiScreen = forgeGuiScreen;
     }

@@ -1,15 +1,32 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.server;
 
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.server.manager.PlayerManager;
 import com.ldtteam.jvoxelizer.server.IServerInstance;
 import com.ldtteam.jvoxelizer.server.manager.IPlayerManager;
+import net.minecraft.server.MinecraftServer;
 
-// TODO: Orion fix pls, dunno which class this is for.
 public class ServerInstance implements IServerInstance
 {
+    private final MinecraftServer server;
+
+    private ServerInstance(final MinecraftServer integratedServer)
+    {
+        this.server = integratedServer;
+    }
 
     @Override
     public IPlayerManager getPlayerManager()
     {
-        return null;
+        return PlayerManager.fromForge(server.getPlayerList());
+    }
+
+    public static MinecraftServer asForge(final IServerInstance engine)
+    {
+        return ((ServerInstance) engine).server;
+    }
+
+    public static IServerInstance fromForge(final MinecraftServer engine)
+    {
+        return new ServerInstance(engine);
     }
 }

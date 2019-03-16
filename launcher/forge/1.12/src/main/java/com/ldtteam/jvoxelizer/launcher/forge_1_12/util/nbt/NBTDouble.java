@@ -5,9 +5,9 @@ import net.minecraft.nbt.NBTTagDouble;
 
 class NBTDouble implements INBTDouble
 {
-    public final NBTTagDouble forgeNbtDouble;
+    private final NBTTagDouble forgeNbtDouble;
 
-    NBTDouble(final NBTTagDouble forgeNbtDouble) {this.forgeNbtDouble = forgeNbtDouble;}
+    private NBTDouble(final NBTTagDouble forgeNbtDouble) {this.forgeNbtDouble = forgeNbtDouble;}
 
     @Override
     public double getValue()
@@ -19,5 +19,15 @@ class NBTDouble implements INBTDouble
     public byte getType()
     {
         return forgeNbtDouble.getId();
+    }
+
+    public static NBTTagDouble asForge(INBTDouble compound)
+    {
+        return ((NBTDouble)compound).forgeNbtDouble;
+    }
+
+    public static INBTDouble fromForge(NBTTagDouble compound)
+    {
+        return new NBTDouble(compound);
     }
 }

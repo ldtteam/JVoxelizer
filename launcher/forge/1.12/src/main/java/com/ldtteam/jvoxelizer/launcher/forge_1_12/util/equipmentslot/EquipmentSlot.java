@@ -7,17 +7,18 @@ public class EquipmentSlot implements IEquipmentSlot
 {
     private EntityEquipmentSlot forgeEquipmentSlot;
 
-    public EquipmentSlot(final EntityEquipmentSlot forgeEquipmentSlot)
+    private EquipmentSlot(final EntityEquipmentSlot forgeEquipmentSlot)
     {
         this.forgeEquipmentSlot = forgeEquipmentSlot;
     }
 
-    /**
-     * Getter for the wrapped forge equipment slot.
-     * @return EquipmentSlot.
-     */
-    public EntityEquipmentSlot getForgeEquipmentSlot()
+    public static EntityEquipmentSlot asForge(IEquipmentSlot distribution)
     {
-        return this.forgeEquipmentSlot;
+        return ((EquipmentSlot) distribution).forgeEquipmentSlot;
+    }
+
+    public static IEquipmentSlot fromForge(EntityEquipmentSlot side)
+    {
+        return new EquipmentSlot(side);
     }
 }

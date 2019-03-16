@@ -7,7 +7,7 @@ public class ToolTipFlag implements IToolTipFlag
 {
     private ITooltipFlag flag;
 
-    public ToolTipFlag(final ITooltipFlag flags)
+    private ToolTipFlag(final ITooltipFlag flags)
     {
         this.flag = flags;
     }
@@ -24,13 +24,14 @@ public class ToolTipFlag implements IToolTipFlag
         return flag == ITooltipFlag.TooltipFlags.ADVANCED;
     }
 
-    /**
-     * Get the wrapped forge flag.
-     * @return the ITooltipFlag.
-     */
-    public ITooltipFlag getForgeFlag()
+    public static ITooltipFlag asForge(final IToolTipFlag flag)
     {
-        return this.flag;
+        return ((ToolTipFlag) flag).flag;
+    }
+
+    public static IToolTipFlag fromForge(final ITooltipFlag flag)
+    {
+        return new ToolTipFlag(flag);
     }
 }
 

@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 public class Identifier implements IIdentifier {
     private ResourceLocation forgeIdentifier;
 
-    public Identifier(ResourceLocation forgeIdentifier) {
+    private Identifier(ResourceLocation forgeIdentifier) {
         this.forgeIdentifier = forgeIdentifier;
     }
 
@@ -23,14 +23,9 @@ public class Identifier implements IIdentifier {
         return forgeIdentifier.getResourcePath();
     }
 
-    public ResourceLocation getForgeIdentifier()
-    {
-        return forgeIdentifier;
-    }
-
     public static ResourceLocation asForge(IIdentifier identifier)
     {
-        return ((Identifier) identifier).getForgeIdentifier();
+        return ((Identifier) identifier).forgeIdentifier;
     }
 
     public static IIdentifier fromForge(ResourceLocation location)

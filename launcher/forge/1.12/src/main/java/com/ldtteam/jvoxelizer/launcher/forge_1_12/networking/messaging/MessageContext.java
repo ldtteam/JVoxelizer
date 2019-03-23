@@ -8,7 +8,7 @@ public class MessageContext implements IMessageContext
 {
     private net.minecraftforge.fml.common.network.simpleimpl.MessageContext context;
 
-    public MessageContext(final net.minecraftforge.fml.common.network.simpleimpl.MessageContext context)
+    private MessageContext(final net.minecraftforge.fml.common.network.simpleimpl.MessageContext context)
     {
         this.context = context;
     }
@@ -16,15 +16,22 @@ public class MessageContext implements IMessageContext
     @Override
     public IServerNetworkHandler getServerHandler()
     {
-        return new ServerNetworkHandler(context.getServerHandler());
+        return ServerNetworkHandler.fromForge(context.getServerHandler());
     }
 
-    /**
-     * Getter to get the wrapped forge element.
-     * @return the forge MessageContext.
-     */
-    public net.minecraftforge.fml.common.network.simpleimpl.MessageContext getForgeContext()
+    public static net.minecraftforge.fml.common.network.simpleimpl.MessageContext asForge(final IMessageContext tuple)
     {
-        return context;
+        if (tuple instanceof net.minecraftforge.fml.common.network.simpleimpl.MessageContext)
+            return (net.minecraftforge.fml.common.network.simpleimpl.MessageContext) tuple;
+
+        return ((MessageContext) tuple).context;
+    }
+
+    public static IMessageContext fromForge(final net.minecraftforge.fml.common.network.simpleimpl.MessageContext tuple)
+    {
+        if (tuple instanceof IMessageContext)
+            return (IMessageContext) tuple;
+
+        return new MessageContext(tuple);
     }
 }

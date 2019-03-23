@@ -21,7 +21,7 @@ public class NetworkTargetPoint implements INetworkTargetPoint
     @Override
     public IEntityCoordinate getTarget()
     {
-        return new EntityCoordinate(new ThreeDoubleVector(new Vec3d(target.x, target.y, target.z)));
+        return EntityCoordinate(new ThreeDoubleVector(new Vec3d(target.x, target.y, target.z)));
     }
 
     @Override
@@ -33,7 +33,7 @@ public class NetworkTargetPoint implements INetworkTargetPoint
     @Override
     public IDimension getDimension()
     {
-        return new Dimension(target.dimension);
+        return Dimension.fromForge(target.dimension);
     }
 
     /**

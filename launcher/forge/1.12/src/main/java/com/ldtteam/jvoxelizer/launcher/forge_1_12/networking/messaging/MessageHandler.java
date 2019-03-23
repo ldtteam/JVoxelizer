@@ -16,15 +16,22 @@ public class MessageHandler implements IMessageHandler
     @Override
     public IMessage onMessage(final IMessage message, final IMessageContext ctx)
     {
-        return new Message(this.handler.onMessage(((Message) message).getForgeMessage(), ((MessageContext) ctx).getForgeContext()));
+        return Message.fromForge(this.handler.onMessage(Message.asForge(message), MessageContext.asForge(ctx)));
     }
 
-    /**
-     * Getter to get the wrapped forge element.
-     * @return the net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler.
-     */
-    public net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler<net.minecraftforge.fml.common.network.simpleimpl.IMessage, net.minecraftforge.fml.common.network.simpleimpl.IMessage> getForgeHandler()
+    public static net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler<net.minecraftforge.fml.common.network.simpleimpl.IMessage, net.minecraftforge.fml.common.network.simpleimpl.IMessage> asForge(final IMessageHandler handler)
     {
-        return this.handler;
+        if (handler instanceof net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler)
+            return (net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler<net.minecraftforge.fml.common.network.simpleimpl.IMessage, net.minecraftforge.fml.common.network.simpleimpl.IMessage>) handler;
+
+        return ((MessageHandler) handler).handler;
+    }
+
+    public static IMessageHandler fromForge(final net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler<net.minecraftforge.fml.common.network.simpleimpl.IMessage, net.minecraftforge.fml.common.network.simpleimpl.IMessage> handler)
+    {
+        if (handler instanceof IMessageHandler)
+            return (IMessageHandler) handler;
+
+        return new MessageHandler(handler);
     }
 }

@@ -38,7 +38,7 @@ public class MultiplayerPlayerEntity extends PlayerEntity implements IMultiplaye
         return this.forgeMPPlayer;
     }
 
-    public EntityPlayerMP asForge(IMultiplayerPlayerEntity playerEntity)
+    public static EntityPlayerMP asForge(IMultiplayerPlayerEntity playerEntity)
     {
         if (playerEntity instanceof EntityPlayerMP)
             return (EntityPlayerMP) playerEntity;
@@ -46,7 +46,7 @@ public class MultiplayerPlayerEntity extends PlayerEntity implements IMultiplaye
         return ((MultiplayerPlayerEntity) playerEntity).getForgePlayer();
     }
 
-    public IMultiplayerPlayerEntity fromForge(EntityPlayerMP playerMP)
+    public static IMultiplayerPlayerEntity fromForge(EntityPlayerMP playerMP)
     {
         if (playerMP instanceof IMultiplayerPlayerEntity)
             return (IMultiplayerPlayerEntity) playerMP;

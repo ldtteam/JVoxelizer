@@ -9,7 +9,7 @@ public class ServerNetworkHandler implements IServerNetworkHandler
 {
     private NetHandlerPlayServer handler;
 
-    public ServerNetworkHandler(final NetHandlerPlayServer handler)
+    private ServerNetworkHandler(final NetHandlerPlayServer handler)
     {
         this.handler = handler;
     }
@@ -17,6 +17,22 @@ public class ServerNetworkHandler implements IServerNetworkHandler
     @Override
     public IMultiplayerPlayerEntity getPlayer()
     {
-        return new MultiplayerPlayerEntity(handler.player);
+        return MultiplayerPlayerEntity.fromForge(handler.player);
+    }
+
+    public static NetHandlerPlayServer asForge(final IServerNetworkHandler handler)
+    {
+        if (handler instanceof NetHandlerPlayServer)
+            return (NetHandlerPlayServer) handler;
+
+        return ((ServerNetworkHandler) handler).handler;
+    }
+
+    public static IServerNetworkHandler fromForge(final NetHandlerPlayServer handler)
+    {
+        if (handler instanceof IServerNetworkHandler)
+            return (IServerNetworkHandler) handler;
+
+        return new ServerNetworkHandler(handler);
     }
 }

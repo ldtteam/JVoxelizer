@@ -9,7 +9,7 @@ public class Profiler implements IProfiler
 {
     private net.minecraft.profiler.Profiler profiler;
 
-    public Profiler(final net.minecraft.profiler.Profiler profiler)
+    private Profiler(final net.minecraft.profiler.Profiler profiler)
     {
         this.profiler = profiler;
     }
@@ -41,19 +41,35 @@ public class Profiler implements IProfiler
     @Override
     public void setProfilingMap(final Map<String, Long> profilingMap)
     {
-        //todo orion?
+        this.profiler.profilingMap.clear();
+        this.profiler.profilingMap.putAll(profilingMap);
     }
 
     @Override
     public Map<String, Long> getProfilingMap()
     {
-        //todo orion?
-        return null;
+        return this.profiler.profilingMap;
     }
 
     @Override
     public void clearProfiling()
     {
         profiler.clearProfiling();
+    }
+
+    public static net.minecraft.profiler.Profiler asForge(final IProfiler profiler)
+    {
+        if (profiler instanceof net.minecraft.profiler.Profiler)
+            return (net.minecraft.profiler.Profiler) profiler;
+
+        return ((Profiler) profiler).profiler;
+    }
+
+    public static IProfiler fromForge(final net.minecraft.profiler.Profiler profiler)
+    {
+        if (profiler instanceof IProfiler)
+            return (IProfiler) profiler;
+
+        return new Profiler(profiler);
     }
 }

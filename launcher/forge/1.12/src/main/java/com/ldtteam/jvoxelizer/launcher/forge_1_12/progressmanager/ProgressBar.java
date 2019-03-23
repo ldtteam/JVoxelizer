@@ -7,7 +7,7 @@ public class ProgressBar implements IProgressBar
 {
     private ProgressManager.ProgressBar progressBar;
 
-    public ProgressBar(final ProgressManager.ProgressBar progressBar)
+    private ProgressBar(final ProgressManager.ProgressBar progressBar)
     {
         this.progressBar = progressBar;
     }
@@ -16,5 +16,21 @@ public class ProgressBar implements IProgressBar
     public void step(final String text)
     {
         progressBar.step(text);
+    }
+
+    public static ProgressManager.ProgressBar asForge(final IProgressBar progressBar)
+    {
+        if (progressBar instanceof ProgressManager.ProgressBar)
+            return (ProgressManager.ProgressBar) progressBar;
+
+        return ((ProgressBar) progressBar).progressBar;
+    }
+
+    public static IProgressBar fromForge(final ProgressManager.ProgressBar progressBar)
+    {
+        if (progressBar instanceof IProgressBar)
+            return (IProgressBar) progressBar;
+
+        return new ProgressBar(progressBar);
     }
 }

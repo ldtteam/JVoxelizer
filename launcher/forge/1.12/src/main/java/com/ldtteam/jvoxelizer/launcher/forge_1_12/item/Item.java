@@ -8,6 +8,7 @@ import com.ldtteam.jvoxelizer.client.model.IModelBiped;
 import com.ldtteam.jvoxelizer.client.renderer.blockentity.IBlockEntityRenderer;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
 import com.ldtteam.jvoxelizer.common.animation.ITimedValue;
+import com.ldtteam.jvoxelizer.common.capability.ICapabilityProvider;
 import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.enchantment.IEnchantment;
@@ -24,6 +25,7 @@ import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.group.IItemGroup;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockState;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolution;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.model.ModelBiped;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.blockentity.BlockEntityRenderer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.animation.TimedValue;
@@ -73,7 +75,6 @@ import java.util.stream.Collectors;
 
 public class Item implements IItem
 {
-
     private net.minecraft.item.Item forgeItem;
 
     public net.minecraft.item.Item getForgeItem()
@@ -89,19 +90,19 @@ public class Item implements IItem
     @Override
     public void addPropertyOverride(final IIdentifier key, final IItemPropertyGetter getter)
     {
-        forgeItem.addPropertyOverride(((Identifier) key).getForgeIdentifier(), ((ItemPropertyGetter)getter).getForgePropertyGetter());
+        forgeItem.addPropertyOverride(Identifier.asForge(key), ((ItemPropertyGetter)getter).getForgePropertyGetter());
     }
 
     @Override
     public IItemPropertyGetter getPropertyGetter(final IIdentifier key)
     {
-        return new ItemPropertyGetter(forgeItem.getPropertyGetter(((Identifier)key).getForgeIdentifier()));
+        return new ItemPropertyGetter(forgeItem.getPropertyGetter(Identifier.asForge(key)));
     }
 
     @Override
     public boolean updateItemStackNBT(final INBTCompound nbt)
     {
-        return forgeItem.updateItemStackNBT(((NBTCompound) nbt).forgeNbtCompound);
+        return forgeItem.updateItemStackNBT(NBTCompound.asForge(nbt));
     }
 
     @Override
@@ -127,7 +128,7 @@ public class Item implements IItem
       final float hitY,
       final float hitZ)
     {
-        return new ActionResultType(forgeItem.onItemUse(((PlayerEntity)player).forgePlayer, ((Dimension)worldIn).getForgeWorld(), ((BlockCoordinate) pos).getForgeBlockPos(), ((Hand)hand).getForgeHand(), ((Facing)facing).getForgeSide(), hitX, hitY, hitZ));
+        return ActionResultType.fromForge(forgeItem.onItemUse(PlayerEntity.asForge(player), ((Dimension)worldIn).getForgeWorld(), BlockCoordinate.asForge(pos), Hand.asForge(hand), Facing.asForge(facing), hitX, hitY, hitZ));
     }
 
     @Override
@@ -140,14 +141,14 @@ public class Item implements IItem
     public IActionResult<IItemStack> onItemRightClick(final IDimension worldIn, final IPlayerEntity playerIn, final IHand handIn)
     {
         final net.minecraft.util.ActionResult<net.minecraft.item.ItemStack>
-          result = forgeItem.onItemRightClick(((Dimension)worldIn).getForgeWorld(), ((PlayerEntity)playerIn).forgePlayer, ((Hand) handIn).getForgeHand());
+          result = forgeItem.onItemRightClick(((Dimension)worldIn).getForgeWorld(), PlayerEntity.asForge(playerIn), Hand.asForge(handIn));
         return new ActionResult<>(result.getType(), new ItemStack(result.getResult()));
     }
 
     @Override
     public IItemStack onItemUseFinish(final IItemStack stack, final IDimension worldIn, final ILivingBaseEntity entityLiving)
     {
-        return new ItemStack(forgeItem.onItemUseFinish(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), ((LivingBaseEntity)entityLiving).getForgeEntity()));
+        return new ItemStack(forgeItem.onItemUseFinish(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), LivingBaseEntity.asForge(entityLiving)));
     }
 
     @Override
@@ -195,13 +196,13 @@ public class Item implements IItem
     @Override
     public boolean hitEntity(final IItemStack stack, final ILivingBaseEntity target, final ILivingBaseEntity attacker)
     {
-        return forgeItem.hitEntity(((ItemStack)stack).getForgeItem(), ((LivingBaseEntity)target).getForgeEntity(), ((LivingBaseEntity)attacker).getForgeEntity());
+        return forgeItem.hitEntity(((ItemStack)stack).getForgeItem(), LivingBaseEntity.asForge(target), LivingBaseEntity.asForge(attacker));
     }
 
     @Override
     public boolean onBlockDestroyed(final IItemStack stack, final IDimension worldIn, final IBlockState state, final IBlockCoordinate pos, final ILivingBaseEntity entityLiving)
     {
-        return forgeItem.onBlockDestroyed(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), ((BlockState)state).getForgeBlockState(), ((BlockCoordinate)pos).getForgeBlockPos(), ((LivingBaseEntity)entityLiving).getForgeEntity());
+        return forgeItem.onBlockDestroyed(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), ((BlockState)state).getForgeBlockState(), BlockCoordinate.asForge(pos), LivingBaseEntity.asForge(entityLiving));
     }
 
     @Override
@@ -213,7 +214,7 @@ public class Item implements IItem
     @Override
     public boolean itemInteractionForEntity(final IItemStack stack, final IPlayerEntity playerIn, final ILivingBaseEntity target, final IHand hand)
     {
-        return forgeItem.itemInteractionForEntity(((ItemStack)stack).getForgeItem(), ((PlayerEntity)playerIn).forgePlayer, ((LivingBaseEntity)target).getForgeEntity(), ((Hand)hand).getForgeHand());
+        return forgeItem.itemInteractionForEntity(((ItemStack)stack).getForgeItem(), PlayerEntity.asForge(playerIn), LivingBaseEntity.asForge(target), Hand.asForge(hand));
     }
 
     @Override
@@ -285,13 +286,13 @@ public class Item implements IItem
     @Override
     public void onUpdate(final IItemStack stack, final IDimension worldIn, final IEntity entityIn, final int itemSlot, final boolean isSelected)
     {
-        forgeItem.onUpdate(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), ((Entity)entityIn).forgeEntity, itemSlot, isSelected);
+        forgeItem.onUpdate(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), Entity.asForge(entityIn), itemSlot, isSelected);
     }
 
     @Override
     public void onCreated(final IItemStack stack, final IDimension worldIn, final IPlayerEntity playerIn)
     {
-        forgeItem.onCreated(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), ((PlayerEntity)playerIn).forgePlayer);
+        forgeItem.onCreated(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), PlayerEntity.asForge(playerIn));
     }
 
     @Override
@@ -303,7 +304,7 @@ public class Item implements IItem
     @Override
     public IActionType getItemUseAction(final IItemStack stack)
     {
-        return new ActionType(forgeItem.getItemUseAction(((ItemStack)stack).getForgeItem()));
+        return ActionType.fromForge(forgeItem.getItemUseAction(((ItemStack)stack).getForgeItem()));
     }
 
     @Override
@@ -315,7 +316,7 @@ public class Item implements IItem
     @Override
     public void onPlayerStoppedUsing(final IItemStack stack, final IDimension worldIn, final ILivingBaseEntity entityLiving, final int timeLeft)
     {
-        forgeItem.onPlayerStoppedUsing(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), ((LivingBaseEntity)entityLiving).getForgeEntity(), timeLeft);
+        forgeItem.onPlayerStoppedUsing(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), LivingBaseEntity.asForge(entityLiving), timeLeft);
     }
 
     @Override
@@ -333,7 +334,7 @@ public class Item implements IItem
     @Override
     public IRarity getRarity(final IItemStack stack)
     {
-        return new Rarity(forgeItem.getRarity(((ItemStack)stack).getForgeItem()));
+        return Rarity.fromForge(forgeItem.getRarity(((ItemStack)stack).getForgeItem()));
     }
 
     @Override
@@ -345,7 +346,7 @@ public class Item implements IItem
     @Override
     public IRayTraceResult rayTrace(final IDimension worldIn, final IPlayerEntity playerIn, final boolean useLiquids)
     {
-        return new RayTraceResult(forgeItem.ray);
+        return RayTraceResult.fromForge(forgeItem.rayTrace(Dimension.asForge(worldIn), PlayerEntity.asForge(playerIn), useLiquids));
     }
 
     @Override
@@ -357,7 +358,7 @@ public class Item implements IItem
     @Override
     public IItemGroup<?> getCreativeTab()
     {
-        return new ItemGroup(forgeItem.getCreativeTab());
+        return ItemGroup.fromForge(forgeItem.getCreativeTab());
     }
 
     @Override
@@ -376,8 +377,8 @@ public class Item implements IItem
     public Multimap<String, IAttributeModifier> getItemAttributeModifiers(final IEquipmentSlot equipmentSlot)
     {
         //todo orion
-        return forgeItem.getItemAttributeModifiers(((EquipmentSlot)equipmentSlot).getForgeEquipmentSlot()).entries()
-                 .collect(Collectors.toMap(e -> e.getKey(), v -> new AttributeModifier(v.ge())
+        return forgeItem.getItemAttributeModifiers(EquipmentSlot.asForge(equipmentSlot)).entries().stream()
+                 .count(Collectors.toMap(e -> e.getKey(), v -> new AttributeModifier(v.getValue())
     ));
     }
 
@@ -391,7 +392,7 @@ public class Item implements IItem
     @Override
     public boolean onDroppedByPlayer(final IItemStack iItem, final IPlayerEntity player)
     {
-        return forgeItem.onDroppedByPlayer(((ItemStack) iItem).getForgeItem(), ((PlayerEntity)player).forgePlayer);
+        return forgeItem.onDroppedByPlayer(((ItemStack) iItem).getForgeItem(), PlayerEntity.asForge(player));
     }
 
     @Override
@@ -411,7 +412,7 @@ public class Item implements IItem
       final float hitZ,
       final IHand hand)
     {
-        return new ActionResultType(forgeItem.onItemUse(((PlayerEntity)player).forgePlayer, ((Dimension)iDimension).getForgeWorld(), ((BlockCoordinate)pos).getForgeBlockPos(), ((Hand)hand).getForgeHand(), ((Facing)side).getForgeSide(), hitX, hitY, hitZ));
+        return ActionResultType.fromForge(forgeItem.onItemUse(PlayerEntity.asForge(player), ((Dimension)iDimension).getForgeWorld(), BlockCoordinate.asForge(pos), Hand.asForge(hand), Facing.asForge(side), hitX, hitY, hitZ));
     }
 
     @Override
@@ -435,31 +436,31 @@ public class Item implements IItem
     @Override
     public INBTCompound getNBTShareTag(final IItemStack stack)
     {
-        return new NBTCompound(forgeItem.getNBTShareTag(((ItemStack)stack).getForgeItem()));
+        return NBTCompound.fromForge(forgeItem.getNBTShareTag(((ItemStack)stack).getForgeItem()));
     }
 
     @Override
     public void readNBTShareTag(final IItemStack stack, final INBTCompound nbt)
     {
-        forgeItem.readNBTShareTag(((ItemStack)stack).getForgeItem(), ((NBTCompound)nbt).forgeNbtCompound);
+        forgeItem.readNBTShareTag(((ItemStack)stack).getForgeItem(), NBTCompound.asForge(nbt));
     }
 
     @Override
     public boolean onBlockStartBreak(final IItemStack iItemStack, final IBlockCoordinate pos, final IPlayerEntity player)
     {
-        return forgeItem.onBlockStartBreak(((ItemStack)iItemStack).getForgeItem(), ((BlockCoordinate)pos).getForgeBlockPos(), ((PlayerEntity)player).forgePlayer);
+        return forgeItem.onBlockStartBreak(((ItemStack)iItemStack).getForgeItem(), BlockCoordinate.asForge(pos), PlayerEntity.asForge(player));
     }
 
     @Override
     public void onUsingTick(final IItemStack stack, final ILivingBaseEntity player, final int count)
     {
-        forgeItem.onUsingTick(((ItemStack)stack).getForgeItem(), ((LivingBaseEntity)player).getForgeEntity(), count);
+        forgeItem.onUsingTick(((ItemStack)stack).getForgeItem(), LivingBaseEntity.asForge(player), count);
     }
 
     @Override
     public boolean onLeftClickEntity(final IItemStack stack, final IPlayerEntity player, final IEntity iEntity)
     {
-        return forgeItem.onLeftClickEntity(((ItemStack)stack).getForgeItem(), ((PlayerEntity)player).forgePlayer, ((Entity)iEntity).forgeEntity);
+        return forgeItem.onLeftClickEntity(((ItemStack)stack).getForgeItem(), PlayerEntity.asForge(player), Entity.asForge(iEntity));
     }
 
     @Override
@@ -489,19 +490,19 @@ public class Item implements IItem
     @Override
     public IEntity createEntity(final IDimension iDimension, final IEntity location, final IItemStack stack)
     {
-        return new Entity(forgeItem.createEntity(((Dimension)iDimension).getForgeWorld(), ((Entity)location).forgeEntity, ((ItemStack)stack).getForgeItem()));
+        return Entity.fromForge(forgeItem.createEntity(((Dimension)iDimension).getForgeWorld(),Entity.asForge(location), ((ItemStack)stack).getForgeItem()));
     }
 
     @Override
     public boolean onEntityItemUpdate(final IItemStackEntity entityItem)
     {
-        return forgeItem.onEntityItemUpdate((EntityItem) ((ItemStackEntity)entityItem).forgeEntity);
+        return forgeItem.onEntityItemUpdate((EntityItem) ItemStackEntity.asForge(entityItem));
     }
 
     @Override
     public IItemGroup<?>[] getCreativeTabs()
     {
-        return Arrays.stream(forgeItem.getCreativeTabs()).map(ItemGroup::new).toArray(ItemGroup[]::new);
+        return Arrays.stream(forgeItem.getCreativeTabs()).map(ItemGroup::fromForge).toArray(ItemGroup[]::new);
     }
 
     @Override
@@ -513,25 +514,25 @@ public class Item implements IItem
     @Override
     public boolean doesSneakBypassUse(final IItemStack stack, final IDimension world, final IBlockCoordinate pos, final IPlayerEntity player)
     {
-        return forgeItem.doesSneakBypassUse(((ItemStack)stack).getForgeItem(), ((Dimension)world).getForgeWorld(), ((BlockCoordinate)pos).getForgeBlockPos(), ((PlayerEntity)player).forgePlayer);
+        return forgeItem.doesSneakBypassUse(((ItemStack)stack).getForgeItem(), ((Dimension)world).getForgeWorld(), BlockCoordinate.asForge(pos), PlayerEntity.asForge(player));
     }
 
     @Override
     public void onArmorTick(final IDimension iDimension, final IPlayerEntity player, final IItemStack iItemStack)
     {
-        forgeItem.onArmorTick(((Dimension)iDimension).getForgeWorld(), ((PlayerEntity)player).forgePlayer, ((ItemStack)iItemStack).getForgeItem());
+        forgeItem.onArmorTick(((Dimension)iDimension).getForgeWorld(), PlayerEntity.asForge(player), ((ItemStack)iItemStack).getForgeItem());
     }
 
     @Override
     public boolean isValidArmor(final IItemStack stack, final IEquipmentSlot armorType, final IEntity iEntity)
     {
-        return forgeItem.isValidArmor(((ItemStack)stack).getForgeItem(), ((EquipmentSlot)armorType).getForgeEquipmentSlot(), ((Entity)iEntity).forgeEntity);
+        return forgeItem.isValidArmor(((ItemStack)stack).getForgeItem(), EquipmentSlot.asForge(armorType), Entity.asForge(iEntity));
     }
 
     @Override
     public IEquipmentSlot getEquipmentSlot(final IItemStack stack)
     {
-        return new EquipmentSlot(forgeItem.getEquipmentSlot(((ItemStack)stack).getForgeItem()));
+        return EquipmentSlot.fromForge(forgeItem.getEquipmentSlot(((ItemStack)stack).getForgeItem()));
     }
 
     @Override
@@ -543,32 +544,32 @@ public class Item implements IItem
     @Override
     public String getArmorTexture(final IItemStack stack, final IEntity iEntity, final IEquipmentSlot slot, final String type)
     {
-        return forgeItem.getArmorTexture(((ItemStack)stack).getForgeItem(), ((Entity)iEntity).forgeEntity, ((EquipmentSlot)slot).getForgeEquipmentSlot(), type);
+        return forgeItem.getArmorTexture(((ItemStack)stack).getForgeItem(), Entity.asForge(iEntity), EquipmentSlot.asForge(slot), type);
     }
 
     @Override
     public IFontRenderer getFontRenderer(final IItemStack stack)
     {
-        return new FontRenderer(forgeItem.getFontRenderer(((ItemStack)stack).getForgeItem()));
+        return FontRenderer.fromForge(forgeItem.getFontRenderer(((ItemStack)stack).getForgeItem()));
     }
 
     @Override
     public IModelBiped getArmorModel(
       final ILivingBaseEntity entityLiving, final IItemStack IItemStack, final IEquipmentSlot armorSlot, final IModelBiped _default)
     {
-        return new ModelBiped(forgeItem.getArmorModel(((LivingBaseEntity)entityLiving).getForgeEntity(), ((ItemStack)IItemStack).getForgeItem(), ((EquipmentSlot)armorSlot).getForgeEquipmentSlot(), ((ModelBiped)_default).getForgeModelType()));
+        return ModelBiped.fromForge(forgeItem.getArmorModel(LivingBaseEntity.asForge(entityLiving), ((ItemStack)IItemStack).getForgeItem(), EquipmentSlot.asForge(armorSlot), ModelBiped.asForge(_default)));
     }
 
     @Override
     public boolean onEntitySwing(final ILivingBaseEntity entityLiving, final IItemStack stack)
     {
-        return forgeItem.onEntitySwing(((LivingBaseEntity)entityLiving).getForgeEntity(), ((ItemStack)stack).getForgeItem());
+        return forgeItem.onEntitySwing(LivingBaseEntity.asForge(entityLiving), ((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public void renderHelmetOverlay(final IItemStack stack, final IPlayerEntity player, final IScaledResolution resolution, final float partialTicks)
     {
-        forgeItem.renderHelmetOverlay(((ItemStack)stack).getForgeItem(), ((PlayerEntity)player).forgePlayer, ((ScaledResolution)resolution).getForgeResolution(), partialTicks);
+        forgeItem.renderHelmetOverlay(((ItemStack)stack).getForgeItem(), PlayerEntity.asForge(player), ((ScaledResolution)resolution).getForgeResolution(), partialTicks);
     }
 
     @Override
@@ -622,7 +623,7 @@ public class Item implements IItem
     @Override
     public boolean canDestroyBlockInCreative(final IDimension IDimension, final IBlockCoordinate pos, final IItemStack stack, final IPlayerEntity player)
     {
-        return forgeItem.canDestroyBlockInCreative(((Dimension)IDimension).getForgeWorld(), ((BlockCoordinate)pos).getForgeBlockPos(), ((ItemStack)stack).getForgeItem(), ((PlayerEntity)player).forgePlayer);
+        return forgeItem.canDestroyBlockInCreative(((Dimension)IDimension).getForgeWorld(), BlockCoordinate.asForge(pos), ((ItemStack)stack).getForgeItem(), PlayerEntity.asForge(player));
     }
 
     @Override
@@ -652,7 +653,7 @@ public class Item implements IItem
     @Override
     public int getHarvestLevel(final IItemStack stack, final String toolClass, final IPlayerEntity player, final IBlockState blockState)
     {
-        return forgeItem.getHarvestLevel(((ItemStack)stack).getForgeItem(), toolClass, ((PlayerEntity)player).forgePlayer, ((BlockState)blockState).getForgeBlockState());
+        return forgeItem.getHarvestLevel(((ItemStack)stack).getForgeItem(), toolClass, PlayerEntity.asForge(player), ((BlockState)blockState).getForgeBlockState());
     }
 
     @Override
@@ -664,7 +665,7 @@ public class Item implements IItem
     @Override
     public boolean canApplyAtEnchantingTable(final IItemStack stack, final IEnchantment enchantment)
     {
-        return forgeItem.canApplyAtEnchantingTable(((ItemStack)stack).getForgeItem(), ((Enchantment)enchantment).getForgeEnchantment());
+        return forgeItem.canApplyAtEnchantingTable(((ItemStack)stack).getForgeItem(), Enchantment.asForge(enchantment));
     }
 
     @Override
@@ -698,9 +699,9 @@ public class Item implements IItem
     }
 
     @Override
-    public CapabilityProvider initCapabilities(final IItemStack stack, final INBTCompound nbt)
+    public ICapabilityProvider initCapabilities(final IItemStack stack, final INBTCompound nbt)
     {
-        return new CapabilityProvider(forgeItem.initCapabilities(((ItemStack)stack).getForgeItem(), ((NBTCompound)nbt).forgeNbtCompound));
+        return CapabilityProvider.fromForge(forgeItem.initCapabilities(((ItemStack)stack).getForgeItem(), NBTCompound.asForge(nbt)));
     }
 
     @Override
@@ -711,7 +712,7 @@ public class Item implements IItem
                                                 .entrySet().stream()
                                                     .collect(Collectors.toMap(
                                                       Map.Entry::getKey,
-                                                      e -> new TimedValue(e.getValue())
+                                                      e -> TimedValue.asForge(e.getValue())
                                                     ));
         return ImmutableMap.<String, ITimedValue>builder().putAll(value).build();
     }
@@ -719,7 +720,7 @@ public class Item implements IItem
     @Override
     public boolean canDisableShield(final IItemStack stack, final IItemStack shield, final ILivingBaseEntity iEntity, final ILivingBaseEntity attacker)
     {
-        return forgeItem.canDisableShield(((ItemStack)stack).getForgeItem(), ((ItemStack)shield).getForgeItem(), ((LivingBaseEntity)iEntity).getForgeEntity(), ((LivingBaseEntity)attacker).getForgeEntity());
+        return forgeItem.canDisableShield(((ItemStack)stack).getForgeItem(), ((ItemStack)shield).getForgeItem(), ((LivingBaseEntity)iEntity).getForgeEntity(), LivingBaseEntity.asForge(attacker));
     }
 
     @Override
@@ -737,31 +738,31 @@ public class Item implements IItem
     @Override
     public IHorseArmorType getHorseArmorType(final IItemStack stack)
     {
-        return new HorseArmorType(forgeItem.getHorseArmorType(((ItemStack)stack).getForgeItem()));
+        return HorseArmorType.fromForge(forgeItem.getHorseArmorType(((ItemStack)stack).getForgeItem()));
     }
 
     @Override
     public String getHorseArmorTexture(final ILivingEntity wearer, final IItemStack stack)
     {
-        return forgeItem.getHorseArmorTexture((EntityLiving) ((LivingEntity)wearer).forgeEntity, ((ItemStack)stack).getForgeItem());
+        return forgeItem.getHorseArmorTexture(LivingEntity.asForge(wearer), ((ItemStack)stack).getForgeItem());
     }
 
     @Override
     public void onHorseArmorTick(final IDimension world, final ILivingEntity horse, final IItemStack armor)
     {
-        forgeItem.onHorseArmorTick(((Dimension)world).getForgeWorld(), (EntityLiving) ((LivingEntity)horse).forgeEntity, ((ItemStack)armor).getForgeItem());
+        forgeItem.onHorseArmorTick(((Dimension)world).getForgeWorld(), LivingEntity.asForge(horse), ((ItemStack)armor).getForgeItem());
     }
 
     @Override
     public IBlockEntityRenderer getTileEntityItemStackRenderer()
     {
-        return new BlockEntityRenderer(forgeItem.getTileEntityItemStackRenderer());
+        return BlockEntityRenderer.fromForge(forgeItem.getTileEntityItemStackRenderer());
     }
 
     @Override
     public void setTileEntityItemStackRenderer(final IBlockEntityRenderer teisr)
     {
-        forgeItem.setTileEntityItemStackRenderer(((BlockEntityRenderer)teisr).getForgeRenderer());
+        forgeItem.setTileEntityItemStackRenderer(BlockEntityRenderer.asForge(teisr));
     }
 
     @Override
@@ -779,27 +780,27 @@ public class Item implements IItem
     @Override
     public IItem setCreativeTab(final IItemGroup tab)
     {
-        return new Item(forgeItem.setCreativeTab(((ItemGroup)tab).getForgeItemGroup()));
+        return new Item(forgeItem.setCreativeTab(ItemGroup.asForge(tab)));
     }
 
     @Override
     public boolean isInCreativeTab(final IItemGroup targetTab)
     {
-        return forgeItem.isInCreativeTab(((ItemGroup)targetTab).getForgeItemGroup());
+        return forgeItem.isInCreativeTab(ItemGroup.asForge(targetTab));
     }
 
     @Override
     public void getSubItems(IItemGroup<?> tab, List<IItemStack> items)
     {
         final NonNullList<net.minecraft.item.ItemStack> nonNullList = NonNullList.create();
-        forgeItem.getSubItems(((ItemGroup)tab).getForgeItemGroup(), nonNullList);
+        forgeItem.getSubItems(ItemGroup.asForge(tab), nonNullList);
         nonNullList.forEach(item -> items.add(new ItemStack(item)));
     }
 
     @Override
     public void addInformation(final IItemStack stack, final IDimension worldIn, final List<String> tooltip, final IToolTipFlag flagIn)
     {
-        forgeItem.addInformation(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), tooltip, ((ToolTipFlag)flagIn).getForgeFlag());
+        forgeItem.addInformation(((ItemStack)stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), tooltip, ToolTipFlag.asForge(flagIn));
     }
 
     @Override
@@ -811,13 +812,13 @@ public class Item implements IItem
     @Override
     public Object setRegistryName(final IIdentifier name)
     {
-        return forgeItem.setRegistryName(((Identifier)name).getForgeIdentifier());
+        return forgeItem.setRegistryName(Identifier.asForge(name));
     }
 
     @Override
     public IIdentifier getRegistryName()
     {
-        return new Identifier(forgeItem.getRegistryName());
+        return Identifier.fromForge(forgeItem.getRegistryName());
     }
 
     @Override

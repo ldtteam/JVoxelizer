@@ -105,7 +105,7 @@ public class ItemStack implements IItemStack
     @Override
     public INBTCompound write()
     {
-        return new NBTCompound(forgeItemStack.writeToNBT(new NBTTagCompound()));
+        return NBTCompound.fromForge(forgeItemStack.writeToNBT(new NBTTagCompound()));
     }
 
     //todo orion

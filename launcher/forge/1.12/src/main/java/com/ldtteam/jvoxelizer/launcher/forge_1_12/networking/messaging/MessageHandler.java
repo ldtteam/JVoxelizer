@@ -8,7 +8,7 @@ public class MessageHandler implements IMessageHandler
 {
     private net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler<net.minecraftforge.fml.common.network.simpleimpl.IMessage, net.minecraftforge.fml.common.network.simpleimpl.IMessage> handler;
 
-    public MessageHandler(final net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler<net.minecraftforge.fml.common.network.simpleimpl.IMessage, net.minecraftforge.fml.common.network.simpleimpl.IMessage> handler)
+    private MessageHandler(final net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler<net.minecraftforge.fml.common.network.simpleimpl.IMessage, net.minecraftforge.fml.common.network.simpleimpl.IMessage> handler)
     {
         this.handler = handler;
     }

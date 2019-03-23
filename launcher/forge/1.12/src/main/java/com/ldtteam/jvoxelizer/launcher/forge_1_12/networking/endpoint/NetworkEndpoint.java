@@ -19,7 +19,7 @@ public class NetworkEndpoint implements INetworkEndpoint
 {
     private SimpleNetworkWrapper manager;
 
-    public NetworkEndpoint(final SimpleNetworkWrapper manager)
+    private NetworkEndpoint(final SimpleNetworkWrapper manager)
     {
         this.manager = manager;
     }
@@ -27,44 +27,45 @@ public class NetworkEndpoint implements INetworkEndpoint
     @Override
     public <REQ extends IMessage, REPLY extends IMessage> void registerMessage(final Class<? extends IMessageHandler<REQ, REPLY>> messageHandler, final Class<REQ> requestMessageType, final int discriminator, final IDistribution distribution)
     {
-        manager.registerMessage(MessageHandler.fromForge(messageHandler).getClass(), requestMessageType, discriminator, ((Distribution) distribution).getForgeSide());
+        //todo Orion
+        manager.registerMessage(MessageHandler.asForge(messageHandler).getClass(), requestMessageType, discriminator, Distribution.asForge(distribution));
     }
 
     @Override
-    public <REQ extends IMessage, REPLY extends IMessage> void registerMessage(
-      final IMessageHandler<? super REQ, ? extends REPLY> messageHandler, final Class<REQ> requestMessageType, final int discriminator, final IDistribution distribution)
+    public <REQ extends IMessage, REPLY extends IMessage> void registerMessage(final IMessageHandler<? super REQ, ? extends REPLY> messageHandler, final Class<REQ> requestMessageType, final int discriminator, final IDistribution distribution)
     {
-        manager.registerMessage(((MessageHandler) messageHandler).getForgeHandler(), requestMessageType, discriminator, ((Distribution) distribution).getForgeSide());
+        //todo Orion
+        manager.registerMessage(MessageHandler.asForge(messageHandler), requestMessageType, discriminator, Distribution.asForge(distribution));
     }
 
     @Override
     public void sendToAll(final IMessage message)
     {
-        manager.sendToAll(((Message) message).getForgeMessage());
+        manager.sendToAll(Message.asForge(message));
     }
 
     @Override
     public void sendTo(final IMessage message, final IMultiplayerPlayerEntity player)
     {
-        manager.sendTo(((Message) message).getForgeMessage(), ((MultiplayerPlayerEntity) player).getForgePlayer());
+        manager.sendTo(Message.asForge(message), MultiplayerPlayerEntity.asForge(player));
     }
 
     @Override
     public void sendToAllAround(final IMessage message, final INetworkTargetPoint point)
     {
-        manager.sendToAllAround(((Message) message).getForgeMessage(), ((NetworkTargetPoint) point).getForgeTargetPoint());
+        manager.sendToAllAround(Message.asForge(message), ((NetworkTargetPoint) point).getForgeTargetPoint());
     }
 
     @Override
     public void sendToDimension(final IMessage message, final int dimensionId)
     {
-        manager.sendToDimension(((Message) message).getForgeMessage(), dimensionId);
+        manager.sendToDimension(Message.asForge(message), dimensionId);
     }
 
     @Override
     public void sendToServer(final IMessage message)
     {
-        manager.sendToServer(((Message) message).getForgeMessage());
+        manager.sendToServer(Message.asForge(message));
     }
 
     @Override

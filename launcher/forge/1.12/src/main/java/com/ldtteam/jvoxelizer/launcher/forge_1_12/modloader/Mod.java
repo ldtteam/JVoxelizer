@@ -7,7 +7,7 @@ public class Mod implements IMod
 {
     private ModContainer mod;
 
-    public Mod(final ModContainer mod)
+    private Mod(final ModContainer mod)
     {
         this.mod = mod;
     }
@@ -16,5 +16,21 @@ public class Mod implements IMod
     public String getModId()
     {
         return mod.getModId();
+    }
+
+    public static ModContainer asForge(final IMod mod)
+    {
+        if (mod instanceof ModContainer)
+            return (ModContainer) mod;
+
+        return ((Mod) mod).mod;
+    }
+
+    public static IMod fromForge(final ModContainer modContainer)
+    {
+        if (modContainer instanceof IMod)
+            return (IMod) modContainer;
+
+        return new Mod(modContainer);
     }
 }

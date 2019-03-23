@@ -1,7 +1,5 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.utils.target;
 
-import com.ldtteam.jvoxelizer.dimension.IDimension;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.Dimension;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.entity.EntityCoordinate;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.vector.floatingpoint.ThreeDoubleVector;
 import com.ldtteam.jvoxelizer.networking.utils.target.INetworkTargetPoint;
@@ -21,7 +19,7 @@ public class NetworkTargetPoint implements INetworkTargetPoint
     @Override
     public IEntityCoordinate getTarget()
     {
-        return EntityCoordinate(new ThreeDoubleVector(new Vec3d(target.x, target.y, target.z)));
+        return new EntityCoordinate(ThreeDoubleVector.fromForge(new Vec3d(target.x, target.y, target.z)));
     }
 
     @Override
@@ -31,9 +29,9 @@ public class NetworkTargetPoint implements INetworkTargetPoint
     }
 
     @Override
-    public IDimension getDimension()
+    public int getDimensionId()
     {
-        return Dimension.fromForge(target.dimension);
+        return target.dimension;
     }
 
     /**

@@ -11,7 +11,7 @@ public class ItemPropertyGetter implements IItemPropertyGetter
 {
     private net.minecraft.item.IItemPropertyGetter propertyGetter;
 
-    public ItemPropertyGetter(final net.minecraft.item.IItemPropertyGetter propertyGetter)
+    private ItemPropertyGetter(final net.minecraft.item.IItemPropertyGetter propertyGetter)
     {
         this.propertyGetter = propertyGetter;
     }
@@ -20,15 +20,22 @@ public class ItemPropertyGetter implements IItemPropertyGetter
     public float apply(
       final IItemStack stack, final IDimension worldIn, final ILivingBaseEntity entityIn)
     {
-        return propertyGetter.apply(((ItemStack) stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), ((LivingBaseEntity)entityIn).getForgeEntity());
+        return propertyGetter.apply(((ItemStack) stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), LivingBaseEntity.asForge(entityIn));
     }
 
-    /**
-     * Getter for the wrapped forge class.
-     * @return the net.minecraft.item.IItemPropertyGetter.
-     */
-    public net.minecraft.item.IItemPropertyGetter getForgePropertyGetter()
+    public static net.minecraft.item.IItemPropertyGetter asForge(final IItemPropertyGetter itemPropertyGetter)
     {
-        return this.propertyGetter;
+        if (itemPropertyGetter instanceof net.minecraft.item.IItemPropertyGetter)
+            return (net.minecraft.item.IItemPropertyGetter) itemPropertyGetter;
+
+        return ((ItemPropertyGetter) itemPropertyGetter).propertyGetter;
+    }
+
+    public static IItemPropertyGetter fromForge(final net.minecraft.item.IItemPropertyGetter itemPropertyGetter)
+    {
+        if (itemPropertyGetter instanceof IItemPropertyGetter)
+            return (IItemPropertyGetter) itemPropertyGetter;
+
+        return new ItemPropertyGetter(itemPropertyGetter);
     }
 }

@@ -21,7 +21,7 @@ public class HorseArmorType implements IHorseArmorType
         return ((HorseArmorType) armorType).getForgeArmorType();
     }
 
-    public static IHorseArmorType fromForgeA(net.minecraft.entity.passive.HorseArmorType armorType)
+    public static IHorseArmorType fromForge(net.minecraft.entity.passive.HorseArmorType armorType)
     {
         return new HorseArmorType(armorType);
     }

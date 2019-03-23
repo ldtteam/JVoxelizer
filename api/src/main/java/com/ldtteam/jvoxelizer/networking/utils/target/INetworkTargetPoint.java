@@ -5,7 +5,6 @@ import com.ldtteam.jvoxelizer.dimension.IDimension;
 
 public interface INetworkTargetPoint
 {
-
     static INetworkTargetPoint create(IEntityCoordinate coordinate, double range, IDimension dimension)
     {
         return INetworkTargetPointProviderHolder.getInstance().provide(coordinate, range, dimension);
@@ -15,5 +14,5 @@ public interface INetworkTargetPoint
 
     double getRange();
 
-    IDimension getDimension();
+    int getDimensionId();
 }

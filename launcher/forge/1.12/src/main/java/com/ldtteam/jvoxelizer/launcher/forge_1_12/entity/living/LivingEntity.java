@@ -9,7 +9,7 @@ public class LivingEntity extends LivingBaseEntity implements ILivingEntity
 {
     private final EntityLiving forgeEntityLiving;
 
-    protected LivingEntity(@NotNull final EntityLiving forgeEntity)
+    private LivingEntity(@NotNull final EntityLiving forgeEntity)
     {
         super(forgeEntity);
         this.forgeEntityLiving = forgeEntity;
@@ -20,7 +20,7 @@ public class LivingEntity extends LivingBaseEntity implements ILivingEntity
         return forgeEntityLiving;
     }
 
-    public EntityLiving asForge(ILivingEntity entity)
+    public static EntityLiving asForge(ILivingEntity entity)
     {
         if (entity instanceof EntityLiving)
             return (EntityLiving) entity;
@@ -28,7 +28,7 @@ public class LivingEntity extends LivingBaseEntity implements ILivingEntity
         return ((LivingEntity) entity).getForgeEntityLiving();
     }
 
-    public ILivingEntity fromForge(EntityLiving entityLiving)
+    public static ILivingEntity fromForge(EntityLiving entityLiving)
     {
         if (entityLiving instanceof ILivingEntity)
             return (ILivingEntity) entityLiving;

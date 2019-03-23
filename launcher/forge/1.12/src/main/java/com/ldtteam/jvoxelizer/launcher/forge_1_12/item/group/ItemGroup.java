@@ -1,6 +1,5 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.item.group;
 
-import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.group.IItemGroup;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
@@ -16,11 +15,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//todo orion?
 public class ItemGroup implements IItemGroup
 {
     private CreativeTabs creativeTab;
 
-    public ItemGroup(final CreativeTabs creativeTab)
+    private ItemGroup(final CreativeTabs creativeTab)
     {
         this.creativeTab = creativeTab;
     }
@@ -112,19 +112,19 @@ public class ItemGroup implements IItemGroup
     @Override
     public IEnchantmentType[] getRelevantEnchantmentTypes()
     {
-        return Arrays.stream(creativeTab.getRelevantEnchantmentTypes()).map(EnchantmentType::new).toArray(IEnchantmentType[]::new);
+        return Arrays.stream(creativeTab.getRelevantEnchantmentTypes()).map(EnchantmentType::fromForge).toArray(IEnchantmentType[]::new);
     }
 
     @Override
     public IItemGroup setRelevantEnchantmentTypes(final IEnchantmentType... types)
     {
-        return new ItemGroup(creativeTab.setRelevantEnchantmentTypes(Arrays.stream(types).map(type -> ((EnchantmentType) type).getForgeType()).toArray(EnumEnchantmentType[]::new)));
+        return new ItemGroup(creativeTab.setRelevantEnchantmentTypes(Arrays.stream(types).map(EnchantmentType::asForge).toArray(EnumEnchantmentType[]::new)));
     }
 
     @Override
     public boolean hasRelevantEnchantmentType(final IEnchantmentType enchantmentType)
     {
-        return creativeTab.hasRelevantEnchantmentType(((EnchantmentType)enchantmentType).getForgeType());
+        return creativeTab.hasRelevantEnchantmentType(EnchantmentType.asForge(enchantmentType));
     }
 
     @Override
@@ -148,7 +148,7 @@ public class ItemGroup implements IItemGroup
     @Override
     public IIdentifier getBackgroundImage()
     {
-        return new Identifier(creativeTab.getBackgroundImage());
+        return Identifier.fromForge(creativeTab.getBackgroundImage());
     }
 
     @Override
@@ -168,15 +168,23 @@ public class ItemGroup implements IItemGroup
     @Override
     public Object getInstanceData()
     {
+        //todo Orion
         return DummyInstanceData[];
     }
 
-    /**
-     * Getter to get the wrapped forge class.
-     * @return CreativeTabs.
-     */
-    public CreativeTabs getForgeItemGroup()
+    public static CreativeTabs asForge(final IItemGroup itemGroup)
     {
-        return this.creativeTab;
+        if (itemGroup instanceof CreativeTabs)
+            return (CreativeTabs) itemGroup;
+
+        return ((ItemGroup) itemGroup).creativeTab;
+    }
+
+    public static IItemGroup fromForge(final CreativeTabs itemGroup)
+    {
+        if (itemGroup instanceof IItemGroup)
+            return (IItemGroup) itemGroup;
+
+        return new ItemGroup(itemGroup);
     }
 }

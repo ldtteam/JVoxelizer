@@ -8,8 +8,18 @@ public class SoundType implements ISoundType
 {
     private Sound.Type forgeSoundType;
 
-    public SoundType(@NotNull final Sound.Type forgeType)
+    private SoundType(@NotNull final Sound.Type forgeType)
     {
         this.forgeSoundType = forgeSoundType;
+    }
+
+    public static Sound.Type asForge(final ISoundType type)
+    {
+        return ((SoundType) type).forgeSoundType;
+    }
+
+    public static ISoundType fromForge(final Sound.Type type)
+    {
+        return new SoundType(type);
     }
 }

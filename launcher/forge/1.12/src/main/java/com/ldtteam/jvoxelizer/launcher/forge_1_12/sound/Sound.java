@@ -2,15 +2,14 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.sound;
 
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.Identifier;
 import com.ldtteam.jvoxelizer.sound.ISound;
-import com.ldtteam.jvoxelizer.sound.ISoundType;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 import org.jetbrains.annotations.NotNull;
 
 public class Sound implements ISound
 {
-    net.minecraft.client.audio.Sound forgeSound;
+    private net.minecraft.client.audio.Sound forgeSound;
 
-    public Sound(@NotNull final net.minecraft.client.audio.Sound forgeSound)
+    private Sound(@NotNull final net.minecraft.client.audio.Sound forgeSound)
     {
         this.forgeSound = forgeSound;
     }
@@ -18,7 +17,7 @@ public class Sound implements ISound
     @Override
     public IIdentifier getSoundLocation()
     {
-        return new Identifier(forgeSound.getSoundLocation());
+        return Identifier.fromForge(forgeSound.getSoundLocation());
     }
 
     @Override
@@ -39,13 +38,19 @@ public class Sound implements ISound
         return this;
     }
 
-    public net.minecraft.client.audio.Sound getForgeSound()
+    public static net.minecraft.client.audio.Sound asForge(final ISound sound)
     {
-        return forgeSound;
+        if (sound instanceof net.minecraft.client.audio.Sound)
+            return (net.minecraft.client.audio.Sound) sound;
+
+        return ((Sound) sound).forgeSound;
     }
 
-    public static net.minecraft.client.audio.Sound asForge(ISound sound)
+    public static ISound fromForge(final net.minecraft.client.audio.Sound sound)
     {
-        return ((Sound) sound).getForgeSound();
+        if (sound instanceof ISound)
+            return (ISound) sound;
+
+        return new Sound(sound);
     }
 }

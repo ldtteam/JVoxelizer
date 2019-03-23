@@ -11,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class SoundHandler implements ISoundHandler
 {
-    net.minecraft.client.audio.SoundHandler forgeSoundHandler;
+    private net.minecraft.client.audio.SoundHandler forgeSoundHandler;
 
-    public SoundHandler(@NotNull final net.minecraft.client.audio.SoundHandler forgeSoundHandler)
+    private SoundHandler(@NotNull final net.minecraft.client.audio.SoundHandler forgeSoundHandler)
     {
         this.forgeSoundHandler = forgeSoundHandler;
     }
@@ -89,14 +89,20 @@ public class SoundHandler implements ISoundHandler
     {
         forgeSoundHandler.stop(p_189520_1_, ((SoundCategory)p_189520_2_).forgeSoundCategory);
     }
-
-    public net.minecraft.client.audio.SoundHandler getForgeSoundHandler()
+    
+    public static net.minecraft.client.audio.SoundHandler asForge(final ISoundHandler handler)
     {
-        return forgeSoundHandler;
+        if (handler instanceof net.minecraft.client.audio.SoundHandler)
+            return (net.minecraft.client.audio.SoundHandler) handler;
+
+        return ((SoundHandler) handler).forgeSoundHandler;
     }
 
-    public static net.minecraft.client.audio.SoundHandler asForge(ISoundHandler soundHandler)
+    public static ISoundHandler fromForge(final net.minecraft.client.audio.SoundHandler handler)
     {
-        return ((SoundHandler) soundHandler).getForgeSoundHandler();
+        if (handler instanceof ISoundHandler)
+            return (ISoundHandler) handler;
+
+        return new SoundHandler(handler);
     }
 }

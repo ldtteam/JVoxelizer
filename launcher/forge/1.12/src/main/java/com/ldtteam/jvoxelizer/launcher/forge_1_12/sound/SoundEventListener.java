@@ -1,22 +1,26 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.sound;
 
-import com.ldtteam.jvoxelizer.sound.ISound;
-import com.ldtteam.jvoxelizer.sound.ISoundEventAccessor;
 import com.ldtteam.jvoxelizer.sound.ISoundEventListener;
 
 public class SoundEventListener implements ISoundEventListener
 {
     private final net.minecraft.client.audio.ISoundEventListener forgeSoundEventListener;
 
-    public SoundEventListener(final net.minecraft.client.audio.ISoundEventListener forgeSoundEventListener) {this.forgeSoundEventListener = forgeSoundEventListener;}
+    private SoundEventListener(final net.minecraft.client.audio.ISoundEventListener forgeSoundEventListener) {this.forgeSoundEventListener = forgeSoundEventListener;}
 
-    public net.minecraft.client.audio.ISoundEventListener getForgeSoundEventListener()
+    public static net.minecraft.client.audio.ISoundEventListener asForge(final ISoundEventListener listener)
     {
-        return forgeSoundEventListener;
+        if (listener instanceof net.minecraft.client.audio.ISoundEventListener)
+            return (net.minecraft.client.audio.ISoundEventListener) listener;
+
+        return ((SoundEventListener) listener).forgeSoundEventListener;
     }
 
-    public static net.minecraft.client.audio.ISoundEventListener asForge(ISoundEventListener soundEventListener)
+    public static ISoundEventListener fromForge(final net.minecraft.client.audio.ISoundEventListener listener)
     {
-        return ((SoundEventListener) soundEventListener).getForgeSoundEventListener();
+        if (listener instanceof ISoundEventListener)
+            return (ISoundEventListener) listener;
+
+        return new SoundEventListener(listener);
     }
 }

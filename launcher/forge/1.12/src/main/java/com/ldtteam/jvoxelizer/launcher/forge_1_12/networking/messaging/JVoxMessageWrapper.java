@@ -40,6 +40,7 @@ public class JVoxMessageWrapper implements IMessage, IMessageHandler<JVoxMessage
     @Override
     public void toBytes(final ByteBuf buf)
     {
+        ByteBufUtils.writeUTF8String(buf, jvoxMessage.getClass().getName());
         jvoxMessage.toBytes(buf);
     }
 

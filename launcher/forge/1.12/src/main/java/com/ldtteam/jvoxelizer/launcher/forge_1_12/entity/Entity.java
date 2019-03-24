@@ -251,13 +251,13 @@ public class Entity implements IEntity
     @Override
     public INBTCompound write()
     {
-        return new NBTCompound(forgeEntity.writeToNBT(new NBTTagCompound()));
+        return NBTCompound.fromForge(forgeEntity.writeToNBT(new NBTTagCompound()));
     }
 
     @Override
     public void read(final INBTCompound data)
     {
-        forgeEntity.readFromNBT(((NBTCompound) data).forgeNbtCompound);
+        forgeEntity.readFromNBT(NBTCompound.asForge(data));
     }
 
     private net.minecraft.entity.Entity getForgeEntity()

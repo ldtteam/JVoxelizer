@@ -1,4 +1,4 @@
-package com.ldtteam.jvoxelizer.launcher.forge_1_12.util;
+package com.ldtteam.jvoxelizer.launcher.forge_1_12;
 
 import com.ldtteam.jvoxelizer.IGameEngine;
 import com.ldtteam.jvoxelizer.client.gui.IGui;
@@ -33,8 +33,7 @@ public class GameEngine implements IGameEngine
     @Override
     public boolean isDedicatedServer()
     {
-        //todo ORION!
-        return TODO;
+        return false;
     }
 
     @Override
@@ -62,7 +61,7 @@ public class GameEngine implements IGameEngine
     }
 
     @Override
-    public void displayGuiScreen(final IGui<?> gui)
+    public void displayGuiScreen(final IGuiScreen<?> gui)
     {
         minecraft.displayGuiScreen(GuiScreen.asForge(gui));
     }

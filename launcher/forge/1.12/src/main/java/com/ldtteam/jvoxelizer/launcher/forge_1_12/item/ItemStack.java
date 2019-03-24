@@ -11,7 +11,7 @@ public class ItemStack implements IItemStack
 {
     private net.minecraft.item.ItemStack forgeItemStack;
 
-    public ItemStack(@NotNull final net.minecraft.item.ItemStack forgeItemStack)
+    private ItemStack(@NotNull final net.minecraft.item.ItemStack forgeItemStack)
     {
         this.forgeItemStack = forgeItemStack;
     }
@@ -94,28 +94,25 @@ public class ItemStack implements IItemStack
         return forgeItemStack.getHasSubtypes();
     }
 
-    //todo orion
     @Override
-    public Object getTranslationKey(final IItemStack pItemStack)
+    public String getTranslationKey()
     {
-        return ;
+        return forgeItemStack.getUnlocalizedName();
     }
 
-    //todo orion
     @Override
     public INBTCompound write()
     {
         return NBTCompound.fromForge(forgeItemStack.writeToNBT(new NBTTagCompound()));
     }
 
-    //todo orion
     @Override
     public void read(final INBTCompound data)
     {
-        forgeItemStack = new net.minecraft.item.ItemStack(((NBTTagCompound)data).getCompoundTag())
+        forgeItemStack = new net.minecraft.item.ItemStack(NBTCompound.asForge(data));
     }
 
-    public net.minecraft.item.ItemStack getForgeItem()
+    private net.minecraft.item.ItemStack getForgeItem()
     {
         return this.forgeItemStack;
     }

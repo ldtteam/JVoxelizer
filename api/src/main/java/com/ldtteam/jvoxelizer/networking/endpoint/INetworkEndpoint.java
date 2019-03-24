@@ -3,7 +3,6 @@ package com.ldtteam.jvoxelizer.networking.endpoint;
 import com.ldtteam.jvoxelizer.entity.living.player.IMultiplayerPlayerEntity;
 import com.ldtteam.jvoxelizer.networking.messaging.IMessage;
 import com.ldtteam.jvoxelizer.networking.messaging.IMessageContext;
-import com.ldtteam.jvoxelizer.networking.messaging.IMessageHandler;
 import com.ldtteam.jvoxelizer.networking.utils.target.INetworkTargetPoint;
 import com.ldtteam.jvoxelizer.threading.IExecutor;
 import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
@@ -17,38 +16,8 @@ public interface INetworkEndpoint
     }
 
     /**
-     * Register a message and it's associated handler. The message will have the supplied discriminator byte. The message handler will
-     * be registered on the supplied side (this is the side where you want the message to be processed and acted upon).
-     *
-     * @param messageHandler the message handler type
-     * @param requestMessageType the message type
-     * @param discriminator a discriminator byte
-     * @param distribution the side for the handler
-     */
-    <REQ extends IMessage, REPLY extends IMessage> void registerMessage(
-      Class<? extends IMessageHandler<REQ, REPLY>> messageHandler,
-      Class<REQ> requestMessageType,
-      int discriminator,
-      IDistribution distribution);
-
-    /**
-     * Register a message and it's associated handler. The message will have the supplied discriminator byte. The message handler will
-     * be registered on the supplied side (this is the side where you want the message to be processed and acted upon).
-     *
-     * @param messageHandler the message handler instance
-     * @param requestMessageType the message type
-     * @param discriminator a discriminator byte
-     * @param distribution the side for the handler
-     */
-    <REQ extends IMessage, REPLY extends IMessage> void registerMessage(
-      IMessageHandler<? super REQ, ? extends REPLY> messageHandler,
-      Class<REQ> requestMessageType,
-      int discriminator,
-      IDistribution distribution);
-
-    /**
      * Send this message to everyone.
-     * The {@link IMessageHandler} for this message type should be on the CLIENT side.
+     * The {@link IMessage} for this message type should be on the CLIENT side.
      *
      * @param message The message to send
      */
@@ -56,7 +25,7 @@ public interface INetworkEndpoint
 
     /**
      * Send this message to the specified player.
-     * The {@link IMessageHandler} for this message type should be on the CLIENT side.
+     * The {@link IMessage} for this message type should be on the CLIENT side.
      *
      * @param message The message to send
      * @param player The player to send it to
@@ -65,7 +34,7 @@ public interface INetworkEndpoint
 
     /**
      * Send this message to everyone within a certain range of a point.
-     * The {@link IMessageHandler} for this message type should be on the CLIENT side.
+     * The {@link IMessage} for this message type should be on the CLIENT side.
      *
      * @param message The message to send
      * @param point The {@link INetworkTargetPoint} around which to send
@@ -74,7 +43,7 @@ public interface INetworkEndpoint
 
     /**
      * Send this message to everyone within the supplied dimension.
-     * The {@link IMessageHandler} for this message type should be on the CLIENT side.
+     * The {@link IMessage} for this message type should be on the CLIENT side.
      *
      * @param message The message to send
      * @param dimensionId The dimension id to target
@@ -83,7 +52,7 @@ public interface INetworkEndpoint
 
     /**
      * Send this message to the server.
-     * The {@link IMessageHandler} for this message type should be on the SERVER side.
+     * The {@link IMessage} for this message type should be on the SERVER side.
      *
      * @param message The message to send
      */

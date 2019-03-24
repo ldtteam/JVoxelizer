@@ -62,13 +62,13 @@ public class ItemStackEntity extends Entity implements IItemStackEntity
     @Override
     public IItemStack getItemStack()
     {
-        return new ItemStack(forgeItemEntity.getItem());
+        return ItemStack.fromForge(forgeItemEntity.getItem());
     }
 
     @Override
     public IItemStackEntity setItem(final IItemStack stack)
     {
-        forgeItemEntity.setItem(((ItemStack) stack).getForgeItem());
+        forgeItemEntity.setItem(ItemStack.asForge(stack));
         return this;
     }
 

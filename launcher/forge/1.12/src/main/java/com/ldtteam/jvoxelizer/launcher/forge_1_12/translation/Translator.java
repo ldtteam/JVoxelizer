@@ -7,7 +7,7 @@ public class Translator implements ITranslator
 {
     private I18n translator;
 
-    public Translator(final I18n translator)
+    private Translator(final I18n translator)
     {
         this.translator = translator;
     }

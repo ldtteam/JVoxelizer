@@ -1,5 +1,6 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.item.group;
 
+import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.group.IItemGroup;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
@@ -15,8 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//todo orion?
-public class ItemGroup implements IItemGroup
+public class ItemGroup implements IItemGroup<DummyInstanceData>
 {
     private CreativeTabs creativeTab;
 
@@ -52,13 +52,13 @@ public class ItemGroup implements IItemGroup
     @Override
     public IItemStack getIconItemStack()
     {
-        return new ItemStack(creativeTab.getIconItemStack());
+        return ItemStack.fromForge(creativeTab.getIconItemStack());
     }
 
     @Override
     public IItemStack getTabIconItem()
     {
-        return new ItemStack(creativeTab.getTabIconItem());
+        return ItemStack.fromForge(creativeTab.getTabIconItem());
     }
 
     @Override
@@ -161,15 +161,14 @@ public class ItemGroup implements IItemGroup
     public void displayAllRelevantItems(final List<IItemStack> list)
     {
         NonNullList<net.minecraft.item.ItemStack> stacks = NonNullList.create();
-        stacks.addAll(list.stream().filter(stack -> stack instanceof ItemStack).map(stack -> ((ItemStack)stack).getForgeItem()).collect(Collectors.toList()));
+        stacks.addAll(list.stream().filter(stack -> stack instanceof ItemStack).map(ItemStack::asForge).collect(Collectors.toList()));
         creativeTab.displayAllRelevantItems(stacks);
     }
 
     @Override
-    public Object getInstanceData()
+    public DummyInstanceData getInstanceData()
     {
-        //todo Orion
-        return DummyInstanceData[];
+        return new DummyInstanceData();
     }
 
     public static CreativeTabs asForge(final IItemGroup itemGroup)

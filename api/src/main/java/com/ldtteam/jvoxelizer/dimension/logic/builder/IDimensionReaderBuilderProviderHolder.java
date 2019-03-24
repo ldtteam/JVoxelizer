@@ -18,7 +18,7 @@ final class IDimensionReaderBuilderProviderHolder extends AbstractHolder<IDimens
     }
 
     @Override
-    public <C extends IDimensionReaderBuilder<C, I, O>, I, O extends IDimensionReader<I>> C provide()
+    public <I> IDimensionReaderBuilder<?, I, ? extends IDimensionReader<I>> provide()
     {
         return getProvider().provide();
     }

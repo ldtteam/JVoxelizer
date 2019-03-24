@@ -21,7 +21,7 @@ public class SoundHandler implements ISoundHandler
     @Override
     public ISoundEventAccessor getAccessor(final IIdentifier location)
     {
-        return new SoundEventAccessor(forgeSoundHandler.getAccessor(Identifier.asForge(location)));
+        return SoundEventAccessor.fromForge(forgeSoundHandler.getAccessor(Identifier.asForge(location)));
     }
 
     @Override
@@ -69,7 +69,7 @@ public class SoundHandler implements ISoundHandler
     @Override
     public void setSoundLevel(final ISoundCategory category, final float volume)
     {
-        forgeSoundHandler.setSoundLevel(((SoundCategory)category).forgeSoundCategory ,volume);
+        forgeSoundHandler.setSoundLevel(SoundCategory.asForge(category) ,volume);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class SoundHandler implements ISoundHandler
     @Override
     public void stop(final String p_189520_1_, final ISoundCategory p_189520_2_)
     {
-        forgeSoundHandler.stop(p_189520_1_, ((SoundCategory)p_189520_2_).forgeSoundCategory);
+        forgeSoundHandler.stop(p_189520_1_, SoundCategory.asForge(p_189520_2_));
     }
     
     public static net.minecraft.client.audio.SoundHandler asForge(final ISoundHandler handler)

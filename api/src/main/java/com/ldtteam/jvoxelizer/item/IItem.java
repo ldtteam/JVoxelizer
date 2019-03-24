@@ -130,13 +130,9 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     boolean isEnchantable(IItemStack stack);
 
-    IRayTraceResult rayTrace(IDimension worldIn, IPlayerEntity playerIn, boolean useLiquids);
-
     int getItemEnchantability();
 
     void getSubItems(IItemGroup<?> tab, List<IItemStack> items);
-
-    boolean isInCreativeTab(IItemGroup<?> targetTab);
 
     IItemGroup<?> getCreativeTab();
 
@@ -249,8 +245,6 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
     boolean canContinueUsing(IItemStack oldStack, IItemStack newStack);
 
     String getCreatorModId(IItemStack IItemStack);
-
-    ICapabilityProvider initCapabilities(IItemStack stack, INBTCompound nbt);
 
     com.google.common.collect.ImmutableMap<String, ITimedValue> getAnimationParameters(final IItemStack stack, final IDimension IDimension, final ILivingBaseEntity IEntity);
 

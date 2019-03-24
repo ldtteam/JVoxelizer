@@ -26,11 +26,17 @@ public class BlockRenderDispatcher implements IBlockRenderDispatcher
 
     public static BlockRendererDispatcher asForge(final IBlockRenderDispatcher dispatcher)
     {
+        if (dispatcher instanceof BlockRendererDispatcher)
+            return (BlockRendererDispatcher) dispatcher;
+
         return ((BlockRenderDispatcher) dispatcher).forgeBlockRenderDispatcher;
     }
 
     public static IBlockRenderDispatcher fromForge(final BlockRendererDispatcher dispatcher)
     {
+        if (dispatcher instanceof IBlockRenderDispatcher)
+            return (IBlockRenderDispatcher) dispatcher;
+
         return new BlockRenderDispatcher(dispatcher);
     }
 }

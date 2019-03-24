@@ -17,7 +17,7 @@ public class Fluid implements IFluid
     @Override
     public IIdentifier getStill(final IFluidStack fluid)
     {
-        return new Identifier(this.forgeFluid.getStill(FluidStack.asForge(fluid)));
+        return Identifier.fromForge(this.forgeFluid.getStill(FluidStack.asForge(fluid)));
     }
 
     @Override

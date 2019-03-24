@@ -34,11 +34,17 @@ public class ItemRenderer implements IItemRenderer
 
     public static RenderItem asForge(final IItemRenderer renderer)
     {
+        if (renderer instanceof RenderItem)
+            return (RenderItem) renderer;
+
         return ((ItemRenderer) renderer).forgeItemRenderer;
     }
 
     public static IItemRenderer fromForge(final RenderItem renderer)
     {
+        if (renderer instanceof IItemRenderer)
+            return (IItemRenderer) renderer;
+
         return new ItemRenderer(renderer);
     }
 }

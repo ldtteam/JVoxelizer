@@ -29,7 +29,7 @@ public interface IGameEngine
 
     IGuiScreen<?> getCurrentGui();
 
-    void displayGuiScreen(IGui<?> gui);
+    void displayGuiScreen(IGuiScreen<?> gui);
 
 
     IServerInstance getCurrentServerInstance();

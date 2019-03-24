@@ -384,7 +384,7 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
     {
         processVoidPipeline(
           this,
-          new HandleComponentHoverContext(new TextComponent(component), x, y),
+          new HandleComponentHoverContext(TextComponent.fromForge(component), x, y),
           pipeline.getHandleComponentHoverPipeline(),
           (c) -> super.handleComponentHover(TextComponent.asForge(c.getComponent()), c.getX(), c.getY())
         );
@@ -406,7 +406,7 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
     {
         return PipelineProcessor.processTypedPipeline(
           this,
-          new HandleComponentClickContext(new TextComponent(component)),
+          new HandleComponentClickContext(TextComponent.fromForge(component)),
           pipeline.getHandleComponentClickPipeline(),
           (c)-> super.handleComponentClick(TextComponent.asForge(c.getComponent()))
         );

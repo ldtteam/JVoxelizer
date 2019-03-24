@@ -2,18 +2,20 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.endpoint;
 
 import com.ldtteam.jvoxelizer.entity.living.player.IMultiplayerPlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.MultiplayerPlayerEntity;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging.Message;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging.MessageHandler;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging.JVoxMessageWrapper;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging.MessageContext;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.utils.target.NetworkTargetPoint;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.threading.Executor;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.Distribution;
 import com.ldtteam.jvoxelizer.networking.endpoint.INetworkEndpoint;
 import com.ldtteam.jvoxelizer.networking.messaging.IMessage;
 import com.ldtteam.jvoxelizer.networking.messaging.IMessageContext;
-import com.ldtteam.jvoxelizer.networking.messaging.IMessageHandler;
 import com.ldtteam.jvoxelizer.networking.utils.target.INetworkTargetPoint;
 import com.ldtteam.jvoxelizer.threading.IExecutor;
 import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 public class NetworkEndpoint implements INetworkEndpoint
 {
@@ -22,56 +24,44 @@ public class NetworkEndpoint implements INetworkEndpoint
     private NetworkEndpoint(final SimpleNetworkWrapper manager)
     {
         this.manager = manager;
-    }
-
-    @Override
-    public <REQ extends IMessage, REPLY extends IMessage> void registerMessage(final Class<? extends IMessageHandler<REQ, REPLY>> messageHandler, final Class<REQ> requestMessageType, final int discriminator, final IDistribution distribution)
-    {
-        //todo Orion
-        manager.registerMessage(MessageHandler.asForge(messageHandler).getClass(), requestMessageType, discriminator, Distribution.asForge(distribution));
-    }
-
-    @Override
-    public <REQ extends IMessage, REPLY extends IMessage> void registerMessage(final IMessageHandler<? super REQ, ? extends REPLY> messageHandler, final Class<REQ> requestMessageType, final int discriminator, final IDistribution distribution)
-    {
-        //todo Orion
-        manager.registerMessage(MessageHandler.asForge(messageHandler), requestMessageType, discriminator, Distribution.asForge(distribution));
+        this.manager.registerMessage(JVoxMessageWrapper.class, JVoxMessageWrapper.class, 0, Side.CLIENT);
+        this.manager.registerMessage(JVoxMessageWrapper.class, JVoxMessageWrapper.class, 1, Side.SERVER);
     }
 
     @Override
     public void sendToAll(final IMessage message)
     {
-        manager.sendToAll(Message.asForge(message));
+        manager.sendToAll(new JVoxMessageWrapper(message));
     }
 
     @Override
     public void sendTo(final IMessage message, final IMultiplayerPlayerEntity player)
     {
-        manager.sendTo(Message.asForge(message), MultiplayerPlayerEntity.asForge(player));
+        manager.sendTo(new JVoxMessageWrapper(message), MultiplayerPlayerEntity.asForge(player));
     }
 
     @Override
     public void sendToAllAround(final IMessage message, final INetworkTargetPoint point)
     {
-        manager.sendToAllAround(Message.asForge(message), ((NetworkTargetPoint) point).getForgeTargetPoint());
+        manager.sendToAllAround(new JVoxMessageWrapper(message), ((NetworkTargetPoint) point).getForgeTargetPoint());
     }
 
     @Override
     public void sendToDimension(final IMessage message, final int dimensionId)
     {
-        manager.sendToDimension(Message.asForge(message), dimensionId);
+        manager.sendToDimension(new JVoxMessageWrapper(message), dimensionId);
     }
 
     @Override
     public void sendToServer(final IMessage message)
     {
-        manager.sendToServer(Message.asForge(message));
+        manager.sendToServer(new JVoxMessageWrapper(message));
     }
 
     @Override
     public IExecutor getExecutorFromContext(final IMessageContext context)
     {
-        //todo orion?
+        return Executor.fromForge(FMLCommonHandler.instance().getWorldThread(MessageContext.asForge(context).netHandler));
     }
 
     public static SimpleNetworkWrapper asForge(final INetworkEndpoint endpoint)

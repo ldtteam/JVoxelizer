@@ -7,10 +7,6 @@ import java.util.UUID;
 
 public class AttributeModifier implements IAttributeModifier
 {
-
-    /**
-     * The Forge attribute modifier
-     */
     private net.minecraft.entity.ai.attributes.AttributeModifier forgeAttributeModifier;
 
     private AttributeModifier(@NotNull final net.minecraft.entity.ai.attributes.AttributeModifier attributeModifier)
@@ -55,7 +51,7 @@ public class AttributeModifier implements IAttributeModifier
         return this;
     }
 
-    public net.minecraft.entity.ai.attributes.AttributeModifier getForgeAttributeModifier()
+    private net.minecraft.entity.ai.attributes.AttributeModifier getForgeAttributeModifier()
     {
         return forgeAttributeModifier;
     }
@@ -66,5 +62,13 @@ public class AttributeModifier implements IAttributeModifier
             return (net.minecraft.entity.ai.attributes.AttributeModifier) modifier;
 
         return ((AttributeModifier) modifier).getForgeAttributeModifier();
+    }
+
+    public static IAttributeModifier fromForge(net.minecraft.entity.ai.attributes.AttributeModifier modifier)
+    {
+        if (modifier instanceof IAttributeModifier)
+            return (IAttributeModifier) modifier;
+
+        return new AttributeModifier(modifier);
     }
 }

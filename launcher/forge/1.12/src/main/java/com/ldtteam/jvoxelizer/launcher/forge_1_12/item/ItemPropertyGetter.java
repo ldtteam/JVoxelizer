@@ -20,7 +20,7 @@ public class ItemPropertyGetter implements IItemPropertyGetter
     public float apply(
       final IItemStack stack, final IDimension worldIn, final ILivingBaseEntity entityIn)
     {
-        return propertyGetter.apply(((ItemStack) stack).getForgeItem(), ((Dimension)worldIn).getForgeWorld(), LivingBaseEntity.asForge(entityIn));
+        return propertyGetter.apply(ItemStack.asForge(stack), Dimension.asForge(worldIn), LivingBaseEntity.asForge(entityIn));
     }
 
     public static net.minecraft.item.IItemPropertyGetter asForge(final IItemPropertyGetter itemPropertyGetter)

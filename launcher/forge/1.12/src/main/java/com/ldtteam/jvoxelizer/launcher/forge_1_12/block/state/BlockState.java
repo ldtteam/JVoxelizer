@@ -33,7 +33,7 @@ public class BlockState implements IBlockState
     {
         if (forgeBlockState == null) throw new IllegalStateException("JVoxelizer IBlockState has not been initialized with its counterpart!");
 
-        return new Block(forgeBlockState.getBlock());
+        return Block.fromForge(forgeBlockState.getBlock());
     }
 
     @Override
@@ -46,16 +46,16 @@ public class BlockState implements IBlockState
     @Override
     public INBTCompound write()
     {
-        return new NBTCompound(NBTUtil.writeBlockState(new NBTTagCompound(), forgeBlockState));
+        return NBTCompound.fromForge(NBTUtil.writeBlockState(new NBTTagCompound(), forgeBlockState));
     }
 
     @Override
     public void read(final INBTCompound data)
     {
-        forgeBlockState = NBTUtil.readBlockState(((NBTCompound) data).forgeNbtCompound);
+        forgeBlockState = NBTUtil.readBlockState(NBTCompound.asForge(data));
     }
 
-    public net.minecraft.block.state.IBlockState getForgeBlockState()
+    private net.minecraft.block.state.IBlockState getForgeBlockState()
     {
         return forgeBlockState;
     }

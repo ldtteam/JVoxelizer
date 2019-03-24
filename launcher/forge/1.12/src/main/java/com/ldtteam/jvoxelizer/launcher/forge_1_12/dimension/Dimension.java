@@ -30,7 +30,7 @@ public class Dimension extends DimensionReader implements IDimension<DummyInstan
         throw new NotImplementedException();
     }
 
-    public World getForgeWorld()
+    private World getForgeWorld()
     {
         return forgeWorld;
     }

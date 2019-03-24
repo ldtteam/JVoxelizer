@@ -43,9 +43,14 @@ public class ActionType implements IActionType
         return this.forgeAction == EnumAction.DRINK;
     }
 
+    private EnumAction getForgeAction()
+    {
+        return forgeAction;
+    }
+
     public static EnumAction asForge(IActionType actionType)
     {
-        return ((ActionType) actionType).forgeAction;
+        return ((ActionType) actionType).getForgeAction();
     }
 
     public static IActionType fromForge(EnumAction actionType)

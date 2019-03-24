@@ -24,7 +24,7 @@ public class BlockEntity implements IBlockEntity
     @Override
     public IDimension getDimension()
     {
-        return new Dimension(forgeTileEntity.getWorld());
+        return Dimension.fromForge(forgeTileEntity.getWorld());
     }
 
     @Override

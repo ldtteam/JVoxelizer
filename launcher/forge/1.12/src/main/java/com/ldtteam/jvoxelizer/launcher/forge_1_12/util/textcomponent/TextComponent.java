@@ -100,17 +100,11 @@ public class TextComponent implements ITextComponent
 
     public static net.minecraft.util.text.ITextComponent asForge(final ITextComponent component)
     {
-        if (component instanceof net.minecraft.util.text.ITextComponent)
-            return (net.minecraft.util.text.ITextComponent) component;
-
         return ((TextComponent) component).getForgeTextComponent();
     }
 
     public static ITextComponent fromForge(final net.minecraft.util.text.ITextComponent textComponent)
     {
-        if (textComponent instanceof ITextComponent)
-            return (ITextComponent) textComponent;
-
         return new TextComponent(textComponent);
     }
 }

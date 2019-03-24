@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.server.manager;
 
 import com.ldtteam.jvoxelizer.entity.living.player.IMultiplayerPlayerEntity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.MultiplayerPlayerEntity;
 import com.ldtteam.jvoxelizer.server.manager.IPlayerManager;
 import net.minecraft.server.management.PlayerList;
 
@@ -18,7 +19,7 @@ public class PlayerManager implements IPlayerManager
     @Override
     public IMultiplayerPlayerEntity getById(final UUID id)
     {
-        return null;
+        return MultiplayerPlayerEntity.fromForge(list.getPlayerByUUID(id));
     }
 
     public static PlayerList asForge(final IPlayerManager engine)

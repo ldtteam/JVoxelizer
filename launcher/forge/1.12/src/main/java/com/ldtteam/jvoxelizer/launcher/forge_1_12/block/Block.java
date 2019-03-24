@@ -28,10 +28,10 @@ public class Block implements IBlock
     public IBlockEntity createBlockEntity(
       final IDimension dimension, final IBlockState state)
     {
-        return BlockEntity.fromForge(forgeBlock.createTileEntity(((Dimension) dimension).getForgeWorld(), ((BlockState) state).getForgeBlockState()));
+        return BlockEntity.fromForge(forgeBlock.createTileEntity(Dimension.asForge(dimension), BlockState.asForge(state)));
     }
 
-    public net.minecraft.block.Block getForgeBlock()
+    private net.minecraft.block.Block getForgeBlock()
     {
         return forgeBlock;
     }
@@ -42,5 +42,13 @@ public class Block implements IBlock
             return (net.minecraft.block.Block) block;
 
         return ((Block) block).getForgeBlock();
+    }
+
+    public static IBlock fromForge(net.minecraft.block.Block block)
+    {
+        if (block instanceof IBlock)
+            return (IBlock) block;
+
+        return new Block(block);
     }
 }

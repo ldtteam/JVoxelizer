@@ -10,6 +10,7 @@ import com.ldtteam.jvoxelizer.client.renderer.texture.ISpriteMap;
 import com.ldtteam.jvoxelizer.client.textures.ITextureManager;
 import com.ldtteam.jvoxelizer.entity.living.player.ISingleplayerPlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.SinglePlayerEntity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.server.ServerInstance;
 import com.ldtteam.jvoxelizer.server.IServerInstance;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -47,7 +48,7 @@ public class DedicatedServerGameEngine implements IGameEngine
     }
 
     @Override
-    public void displayGuiScreen(final IGui<?> gui)
+    public void displayGuiScreen(final IGuiScreen<?> gui)
     {
         //Noop
     }
@@ -55,42 +56,36 @@ public class DedicatedServerGameEngine implements IGameEngine
     @Override
     public IServerInstance getCurrentServerInstance()
     {
-        //TODO: Implement JVox side.
-        return FMLCommonHandler.instance().getMinecraftServerInstance();
+        return ServerInstance.fromForge(FMLCommonHandler.instance().getMinecraftServerInstance());
     }
 
     @Override
     public ITextureManager getTextureManager()
     {
-        //TODO: Implement JVox side.
         return null;
     }
 
     @Override
     public ISpriteMap getTextureMapBlocks()
     {
-        //TODO: Implement JVox side.
         return null;
     }
 
     @Override
     public IFontRenderer getDefaultFontRenderer()
     {
-        //TODO: Implement JVox side.
         return null;
     }
 
     @Override
     public IBlockRenderDispatcher getBlockRendererDispatcher()
     {
-        //TODO: Implement JVox side.
         return null;
     }
 
     @Override
     public IItemRenderer getItemRenderer()
     {
-        //TODO: Implement JVox side.
         return null;
     }
 }

@@ -21,7 +21,15 @@ public class TimedValue implements ITimedValue
         return this.timeValue;
     }
 
-    public ITimeValue asForge(ITimedValue value)
+    public static ITimedValue fromForge(ITimeValue value)
+    {
+        if (value instanceof ITimedValue)
+            return (ITimedValue) value;
+
+        return new TimedValue(value);
+    }
+
+    public static ITimeValue asForge(ITimedValue value)
     {
         if (value instanceof ITimeValue)
             return (ITimeValue) value;

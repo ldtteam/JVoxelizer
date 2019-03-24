@@ -14,12 +14,6 @@ public class SoundEventAccessor implements ISoundEventAccessor<Sound>
         return forgeSourceEventAccessor.getWeight();
     }
 
-    @Override
-    public Sound cloneEntry()
-    {
-        return new Sound(forgeSourceEventAccessor.cloneEntry());
-    }
-
     public static net.minecraft.client.audio.SoundEventAccessor asForge(final ISoundEventAccessor accessor)
     {
         if (accessor instanceof net.minecraft.client.audio.SoundEventAccessor)

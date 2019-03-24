@@ -13,9 +13,14 @@ public class SoundType implements ISoundType
         this.forgeSoundType = forgeSoundType;
     }
 
+    private Sound.Type getForgeSoundType()
+    {
+        return forgeSoundType;
+    }
+
     public static Sound.Type asForge(final ISoundType type)
     {
-        return ((SoundType) type).forgeSoundType;
+        return ((SoundType) type).getForgeSoundType();
     }
 
     public static ISoundType fromForge(final Sound.Type type)

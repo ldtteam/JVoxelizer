@@ -12,25 +12,7 @@ public class Gui implements IGui<DummyInstanceData>
 {
     private final net.minecraft.client.gui.Gui forgeGui;
 
-    public Gui(final net.minecraft.client.gui.Gui forgeGui) {this.forgeGui = forgeGui;}
-
-    @Override
-    public void drawHorizontalLine(final int startX, final int endX, final int y, final int color)
-    {
-        forgeGui.drawHorizontalLine(startX, endX, y, color);
-    }
-
-    @Override
-    public void drawVerticalLine(final int x, final int startY, final int endY, final int color)
-    {
-        forgeGui.drawVerticalLine(x, startY, endY, color);
-    }
-
-    @Override
-    public void drawGradientRect(final int left, final int top, final int right, final int bottom, final int startColor, final int endColor)
-    {
-        forgeGui.drawGradientRect(left, top, right, bottom, startColor, endColor);
-    }
+    protected Gui(final net.minecraft.client.gui.Gui forgeGui) {this.forgeGui = forgeGui;}
 
     @Override
     public void drawCenteredString(final IFontRenderer fontRendererIn, final String text, final int x, final int y, final int color)
@@ -76,11 +58,17 @@ public class Gui implements IGui<DummyInstanceData>
 
     public static net.minecraft.client.gui.Gui asForge(IGui<?> gui)
     {
+        if (gui instanceof net.minecraft.client.gui.Gui)
+            return (net.minecraft.client.gui.Gui) gui;
+
         return ((Gui) gui).forgeGui;
     }
 
     public static IGui<?> fromForge(final net.minecraft.client.gui.Gui ingameGUI)
     {
+        if (ingameGUI instanceof IGui)
+            return (IGui<?>) ingameGUI;
+
         return new Gui(ingameGUI);
     }
 }

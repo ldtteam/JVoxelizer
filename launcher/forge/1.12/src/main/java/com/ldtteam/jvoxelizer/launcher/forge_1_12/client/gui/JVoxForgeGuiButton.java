@@ -82,7 +82,7 @@ public class JVoxForgeGuiButton<I> extends GuiButton implements IGuiButton<I>
     @Override
     public void playPressSound(final SoundHandler soundHandlerIn)
     {
-        this.playPressSound(new com.ldtteam.jvoxelizer.launcher.forge_1_12.sound.SoundHandler(soundHandlerIn));
+        this.playPressSound(com.ldtteam.jvoxelizer.launcher.forge_1_12.sound.SoundHandler.fromForge(soundHandlerIn));
     }
 
     @Override
@@ -100,25 +100,24 @@ public class JVoxForgeGuiButton<I> extends GuiButton implements IGuiButton<I>
     @Override
     public void drawButton(final IGameEngine mc, final int mouseX, final int mouseY, final float partialTicks)
     {
-        PipelineProcessor.processVoidPipeline(this, new DrawButtonContext(mc, mouseX, mouseY, partialTicks), pipeline.getDrawButtonPipeline(), c -> super.drawButton(((GameEngine) c.getMc()).getForgeGameEngine(), c.getMouseX(), c.getMouseY(), c.getPartialTicks()));
+        PipelineProcessor.processVoidPipeline(this, new DrawButtonContext(mc, mouseX, mouseY, partialTicks), pipeline.getDrawButtonPipeline(), c -> super.drawButton(GameEngine.asForge(c.getMc()), c.getMouseX(), c.getMouseY(), c.getPartialTicks()));
     }
 
-    @Override
     public void mouseDragged(final IGameEngine mc, final int mouseX, final int mouseY)
     {
-        PipelineProcessor.processVoidPipeline(this, new MouseDraggedContext(mc, mouseX, mouseY), pipeline.getMouseDraggedPipeline(), c -> super.mouseDragged(((GameEngine) c.getMc()).getForgeGameEngine(), c.getMouseX(), c.getMouseY()));
+        PipelineProcessor.processVoidPipeline(this, new MouseDraggedContext(mc, mouseX, mouseY), pipeline.getMouseDraggedPipeline(), c -> super.mouseDragged(GameEngine.asForge(c.getMc()), c.getMouseX(), c.getMouseY()));
     }
 
     @Override
     public boolean mousePressed(final IGameEngine mc, final int mouseX, final int mouseY)
     {
-        return PipelineProcessor.processTypedPipeline(this, new MousePressedContext(mc, mouseX, mouseY), pipeline.getMousePressedPipeline(), c -> super.mousePressed(((GameEngine) c.getMc()).getForgeGameEngine(), c.getMouseX(), c.getMouseY()));
+        return PipelineProcessor.processTypedPipeline(this, new MousePressedContext(mc, mouseX, mouseY), pipeline.getMousePressedPipeline(), c -> super.mousePressed(GameEngine.asForge(c.getMc()), c.getMouseX(), c.getMouseY()));
     }
 
     @Override
     public void playPressSound(final ISoundHandler soundHandlerIn)
     {
-        PipelineProcessor.processVoidPipeline(this, new PlayPressSoundContext(soundHandlerIn), pipeline.getPlayPressSoundPipeline(), c -> super.playPressSound(((com.ldtteam.jvoxelizer.launcher.forge_1_12.sound.SoundHandler) c.getSoundHandlerIn()).getForgeSoundHandler()));
+        PipelineProcessor.processVoidPipeline(this, new PlayPressSoundContext(soundHandlerIn), pipeline.getPlayPressSoundPipeline(), c -> super.playPressSound(com.ldtteam.jvoxelizer.launcher.forge_1_12.sound.SoundHandler.asForge(c.getSoundHandlerIn())));
     }
 
     @Override
@@ -154,13 +153,13 @@ public class JVoxForgeGuiButton<I> extends GuiButton implements IGuiButton<I>
     @Override
     public void drawCenteredString(final net.minecraft.client.gui.FontRenderer fontRendererIn, final String text, final int x, final int y, final int color)
     {
-        this.drawCenteredString(new FontRenderer(fontRendererIn), text, x, y, color);
+        this.drawCenteredString(FontRenderer.fromForge(fontRendererIn), text, x, y, color);
     }
 
     @Override
     public void drawString(final net.minecraft.client.gui.FontRenderer fontRendererIn, final String text, final int x, final int y, final int color)
     {
-        this.drawString(new FontRenderer(fontRendererIn), text, x, y, color);
+        this.drawString(FontRenderer.fromForge(fontRendererIn), text, x, y, color);
     }
 
     @Override

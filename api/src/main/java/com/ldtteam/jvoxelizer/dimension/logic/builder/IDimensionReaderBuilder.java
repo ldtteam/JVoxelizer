@@ -12,7 +12,7 @@ import java.util.function.Function;
 
 public interface IDimensionReaderBuilder<C extends IDimensionReaderBuilder<C, I, O>, I, O extends IDimensionReader<I>>
 {
-    static <T extends IDimensionReaderBuilder<T, R, S>, R, S extends IDimensionReader<R>> T create()
+    static <G> IDimensionReaderBuilder<?, G, ? extends IDimensionReader<G>> create()
     {
         return IDimensionReaderBuilderProviderHolder.getInstance().provide();
     }

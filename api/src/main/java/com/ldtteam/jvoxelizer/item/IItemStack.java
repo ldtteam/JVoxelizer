@@ -62,5 +62,5 @@ public interface IItemStack extends INBTSerializable
 
     boolean getHasSubtypes();
 
-    Object getTranslationKey(IItemStack pItemStack);
+    String getTranslationKey();
 }

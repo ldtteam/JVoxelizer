@@ -5,19 +5,23 @@ import com.ldtteam.jvoxelizer.util.actionresult.IActionResultType;
 
 import net.minecraft.util.EnumActionResult;
 
-public class ActionResult<T> implements IActionResult<T>
-{
-    private net.minecraft.util.ActionResult<T> actionResult;
+import java.util.function.Function;
 
-    private ActionResult(EnumActionResult typeIn, T resultIn)
+public class ActionResult<T, I> implements IActionResult<T>
+{
+    private Function<I, T>                     convertor;
+    private net.minecraft.util.ActionResult<I> actionResult;
+
+    private ActionResult(final net.minecraft.util.ActionResult<I> actionResult, Function<I, T> convertor)
     {
-        actionResult = new net.minecraft.util.ActionResult<>(typeIn, resultIn);
+        this.convertor = convertor;
+        this.actionResult = actionResult;
     }
 
     @Override
     public T get()
     {
-        return actionResult.getResult();
+         return convertor.apply(actionResult.getResult());
     }
 
     @Override
@@ -26,17 +30,24 @@ public class ActionResult<T> implements IActionResult<T>
         return ActionResultType.fromForge(actionResult.getType());
     }
 
-    public static net.minecraft.util.ActionResult asForge(IActionResult actionType)
+    private net.minecraft.util.ActionResult<I> getActionResult()
+    {
+        return actionResult;
+    }
+
+    public static net.minecraft.util.ActionResult<?> asForge(IActionResult<?> actionType)
     {
         if (actionType instanceof net.minecraft.util.ActionResult)
             return (net.minecraft.util.ActionResult) actionType;
 
-        return ((ActionResult) actionType).actionResult;
+        return ((ActionResult) actionType).getActionResult();
     }
 
-    //TODO orion wants to look at this here.
-    public static IActionResult fromForge(net.minecraft.util.EnumActionResult actionType, Object resultIn)
+    public static <S, R> IActionResult<S> fromForge(final net.minecraft.util.ActionResult<R> actionResult, Function<R, S> convertor)
     {
-        return new ActionResult<>(actionType, resultIn);
+        if (actionResult instanceof IActionResult)
+            return (IActionResult<S>) actionResult;
+
+        return new ActionResult<>(actionResult, convertor);
     }
 }

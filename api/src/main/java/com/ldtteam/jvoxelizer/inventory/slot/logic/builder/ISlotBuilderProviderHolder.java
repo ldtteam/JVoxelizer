@@ -2,6 +2,7 @@ package com.ldtteam.jvoxelizer.inventory.slot.logic.builder;
 
 import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
 import com.ldtteam.jvoxelizer.inventory.slot.ISlot;
+import com.ldtteam.jvoxelizer.item.handling.IInventory;
 
 final class ISlotBuilderProviderHolder extends AbstractHolder<ISlotBuilderProvider> implements ISlotBuilderProvider
 {
@@ -18,8 +19,8 @@ final class ISlotBuilderProviderHolder extends AbstractHolder<ISlotBuilderProvid
     }
 
     @Override
-    public <C extends ISlotBuilder<C, I, O>, I, O extends ISlot<I>> C provide(final I instanceData)
+    public <I> ISlotBuilder<?, I, ISlot<I>> provide(final IInventory inventory, final int index, final int x, final int y, final I instanceData)
     {
-        return getProvider().provide(instanceData);
+        return getProvider().provide(inventory, index, x, y, instanceData);
     }
 }

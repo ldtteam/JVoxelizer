@@ -40,7 +40,7 @@ public class Slot implements ISlot<DummyInstanceData>
     }
 
     @Override
-    public IItemStack getStack()
+    public IItemStack getContainedStack()
     {
         return ItemStack.fromForge(forgeSlot.getStack());
     }
@@ -82,7 +82,7 @@ public class Slot implements ISlot<DummyInstanceData>
     }
 
     @Override
-    public IItemStack decrStackSize(final int amount)
+    public IItemStack decreaseContainedStacksSize(final int amount)
     {
         return ItemStack.fromForge(forgeSlot.decrStackSize(amount));
     }
@@ -106,7 +106,7 @@ public class Slot implements ISlot<DummyInstanceData>
     }
 
     @Override
-    public IIdentifier getBackgroundLocation()
+    public IIdentifier getIdentifierOfBackgroundLocation()
     {
         return Identifier.fromForge(forgeSlot.getBackgroundLocation());
     }
@@ -124,7 +124,7 @@ public class Slot implements ISlot<DummyInstanceData>
     }
 
     @Override
-    public ISprite getBackgroundSprite()
+    public ISprite getBackgroundTexture()
     {
         return Sprite.fromForge(forgeSlot.getBackgroundSprite());
     }

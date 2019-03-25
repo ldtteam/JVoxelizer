@@ -141,6 +141,9 @@ public class Inventory implements IInventory
 
     public static net.minecraft.inventory.IInventory asForge(IInventory inventory)
     {
+        if (inventory instanceof net.minecraft.inventory.IInventory)
+            return (net.minecraft.inventory.IInventory) inventory;
+
         return ((Inventory) inventory).getForgeInventory();
     }
 

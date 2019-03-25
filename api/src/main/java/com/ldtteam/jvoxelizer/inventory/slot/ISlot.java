@@ -16,7 +16,7 @@ public interface ISlot<I> extends IInstancedObject<I> {
 
     boolean isItemValid(IItemStack stack);
 
-    IItemStack getStack();
+    IItemStack getContainedStack();
 
     boolean getHasStack();
 
@@ -30,7 +30,7 @@ public interface ISlot<I> extends IInstancedObject<I> {
 
     String getSlotTexture();
 
-    IItemStack decrStackSize(int amount);
+    IItemStack decreaseContainedStacksSize(int amount);
 
     boolean isHere(IInventory inv, int slotIn);
 
@@ -38,13 +38,13 @@ public interface ISlot<I> extends IInstancedObject<I> {
 
     boolean isEnabled();
 
-    IIdentifier getBackgroundLocation();
+    IIdentifier getIdentifierOfBackgroundLocation();
 
     void setBackgroundLocation(IIdentifier texture);
 
     void setBackgroundName(String name);
 
-    ISprite getBackgroundSprite();
+    ISprite getBackgroundTexture();
 
     int getSlotIndex();
 

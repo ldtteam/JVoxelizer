@@ -1,9 +1,10 @@
 package com.ldtteam.jvoxelizer.inventory.slot.logic.builder;
 
 import com.ldtteam.jvoxelizer.inventory.slot.ISlot;
+import com.ldtteam.jvoxelizer.item.handling.IInventory;
 
 public interface ISlotBuilderProvider
 {
 
-    <C extends ISlotBuilder<C, I, O>, I, O extends ISlot<I>> C provide(I instanceData);
+    <I> ISlotBuilder<?, I, ISlot<I>> provide(final IInventory inventory, final int index, final int x, final int y, I instanceData);
 }

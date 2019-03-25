@@ -7,6 +7,7 @@ import com.ldtteam.jvoxelizer.core.logic.VoidPipelineElementContext;
 import com.ldtteam.jvoxelizer.inventory.slot.ISlot;
 import com.ldtteam.jvoxelizer.inventory.slot.logic.builder.contexts.*;
 import com.ldtteam.jvoxelizer.item.IItemStack;
+import com.ldtteam.jvoxelizer.item.handling.IInventory;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 
 import java.util.function.Consumer;
@@ -15,9 +16,9 @@ import java.util.function.Function;
 public interface ISlotBuilder<C extends ISlotBuilder<C, I, O>, I, O extends ISlot<I>>
 {
 
-    static <T extends ISlotBuilder<T, S, R>, S, R extends ISlot<S>> T create(S instanceData)
+    static <S> ISlotBuilder<?, S, ISlot<S>> create(final IInventory inventory, final int index, final int x, final int y, S instanceData)
     {
-        return ISlotBuilderProviderHolder.getInstance().provide(instanceData);
+        return ISlotBuilderProviderHolder.getInstance().provide(inventory, index, x, y, instanceData);
     }
 
     C DecrStackSize(Function<TypedPipelineElementContext<DecrStackSizeContext, IItemStack, O, I>, IItemStack>... components);

@@ -22,7 +22,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<DecrStackSizeContext, IItemStack, O, I>, IItemStack>> DecrStackSizePipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<DecrStackSizeContext, IItemStack, O, I>, IItemStack>> DecrStackSizePipeline = new ArrayList<>();
 
     @Override
     public C OnSlotChange(Consumer<VoidPipelineElementContext<OnSlotChangeContext, O, I>>... components) {
@@ -30,7 +30,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<OnSlotChangeContext, O, I>>> OnSlotChangePipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<OnSlotChangeContext, O, I>>> OnSlotChangePipeline = new ArrayList<>();
 
     @Override
     public C IsItemValid(Function<TypedPipelineElementContext<IsItemValidContext, Boolean, O, I>, Boolean>... components) {
@@ -38,7 +38,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<IsItemValidContext, Boolean, O, I>, Boolean>> IsItemValidPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<IsItemValidContext, Boolean, O, I>, Boolean>> IsItemValidPipeline = new ArrayList<>();
 
     @Override
     public C OnSlotChanged(Consumer<VoidPipelineElementContext<OnSlotChangedContext, O, I>>... components) {
@@ -46,7 +46,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<OnSlotChangedContext, O, I>>> OnSlotChangedPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<OnSlotChangedContext, O, I>>> OnSlotChangedPipeline = new ArrayList<>();
 
     @Override
     public C IsSameInventory(Function<TypedPipelineElementContext<IsSameInventoryContext, Boolean, O, I>, Boolean>... components) {
@@ -54,7 +54,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<IsSameInventoryContext, Boolean, O, I>, Boolean>> IsSameInventoryPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<IsSameInventoryContext, Boolean, O, I>, Boolean>> IsSameInventoryPipeline = new ArrayList<>();
 
     @Override
     public C GetSlotStackLimit(Function<TypedPipelineElementContext<GetSlotStackLimitContext, Integer, O, I>, Integer>... components) {
@@ -62,7 +62,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetSlotStackLimitContext, Integer, O, I>, Integer>> GetSlotStackLimitPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetSlotStackLimitContext, Integer, O, I>, Integer>> GetSlotStackLimitPipeline = new ArrayList<>();
 
     @Override
     public C OnCrafting(Consumer<VoidPipelineElementContext<OnCraftingContext, O, I>>... components) {
@@ -70,7 +70,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<OnCraftingContext, O, I>>> OnCraftingPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<OnCraftingContext, O, I>>> OnCraftingPipeline = new ArrayList<>();
 
     @Override
     public C OnCraftingWithAmountAsint(Consumer<VoidPipelineElementContext<OnCraftingWithAmountAsintContext, O, I>>... components) {
@@ -78,7 +78,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<OnCraftingWithAmountAsintContext, O, I>>> OnCraftingWithAmountAsintPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<OnCraftingWithAmountAsintContext, O, I>>> OnCraftingWithAmountAsintPipeline = new ArrayList<>();
 
     @Override
     public C PutStack(Consumer<VoidPipelineElementContext<PutStackContext, O, I>>... components) {
@@ -86,7 +86,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<PutStackContext, O, I>>> PutStackPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<PutStackContext, O, I>>> PutStackPipeline = new ArrayList<>();
 
     @Override
     public C GetHasStack(Function<TypedPipelineElementContext<GetHasStackContext, Boolean, O, I>, Boolean>... components) {
@@ -94,7 +94,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetHasStackContext, Boolean, O, I>, Boolean>> GetHasStackPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetHasStackContext, Boolean, O, I>, Boolean>> GetHasStackPipeline = new ArrayList<>();
 
     @Override
     public C GetBackgroundSprite(Function<TypedPipelineElementContext<GetBackgroundSpriteContext, ISprite, O, I>, ISprite>... components) {
@@ -102,7 +102,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetBackgroundSpriteContext, ISprite, O, I>, ISprite>> GetBackgroundSpritePipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetBackgroundSpriteContext, ISprite, O, I>, ISprite>> GetBackgroundSpritePipeline = new ArrayList<>();
 
     @Override
     public C GetItemStackLimit(Function<TypedPipelineElementContext<GetItemStackLimitContext, Integer, O, I>, Integer>... components) {
@@ -110,7 +110,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetItemStackLimitContext, Integer, O, I>, Integer>> GetIItemStackLimitPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetItemStackLimitContext, Integer, O, I>, Integer>> GetIItemStackLimitPipeline = new ArrayList<>();
 
     @Override
     public C SetBackgroundLocation(Consumer<VoidPipelineElementContext<SetBackgroundLocationContext, O, I>>... components) {
@@ -118,7 +118,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<SetBackgroundLocationContext, O, I>>> SetBackgroundLocationPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<SetBackgroundLocationContext, O, I>>> SetBackgroundLocationPipeline = new ArrayList<>();
 
     @Override
     public C GetSlotIndex(Function<TypedPipelineElementContext<GetSlotIndexContext, Integer, O, I>, Integer>... components) {
@@ -126,7 +126,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetSlotIndexContext, Integer, O, I>, Integer>> GetSlotIndexPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetSlotIndexContext, Integer, O, I>, Integer>> GetSlotIndexPipeline = new ArrayList<>();
 
     @Override
     public C IsEnabled(Function<TypedPipelineElementContext<IsEnabledContext, Boolean, O, I>, Boolean>... components) {
@@ -134,7 +134,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<IsEnabledContext, Boolean, O, I>, Boolean>> IsEnabledPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<IsEnabledContext, Boolean, O, I>, Boolean>> IsEnabledPipeline = new ArrayList<>();
 
     @Override
     public C GetBackgroundMap(Function<TypedPipelineElementContext<GetBackgroundMapContext, ISpriteMap, O, I>, ISpriteMap>... components) {
@@ -142,7 +142,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetBackgroundMapContext, ISpriteMap, O, I>, ISpriteMap>> GetBackgroundMapPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetBackgroundMapContext, ISpriteMap, O, I>, ISpriteMap>> GetBackgroundMapPipeline = new ArrayList<>();
 
     @Override
     public C IsHere(Function<TypedPipelineElementContext<IsHereContext, Boolean, O, I>, Boolean>... components) {
@@ -150,7 +150,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<IsHereContext, Boolean, O, I>, Boolean>> IsHerePipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<IsHereContext, Boolean, O, I>, Boolean>> IsHerePipeline = new ArrayList<>();
 
     @Override
     public C OnTake(Function<TypedPipelineElementContext<OnTakeContext, IItemStack, O, I>, IItemStack>... components) {
@@ -158,7 +158,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<OnTakeContext, IItemStack, O, I>, IItemStack>> OnTakePipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<OnTakeContext, IItemStack, O, I>, IItemStack>> OnTakePipeline = new ArrayList<>();
 
     @Override
     public C CanTakeStack(Function<TypedPipelineElementContext<CanTakeStackContext, Boolean, O, I>, Boolean>... components) {
@@ -166,7 +166,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<CanTakeStackContext, Boolean, O, I>, Boolean>> CanTakeStackPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<CanTakeStackContext, Boolean, O, I>, Boolean>> CanTakeStackPipeline = new ArrayList<>();
 
     @Override
     public C GetStack(Function<TypedPipelineElementContext<GetStackContext, IItemStack, O, I>, IItemStack>... components) {
@@ -174,7 +174,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetStackContext, IItemStack, O, I>, IItemStack>> GetStackPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetStackContext, IItemStack, O, I>, IItemStack>> GetStackPipeline = new ArrayList<>();
 
     @Override
     public C OnSwapCraft(Consumer<VoidPipelineElementContext<OnSwapCraftContext, O, I>>... components) {
@@ -182,7 +182,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<OnSwapCraftContext, O, I>>> OnSwapCraftPipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<OnSwapCraftContext, O, I>>> OnSwapCraftPipeline = new ArrayList<>();
 
     @Override
     public C SetBackgroundName(Consumer<VoidPipelineElementContext<SetBackgroundNameContext, O, I>>... components) {
@@ -190,7 +190,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Consumer<VoidPipelineElementContext<SetBackgroundNameContext, O, I>>> SetBackgroundNamePipeline = new ArrayList<>();
+    protected final List<Consumer<VoidPipelineElementContext<SetBackgroundNameContext, O, I>>> SetBackgroundNamePipeline = new ArrayList<>();
 
     @Override
     public C GetBackgroundLocation(Function<TypedPipelineElementContext<GetBackgroundLocationContext, IIdentifier, O, I>, IIdentifier>... components) {
@@ -198,7 +198,7 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetBackgroundLocationContext, IIdentifier, O, I>, IIdentifier>> GetBackgroundLocationPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetBackgroundLocationContext, IIdentifier, O, I>, IIdentifier>> GetBackgroundLocationPipeline = new ArrayList<>();
 
     @Override
     public C GetSlotTexture(Function<TypedPipelineElementContext<GetSlotTextureContext, String, O, I>, String>... components) {
@@ -206,5 +206,5 @@ public abstract class AbstractSlotBuilder<C extends ISlotBuilder<C, I, O>, I, O 
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetSlotTextureContext, String, O, I>, String>> GetSlotTexturePipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetSlotTextureContext, String, O, I>, String>> GetSlotTexturePipeline = new ArrayList<>();
 }

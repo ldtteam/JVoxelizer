@@ -767,7 +767,7 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
         return CanApplyAtEnchantingTablePipeline;
     }
 
-    public List<Function<TypedPipelineElementContext<GetPropertyGetterContext, IItemPropertyGetter, O, I>, IItemPropertyGetter>> getGetPropertyGetterPipeline()
+    public List<Function<TypedPipelineElementContext<GetPropertyGetterContext, IItemPropertyGetter, O, I>, IItemPropertyGetter>> getPropertyGetterPipeline()
     {
         return GetPropertyGetterPipeline;
     }

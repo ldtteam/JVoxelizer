@@ -7,6 +7,7 @@ import com.ldtteam.jvoxelizer.client.model.IModelBiped;
 import com.ldtteam.jvoxelizer.client.renderer.blockentity.IBlockEntityRenderer;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
 import com.ldtteam.jvoxelizer.common.animation.ITimedValue;
+import com.ldtteam.jvoxelizer.core.logic.PipelineProcessor;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.enchantment.IEnchantment;
 import com.ldtteam.jvoxelizer.entity.IEntity;
@@ -19,7 +20,16 @@ import com.ldtteam.jvoxelizer.entity.passive.IHorseArmorType;
 import com.ldtteam.jvoxelizer.item.IItem;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.group.IItemGroup;
+import com.ldtteam.jvoxelizer.item.logic.builder.contexts.*;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockState;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.Dimension;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.PlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.logic.pipeline.ForgeItemPipeline;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.facing.Facing;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.hand.Hand;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.Identifier;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block.BlockCoordinate;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt.NBTCompound;
 import com.ldtteam.jvoxelizer.util.action.IActionType;
 import com.ldtteam.jvoxelizer.util.actionresult.IActionResult;
 import com.ldtteam.jvoxelizer.util.actionresult.IActionResultType;
@@ -63,6 +73,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.animation.ITimeValue;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -70,10 +81,11 @@ import java.util.Set;
 
 public class JVoxItem<I> extends Item implements IItem<I>
 {
-    private final I instanceData;
+    private final I                              instanceData;
     private final ForgeItemPipeline<IItem<I>, I> pipeline;
 
-    public JVoxItem(final I instanceData, final ForgeItemPipeline<IItem<I>, I> pipeline) {
+    public JVoxItem(final I instanceData, final ForgeItemPipeline<IItem<I>, I> pipeline)
+    {
         this.instanceData = instanceData;
         this.pipeline = pipeline;
     }
@@ -84,9 +96,16 @@ public class JVoxItem<I> extends Item implements IItem<I>
 
     @Nullable
     @Override
-    public IItemPropertyGetter getPropertyGetter(final ResourceLocation key)
+    public IItemPropertyGetter getPropertyGetter(@NotNull final ResourceLocation key)
     {
-        return super.getPropertyGetter(key);
+        return ItemPropertyGetter.asForge(
+          PipelineProcessor.processTypedPipeline(
+            this,
+            new GetPropertyGetterContext(Identifier.fromForge(key)),
+            pipeline.getPropertyGetterPipeline(),
+            (c) -> ItemPropertyGetter.fromForge(super.getPropertyGetter(Identifier.asForge(c.getKey())))
+          )
+        );
     }
 
     /**
@@ -95,19 +114,36 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean updateItemStackNBT(final NBTTagCompound nbt)
     {
-        return super.updateItemStackNBT(nbt);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new UpdateItemStackNBTContext(NBTCompound.fromForge(nbt)),
+          pipeline.getUpdateItemStackNBTPipeline(),
+          (c) -> super.updateItemStackNBT(NBTCompound.asForge(c.getNbt()))
+        );
     }
 
     @Override
     public boolean hasCustomProperties()
     {
-        return super.hasCustomProperties();
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new HasCustomPropertiesContext(),
+          pipeline.getHasCustomPropertiesPipeline(),
+          (c) -> super.hasCustomProperties()
+        );
     }
 
     @Override
     public Item setMaxStackSize(final int maxStackSize)
     {
-        return super.setMaxStackSize(maxStackSize);
+        return com.ldtteam.jvoxelizer.launcher.forge_1_12.item.Item.asForge(
+          PipelineProcessor.processTypedPipeline(
+            this,
+            new SetMaxStackSizeContext(maxStackSize),
+            pipeline.getSetMaxStackSizePipeline(),
+            (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.item.Item.fromForge(super.setMaxStackSize(c.getMaxStackSize()))
+          )
+        );
     }
 
     /**
@@ -117,13 +153,25 @@ public class JVoxItem<I> extends Item implements IItem<I>
     public EnumActionResult onItemUse(
       final EntityPlayer player, final World worldIn, final BlockPos pos, final EnumHand hand, final EnumFacing facing, final float hitX, final float hitY, final float hitZ)
     {
-        return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+        return com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResultType.asForge(
+          PipelineProcessor.processTypedPipeline(
+            this,
+            new OnItemUseContext(PlayerEntity.fromForge(player), Dimension.fromForge(worldIn), BlockCoordinate.fromForge(pos), Hand.fromForge(hand), Facing.fromForge(facing), hitX, hitY, hitZ),
+            pipeline.getOnItemUsePipeline(),
+            (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResultType.fromForge(super.onItemUse(PlayerEntity.asForge(c.getPlayer()), Dimension.asForge(c.getWorldIn()), BlockCoordinate.asForge(c.getPos()), Hand.asForge(c.getHand()), Facing.asForge(c.getFacing()), c.getHitX(), c.getHitY(), c.getHitZ()))
+          )
+        );
     }
 
     @Override
     public float getDestroySpeed(final ItemStack stack, final IBlockState state)
     {
-        return super.getDestroySpeed(stack, state);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetDestroySpeedContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack), BlockState.fromForge(state)),
+          pipeline.getGetDestroySpeedPipeline(),
+          (c) -> super.getDestroySpeed(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack()), BlockState.asForge(c.getState()))
+        );
     }
 
     /**
@@ -1328,8 +1376,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
         super.onHorseArmorTick(world, horse, armor);
     }
 
-
-
     @Override
     public void setTileEntityItemStackRenderer(@Nullable final TileEntityItemStackRenderer teisr)
     {
@@ -1341,8 +1387,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return super.getDefaultInstance();
     }
-
-
 
 
     //////////////////////////////////////////////////////////////

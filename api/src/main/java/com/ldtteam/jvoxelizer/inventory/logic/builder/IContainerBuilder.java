@@ -14,7 +14,7 @@ import java.util.function.Function;
 public interface IContainerBuilder<C extends IContainerBuilder<C, I, O>, I, O extends IContainer<I>>
 {
 
-    static <S extends IContainerBuilder<S, T, R>, T, R extends IContainer<T>> IContainerBuilder<S, T ,R> create()
+    static <I> IContainerBuilder<?, I, IContainer<I>> create()
     {
         return IContainerBuilderProviderHolder.getInstance().provide();
     }

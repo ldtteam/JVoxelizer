@@ -14,7 +14,7 @@ public class NonNullListCollector
 
     private NonNullListCollector()
     {
-        throw new IllegalStateException("Tried to create utility class: NonNullListCollector");
+        throw new IllegalStateException("Tried to provide utility class: NonNullListCollector");
     }
 
     public static <T>

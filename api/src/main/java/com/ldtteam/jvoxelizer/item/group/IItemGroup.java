@@ -11,25 +11,25 @@ public interface IItemGroup<I> extends IInstancedObject<I> {
 
     int getTabIndex();
 
-    IItemGroup<I> setBackgroundImageName(String texture);
+    IItemGroup<I> setBackgroundImage(String texture);
 
     String getTabLabel();
 
     String getTranslatedTabLabel();
 
-    IItemStack getIconItemStack();
+    IItemStack getDisplayedStack();
 
-    IItemStack getTabIconItem();
+    IItemStack getTabStack();
 
     String getBackgroundImageName();
 
     boolean drawInForegroundOfTab();
 
-    IItemGroup<I> setNoTitle();
+    IItemGroup<I> disableTitle();
 
     boolean shouldHidePlayerInventory();
 
-    IItemGroup<I> setNoScrollbar();
+    IItemGroup<I> disableScrollbar();
 
     int getTabColumn();
 
@@ -37,13 +37,13 @@ public interface IItemGroup<I> extends IInstancedObject<I> {
 
     boolean isAlignedRight();
 
-    IEnchantmentType[] getRelevantEnchantmentTypes();
+    IEnchantmentType[] getPossibleEnchantmentTypes();
 
-    IItemGroup<I> setRelevantEnchantmentTypes(IEnchantmentType... types);
+    IItemGroup<I> setPossibleEnchantmentTypes(IEnchantmentType... types);
 
-    boolean hasRelevantEnchantmentType(IEnchantmentType enchantmentType);
+    boolean hasPossibleEnchantmentType(IEnchantmentType enchantmentType);
 
-    void displayAllRelevantItems(List<IItemStack> list);
+    void displayAllItems(List<IItemStack> list);
 
     int getTabPage();
 
@@ -51,7 +51,7 @@ public interface IItemGroup<I> extends IInstancedObject<I> {
 
     int getSearchbarWidth();
 
-    IIdentifier getBackgroundImage();
+    IIdentifier getBackgroundImageIdentifier();
 
     int getLabelColor();
 }

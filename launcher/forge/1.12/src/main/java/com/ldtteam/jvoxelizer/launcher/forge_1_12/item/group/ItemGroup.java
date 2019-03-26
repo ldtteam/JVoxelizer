@@ -32,7 +32,7 @@ public class ItemGroup implements IItemGroup<DummyInstanceData>
     }
 
     @Override
-    public IItemGroup setBackgroundImageName(final String texture)
+    public IItemGroup<DummyInstanceData> setBackgroundImage(final String texture)
     {
         return new ItemGroup(creativeTab.setBackgroundImageName(texture));
     }
@@ -50,13 +50,13 @@ public class ItemGroup implements IItemGroup<DummyInstanceData>
     }
 
     @Override
-    public IItemStack getIconItemStack()
+    public IItemStack getDisplayedStack()
     {
         return ItemStack.fromForge(creativeTab.getIconItemStack());
     }
 
     @Override
-    public IItemStack getTabIconItem()
+    public IItemStack getTabStack()
     {
         return ItemStack.fromForge(creativeTab.getTabIconItem());
     }
@@ -74,7 +74,7 @@ public class ItemGroup implements IItemGroup<DummyInstanceData>
     }
 
     @Override
-    public IItemGroup setNoTitle()
+    public IItemGroup<DummyInstanceData> disableTitle()
     {
         return new ItemGroup(creativeTab.setNoTitle());
     }
@@ -86,7 +86,7 @@ public class ItemGroup implements IItemGroup<DummyInstanceData>
     }
 
     @Override
-    public IItemGroup setNoScrollbar()
+    public IItemGroup<DummyInstanceData> disableScrollbar()
     {
         return new ItemGroup(creativeTab.setNoScrollbar());
     }
@@ -110,19 +110,19 @@ public class ItemGroup implements IItemGroup<DummyInstanceData>
     }
 
     @Override
-    public IEnchantmentType[] getRelevantEnchantmentTypes()
+    public IEnchantmentType[] getPossibleEnchantmentTypes()
     {
         return Arrays.stream(creativeTab.getRelevantEnchantmentTypes()).map(EnchantmentType::fromForge).toArray(IEnchantmentType[]::new);
     }
 
     @Override
-    public IItemGroup setRelevantEnchantmentTypes(final IEnchantmentType... types)
+    public IItemGroup<DummyInstanceData> setPossibleEnchantmentTypes(final IEnchantmentType... types)
     {
         return new ItemGroup(creativeTab.setRelevantEnchantmentTypes(Arrays.stream(types).map(EnchantmentType::asForge).toArray(EnumEnchantmentType[]::new)));
     }
 
     @Override
-    public boolean hasRelevantEnchantmentType(final IEnchantmentType enchantmentType)
+    public boolean hasPossibleEnchantmentType(final IEnchantmentType enchantmentType)
     {
         return creativeTab.hasRelevantEnchantmentType(EnchantmentType.asForge(enchantmentType));
     }
@@ -146,7 +146,7 @@ public class ItemGroup implements IItemGroup<DummyInstanceData>
     }
 
     @Override
-    public IIdentifier getBackgroundImage()
+    public IIdentifier getBackgroundImageIdentifier()
     {
         return Identifier.fromForge(creativeTab.getBackgroundImage());
     }
@@ -158,7 +158,7 @@ public class ItemGroup implements IItemGroup<DummyInstanceData>
     }
 
     @Override
-    public void displayAllRelevantItems(final List<IItemStack> list)
+    public void displayAllItems(final List<IItemStack> list)
     {
         NonNullList<net.minecraft.item.ItemStack> stacks = NonNullList.create();
         stacks.addAll(list.stream().filter(stack -> stack instanceof ItemStack).map(ItemStack::asForge).collect(Collectors.toList()));
@@ -171,7 +171,7 @@ public class ItemGroup implements IItemGroup<DummyInstanceData>
         return new DummyInstanceData();
     }
 
-    public static CreativeTabs asForge(final IItemGroup itemGroup)
+    public static CreativeTabs asForge(final IItemGroup<?> itemGroup)
     {
         if (itemGroup instanceof CreativeTabs)
             return (CreativeTabs) itemGroup;
@@ -182,7 +182,7 @@ public class ItemGroup implements IItemGroup<DummyInstanceData>
     public static IItemGroup fromForge(final CreativeTabs itemGroup)
     {
         if (itemGroup instanceof IItemGroup)
-            return (IItemGroup) itemGroup;
+            return (IItemGroup<?>) itemGroup;
 
         return new ItemGroup(itemGroup);
     }

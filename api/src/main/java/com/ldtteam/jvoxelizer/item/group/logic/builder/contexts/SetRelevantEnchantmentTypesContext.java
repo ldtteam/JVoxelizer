@@ -4,17 +4,17 @@ import com.ldtteam.jvoxelizer.util.enchantmenttype.IEnchantmentType;
 
 public class SetRelevantEnchantmentTypesContext {
 
-    public SetRelevantEnchantmentTypesContext(IEnchantmentType types) {
+    public SetRelevantEnchantmentTypesContext(IEnchantmentType... types) {
         this.types = types;
     }
 
-    private IEnchantmentType types;
+    private IEnchantmentType[] types;
 
-    public IEnchantmentType getTypes() {
+    public IEnchantmentType[] getTypes() {
         return types;
     }
 
-    public void setTypes(IEnchantmentType types) {
+    public void setTypes(IEnchantmentType... types) {
         this.types = types;
     }
 }

@@ -20,7 +20,7 @@ public interface IEntity extends INBTSerializable, ICapabilityProvider
     /**
      * Constructs a new entity that lives the given dimension at 0,0,0.
      *
-     * @param dimension The dimension to create the entity in.
+     * @param dimension The dimension to provide the entity in.
      * @return The entity created.
      */
     static IEntity create(IDimension dimension)
@@ -29,10 +29,10 @@ public interface IEntity extends INBTSerializable, ICapabilityProvider
     }
 
     /**
-     * Constructor used to create a new entity from its ID.
+     * Constructor used to provide a new entity from its ID.
      * If an entity with the given id already exists, then it is returned instead.
      *
-     * @param id The id of the entity to create or find.
+     * @param id The id of the entity to provide or find.
      * @return The entity with the given id.
      */
     static IEntity create(UUID id)

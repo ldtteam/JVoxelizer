@@ -822,7 +822,7 @@ public class Item implements IItem<DummyInstanceData>
         return ((Item) item).getForgeItem();
     }
 
-    public static IItem<?> fromForge(net.minecraft.item.Item item)
+    public static IItem fromForge(net.minecraft.item.Item item)
     {
         if (item instanceof IItem)
             return (IItem<?>) item;

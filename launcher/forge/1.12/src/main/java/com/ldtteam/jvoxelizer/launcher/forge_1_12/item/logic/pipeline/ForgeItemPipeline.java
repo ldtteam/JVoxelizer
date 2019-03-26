@@ -19,6 +19,7 @@ import com.ldtteam.jvoxelizer.item.group.IItemGroup;
 import com.ldtteam.jvoxelizer.item.logic.builder.contexts.*;
 import com.ldtteam.jvoxelizer.util.action.IActionType;
 import com.ldtteam.jvoxelizer.util.actionresult.IActionResult;
+import com.ldtteam.jvoxelizer.util.actionresult.IActionResultType;
 import com.ldtteam.jvoxelizer.util.equipmentslot.IEquipmentSlot;
 import com.ldtteam.jvoxelizer.util.math.raytraceresult.IRayTraceResult;
 import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
@@ -106,7 +107,7 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
 
         private final List<Function<TypedPipelineElementContext<GetCreatorModIdContext, String, O, I>, String>> GetCreatorModIdPipeline;
 
-        private final List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResult, O, I>, IActionResult>> OnItemUsePipeline;
+        private final List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResultType, O, I>, IActionResultType>> OnItemUsePipeline;
 
         private final List<Function<TypedPipelineElementContext<IsDamagedContext, Boolean, O, I>, Boolean>> IsDamagedPipeline;
 
@@ -126,11 +127,11 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
 
         private final List<Function<TypedPipelineElementContext<OnItemUseFinishContext, IItemStack, O, I>, IItemStack>> OnItemUseFinishPipeline;
 
-        private final List<Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResult, O, I>, IActionResult>> OnItemUseFirstPipeline;
+        private final List<Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResultType, O, I>, IActionResultType>> OnItemUseFirstPipeline;
 
         private final List<Function<TypedPipelineElementContext<GetHorseArmorTypeContext, IHorseArmorType, O, I>, IHorseArmorType>> GetHorseArmorTypePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionType, O, I>, IActionType>> GetItemUseActionPipeline;
+        private final List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionResultType, O, I>, IActionResultType>> GetItemUseActionPipeline;
 
         private final List<Function<TypedPipelineElementContext<InitCapabilitiesContext, ICapabilityManager, O, I>, ICapabilityManager>> InitCapabilitiesPipeline;
 
@@ -296,7 +297,7 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
       final List<Function<TypedPipelineElementContext<GetMaxDamageContext, Integer, O, I>, Integer>> getMaxDamagePipeline,
       final List<Function<TypedPipelineElementContext<GetMaxDamageWithStackAsItemStackContext, Integer, O, I>, Integer>> getMaxDamageWithStackAsItemStackPipeline,
       final List<Function<TypedPipelineElementContext<GetCreatorModIdContext, String, O, I>, String>> getCreatorModIdPipeline,
-      final List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResult, O, I>, IActionResult>> onItemUsePipeline,
+      final List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResultType, O, I>, IActionResultType>> onItemUsePipeline,
       final List<Function<TypedPipelineElementContext<IsDamagedContext, Boolean, O, I>, Boolean>> isDamagedPipeline,
       final List<Consumer<VoidPipelineElementContext<OnArmorTickContext, O, I>>> onArmorTickPipeline,
       final List<Function<TypedPipelineElementContext<GetNBTShareTagContext, INBTCompound, O, I>, INBTCompound>> getNBTShareTagPipeline,
@@ -306,9 +307,9 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
       final List<Consumer<VoidPipelineElementContext<GetSubItemsContext, O, I>>> getSubItemsPipeline,
       final List<Function<TypedPipelineElementContext<IsShieldContext, Boolean, O, I>, Boolean>> isShieldPipeline,
       final List<Function<TypedPipelineElementContext<OnItemUseFinishContext, IItemStack, O, I>, IItemStack>> onItemUseFinishPipeline,
-      final List<Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResult, O, I>, IActionResult>> onItemUseFirstPipeline,
+      final List<Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResultType, O, I>, IActionResultType>> onItemUseFirstPipeline,
       final List<Function<TypedPipelineElementContext<GetHorseArmorTypeContext, IHorseArmorType, O, I>, IHorseArmorType>> getHorseArmorTypePipeline,
-      final List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionType, O, I>, IActionType>> getItemUseActionPipeline,
+      final List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionResultType, O, I>, IActionResultType>> getItemUseActionPipeline,
       final List<Function<TypedPipelineElementContext<InitCapabilitiesContext, ICapabilityManager, O, I>, ICapabilityManager>> initCapabilitiesPipeline,
       final List<Function<TypedPipelineElementContext<HasCustomPropertiesContext, Boolean, O, I>, Boolean>> hasCustomPropertiesPipeline,
       final List<Function<TypedPipelineElementContext<GetItemBurnTimeContext, Integer, O, I>, Integer>> getItemBurnTimePipeline,
@@ -672,7 +673,7 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
         return GetCreatorModIdPipeline;
     }
 
-    public List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResult, O, I>, IActionResult>> getOnItemUsePipeline()
+    public List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResultType, O, I>, IActionResultType>> getOnItemUsePipeline()
     {
         return OnItemUsePipeline;
     }
@@ -722,7 +723,7 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
         return OnItemUseFinishPipeline;
     }
 
-    public List<Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResult, O, I>, IActionResult>> getOnItemUseFirstPipeline()
+    public List<Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResultType, O, I>, IActionResultType>> getOnItemUseFirstPipeline()
     {
         return OnItemUseFirstPipeline;
     }
@@ -732,7 +733,7 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
         return GetHorseArmorTypePipeline;
     }
 
-    public List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionType, O, I>, IActionType>> getGetItemUseActionPipeline()
+    public List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionResultType, O, I>, IActionResultType>> getGetItemUseActionPipeline()
     {
         return GetItemUseActionPipeline;
     }

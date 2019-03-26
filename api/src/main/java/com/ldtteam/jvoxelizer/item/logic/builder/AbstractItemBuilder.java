@@ -19,6 +19,7 @@ import com.ldtteam.jvoxelizer.item.group.IItemGroup;
 import com.ldtteam.jvoxelizer.item.logic.builder.contexts.*;
 import com.ldtteam.jvoxelizer.util.action.IActionType;
 import com.ldtteam.jvoxelizer.util.actionresult.IActionResult;
+import com.ldtteam.jvoxelizer.util.actionresult.IActionResultType;
 import com.ldtteam.jvoxelizer.util.equipmentslot.IEquipmentSlot;
 import com.ldtteam.jvoxelizer.util.math.raytraceresult.IRayTraceResult;
 import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
@@ -410,12 +411,12 @@ public abstract class AbstractItemBuilder<C extends AbstractItemBuilder<C, I, O>
     protected final List<Function<TypedPipelineElementContext<OnItemUseFinishContext, IItemStack, O, I>, IItemStack>> OnItemUseFinishPipeline = new ArrayList<>();
 
     @Override
-    public C OnItemUseFirst(Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResult, O, I>, IActionResult>... components) {
+    public C OnItemUseFirst(Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResultType, O, I>, IActionResultType>... components) {
         this.OnItemUseFirstPipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    protected final List<Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResult, O, I>, IActionResult>> OnItemUseFirstPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResultType, O, I>, IActionResultType>> OnItemUseFirstPipeline = new ArrayList<>();
 
     @Override
     public C GetHorseArmorType(Function<TypedPipelineElementContext<GetHorseArmorTypeContext, IHorseArmorType, O, I>, IHorseArmorType>... components) {
@@ -426,12 +427,12 @@ public abstract class AbstractItemBuilder<C extends AbstractItemBuilder<C, I, O>
     protected final List<Function<TypedPipelineElementContext<GetHorseArmorTypeContext, IHorseArmorType, O, I>, IHorseArmorType>> GetHorseArmorTypePipeline = new ArrayList<>();
 
     @Override
-    public C GetItemUseAction(Function<TypedPipelineElementContext<GetItemUseActionContext, IActionType, O, I>, IActionType>... components) {
+    public C GetItemUseAction(Function<TypedPipelineElementContext<GetItemUseActionContext, IActionResultType, O, I>, IActionResultType>... components) {
         this.GetItemUseActionPipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    protected final List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionType, O, I>, IActionType>> GetItemUseActionPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionResultType, O, I>, IActionResultType>> GetItemUseActionPipeline = new ArrayList<>();
 
     @Override
     public C InitCapabilities(Function<TypedPipelineElementContext<InitCapabilitiesContext, ICapabilityManager, O, I>, ICapabilityManager>... components) {

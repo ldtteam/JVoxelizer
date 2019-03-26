@@ -19,6 +19,7 @@ import com.ldtteam.jvoxelizer.item.group.IItemGroup;
 import com.ldtteam.jvoxelizer.item.logic.builder.contexts.*;
 import com.ldtteam.jvoxelizer.util.action.IActionType;
 import com.ldtteam.jvoxelizer.util.actionresult.IActionResult;
+import com.ldtteam.jvoxelizer.util.actionresult.IActionResultType;
 import com.ldtteam.jvoxelizer.util.equipmentslot.IEquipmentSlot;
 import com.ldtteam.jvoxelizer.util.math.raytraceresult.IRayTraceResult;
 import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
@@ -129,11 +130,11 @@ public interface IItemBuilder<C extends AbstractItemBuilder<C, I, O>, I, O exten
 
     C OnItemUseFinish(Function<TypedPipelineElementContext<OnItemUseFinishContext, IItemStack, O, I>, IItemStack>... components);
 
-    C OnItemUseFirst(Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResult, O, I>, IActionResult>... components);
+    C OnItemUseFirst(Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResultType, O, I>, IActionResultType>... components);
 
     C GetHorseArmorType(Function<TypedPipelineElementContext<GetHorseArmorTypeContext, IHorseArmorType, O, I>, IHorseArmorType>... components);
 
-    C GetItemUseAction(Function<TypedPipelineElementContext<GetItemUseActionContext, IActionType, O, I>, IActionType>... components);
+    C GetItemUseAction(Function<TypedPipelineElementContext<GetItemUseActionContext, IActionResultType, O, I>, IActionResultType>... components);
 
     C InitCapabilities(Function<TypedPipelineElementContext<InitCapabilitiesContext, ICapabilityManager, O, I>, ICapabilityManager>... components);
 

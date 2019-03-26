@@ -111,7 +111,7 @@ public class Item implements IItem<DummyInstanceData>
     }
 
     @Override
-    public IItem setMaxStackSize(final int maxStackSize)
+    public IItem setMaxItemStackSize(final int maxStackSize)
     {
         return new Item(forgeItem.setMaxStackSize(maxStackSize));
     }
@@ -169,7 +169,7 @@ public class Item implements IItem<DummyInstanceData>
     }
 
     @Override
-    public IItem setHasSubtypes(final boolean hasSubtypes)
+    public IItem setHasSubItems(final boolean hasSubtypes)
     {
         return new Item(forgeItem.setHasSubtypes(hasSubtypes));
     }
@@ -181,7 +181,7 @@ public class Item implements IItem<DummyInstanceData>
     }
 
     @Override
-    public IItem setMaxDamage(final int maxDamageIn)
+    public IItem setMaxSustainableDamage(final int maxDamageIn)
     {
         return new Item(forgeItem.setMaxDamage(maxDamageIn));
     }
@@ -218,7 +218,7 @@ public class Item implements IItem<DummyInstanceData>
     }
 
     @Override
-    public IItem setFull3D()
+    public IItem setItemIsFull3D()
     {
         return new Item(forgeItem.setFull3D());
     }
@@ -236,7 +236,7 @@ public class Item implements IItem<DummyInstanceData>
     }
 
     @Override
-    public IItem setUnlocalizedName(final String unlocalizedName)
+    public IItem setUnlocalizedNameForItem(final String unlocalizedName)
     {
         return new Item(forgeItem.setUnlocalizedName(unlocalizedName));
     }
@@ -272,7 +272,7 @@ public class Item implements IItem<DummyInstanceData>
     }
 
     @Override
-    public IItem getContainerItem()
+    public IItem getRemainderItemAfterUse()
     {
         return new Item(forgeItem.getContainerItem());
     }
@@ -350,7 +350,7 @@ public class Item implements IItem<DummyInstanceData>
     }
 
     @Override
-    public IItemGroup<?> getCreativeTab()
+    public IItemGroup<?> getItemGroup()
     {
         return ItemGroup.fromForge(forgeItem.getCreativeTab());
     }
@@ -414,7 +414,7 @@ public class Item implements IItem<DummyInstanceData>
     }
 
     @Override
-    public IItem setNoRepair()
+    public IItem disableRepair()
     {
         return new Item(forgeItem.setNoRepair());
     }
@@ -456,7 +456,7 @@ public class Item implements IItem<DummyInstanceData>
     }
 
     @Override
-    public IItemStack getContainerItem(final IItemStack iItemStack)
+    public IItemStack getRemainderItemAfterUse(final IItemStack iItemStack)
     {
         return ItemStack.fromForge(forgeItem.getContainerItem(ItemStack.asForge(iItemStack)));
     }
@@ -492,7 +492,7 @@ public class Item implements IItem<DummyInstanceData>
     }
 
     @Override
-    public IItemGroup<?>[] getCreativeTabs()
+    public IItemGroup<?>[] getItemGroups()
     {
         return Arrays.stream(forgeItem.getCreativeTabs()).map(ItemGroup::fromForge).toArray(ItemGroup[]::new);
     }
@@ -741,19 +741,19 @@ public class Item implements IItem<DummyInstanceData>
     }
 
     @Override
-    public IBlockEntityRenderer getTileEntityItemStackRenderer()
+    public IBlockEntityRenderer getBlockEntityItemStackRenderer()
     {
         return BlockEntityRenderer.fromForge(forgeItem.getTileEntityItemStackRenderer());
     }
 
     @Override
-    public void setTileEntityItemStackRenderer(final IBlockEntityRenderer teisr)
+    public void setBlockEntityItemStackRenderer(final IBlockEntityRenderer teisr)
     {
         forgeItem.setTileEntityItemStackRenderer(BlockEntityRenderer.asForge(teisr));
     }
 
     @Override
-    public IItemStack getDefaultInstance()
+    public IItemStack createDefaultItemStack()
     {
         return ItemStack.fromForge(forgeItem.getDefaultInstance());
     }
@@ -765,7 +765,7 @@ public class Item implements IItem<DummyInstanceData>
     }
 
     @Override
-    public IItem setCreativeTab(final IItemGroup tab)
+    public IItem setItemGroup(final IItemGroup tab)
     {
         return new Item(forgeItem.setCreativeTab(ItemGroup.asForge(tab)));
     }
@@ -791,20 +791,20 @@ public class Item implements IItem<DummyInstanceData>
     }
 
     @Override
-    public IItem<DummyInstanceData> setRegistryName(final IIdentifier name)
+    public IItem<DummyInstanceData> setRegistryIdentifier(final IIdentifier name)
     {
         forgeItem = forgeItem.setRegistryName(Identifier.asForge(name));
         return this;
     }
 
     @Override
-    public IIdentifier getRegistryName()
+    public IIdentifier getRegistryIdentifier()
     {
         return Identifier.fromForge(forgeItem.getRegistryName());
     }
 
     @Override
-    public Class<? extends IItem<DummyInstanceData>> getRegistryType()
+    public Class<? extends IItem<DummyInstanceData>> getTypeUsedForRegistration()
     {
         return getClass();
     }

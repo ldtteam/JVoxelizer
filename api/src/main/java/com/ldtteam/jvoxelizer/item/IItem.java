@@ -54,7 +54,7 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     boolean hasCustomProperties();
 
-    IItem setMaxStackSize(int maxStackSize);
+    IItem<I> setMaxItemStackSize(int maxStackSize);
 
     IActionResultType onItemUse(IPlayerEntity player, IDimension worldIn, IBlockCoordinate pos, IHand hand, IFacing facing, float hitX, float hitY, float hitZ);
 
@@ -70,11 +70,11 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     boolean getHasSubtypes();
 
-    IItem setHasSubtypes(boolean hasSubtypes);
+    IItem<I> setHasSubItems(boolean hasSubtypes);
 
     int getMaxDamage();
 
-    IItem setMaxDamage(int maxDamageIn);
+    IItem<I> setMaxSustainableDamage(int maxDamageIn);
 
     boolean isDamageable();
 
@@ -86,13 +86,13 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     boolean itemInteractionForEntity(IItemStack stack, IPlayerEntity playerIn, ILivingBaseEntity target, IHand hand);
 
-    IItem setFull3D();
+    IItem<I> setItemIsFull3D();
 
     boolean isFull3D();
 
     boolean shouldRotateAroundWhenRendering();
 
-    IItem setUnlocalizedName(String unlocalizedName);
+    IItem<I> setUnlocalizedNameForItem(String unlocalizedName);
 
     String getUnlocalizedNameInefficiently(IItemStack stack);
 
@@ -100,11 +100,11 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     String getUnlocalizedName(IItemStack stack);
 
-    IItem setContainerItem(IItem containerItem);
+    IItem<I> setContainerItem(IItem<I> containerItem);
 
     boolean getShareTag();
 
-    IItem getContainerItem();
+    IItem<I> getRemainderItemAfterUse();
 
     boolean hasContainerItem();
 
@@ -134,9 +134,9 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     void getSubItems(IItemGroup<?> tab, List<IItemStack> items);
 
-    IItemGroup<?> getCreativeTab();
+    IItemGroup<?> getItemGroup();
 
-    IItem setCreativeTab(IItemGroup<?> tab);
+    IItem<I> setItemGroup(IItemGroup<?> tab);
 
     boolean canItemEditBlocks();
 
@@ -154,7 +154,7 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     boolean isRepairable();
 
-    IItem setNoRepair();
+    IItem<I> disableRepair();
 
     float getXpRepairRatio(IItemStack stack);
 
@@ -168,7 +168,7 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     boolean onLeftClickEntity(IItemStack stack, IPlayerEntity player, IEntity IEntity);
 
-    IItemStack getContainerItem(IItemStack IItemStack);
+    IItemStack getRemainderItemAfterUse(IItemStack IItemStack);
 
     boolean hasContainerItem(IItemStack stack);
 
@@ -180,7 +180,7 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     boolean onEntityItemUpdate(IItemStackEntity entityItem);
 
-    IItemGroup<?>[] getCreativeTabs();
+    IItemGroup<?>[] getItemGroups();
 
     float getSmeltingExperience(IItemStack IItem);
 
@@ -260,11 +260,11 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     void onHorseArmorTick(IDimension IDimension, ILivingEntity horse, IItemStack armor);
 
-    IBlockEntityRenderer getTileEntityItemStackRenderer();
+    IBlockEntityRenderer getBlockEntityItemStackRenderer();
 
-    void setTileEntityItemStackRenderer(IBlockEntityRenderer teisr);
+    void setBlockEntityItemStackRenderer(IBlockEntityRenderer teisr);
 
-    IItemStack getDefaultInstance();
+    IItemStack createDefaultItemStack();
 
     String getTranslationKey(IItemStack pItemStack1);
 }

@@ -4,9 +4,9 @@ import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 
 public interface IRegistryEntry<V>
 {
-    V setRegistryName(IIdentifier name);
+    V setRegistryIdentifier(IIdentifier name);
 
-    IIdentifier getRegistryName();
+    IIdentifier getRegistryIdentifier();
 
-    Class<? extends V> getRegistryType();
+    Class getTypeUsedForRegistration();
 }

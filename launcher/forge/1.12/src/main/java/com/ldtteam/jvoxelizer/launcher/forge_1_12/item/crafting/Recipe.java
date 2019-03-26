@@ -79,20 +79,20 @@ public class Recipe implements IRecipe
     }
 
     @Override
-    public IRecipe setRegistryName(final IIdentifier name)
+    public IRecipe setRegistryIdentifier(final IIdentifier name)
     {
         forgeRecipe = forgeRecipe.setRegistryName(Identifier.asForge(name));
         return this;
     }
 
     @Override
-    public IIdentifier getRegistryName()
+    public IIdentifier getRegistryIdentifier()
     {
         return Identifier.fromForge(forgeRecipe.getRegistryName());
     }
 
     @Override
-    public Class<IRecipe> getRegistryType()
+    public Class<IRecipe> getTypeUsedForRegistration()
     {
         //Note this might break under certain cituations. But I can not come up with something better.
         return IRecipe.class;

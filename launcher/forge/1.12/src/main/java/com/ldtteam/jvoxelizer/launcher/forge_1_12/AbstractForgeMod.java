@@ -18,6 +18,7 @@ import com.ldtteam.jvoxelizer.core.provider.holder.ProviderResolver;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.dimension.logic.builder.IDimensionReaderBuilder;
 import com.ldtteam.jvoxelizer.inventory.slot.logic.builder.ISlotBuilder;
+import com.ldtteam.jvoxelizer.item.handling.IItemHandler;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.biome.BiomeProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockStateProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolutionProvider;
@@ -35,6 +36,7 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.gameevent.event.player.
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.DimensionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.logic.builder.provider.DimensionReaderBuilderProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.slot.logic.builder.provider.SlotBuilderProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.handling.ItemHandlerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.DistributionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt.NBTProvider;
 import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
@@ -93,6 +95,9 @@ public abstract class AbstractForgeMod
 
         //Inventory
         ProviderResolver.getInstance().registerProvider(ISlotBuilder.class.getName(), SlotBuilderProvider.getInstance());
+
+        //Item
+        ProviderResolver.getInstance().registerProvider(IItemHandler.class.getName(), ItemHandlerProvider.getInstance());
 
         //Util
         ProviderResolver.getInstance().registerProvider(IDistribution.class.getName(), DistributionProvider.getInstance());

@@ -5,9 +5,14 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public interface IItemHandler
 {
-    static IItemHandler createEmpty()
+    static IItemHandler empty()
     {
-        throw new NotImplementedException();
+        return IItemHandlerProviderHolder.getInstance().provideEmpty();
+    }
+
+    static IItemHandler ranged(final IItemHandler other, final int minSlot, final int maxSlotExlcuding)
+    {
+        return IItemHandlerProviderHolder.getInstance().provideRanged(other, minSlot, maxSlotExlcuding);
     }
 
     IItemStack getStackInSlot(int inventoryIndex);

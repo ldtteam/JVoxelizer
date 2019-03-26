@@ -7,9 +7,9 @@ public class ContainerListener implements IContainerListener
 
     private final net.minecraft.inventory.IContainerListener forgeContainerListener;
 
-    public ContainerListener(final net.minecraft.inventory.IContainerListener forgeContainerListener) {this.forgeContainerListener = forgeContainerListener;}
+    private ContainerListener(final net.minecraft.inventory.IContainerListener forgeContainerListener) {this.forgeContainerListener = forgeContainerListener;}
 
-    public net.minecraft.inventory.IContainerListener getForgeContainerListener()
+    private net.minecraft.inventory.IContainerListener getForgeContainerListener()
     {
         return forgeContainerListener;
     }

@@ -18,7 +18,7 @@ final class IContainerBuilderProviderHolder extends AbstractHolder<IContainerBui
     }
 
     @Override
-    public <C extends IContainerBuilder<C, I, O>, I, O extends IContainer<I>> IContainerBuilder<C, I, O> provide()
+    public <I> IContainerBuilder<?, I, IContainer<I>> provide()
     {
         return getProvider().provide();
     }

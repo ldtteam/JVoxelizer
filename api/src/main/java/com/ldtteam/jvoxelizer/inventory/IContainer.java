@@ -25,7 +25,7 @@ public interface IContainer<I> extends IInstancedObject<I> {
 
     void addListener(IContainerListener listener);
 
-    List<IItemStack> getInventory();
+    List<IItemStack> getContents();
 
     void removeListener(IContainerListener listener);
 
@@ -35,7 +35,7 @@ public interface IContainer<I> extends IInstancedObject<I> {
 
     ISlot getSlotFromInventory(IInventory inv, int slotIn);
 
-    ISlot getSlot(int slotId);
+    ISlot getSlotById(int slotId);
 
     IItemStack transferStackInSlot(IPlayerEntity playerIn, int index);
 
@@ -49,7 +49,7 @@ public interface IContainer<I> extends IInstancedObject<I> {
 
     void putStackInSlot(int slotID, IItemStack stack);
 
-    void setAll(List<IItemStack> p_190896_1_);
+    void setContentsOfAllSlots(List<IItemStack> p_190896_1_);
 
     void updateProgressBar(int id, int data);
 

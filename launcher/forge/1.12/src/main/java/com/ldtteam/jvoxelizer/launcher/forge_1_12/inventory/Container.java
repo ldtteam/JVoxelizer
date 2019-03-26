@@ -1,7 +1,6 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory;
 
 import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
-import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 import com.ldtteam.jvoxelizer.inventory.*;
 import com.ldtteam.jvoxelizer.inventory.slot.ISlot;
@@ -18,7 +17,7 @@ public class Container implements IContainer<DummyInstanceData>
 {
     private final net.minecraft.inventory.Container forgeContainer;
 
-    public Container(final net.minecraft.inventory.Container forgeContainer) {this.forgeContainer = forgeContainer;}
+    private Container(final net.minecraft.inventory.Container forgeContainer) {this.forgeContainer = forgeContainer;}
 
     @Override
     public void addListener(final IContainerListener listener)
@@ -27,7 +26,7 @@ public class Container implements IContainer<DummyInstanceData>
     }
 
     @Override
-    public List<IItemStack> getInventory()
+    public List<IItemStack> getContents()
     {
         return forgeContainer.getInventory().stream().map(ItemStack::fromForge).collect(Collectors.toList());
     }
@@ -57,7 +56,7 @@ public class Container implements IContainer<DummyInstanceData>
     }
 
     @Override
-    public ISlot getSlot(final int slotId)
+    public ISlot getSlotById(final int slotId)
     {
         return Slot.fromForge(forgeContainer.getSlot(slotId));
     }
@@ -99,7 +98,7 @@ public class Container implements IContainer<DummyInstanceData>
     }
 
     @Override
-    public void setAll(final List<IItemStack> p_190896_1_)
+    public void setContentsOfAllSlots(final List<IItemStack> p_190896_1_)
     {
         forgeContainer.setAll(p_190896_1_.stream().map(ItemStack::asForge).collect(Collectors.toList()));
     }
@@ -149,7 +148,7 @@ public class Container implements IContainer<DummyInstanceData>
     @Override
     public List<IItemStack> getInventoryItemStacks()
     {
-        return getInventory();
+        return getContents();
     }
 
     @Override
@@ -158,7 +157,7 @@ public class Container implements IContainer<DummyInstanceData>
         return new DummyInstanceData();
     }
 
-    public net.minecraft.inventory.Container getForgeContainer()
+    private net.minecraft.inventory.Container getForgeContainer()
     {
         return forgeContainer;
     }

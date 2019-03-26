@@ -20,6 +20,7 @@ import com.ldtteam.jvoxelizer.dimension.logic.builder.IDimensionReaderBuilder;
 import com.ldtteam.jvoxelizer.inventory.IContainer;
 import com.ldtteam.jvoxelizer.inventory.slot.logic.builder.ISlotBuilder;
 import com.ldtteam.jvoxelizer.inventory.slot.logic.builder.ISlotItemHandlerBuilder;
+import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.group.logic.builder.IItemGroupBuilder;
 import com.ldtteam.jvoxelizer.item.handling.IItemHandler;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.biome.BiomeProvider;
@@ -41,6 +42,7 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.logic.builder.provid
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.logic.builder.provider.ContainerBuilderProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.slot.logic.builder.provider.SlotBuilderProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.slot.logic.builder.provider.SlotItemHandlerBuilderProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStackProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.group.logic.builder.provider.ItemGroupBuilderProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.handling.ItemHandlerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.DistributionProvider;
@@ -109,6 +111,7 @@ public abstract class AbstractForgeMod
         //Item
         ProviderResolver.getInstance().registerProvider(IItemGroupBuilder.class.getName(), ItemGroupBuilderProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(IItemHandler.class.getName(), ItemHandlerProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(IItemStack.class.getName(), ItemStackProvider.getInstance());
 
         //Util
         ProviderResolver.getInstance().registerProvider(IDistribution.class.getName(), DistributionProvider.getInstance());

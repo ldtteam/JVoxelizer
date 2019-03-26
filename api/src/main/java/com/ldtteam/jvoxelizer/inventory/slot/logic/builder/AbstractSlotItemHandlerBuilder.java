@@ -20,6 +20,6 @@ public abstract class AbstractSlotItemHandlerBuilder<C extends AbstractSlotItemH
         return (C) this;
     }
 
-    private final List<Function<TypedPipelineElementContext<GetItemHandlerContext, IItemHandler, O, I>, IItemHandler>> GetItemHandlerPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetItemHandlerContext, IItemHandler, O, I>, IItemHandler>> GetItemHandlerPipeline = new ArrayList<>();
 
 }

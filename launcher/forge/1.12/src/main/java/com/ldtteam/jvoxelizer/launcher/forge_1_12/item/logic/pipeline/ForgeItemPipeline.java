@@ -19,6 +19,7 @@ import com.ldtteam.jvoxelizer.item.group.IItemGroup;
 import com.ldtteam.jvoxelizer.item.logic.builder.contexts.*;
 import com.ldtteam.jvoxelizer.util.action.IActionType;
 import com.ldtteam.jvoxelizer.util.actionresult.IActionResult;
+import com.ldtteam.jvoxelizer.util.actionresult.IActionResultType;
 import com.ldtteam.jvoxelizer.util.equipmentslot.IEquipmentSlot;
 import com.ldtteam.jvoxelizer.util.math.raytraceresult.IRayTraceResult;
 import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
@@ -106,7 +107,7 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
 
         private final List<Function<TypedPipelineElementContext<GetCreatorModIdContext, String, O, I>, String>> GetCreatorModIdPipeline;
 
-        private final List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResult, O, I>, IActionResult>> OnItemUsePipeline;
+        private final List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResultType, O, I>, IActionResultType>> OnItemUsePipeline;
 
         private final List<Function<TypedPipelineElementContext<IsDamagedContext, Boolean, O, I>, Boolean>> IsDamagedPipeline;
 
@@ -296,7 +297,7 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
       final List<Function<TypedPipelineElementContext<GetMaxDamageContext, Integer, O, I>, Integer>> getMaxDamagePipeline,
       final List<Function<TypedPipelineElementContext<GetMaxDamageWithStackAsItemStackContext, Integer, O, I>, Integer>> getMaxDamageWithStackAsItemStackPipeline,
       final List<Function<TypedPipelineElementContext<GetCreatorModIdContext, String, O, I>, String>> getCreatorModIdPipeline,
-      final List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResult, O, I>, IActionResult>> onItemUsePipeline,
+      final List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResultType, O, I>, IActionResultType>> onItemUsePipeline,
       final List<Function<TypedPipelineElementContext<IsDamagedContext, Boolean, O, I>, Boolean>> isDamagedPipeline,
       final List<Consumer<VoidPipelineElementContext<OnArmorTickContext, O, I>>> onArmorTickPipeline,
       final List<Function<TypedPipelineElementContext<GetNBTShareTagContext, INBTCompound, O, I>, INBTCompound>> getNBTShareTagPipeline,
@@ -672,7 +673,7 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
         return GetCreatorModIdPipeline;
     }
 
-    public List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResult, O, I>, IActionResult>> getOnItemUsePipeline()
+    public List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResultType, O, I>, IActionResultType>> getOnItemUsePipeline()
     {
         return OnItemUsePipeline;
     }

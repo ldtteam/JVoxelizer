@@ -486,4 +486,569 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
         OnCreatedPipeline = onCreatedPipeline;
         SetHarvestLevelPipeline = setHarvestLevelPipeline;
     }
+
+    public List<Function<TypedPipelineElementContext<SetMaxDamageContext, O, O, I>, O>> getSetMaxDamagePipeline()
+    {
+        return SetMaxDamagePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<UpdateItemStackNBTContext, Boolean, O, I>, Boolean>> getUpdateItemStackNBTPipeline()
+    {
+        return UpdateItemStackNBTPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetDestroySpeedContext, Float, O, I>, Float>> getGetDestroySpeedPipeline()
+    {
+        return GetDestroySpeedPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetSmeltingExperienceContext, Float, O, I>, Float>> getGetSmeltingExperiencePipeline()
+    {
+        return GetSmeltingExperiencePipeline;
+    }
+
+    public List<Consumer<VoidPipelineElementContext<SetDamageContext, O, I>>> getSetDamagePipeline()
+    {
+        return SetDamagePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetUnlocalizedNameContext, String, O, I>, String>> getGetUnlocalizedNamePipeline()
+    {
+        return GetUnlocalizedNamePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetUnlocalizedNameWithStackAsItemStackContext, String, O, I>, String>> getGetUnlocalizedNameWithStackAsItemStackPipeline()
+    {
+        return GetUnlocalizedNameWithStackAsItemStackPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetItemEnchantabilityContext, Integer, O, I>, Integer>> getGetItemEnchantabilityPipeline()
+    {
+        return GetItemEnchantabilityPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetItemEnchantabilityWithStackAsItemStackContext, Integer, O, I>, Integer>> getGetItemEnchantabilityWithStackAsItemStackPipeline()
+    {
+        return GetItemEnchantabilityWithStackAsItemStackPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetTileEntityItemStackRendererContext, IBlockEntityRenderer, O, I>, IBlockEntityRenderer>> getGetTileEntityItemStackRendererPipeline()
+    {
+        return GetTileEntityItemStackRendererPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetXpRepairRatioContext, Float, O, I>, Float>> getGetXpRepairRatioPipeline()
+    {
+        return GetXpRepairRatioPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetArmorModelContext, IModelBiped, O, I>, IModelBiped>> getGetArmorModelPipeline()
+    {
+        return GetArmorModelPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<OnEntityItemUpdateContext, Boolean, O, I>, Boolean>> getOnEntityItemUpdatePipeline()
+    {
+        return OnEntityItemUpdatePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetDamageContext, Integer, O, I>, Integer>> getGetDamagePipeline()
+    {
+        return GetDamagePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<CanDisableShieldContext, Boolean, O, I>, Boolean>> getCanDisableShieldPipeline()
+    {
+        return CanDisableShieldPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<HitEntityContext, Boolean, O, I>, Boolean>> getHitEntityPipeline()
+    {
+        return HitEntityPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<CanDestroyBlockInCreativeContext, Boolean, O, I>, Boolean>> getCanDestroyBlockInCreativePipeline()
+    {
+        return CanDestroyBlockInCreativePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetToolClassesContext, Set<String>, O, I>, Set<String>>> getGetToolClassesPipeline()
+    {
+        return GetToolClassesPipeline;
+    }
+
+    public List<Consumer<VoidPipelineElementContext<OnPlayerStoppedUsingContext, O, I>>> getOnPlayerStoppedUsingPipeline()
+    {
+        return OnPlayerStoppedUsingPipeline;
+    }
+
+    public List<Consumer<VoidPipelineElementContext<AddPropertyOverrideContext, O, I>>> getAddPropertyOverridePipeline()
+    {
+        return AddPropertyOverridePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<IsMapContext, Boolean, O, I>, Boolean>> getIsMapPipeline()
+    {
+        return IsMapPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetShareTagContext, Boolean, O, I>, Boolean>> getGetShareTagPipeline()
+    {
+        return GetShareTagPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<OnDroppedByPlayerContext, Boolean, O, I>, Boolean>> getOnDroppedByPlayerPipeline()
+    {
+        return OnDroppedByPlayerPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<OnEntitySwingContext, Boolean, O, I>, Boolean>> getOnEntitySwingPipeline()
+    {
+        return OnEntitySwingPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetAttributeModifiersContext, Multimap<String, IAttributeModifier>, O, I>, Multimap<String, IAttributeModifier>>> getGetAttributeModifiersPipeline()
+    {
+        return GetAttributeModifiersPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<SetCreativeTabContext, O, O, I>, O>> getSetCreativeTabPipeline()
+    {
+        return SetCreativeTabPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<SetMaxStackSizeContext, O, O, I>, O>> getSetMaxStackSizePipeline()
+    {
+        return SetMaxStackSizePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetCreativeTabContext, IItemGroup<?>, O, I>, IItemGroup<?>>> getGetCreativeTabPipeline()
+    {
+        return GetCreativeTabPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<OnBlockStartBreakContext, Boolean, O, I>, Boolean>> getOnBlockStartBreakPipeline()
+    {
+        return OnBlockStartBreakPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetDefaultInstanceContext, IItemStack, O, I>, IItemStack>> getGetDefaultInstancePipeline()
+    {
+        return GetDefaultInstancePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetAnimationParametersContext, ImmutableMap<String, ITimedValue>, O, I>, ImmutableMap<String, ITimedValue>>> getGetAnimationParametersPipeline()
+    {
+        return GetAnimationParametersPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetEntityLifespanContext, Integer, O, I>, Integer>> getGetEntityLifespanPipeline()
+    {
+        return GetEntityLifespanPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetArmorTextureContext, String, O, I>, String>> getGetArmorTexturePipeline()
+    {
+        return GetArmorTexturePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<IsBeaconPaymentContext, Boolean, O, I>, Boolean>> getIsBeaconPaymentPipeline()
+    {
+        return IsBeaconPaymentPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetMaxDamageContext, Integer, O, I>, Integer>> getGetMaxDamagePipeline()
+    {
+        return GetMaxDamagePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetMaxDamageWithStackAsItemStackContext, Integer, O, I>, Integer>> getGetMaxDamageWithStackAsItemStackPipeline()
+    {
+        return GetMaxDamageWithStackAsItemStackPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetCreatorModIdContext, String, O, I>, String>> getGetCreatorModIdPipeline()
+    {
+        return GetCreatorModIdPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResult, O, I>, IActionResult>> getOnItemUsePipeline()
+    {
+        return OnItemUsePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<IsDamagedContext, Boolean, O, I>, Boolean>> getIsDamagedPipeline()
+    {
+        return IsDamagedPipeline;
+    }
+
+    public List<Consumer<VoidPipelineElementContext<OnArmorTickContext, O, I>>> getOnArmorTickPipeline()
+    {
+        return OnArmorTickPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetNBTShareTagContext, INBTCompound, O, I>, INBTCompound>> getGetNBTShareTagPipeline()
+    {
+        return GetNBTShareTagPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<IsValidArmorContext, Boolean, O, I>, Boolean>> getIsValidArmorPipeline()
+    {
+        return IsValidArmorPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<HasContainerItemContext, Boolean, O, I>, Boolean>> getHasContainerItemPipeline()
+    {
+        return HasContainerItemPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<HasContainerItemWithStackAsItemStackContext, Boolean, O, I>, Boolean>> getHasContainerItemWithStackAsItemStackPipeline()
+    {
+        return HasContainerItemWithStackAsItemStackPipeline;
+    }
+
+    public List<Consumer<VoidPipelineElementContext<GetSubItemsContext, O, I>>> getGetSubItemsPipeline()
+    {
+        return GetSubItemsPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<IsShieldContext, Boolean, O, I>, Boolean>> getIsShieldPipeline()
+    {
+        return IsShieldPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<OnItemUseFinishContext, IItemStack, O, I>, IItemStack>> getOnItemUseFinishPipeline()
+    {
+        return OnItemUseFinishPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResult, O, I>, IActionResult>> getOnItemUseFirstPipeline()
+    {
+        return OnItemUseFirstPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetHorseArmorTypeContext, IHorseArmorType, O, I>, IHorseArmorType>> getGetHorseArmorTypePipeline()
+    {
+        return GetHorseArmorTypePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionType, O, I>, IActionType>> getGetItemUseActionPipeline()
+    {
+        return GetItemUseActionPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<InitCapabilitiesContext, ICapabilityManager, O, I>, ICapabilityManager>> getInitCapabilitiesPipeline()
+    {
+        return InitCapabilitiesPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<HasCustomPropertiesContext, Boolean, O, I>, Boolean>> getHasCustomPropertiesPipeline()
+    {
+        return HasCustomPropertiesPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetItemBurnTimeContext, Integer, O, I>, Integer>> getGetItemBurnTimePipeline()
+    {
+        return GetItemBurnTimePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetFontRendererContext, IFontRenderer, O, I>, IFontRenderer>> getGetFontRendererPipeline()
+    {
+        return GetFontRendererPipeline;
+    }
+
+    public List<Consumer<VoidPipelineElementContext<OnUpdateContext, O, I>>> getOnUpdatePipeline()
+    {
+        return OnUpdatePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<CanApplyAtEnchantingTableContext, Boolean, O, I>, Boolean>> getCanApplyAtEnchantingTablePipeline()
+    {
+        return CanApplyAtEnchantingTablePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetPropertyGetterContext, IItemPropertyGetter, O, I>, IItemPropertyGetter>> getGetPropertyGetterPipeline()
+    {
+        return GetPropertyGetterPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetUnlocalizedNameInefficientlyContext, String, O, I>, String>> getGetUnlocalizedNameInefficientlyPipeline()
+    {
+        return GetUnlocalizedNameInefficientlyPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetHarvestLevelContext, Integer, O, I>, Integer>> getGetHarvestLevelPipeline()
+    {
+        return GetHarvestLevelPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetRarityContext, IRarity, O, I>, IRarity>> getGetRarityPipeline()
+    {
+        return GetRarityPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<CanHarvestBlockContext, Boolean, O, I>, Boolean>> getCanHarvestBlockPipeline()
+    {
+        return CanHarvestBlockPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<CanHarvestBlockWithStateAsIBlockStateAndStackAsItemStackContext, Boolean, O, I>, Boolean>> getCanHarvestBlockWithStateAsIBlockStateAndStackAsItemStackPipeline()
+    {
+        return CanHarvestBlockWithStateAsIBlockStateAndStackAsItemStackPipeline;
+    }
+
+    public List<Consumer<VoidPipelineElementContext<RenderHelmetOverlayContext, O, I>>> getRenderHelmetOverlayPipeline()
+    {
+        return RenderHelmetOverlayPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetItemAttributeModifiersContext, Multimap<String, IAttributeModifier>, O, I>, Multimap<String, IAttributeModifier>>> getGetItemAttributeModifiersPipeline()
+    {
+        return GetItemAttributeModifiersPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<ShouldCauseBlockBreakResetContext, Boolean, O, I>, Boolean>> getShouldCauseBlockBreakResetPipeline()
+    {
+        return ShouldCauseBlockBreakResetPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<ShouldCauseReequipAnimationContext, Boolean, O, I>, Boolean>> getShouldCauseReequipAnimationPipeline()
+    {
+        return ShouldCauseReequipAnimationPipeline;
+    }
+
+    public List<Consumer<VoidPipelineElementContext<AddInformationContext, O, I>>> getAddInformationPipeline()
+    {
+        return AddInformationPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<IsInCreativeTabContext, Boolean, O, I>, Boolean>> getIsInCreativeTabPipeline()
+    {
+        return IsInCreativeTabPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<IsEnchantableContext, Boolean, O, I>, Boolean>> getIsEnchantablePipeline()
+    {
+        return IsEnchantablePipeline;
+    }
+
+    public List<Consumer<VoidPipelineElementContext<SetTileEntityItemStackRendererContext, O, I>>> getSetTileEntityItemStackRendererPipeline()
+    {
+        return SetTileEntityItemStackRendererPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<SetContainerItemContext, O, O, I>, O>> getSetContainerItemPipeline()
+    {
+        return SetContainerItemPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<ShowDurabilityBarContext, Boolean, O, I>, Boolean>> getShowDurabilityBarPipeline()
+    {
+        return ShowDurabilityBarPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetMetadataContext, Integer, O, I>, Integer>> getGetMetadataPipeline()
+    {
+        return GetMetadataPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetMetadataWithStackAsItemStackContext, Integer, O, I>, Integer>> getGetMetadataWithStackAsItemStackPipeline()
+    {
+        return GetMetadataWithStackAsItemStackPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<IsBookEnchantableContext, Boolean, O, I>, Boolean>> getIsBookEnchantablePipeline()
+    {
+        return IsBookEnchantablePipeline;
+    }
+
+    public List<Consumer<VoidPipelineElementContext<OnUsingTickContext, O, I>>> getOnUsingTickPipeline()
+    {
+        return OnUsingTickPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<CreateEntityContext, IEntity, O, I>, IEntity>> getCreateEntityPipeline()
+    {
+        return CreateEntityPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetCreativeTabsContext, IItemGroup<?>[], O, I>, IItemGroup<?>[]>> getGetCreativeTabsPipeline()
+    {
+        return GetCreativeTabsPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<ShouldRotateAroundWhenRenderingContext, Boolean, O, I>, Boolean>> getShouldRotateAroundWhenRenderingPipeline()
+    {
+        return ShouldRotateAroundWhenRenderingPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<IsRepairableContext, Boolean, O, I>, Boolean>> getIsRepairablePipeline()
+    {
+        return IsRepairablePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetMaxItemUseDurationContext, Integer, O, I>, Integer>> getGetMaxItemUseDurationPipeline()
+    {
+        return GetMaxItemUseDurationPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetRGBDurabilityForDisplayContext, Integer, O, I>, Integer>> getGetRGBDurabilityForDisplayPipeline()
+    {
+        return GetRGBDurabilityForDisplayPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<IsDamageableContext, Boolean, O, I>, Boolean>> getIsDamageablePipeline()
+    {
+        return IsDamageablePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<SetUnlocalizedNameContext, O, O, I>, O>> getSetUnlocalizedNamePipeline()
+    {
+        return SetUnlocalizedNamePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<SetFull3DContext, O, O, I>, O>> getSetFull3DPipeline()
+    {
+        return SetFull3DPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<OnLeftClickEntityContext, Boolean, O, I>, Boolean>> getOnLeftClickEntityPipeline()
+    {
+        return OnLeftClickEntityPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<OnBlockDestroyedContext, Boolean, O, I>, Boolean>> getOnBlockDestroyedPipeline()
+    {
+        return OnBlockDestroyedPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetDurabilityForDisplayContext, Double, O, I>, Double>> getGetDurabilityForDisplayPipeline()
+    {
+        return GetDurabilityForDisplayPipeline;
+    }
+
+    public List<Consumer<VoidPipelineElementContext<OnHorseArmorTickContext, O, I>>> getOnHorseArmorTickPipeline()
+    {
+        return OnHorseArmorTickPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<CanContinueUsingContext, Boolean, O, I>, Boolean>> getCanContinueUsingPipeline()
+    {
+        return CanContinueUsingPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<IsFull3DContext, Boolean, O, I>, Boolean>> getIsFull3DPipeline()
+    {
+        return IsFull3DPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetIsRepairableContext, Boolean, O, I>, Boolean>> getGetIsRepairablePipeline()
+    {
+        return GetIsRepairablePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<OnItemRightClickContext, IActionResult<IItemStack>, O, I>, IActionResult<IItemStack>>> getOnItemRightClickPipeline()
+    {
+        return OnItemRightClickPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<HasCustomEntityContext, Boolean, O, I>, Boolean>> getHasCustomEntityPipeline()
+    {
+        return HasCustomEntityPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetHighlightTipContext, String, O, I>, String>> getGetHighlightTipPipeline()
+    {
+        return GetHighlightTipPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetHasSubtypesContext, Boolean, O, I>, Boolean>> getGetHasSubtypesPipeline()
+    {
+        return GetHasSubtypesPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<HasEffectContext, Boolean, O, I>, Boolean>> getHasEffectPipeline()
+    {
+        return HasEffectPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<CanItemEditBlocksContext, Boolean, O, I>, Boolean>> getCanItemEditBlocksPipeline()
+    {
+        return CanItemEditBlocksPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<ItemInteractionForEntityContext, Boolean, O, I>, Boolean>> getItemInteractionForEntityPipeline()
+    {
+        return ItemInteractionForEntityPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<DoesSneakBypassUseContext, Boolean, O, I>, Boolean>> getDoesSneakBypassUsePipeline()
+    {
+        return DoesSneakBypassUsePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<SetNoRepairContext, O, O, I>, O>> getSetNoRepairPipeline()
+    {
+        return SetNoRepairPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetContainerItemContext, O, O, I>, O>> getGetContainerItemPipeline()
+    {
+        return GetContainerItemPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetContainerItemWithItemStackAsItemStackContext, IItemStack, O, I>, IItemStack>> getGetContainerItemWithItemStackAsItemStackPipeline()
+    {
+        return GetContainerItemWithItemStackAsItemStackPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetItemStackDisplayNameContext, String, O, I>, String>> getGetItemStackDisplayNamePipeline()
+    {
+        return GetItemStackDisplayNamePipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<RayTraceContext, IRayTraceResult, O, I>, IRayTraceResult>> getRayTracePipeline()
+    {
+        return RayTracePipeline;
+    }
+
+    public List<Consumer<VoidPipelineElementContext<ReadNBTShareTagContext, O, I>>> getReadNBTShareTagPipeline()
+    {
+        return ReadNBTShareTagPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetEquipmentSlotContext, IEquipmentSlot, O, I>, IEquipmentSlot>> getGetEquipmentSlotPipeline()
+    {
+        return GetEquipmentSlotPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetItemStackLimitContext, Integer, O, I>, Integer>> getGetItemStackLimitPipeline()
+    {
+        return GetItemStackLimitPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetItemStackLimitWithStackAsItemStackContext, Integer, O, I>, Integer>> getGetItemStackLimitWithStackAsItemStackPipeline()
+    {
+        return GetItemStackLimitWithStackAsItemStackPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<SetHasSubtypesContext, O, O, I>, O>> getSetHasSubtypesPipeline()
+    {
+        return SetHasSubtypesPipeline;
+    }
+
+    public List<Function<TypedPipelineElementContext<GetHorseArmorTextureContext, String, O, I>, String>> getGetHorseArmorTexturePipeline()
+    {
+        return GetHorseArmorTexturePipeline;
+    }
+
+    public List<Consumer<VoidPipelineElementContext<OnCreatedContext, O, I>>> getOnCreatedPipeline()
+    {
+        return OnCreatedPipeline;
+    }
+
+    public List<Consumer<VoidPipelineElementContext<SetHarvestLevelContext, O, I>>> getSetHarvestLevelPipeline()
+    {
+        return SetHarvestLevelPipeline;
+    }
 }

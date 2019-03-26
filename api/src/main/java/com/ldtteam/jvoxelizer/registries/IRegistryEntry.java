@@ -8,5 +8,5 @@ public interface IRegistryEntry<V>
 
     IIdentifier getRegistryName();
 
-    Class<V> getRegistryType();
+    Class<? extends V> getRegistryType();
 }

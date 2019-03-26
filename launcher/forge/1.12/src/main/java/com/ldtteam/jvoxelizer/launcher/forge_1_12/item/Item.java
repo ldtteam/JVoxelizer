@@ -81,12 +81,7 @@ public class Item implements IItem<DummyInstanceData>
 {
     private net.minecraft.item.Item forgeItem;
 
-    public net.minecraft.item.Item getForgeItem()
-    {
-        return forgeItem;
-    }
-
-    public Item(final net.minecraft.item.Item forgeItem)
+    private Item(final net.minecraft.item.Item forgeItem)
     {
         this.forgeItem = forgeItem;
     }
@@ -809,9 +804,14 @@ public class Item implements IItem<DummyInstanceData>
     }
 
     @Override
-    public Class getRegistryType()
+    public Class<? extends IItem<DummyInstanceData>> getRegistryType()
     {
-        return forgeItem.getRegistryType();
+        return getClass();
+    }
+
+    private net.minecraft.item.Item getForgeItem()
+    {
+        return forgeItem;
     }
 
     public static net.minecraft.item.Item asForge(IItem<?> item)

@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer.client.renderer.texture;
 
 import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
+import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 
 /**
  * Holder for the logic to gain access to the SpriteMap and the locations of the default sprite maps.
@@ -20,7 +21,7 @@ final class ISpriteMapProviderHolder extends AbstractHolder<ISpriteMapProvider> 
     }
 
     @Override
-    public String getLocationOfBlocksTexture()
+    public IIdentifier getLocationOfBlocksTexture()
     {
         return getProvider().getLocationOfBlocksTexture();
     }

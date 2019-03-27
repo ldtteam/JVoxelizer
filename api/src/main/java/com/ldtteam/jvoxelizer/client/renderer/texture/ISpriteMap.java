@@ -1,5 +1,7 @@
 package com.ldtteam.jvoxelizer.client.renderer.texture;
 
+import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
+
 /**
  * Defines a collection of sprites in a map.
  */
@@ -10,7 +12,7 @@ public interface ISpriteMap
      *
      * @return The location of the block textures map.
      */
-    static String getLocationOfBlocksTexture()
+    static IIdentifier getLocationOfBlocksTexture()
     {
         return ISpriteMapProviderHolder.getInstance().getLocationOfBlocksTexture();
     }

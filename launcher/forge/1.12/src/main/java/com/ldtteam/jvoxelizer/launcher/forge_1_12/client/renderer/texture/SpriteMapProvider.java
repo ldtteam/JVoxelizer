@@ -1,6 +1,8 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture;
 
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISpriteMapProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.Identifier;
+import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 import net.minecraft.client.renderer.texture.TextureMap;
 
 public class SpriteMapProvider implements ISpriteMapProvider
@@ -17,8 +19,8 @@ public class SpriteMapProvider implements ISpriteMapProvider
     }
 
     @Override
-    public String getLocationOfBlocksTexture()
+    public IIdentifier getLocationOfBlocksTexture()
     {
-        return TextureMap.LOCATION_BLOCKS_TEXTURE.toString();
+        return Identifier.fromForge(TextureMap.LOCATION_BLOCKS_TEXTURE);
     }
 }

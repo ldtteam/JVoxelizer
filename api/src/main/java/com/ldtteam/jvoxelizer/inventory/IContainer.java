@@ -15,12 +15,12 @@ public interface IContainer<I> extends IInstancedObject<I> {
 
     static boolean canAddItemToSlot(ISlot slotIn, IItemStack stack, boolean stackSizeMatters)
     {
-        throw new NotImplementedException();
+        return IContainerProviderHolder.getInstance().canAddItemToSlot(slotIn, stack, stackSizeMatters);
     }
 
     static void computeStackSize(List<ISlot<?>> dragSlotsIn, int dragModeIn, IItemStack stack, int slotStackSize)
     {
-        throw new NotImplementedException();
+        IContainerProviderHolder.getInstance().computeStackSize(dragSlotsIn, dragModeIn, stack, slotStackSize);
     }
 
     void addListener(IContainerListener listener);

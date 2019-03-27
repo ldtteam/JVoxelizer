@@ -18,8 +18,10 @@ import com.ldtteam.jvoxelizer.common.capability.ICapability;
 import com.ldtteam.jvoxelizer.common.gameevent.event.player.IPlayerEvent;
 import com.ldtteam.jvoxelizer.core.provider.holder.ProviderResolver;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
+import com.ldtteam.jvoxelizer.dimension.IDimensionType;
 import com.ldtteam.jvoxelizer.dimension.logic.builder.IDimensionReaderBuilder;
 import com.ldtteam.jvoxelizer.inventory.IContainer;
+import com.ldtteam.jvoxelizer.inventory.logic.builder.IContainerBuilder;
 import com.ldtteam.jvoxelizer.inventory.slot.logic.builder.ISlotBuilder;
 import com.ldtteam.jvoxelizer.inventory.slot.logic.builder.ISlotItemHandlerBuilder;
 import com.ldtteam.jvoxelizer.item.IItemStack;
@@ -43,7 +45,9 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.Sprite
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability.CapabilityLogicProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.gameevent.event.player.PlayerEventProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.DimensionProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.DimensionTypeProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.logic.builder.provider.DimensionReaderBuilderProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.ContainerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.logic.builder.provider.ContainerBuilderProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.slot.logic.builder.provider.SlotBuilderProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.slot.logic.builder.provider.SlotItemHandlerBuilderProvider;
@@ -121,9 +125,11 @@ public abstract class AbstractForgeMod
         //Dimension
         ProviderResolver.getInstance().registerProvider(IDimensionReaderBuilder.class.getName(), DimensionReaderBuilderProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(IDimension.class.getName(), DimensionProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(IDimensionType.class.getName(), DimensionTypeProvider.getInstance());
 
         //Inventory
-        ProviderResolver.getInstance().registerProvider(IContainer.class.getName(), ContainerBuilderProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(IContainer.class.getName(), ContainerProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(IContainerBuilder.class.getName(), ContainerBuilderProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(ISlotBuilder.class.getName(), SlotBuilderProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(ISlotItemHandlerBuilder.class.getName(), SlotItemHandlerBuilderProvider.getInstance());
 

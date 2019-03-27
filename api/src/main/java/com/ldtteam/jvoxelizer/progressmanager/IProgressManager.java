@@ -1,16 +1,14 @@
 package com.ldtteam.jvoxelizer.progressmanager;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public interface IProgressManager
 {
     static IProgressBar push(String name, int size)
     {
-        throw new NotImplementedException();
+        return IProgressManagerProviderHolder.getInstance().push(name, size);
     }
 
     static void pop(IProgressBar bar)
     {
-        throw new NotImplementedException();
+        IProgressManagerProviderHolder.getInstance().pop(bar);
     }
 }

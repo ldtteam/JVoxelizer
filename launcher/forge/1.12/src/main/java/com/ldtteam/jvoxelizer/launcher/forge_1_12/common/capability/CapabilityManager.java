@@ -20,12 +20,12 @@ public class CapabilityManager implements ICapabilityManager
         return this.capabilityManager;
     }
 
-    public net.minecraftforge.common.capabilities.CapabilityManager asForge(ICapabilityManager manager)
+    public static net.minecraftforge.common.capabilities.CapabilityManager asForge(ICapabilityManager manager)
     {
         return ((CapabilityManager) manager).getForgeCapabilityManager();
     }
 
-    public ICapabilityManager fromForge(net.minecraftforge.common.capabilities.CapabilityManager manager)
+    public static ICapabilityManager fromForge(net.minecraftforge.common.capabilities.CapabilityManager manager)
     {
         return new CapabilityManager(manager);
     }

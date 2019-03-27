@@ -35,7 +35,7 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.opengl.OpenGlP
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.opengl.vertexformat.VertexFormatProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.tessellator.TessellatorProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.SpriteMapProvider;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.animation.CapabilityLogicProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability.CapabilityLogicProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.gameevent.event.player.PlayerEventProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.DimensionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.logic.builder.provider.DimensionReaderBuilderProvider;
@@ -52,8 +52,6 @@ import com.ldtteam.jvoxelizer.util.nbt.INBTBase;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
-
-import java.awt.peer.ContainerPeer;
 
 public abstract class AbstractForgeMod
 {

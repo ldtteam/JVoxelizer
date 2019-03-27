@@ -1,7 +1,7 @@
 package com.ldtteam.jvoxelizer.entity;
 
 import com.ldtteam.jvoxelizer.block.IBlock;
-import com.ldtteam.jvoxelizer.common.capability.ICapabilityProvider;
+import com.ldtteam.jvoxelizer.common.capability.provider.ICapabilityProvider;
 import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 import com.ldtteam.jvoxelizer.util.math.coordinate.entity.IEntityCoordinate;
 import com.ldtteam.jvoxelizer.util.nbt.INBTSerializable;

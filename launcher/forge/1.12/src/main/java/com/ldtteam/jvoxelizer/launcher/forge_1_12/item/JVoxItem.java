@@ -22,13 +22,19 @@ import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.group.IItemGroup;
 import com.ldtteam.jvoxelizer.item.logic.builder.contexts.*;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockState;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.blockentity.BlockEntityRenderer;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.animation.TimedValue;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.Dimension;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.DimensionReader;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.item.ItemStackEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.LivingBaseEntity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.LivingEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.PlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.group.ItemGroup;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.logic.pipeline.ForgeItemPipeline;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.action.ActionType;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResultType;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.equipmentslot.EquipmentSlot;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.facing.Facing;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.hand.Hand;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.Identifier;
@@ -46,6 +52,7 @@ import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
 import com.ldtteam.jvoxelizer.util.rarity.IRarity;
+import com.ldtteam.jvoxelizer.util.stream.multimap.MultiMapCollector;
 import com.ldtteam.jvoxelizer.util.tooltipflag.IToolTipFlag;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.FontRenderer;
@@ -79,13 +86,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.animation.ITimeValue;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.ai.AttributeModifier.asForge;
+import static com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.ai.AttributeModifier.fromForge;
+import static com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge;
+import static com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge;
 
 public class JVoxItem<I> extends Item implements IItem<I>
 {
@@ -97,10 +112,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
         this.instanceData = instanceData;
         this.pipeline = pipeline;
     }
-
-    //////////////////////////////////////////////////////////////
-    /// Raycoms: Implement pipeline processing from here down
-    //////////////////////////////////////////////////////////////
 
     @Nullable
     @Override
@@ -176,9 +187,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return PipelineProcessor.processTypedPipeline(
           this,
-          new GetDestroySpeedContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack), BlockState.fromForge(state)),
+          new GetDestroySpeedContext(fromForge(stack), BlockState.fromForge(state)),
           pipeline.getGetDestroySpeedPipeline(),
-          (c) -> super.getDestroySpeed(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack()), BlockState.asForge(c.getState()))
+          (c) -> super.getDestroySpeed(asForge(c.getStack()), BlockState.asForge(c.getState()))
         );
     }
 
@@ -194,7 +205,8 @@ public class JVoxItem<I> extends Item implements IItem<I>
             this,
             new OnItemRightClickContext(Dimension.fromForge(worldIn), PlayerEntity.fromForge(playerIn), Hand.fromForge(handIn)),
             pipeline.getOnItemRightClickPipeline(),
-            (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResult.fromForge(super.onItemRightClick(Dimension.asForge(c.getWorldIn()), PlayerEntity.asForge(c.getPlayerIn()), Hand.asForge(c.getHandIn())))
+            (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResult.fromForge(super.onItemRightClick(Dimension.asForge(c.getWorldIn()), PlayerEntity.asForge(c.getPlayerIn()), Hand.asForge(c.getHandIn())),
+              com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack::fromForge)
           )
         );
     }
@@ -207,12 +219,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public ItemStack onItemUseFinish(@NotNull final ItemStack stack, final World worldIn, final EntityLivingBase entityLiving)
     {
-        return com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(
+        return asForge(
           PipelineProcessor.processTypedPipeline(
             this,
-            new OnItemUseFinishContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack), Dimension.fromForge(worldIn), LivingBaseEntity.fromForge(entityLiving)),
+            new OnItemUseFinishContext(fromForge(stack), Dimension.fromForge(worldIn), LivingBaseEntity.fromForge(entityLiving)),
             pipeline.getOnItemUseFinishPipeline(),
-            (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(super.onItemUseFinish(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack()), Dimension.asForge(c.getWorldIn()), LivingBaseEntity.asForge(c.getEntityLiving())))
+            (c) -> fromForge(super.onItemUseFinish(asForge(c.getStack()), Dimension.asForge(c.getWorldIn()), LivingBaseEntity.asForge(c.getEntityLiving())))
           )
         );
     }
@@ -317,9 +329,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return PipelineProcessor.processTypedPipeline(
           this,
-          new HitEntityContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack), LivingBaseEntity.fromForge(target), LivingBaseEntity.fromForge(attacker)),
+          new HitEntityContext(fromForge(stack), LivingBaseEntity.fromForge(target), LivingBaseEntity.fromForge(attacker)),
           pipeline.getHitEntityPipeline(),
-          (c) -> super.hitEntity(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack()), LivingBaseEntity.asForge(c.getTarget()), LivingBaseEntity.asForge(c.getAttacker()))
+          (c) -> super.hitEntity(asForge(c.getStack()), LivingBaseEntity.asForge(c.getTarget()), LivingBaseEntity.asForge(c.getAttacker()))
         );
     }
 
@@ -332,9 +344,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return PipelineProcessor.processTypedPipeline(
           this,
-          new OnBlockDestroyedContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack), Dimension.fromForge(worldIn), BlockState.fromForge(state), BlockCoordinate.fromForge(pos), LivingBaseEntity.fromForge(entityLiving)),
+          new OnBlockDestroyedContext(fromForge(stack), Dimension.fromForge(worldIn), BlockState.fromForge(state), BlockCoordinate.fromForge(pos), LivingBaseEntity.fromForge(entityLiving)),
           pipeline.getOnBlockDestroyedPipeline(),
-          (c) -> super.onBlockDestroyed(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack()), Dimension.asForge(c.getWorldIn()), BlockState.asForge(c.getState()), BlockCoordinate.asForge(c.getPos()), LivingBaseEntity.asForge(c.getEntityLiving()))
+          (c) -> super.onBlockDestroyed(asForge(c.getStack()), Dimension.asForge(c.getWorldIn()), BlockState.asForge(c.getState()), BlockCoordinate.asForge(c.getPos()), LivingBaseEntity.asForge(c.getEntityLiving()))
           );
     }
 
@@ -361,9 +373,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return PipelineProcessor.processTypedPipeline(
           this,
-          new ItemInteractionForEntityContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack), PlayerEntity.fromForge(playerIn), LivingBaseEntity.fromForge(target), Hand.fromForge(hand)),
+          new ItemInteractionForEntityContext(fromForge(stack), PlayerEntity.fromForge(playerIn), LivingBaseEntity.fromForge(target), Hand.fromForge(hand)),
           pipeline.getItemInteractionForEntityPipeline(),
-          (c) -> super.itemInteractionForEntity(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack()), PlayerEntity.asForge(c.getPlayerIn()), LivingBaseEntity.asForge(c.getPlayerIn()), Hand.asForge(c.getHand()))
+          (c) -> super.itemInteractionForEntity(asForge(c.getStack()), PlayerEntity.asForge(c.getPlayerIn()), LivingBaseEntity.asForge(c.getPlayerIn()), Hand.asForge(c.getHand()))
         );
     }
 
@@ -429,9 +441,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return PipelineProcessor.processTypedPipeline(
           this,
-          new GetUnlocalizedNameInefficientlyContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack)),
+          new GetUnlocalizedNameInefficientlyContext(fromForge(stack)),
           pipeline.getGetUnlocalizedNameInefficientlyPipeline(),
-          (c) -> super.getUnlocalizedNameInefficiently(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack())));
+          (c) -> super.getUnlocalizedNameInefficiently(asForge(c.getStack())));
     }
 
     /**
@@ -456,9 +468,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return PipelineProcessor.processTypedPipeline(
           this,
-          new GetUnlocalizedNameWithStackAsItemStackContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack)),
+          new GetUnlocalizedNameWithStackAsItemStackContext(fromForge(stack)),
           pipeline.getGetUnlocalizedNameWithStackAsItemStackPipeline(),
-          (c) -> super.getUnlocalizedName(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack())));
+          (c) -> super.getUnlocalizedName(asForge(c.getStack())));
     }
 
     @Override
@@ -517,10 +529,10 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         PipelineProcessor.processVoidPipeline(
           this,
-          new OnUpdateContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack), Dimension.fromForge(worldIn),
+          new OnUpdateContext(fromForge(stack), Dimension.fromForge(worldIn),
             com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.fromForge(entityIn), itemSlot, isSelected),
           pipeline.getOnUpdatePipeline(),
-          (c) -> super.onUpdate(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack()), Dimension.asForge(c.getWorldIn()),
+          (c) -> super.onUpdate(asForge(c.getStack()), Dimension.asForge(c.getWorldIn()),
             com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.asForge(c.getEntityIn()), c.getItemSlot(), c.getIsSelected()));
     }
 
@@ -532,10 +544,10 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         PipelineProcessor.processVoidPipeline(
           this,
-          new OnCreatedContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack), Dimension.fromForge(worldIn),
+          new OnCreatedContext(fromForge(stack), Dimension.fromForge(worldIn),
             PlayerEntity.fromForge(playerIn)),
           pipeline.getOnCreatedPipeline(),
-          (c) -> super.onCreated(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack()), Dimension.asForge(c.getWorldIn()),
+          (c) -> super.onCreated(asForge(c.getStack()), Dimension.asForge(c.getWorldIn()),
             PlayerEntity.asForge(c.getPlayerIn())));
     }
 
@@ -560,9 +572,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return ActionType.asForge(PipelineProcessor.processTypedPipeline(
           this,
-          new GetItemUseActionContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack)),
+          new GetItemUseActionContext(fromForge(stack)),
           pipeline.getGetItemUseActionPipeline(),
-          (c) -> ActionType.fromForge(super.getItemUseAction(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack()))))
+          (c) -> ActionType.fromForge(super.getItemUseAction(asForge(c.getStack()))))
         );
     }
 
@@ -574,9 +586,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return PipelineProcessor.processTypedPipeline(
           this,
-          new GetMaxItemUseDurationContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack)),
+          new GetMaxItemUseDurationContext(fromForge(stack)),
           pipeline.getGetMaxItemUseDurationPipeline(),
-          (c) -> super.getMaxItemUseDuration(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack())));
+          (c) -> super.getMaxItemUseDuration(asForge(c.getStack())));
     }
 
     /**
@@ -587,10 +599,10 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         PipelineProcessor.processVoidPipeline(
           this,
-          new OnPlayerStoppedUsingContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack), Dimension.fromForge(worldIn),
+          new OnPlayerStoppedUsingContext(fromForge(stack), Dimension.fromForge(worldIn),
             LivingBaseEntity.fromForge(entityLiving), timeLeft),
           pipeline.getOnPlayerStoppedUsingPipeline(),
-          (c) -> super.onPlayerStoppedUsing(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack()), Dimension.asForge(c.getWorldIn()),
+          (c) -> super.onPlayerStoppedUsing(asForge(c.getStack()), Dimension.asForge(c.getWorldIn()),
             LivingBaseEntity.asForge(c.getEntityLiving()), timeLeft));
     }
 
@@ -603,10 +615,10 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         PipelineProcessor.processVoidPipeline(
           this,
-          new AddInformationContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack), Dimension.fromForge(worldIn),
+          new AddInformationContext(fromForge(stack), Dimension.fromForge(worldIn),
             tooltip, ToolTipFlag.fromForge(flagIn)),
           pipeline.getAddInformationPipeline(),
-          (c) -> super.addInformation(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack()), Dimension.asForge(c.getWorldIn()),
+          (c) -> super.addInformation(asForge(c.getStack()), Dimension.asForge(c.getWorldIn()),
             tooltip, ToolTipFlag.asForge(c.getFlagIn())));
     }
 
@@ -616,9 +628,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return PipelineProcessor.processTypedPipeline(
           this,
-          new GetItemStackDisplayNameContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack)),
+          new GetItemStackDisplayNameContext(fromForge(stack)),
           pipeline.getGetItemStackDisplayNamePipeline(),
-          (c) -> super.getItemStackDisplayName(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack())));
+          (c) -> super.getItemStackDisplayName(asForge(c.getStack())));
     }
 
     /**
@@ -634,9 +646,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return PipelineProcessor.processTypedPipeline(
           this,
-          new HasEffectContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack)),
+          new HasEffectContext(fromForge(stack)),
           pipeline.getHasEffectPipeline(),
-          (c) -> super.hasEffect(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack())));
+          (c) -> super.hasEffect(asForge(c.getStack())));
     }
 
     /**
@@ -648,9 +660,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return Rarity.asForge(PipelineProcessor.processTypedPipeline(
           this,
-          new GetRarityContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack)),
+          new GetRarityContext(fromForge(stack)),
           pipeline.getGetRarityPipeline(),
-          (c) -> Rarity.fromForge(super.getRarity(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack()))))
+          (c) -> Rarity.fromForge(super.getRarity(asForge(c.getStack()))))
         );
     }
 
@@ -662,9 +674,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return PipelineProcessor.processTypedPipeline(
           this,
-          new IsEnchantableContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(stack)),
+          new IsEnchantableContext(fromForge(stack)),
           pipeline.getIsEnchantablePipeline(),
-          (c) -> super.isEnchantable(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getStack())));
+          (c) -> super.isEnchantable(asForge(c.getStack())));
     }
 
     @NotNull
@@ -699,7 +711,7 @@ public class JVoxItem<I> extends Item implements IItem<I>
     public void getSubItems(@NotNull final CreativeTabs tab, @NotNull final NonNullList<ItemStack> items)
     {
         List<IItemStack> theItems = new ArrayList<>();
-        items.forEach(item -> theItems.add(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(item)));
+        items.forEach(item -> theItems.add(fromForge(item)));
 
         PipelineProcessor.processVoidPipeline(
           this,
@@ -783,9 +795,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return PipelineProcessor.processTypedPipeline(
           this,
-          new GetIsRepairableContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(toRepair), com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge(repair)),
+          new GetIsRepairableContext(fromForge(toRepair), fromForge(repair)),
           pipeline.getGetIsRepairablePipeline(),
-          (c) -> super.getIsRepairable(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getToRepair()), com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge(c.getRepair())));
+          (c) -> super.getIsRepairable(asForge(c.getToRepair()), asForge(c.getRepair())));
     }
 
     /**
@@ -794,7 +806,13 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public Multimap<String, AttributeModifier> getItemAttributeModifiers(final EntityEquipmentSlot equipmentSlot)
     {
-        return super.getItemAttributeModifiers(equipmentSlot);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetItemAttributeModifiersContext(EquipmentSlot.fromForge(equipmentSlot)),
+          pipeline.getGetItemAttributeModifiersPipeline(),
+          (c) -> super.getItemAttributeModifiers(EquipmentSlot.asForge(c.getEquipmentSlot())).entries().stream().map(e -> new Tuple<>(e.getKey(), fromForge(e.getValue()))).collect(
+            MultiMapCollector.toMultimap(Tuple::getFirst, Tuple::getSecond))
+        ).entries().stream().map(e -> new Tuple<>(e.getKey(), asForge(e.getValue()))).collect(MultiMapCollector.toMultimap(Tuple::getFirst, Tuple::getSecond));
     }
 
     /**
@@ -804,7 +822,13 @@ public class JVoxItem<I> extends Item implements IItem<I>
     public Multimap<String, AttributeModifier> getAttributeModifiers(
       final EntityEquipmentSlot slot, final ItemStack stack)
     {
-        return super.getAttributeModifiers(slot, stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetAttributeModifiersContext(EquipmentSlot.fromForge(slot), fromForge(stack)),
+          pipeline.getGetAttributeModifiersPipeline(),
+          (c) -> super.getAttributeModifiers(EquipmentSlot.asForge(c.getSlot()), asForge(c.getStack())).entries().stream().map(e -> new Tuple<>(e.getKey(), fromForge(e.getValue()))).collect(
+            MultiMapCollector.toMultimap(Tuple::getFirst, Tuple::getSecond))
+        ).entries().stream().map(e -> new Tuple<>(e.getKey(), asForge(e.getValue()))).collect(MultiMapCollector.toMultimap(Tuple::getFirst, Tuple::getSecond));
     }
 
     /**
@@ -819,7 +843,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean onDroppedByPlayer(final ItemStack item, final EntityPlayer player)
     {
-        return super.onDroppedByPlayer(item, player);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new OnDroppedByPlayerContext(fromForge(item), PlayerEntity.fromForge(player)),
+          pipeline.getOnDroppedByPlayerPipeline(),
+          (c) -> super.onDroppedByPlayer(asForge(c.getItem()), PlayerEntity.asForge(c.getPlayer()))
+        );
     }
 
     /**
@@ -833,7 +862,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public String getHighlightTip(final ItemStack item, final String displayName)
     {
-        return super.getHighlightTip(item, displayName);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetHighlightTipContext(fromForge(item), displayName),
+          pipeline.getGetHighlightTipPipeline(),
+          (c) -> super.getHighlightTip(asForge(c.getItem()), c.getDisplayName())
+        );
     }
 
     /**
@@ -850,7 +884,21 @@ public class JVoxItem<I> extends Item implements IItem<I>
     public EnumActionResult onItemUseFirst(
       final EntityPlayer player, final World world, final BlockPos pos, final EnumFacing side, final float hitX, final float hitY, final float hitZ, final EnumHand hand)
     {
-        return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
+        return ActionResultType.asForge(PipelineProcessor.processTypedPipeline(
+          this,
+          new OnItemUseFirstContext(PlayerEntity.fromForge(player), Dimension.fromForge(world), BlockCoordinate.fromForge(pos), Facing.fromForge(side), hitX, hitY, hitZ, Hand.fromForge(hand)),
+          pipeline.getOnItemUseFirstPipeline(),
+          (c) -> ActionResultType.fromForge(super.onItemUseFirst(
+            PlayerEntity.asForge(c.getPlayer()),
+            Dimension.asForge(c.getWorld()),
+            BlockCoordinate.asForge(c.getPos()),
+            Facing.asForge(c.getSide()),
+            c.getHitX(),
+            c.getHitY(),
+            c.getHitZ(),
+            Hand.asForge(c.getHand())
+          ))
+        ));
     }
 
     /**
@@ -861,7 +909,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean isRepairable()
     {
-        return super.isRepairable();
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new IsRepairableContext(),
+          pipeline.getIsRepairablePipeline(),
+          (c) -> super.isRepairable()
+        );
     }
 
     /**
@@ -872,7 +925,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public Item setNoRepair()
     {
-        return super.setNoRepair();
+        return com.ldtteam.jvoxelizer.launcher.forge_1_12.item.Item.asForge(PipelineProcessor.processTypedPipeline(
+          this,
+          new SetNoRepairContext(),
+          pipeline.getSetNoRepairPipeline(),
+          (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.item.Item.fromForge(super.setNoRepair())
+        ));
     }
 
     /**
@@ -882,7 +940,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public float getXpRepairRatio(final ItemStack stack)
     {
-        return super.getXpRepairRatio(stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetXpRepairRatioContext(fromForge(stack)),
+          pipeline.getGetXpRepairRatioPipeline(),
+          (c) -> super.getXpRepairRatio(asForge(c.getStack()))
+        );
     }
 
     /**
@@ -903,7 +966,14 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public NBTTagCompound getNBTShareTag(final ItemStack stack)
     {
-        return super.getNBTShareTag(stack);
+        return NBTCompound.asForge(
+          PipelineProcessor.processTypedPipeline(
+            this,
+            new GetNBTShareTagContext(fromForge(stack)),
+            pipeline.getGetNBTShareTagPipeline(),
+            (c) -> NBTCompound.fromForge(super.getNBTShareTag(asForge(c.getStack())))
+          )
+        );
     }
 
     /**
@@ -915,7 +985,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public void readNBTShareTag(final ItemStack stack, @Nullable final NBTTagCompound nbt)
     {
-        super.readNBTShareTag(stack, nbt);
+        PipelineProcessor.processVoidPipeline(
+          this,
+          new ReadNBTShareTagContext(fromForge(stack), NBTCompound.fromForge(nbt)),
+          pipeline.getReadNBTShareTagPipeline(),
+          (c) -> super.readNBTShareTag(asForge(c.getStack()), NBTCompound.asForge(c.getNbt()))
+        );
     }
 
     /**
@@ -931,7 +1006,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean onBlockStartBreak(final ItemStack itemstack, final BlockPos pos, final EntityPlayer player)
     {
-        return super.onBlockStartBreak(itemstack, pos, player);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new OnBlockStartBreakContext(fromForge(itemstack), BlockCoordinate.fromForge(pos), PlayerEntity.fromForge(player)),
+          pipeline.getOnBlockStartBreakPipeline(),
+          (c) -> super.onBlockStartBreak(asForge(c.getItemstack()), BlockCoordinate.asForge(c.getPos()), PlayerEntity.asForge(c.getPlayer()))
+        );
     }
 
     /**
@@ -944,7 +1024,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public void onUsingTick(final ItemStack stack, final EntityLivingBase player, final int count)
     {
-        super.onUsingTick(stack, player, count);
+        PipelineProcessor.processVoidPipeline(
+          this,
+          new OnUsingTickContext(fromForge(stack), LivingBaseEntity.fromForge(player), count),
+          pipeline.getOnUsingTickPipeline(),
+          (c) -> super.onUsingTick(asForge(c.getStack()), LivingBaseEntity.asForge(c.getPlayer()), c.getCount())
+        );
     }
 
     /**
@@ -960,7 +1045,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean onLeftClickEntity(final ItemStack stack, final EntityPlayer player, final Entity entity)
     {
-        return super.onLeftClickEntity(stack, player, entity);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new OnLeftClickEntityContext(fromForge(stack), PlayerEntity.fromForge(player), com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.fromForge(entity)),
+          pipeline.getOnLeftClickEntityPipeline(),
+          (c) -> super.onLeftClickEntity(asForge(c.getStack()), PlayerEntity.asForge(c.getPlayer()), com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.asForge(c.getEntity()))
+        );
     }
 
     /**
@@ -973,7 +1063,14 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public ItemStack getContainerItem(final ItemStack itemStack)
     {
-        return super.getContainerItem(itemStack);
+        return asForge(
+          PipelineProcessor.processTypedPipeline(
+            this,
+            new GetContainerItemWithItemStackAsItemStackContext(fromForge(itemStack)),
+            pipeline.getGetContainerItemWithItemStackAsItemStackPipeline(),
+            (c) -> fromForge(super.getContainerItem(asForge(c.getItemStack())))
+          )
+        );
     }
 
     /**
@@ -985,7 +1082,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean hasContainerItem(final ItemStack stack)
     {
-        return super.hasContainerItem(stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new HasContainerItemWithStackAsItemStackContext(fromForge(stack)),
+          pipeline.getHasContainerItemWithStackAsItemStackPipeline(),
+          (c) -> super.hasContainerItem(asForge(c.getStack()))
+        );
     }
 
     /**
@@ -999,7 +1101,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public int getEntityLifespan(final ItemStack itemStack, final World world)
     {
-        return super.getEntityLifespan(itemStack, world);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetEntityLifespanContext(fromForge(itemStack), Dimension.fromForge(world)),
+          pipeline.getGetEntityLifespanPipeline(),
+          (c) -> super.getEntityLifespan(asForge(c.getItemStack()), Dimension.asForge(c.getWorld()))
+        );
     }
 
     /**
@@ -1013,7 +1120,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean hasCustomEntity(final ItemStack stack)
     {
-        return super.hasCustomEntity(stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new HasCustomEntityContext(fromForge(stack)),
+          pipeline.getHasCustomEntityPipeline(),
+          (c) -> super.hasCustomEntity(asForge(c.getStack()))
+        );
     }
 
     /**
@@ -1030,7 +1142,22 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public Entity createEntity(final World world, final Entity location, final ItemStack itemstack)
     {
-        return super.createEntity(world, location, itemstack);
+        return com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.asForge(
+          PipelineProcessor.processTypedPipeline(
+            this,
+            new CreateEntityContext(Dimension.fromForge(world),
+              com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.fromForge(location),
+              fromForge(itemstack)),
+            pipeline.getCreateEntityPipeline(),
+            (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.fromForge(
+              super.createEntity(
+                Dimension.asForge(c.getWorld()),
+                com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.asForge(c.getLocation()),
+                asForge(c.getItemstack())
+              )
+            )
+          )
+        );
     }
 
     /**
@@ -1043,7 +1170,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean onEntityItemUpdate(final EntityItem entityItem)
     {
-        return super.onEntityItemUpdate(entityItem);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new OnEntityItemUpdateContext(ItemStackEntity.fromForge(entityItem)),
+          pipeline.getOnEntityItemUpdatePipeline(),
+          (c) -> super.onEntityItemUpdate(ItemStackEntity.asForge(c.getEntityItem()))
+        );
     }
 
     /**
@@ -1056,7 +1188,16 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public CreativeTabs[] getCreativeTabs()
     {
-        return super.getCreativeTabs();
+        return Arrays.stream(
+          PipelineProcessor.processTypedPipeline(
+            this,
+            new GetCreativeTabsContext(),
+            pipeline.getGetCreativeTabsPipeline(),
+            (c) -> Arrays.stream(
+              super.getCreativeTabs()
+            ).map(ItemGroup::fromForge).toArray(IItemGroup<?>[]::new)
+          )
+        ).map(ItemGroup::asForge).toArray(CreativeTabs[]::new);
     }
 
     /**
@@ -1070,7 +1211,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public float getSmeltingExperience(final ItemStack item)
     {
-        return super.getSmeltingExperience(item);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetSmeltingExperienceContext(fromForge(item)),
+          pipeline.getGetSmeltingExperiencePipeline(),
+          (c) -> super.getSmeltingExperience(asForge(c.getItem()))
+        );
     }
 
     /**
@@ -1084,7 +1230,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     public boolean doesSneakBypassUse(
       final ItemStack stack, final IBlockAccess world, final BlockPos pos, final EntityPlayer player)
     {
-        return super.doesSneakBypassUse(stack, world, pos, player);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new DoesSneakBypassUseContext(fromForge(stack), DimensionReader.fromForge(world), BlockCoordinate.fromForge(pos), PlayerEntity.fromForge(player)),
+          pipeline.getDoesSneakBypassUsePipeline(),
+          (c) -> super.doesSneakBypassUse(asForge(c.getStack()), DimensionReader.asForge(c.getWorld()), BlockCoordinate.asForge(c.getPos()), PlayerEntity.asForge(c.getPlayer()))
+        );
     }
 
     /**
@@ -1093,7 +1244,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public void onArmorTick(final World world, final EntityPlayer player, final ItemStack itemStack)
     {
-        super.onArmorTick(world, player, itemStack);
+        PipelineProcessor.processVoidPipeline(
+          this,
+          new OnArmorTickContext(Dimension.fromForge(world), PlayerEntity.fromForge(player), fromForge(itemStack)),
+          pipeline.getOnArmorTickPipeline(),
+          (c) -> super.onArmorTick(Dimension.asForge(c.getWorld()), PlayerEntity.asForge(c.getPlayer()), asForge(c.getItemStack()))
+        );
     }
 
     /**
@@ -1107,7 +1263,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean isValidArmor(final ItemStack stack, final EntityEquipmentSlot armorType, final Entity entity)
     {
-        return super.isValidArmor(stack, armorType, entity);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new IsValidArmorContext(fromForge(stack), EquipmentSlot.fromForge(armorType), com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.fromForge(entity)),
+          pipeline.getIsValidArmorPipeline(),
+          (c) -> super.isValidArmor(asForge(c.getStack()), EquipmentSlot.asForge(c.getArmorType()), com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.asForge(c.getEntity()))
+        );
     }
 
     /**
@@ -1123,7 +1284,14 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public EntityEquipmentSlot getEquipmentSlot(final ItemStack stack)
     {
-        return super.getEquipmentSlot(stack);
+        return EquipmentSlot.asForge(
+          PipelineProcessor.processTypedPipeline(
+            this,
+            new GetEquipmentSlotContext(fromForge(stack)),
+            pipeline.getGetEquipmentSlotPipeline(),
+            (c) -> EquipmentSlot.fromForge(super.getEquipmentSlot(asForge(c.getStack())))
+          )
+        );
     }
 
     /**
@@ -1136,7 +1304,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean isBookEnchantable(final ItemStack stack, final ItemStack book)
     {
-        return super.isBookEnchantable(stack, book);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new IsBookEnchantableContext(fromForge(stack), fromForge(book)),
+          pipeline.getIsBookEnchantablePipeline(),
+          (c) -> super.isBookEnchantable(asForge(c.getStack()), asForge(c.getBook()))
+        );
     }
 
     /**
@@ -1156,7 +1329,15 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public String getArmorTexture(final ItemStack stack, final Entity entity, final EntityEquipmentSlot slot, final String type)
     {
-        return super.getArmorTexture(stack, entity, slot, type);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetArmorTextureContext(fromForge(stack), com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.fromForge(entity), EquipmentSlot.fromForge(slot), type),
+          pipeline.getGetArmorTexturePipeline(),
+          (c) -> super.getArmorTexture(asForge(c.getStack()),
+            com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.asForge(c.getEntity()),
+            EquipmentSlot.asForge(c.getSlot()),
+            c.getType())
+        );
     }
 
     /**
@@ -1166,11 +1347,19 @@ public class JVoxItem<I> extends Item implements IItem<I>
      * @param stack The current item stack
      * @return A instance of FontRenderer or null to use default
      */
+    @SideOnly(Side.CLIENT)
     @Nullable
     @Override
     public FontRenderer getFontRenderer(final ItemStack stack)
     {
-        return super.getFontRenderer(stack);
+        return com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.asForge(
+          PipelineProcessor.processTypedPipeline(
+            this,
+            new GetFontRendererContext(fromForge(stack)),
+            pipeline.getGetFontRendererPipeline(),
+            (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.fromForge(super.getFontRenderer(asForge(c.getStack())))
+          )
+        );
     }
 
     /**
@@ -1182,12 +1371,28 @@ public class JVoxItem<I> extends Item implements IItem<I>
      * @param _default     Original armor model. Will have attributes set.
      * @return A ModelBiped to render instead of the default
      */
+    @SideOnly(Side.CLIENT)
     @Nullable
     @Override
     public ModelBiped getArmorModel(
       final EntityLivingBase entityLiving, final ItemStack itemStack, final EntityEquipmentSlot armorSlot, final ModelBiped _default)
     {
-        return super.getArmorModel(entityLiving, itemStack, armorSlot, _default);
+        return com.ldtteam.jvoxelizer.launcher.forge_1_12.client.model.ModelBiped.asForge(
+          PipelineProcessor.processTypedPipeline(
+            this,
+            new GetArmorModelContext(LivingBaseEntity.fromForge(entityLiving), fromForge(itemStack), EquipmentSlot.fromForge(armorSlot),
+              com.ldtteam.jvoxelizer.launcher.forge_1_12.client.model.ModelBiped.fromForge(_default)),
+            pipeline.getGetArmorModelPipeline(),
+            (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.client.model.ModelBiped.fromForge(
+              super.getArmorModel(
+                LivingBaseEntity.asForge(c.getEntityLiving()),
+                asForge(c.getItemStack()),
+                EquipmentSlot.asForge(c.getArmorSlot()),
+                com.ldtteam.jvoxelizer.launcher.forge_1_12.client.model.ModelBiped.asForge(c.get_default())
+              )
+            )
+          )
+        );
     }
 
     /**
@@ -1200,7 +1405,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean onEntitySwing(final EntityLivingBase entityLiving, final ItemStack stack)
     {
-        return super.onEntitySwing(entityLiving, stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new OnEntitySwingContext(LivingBaseEntity.fromForge(entityLiving), fromForge(stack)),
+          pipeline.getOnEntitySwingPipeline(),
+          (c) -> super.onEntitySwing(LivingBaseEntity.asForge(c.getEntityLiving()), asForge(c.getStack()))
+        );
     }
 
     /**
@@ -1212,11 +1422,17 @@ public class JVoxItem<I> extends Item implements IItem<I>
      * @param resolution   Resolution information about the current viewport and configured GUI Scale
      * @param partialTicks Partial ticks for the renderer, useful for interpolation
      */
+    @SideOnly(Side.CLIENT)
     @Override
     public void renderHelmetOverlay(
       final ItemStack stack, final EntityPlayer player, final ScaledResolution resolution, final float partialTicks)
     {
-        super.renderHelmetOverlay(stack, player, resolution, partialTicks);
+        PipelineProcessor.processVoidPipeline(
+          this,
+          new RenderHelmetOverlayContext(fromForge(stack), PlayerEntity.fromForge(player), com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolution.fromForge(resolution), partialTicks),
+          pipeline.getRenderHelmetOverlayPipeline(),
+          (c) -> super.renderHelmetOverlay(asForge(c.getStack()), PlayerEntity.asForge(c.getPlayer()), com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolution.asForge(c.getResolution()), c.getPartialTicks())
+        );
     }
 
     /**
@@ -1228,7 +1444,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public int getDamage(final ItemStack stack)
     {
-        return super.getDamage(stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetDamageContext(fromForge(stack)),
+          pipeline.getGetDamagePipeline(),
+          (c) -> super.getDamage(asForge(c.getStack()))
+        );
     }
 
     /**
@@ -1237,7 +1458,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public int getMetadata(final ItemStack stack)
     {
-        return super.getMetadata(stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetMetadataWithStackAsItemStackContext(fromForge(stack)),
+          pipeline.getGetMetadataWithStackAsItemStackPipeline(),
+          (c) -> super.getMetadata(asForge(c.getStack()))
+        );
     }
 
     /**
@@ -1251,7 +1477,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean showDurabilityBar(final ItemStack stack)
     {
-        return super.showDurabilityBar(stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new ShowDurabilityBarContext(fromForge(stack)),
+          pipeline.getShowDurabilityBarPipeline(),
+          (c) -> super.showDurabilityBar(asForge(c.getStack()))
+        );
     }
 
     /**
@@ -1263,7 +1494,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public double getDurabilityForDisplay(final ItemStack stack)
     {
-        return super.getDurabilityForDisplay(stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetDurabilityForDisplayContext(fromForge(stack)),
+          pipeline.getGetDurabilityForDisplayPipeline(),
+          (c) -> super.getDurabilityForDisplay(asForge(c.getStack()))
+        );
     }
 
     /**
@@ -1276,7 +1512,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public int getRGBDurabilityForDisplay(final ItemStack stack)
     {
-        return super.getRGBDurabilityForDisplay(stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetRGBDurabilityForDisplayContext(fromForge(stack)),
+          pipeline.getGetRGBDurabilityForDisplayPipeline(),
+          (c) -> super.getRGBDurabilityForDisplay(asForge(c.getStack()))
+        );
     }
 
     /**
@@ -1289,7 +1530,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public int getMaxDamage(final ItemStack stack)
     {
-        return super.getMaxDamage(stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetMaxDamageWithStackAsItemStackContext(fromForge(stack)),
+          pipeline.getGetMaxDamageWithStackAsItemStackPipeline(),
+          (c) -> super.getMaxDamage(asForge(c.getStack()))
+        );
     }
 
     /**
@@ -1301,7 +1547,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean isDamaged(final ItemStack stack)
     {
-        return super.isDamaged(stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new IsDamagedContext(fromForge(stack)),
+          pipeline.getIsDamagedPipeline(),
+          (c) -> super.isDamaged(asForge(c.getStack()))
+        );
     }
 
     /**
@@ -1313,7 +1564,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public void setDamage(final ItemStack stack, final int damage)
     {
-        super.setDamage(stack, damage);
+        PipelineProcessor.processVoidPipeline(
+          this,
+          new SetDamageContext(fromForge(stack), damage),
+          pipeline.getSetDamagePipeline(),
+          (c) -> super.setDamage(asForge(c.getStack()), c.getDamage())
+        );
     }
 
     /**
@@ -1328,7 +1584,22 @@ public class JVoxItem<I> extends Item implements IItem<I>
     public boolean canDestroyBlockInCreative(
       final World world, final BlockPos pos, final ItemStack stack, final EntityPlayer player)
     {
-        return super.canDestroyBlockInCreative(world, pos, stack, player);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new CanDestroyBlockInCreativeContext(
+            Dimension.fromForge(world),
+            BlockCoordinate.fromForge(pos),
+            fromForge(stack),
+            PlayerEntity.fromForge(player)
+          ),
+          pipeline.getCanDestroyBlockInCreativePipeline(),
+          (c) -> super.canDestroyBlockInCreative(
+            Dimension.asForge(c.getWorld()),
+            BlockCoordinate.asForge(c.getPos()),
+            asForge(c.getStack()),
+            PlayerEntity.asForge(c.getPlayer())
+          )
+        );
     }
 
     /**
@@ -1341,7 +1612,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean canHarvestBlock(final IBlockState state, final ItemStack stack)
     {
-        return super.canHarvestBlock(state, stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new CanHarvestBlockWithStateAsIBlockStateAndStackAsItemStackContext(BlockState.fromForge(state), fromForge(stack)),
+          pipeline.getCanHarvestBlockWithStateAsIBlockStateAndStackAsItemStackPipeline(),
+          (c) -> super.canHarvestBlock(BlockState.asForge(c.getState()), asForge(c.getStack()))
+        );
     }
 
     /**
@@ -1354,7 +1630,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public int getItemStackLimit(final ItemStack stack)
     {
-        return super.getItemStackLimit(stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetItemStackLimitWithStackAsItemStackContext(fromForge(stack)),
+          pipeline.getGetItemStackLimitWithStackAsItemStackPipeline(),
+          (c) -> super.getItemStackLimit(asForge(c.getStack()))
+        );
     }
 
     /**
@@ -1370,13 +1651,23 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public void setHarvestLevel(final String toolClass, final int level)
     {
-        super.setHarvestLevel(toolClass, level);
+        PipelineProcessor.processVoidPipeline(
+          this,
+          new SetHarvestLevelContext(toolClass, level),
+          pipeline.getSetHarvestLevelPipeline(),
+          (c) -> super.setHarvestLevel(c.getToolClass(), c.getLevel())
+        );
     }
 
     @Override
     public Set<String> getToolClasses(final ItemStack stack)
     {
-        return super.getToolClasses(stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetToolClassesContext(fromForge(stack)),
+          pipeline.getGetToolClassesPipeline(),
+          (c) -> super.getToolClasses(asForge(c.getStack()))
+        );
     }
 
     /**
@@ -1393,7 +1684,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     public int getHarvestLevel(
       final ItemStack stack, final String toolClass, @Nullable final EntityPlayer player, @Nullable final IBlockState blockState)
     {
-        return super.getHarvestLevel(stack, toolClass, player, blockState);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetHarvestLevelContext(fromForge(stack), toolClass, PlayerEntity.fromForge(player), BlockState.fromForge(blockState)),
+          pipeline.getGetHarvestLevelPipeline(),
+          (c) -> super.getHarvestLevel(asForge(c.getStack()), c.getToolClass(), PlayerEntity.asForge(c.getPlayer()), BlockState.asForge(c.getBlockState()))
+        );
     }
 
     /**
@@ -1405,7 +1701,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public int getItemEnchantability(final ItemStack stack)
     {
-        return super.getItemEnchantability(stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetItemEnchantabilityWithStackAsItemStackContext(fromForge(stack)),
+          pipeline.getGetItemEnchantabilityWithStackAsItemStackPipeline(),
+          (c) -> super.getItemEnchantability(asForge(c.getStack()))
+        );
     }
 
     /**
@@ -1422,7 +1723,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean canApplyAtEnchantingTable(final ItemStack stack, final Enchantment enchantment)
     {
-        return super.canApplyAtEnchantingTable(stack, enchantment);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new CanApplyAtEnchantingTableContext(fromForge(stack), com.ldtteam.jvoxelizer.launcher.forge_1_12.enchantment.Enchantment.fromForge(enchantment)),
+          pipeline.getCanApplyAtEnchantingTablePipeline(),
+          (c) -> super.canApplyAtEnchantingTable(asForge(c.getStack()), com.ldtteam.jvoxelizer.launcher.forge_1_12.enchantment.Enchantment.asForge(c.getEnchantment()))
+        );
     }
 
     /**
@@ -1434,7 +1740,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean isBeaconPayment(final ItemStack stack)
     {
-        return super.isBeaconPayment(stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new IsBeaconPaymentContext(fromForge(stack)),
+          pipeline.getIsBeaconPaymentPipeline(),
+          (c) -> super.isBeaconPayment(asForge(c.getStack()))
+        );
     }
 
     /**
@@ -1450,7 +1761,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean shouldCauseReequipAnimation(final ItemStack oldStack, final ItemStack newStack, final boolean slotChanged)
     {
-        return super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new ShouldCauseReequipAnimationContext(fromForge(oldStack), fromForge(newStack), slotChanged),
+          pipeline.getShouldCauseReequipAnimationPipeline(),
+          (c) -> super.shouldCauseReequipAnimation(asForge(c.getOldStack()), asForge(c.getNewStack()), c.getSlotChanged())
+        );
     }
 
     /**
@@ -1464,7 +1780,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean shouldCauseBlockBreakReset(final ItemStack oldStack, final ItemStack newStack)
     {
-        return super.shouldCauseBlockBreakReset(oldStack, newStack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new ShouldCauseBlockBreakResetContext(fromForge(oldStack), fromForge(newStack)),
+          pipeline.getShouldCauseBlockBreakResetPipeline(),
+          (c) -> super.shouldCauseBlockBreakReset(asForge(c.getOldStack()), asForge(c.getNewStack()))
+        );
     }
 
     /**
@@ -1478,7 +1799,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean canContinueUsing(final ItemStack oldStack, final ItemStack newStack)
     {
-        return super.canContinueUsing(oldStack, newStack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new CanContinueUsingContext(fromForge(oldStack), fromForge(newStack)),
+          pipeline.getCanContinueUsingPipeline(),
+          (c) -> super.canContinueUsing(asForge(c.getOldStack()), asForge(c.getNewStack()))
+        );
     }
 
     /**
@@ -1499,35 +1825,30 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public String getCreatorModId(final ItemStack itemStack)
     {
-        return super.getCreatorModId(itemStack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetCreatorModIdContext(fromForge(itemStack)),
+          pipeline.getGetCreatorModIdPipeline(),
+          (c) -> super.getCreatorModId(asForge(c.getItemStack()))
+        );
     }
 
-    /**
-     * Called from ItemStack.setItem, will hold extra data for the life of this ItemStack.
-     * Can be retrieved from stack.getCapabilities()
-     * The NBT can be null if this is not called from readNBT or if the item the stack is
-     * changing FROM is different then this item, or the previous item had no capabilities.
-     * <p>
-     * This is called BEFORE the stacks item is set so you can use stack.getItem() to see the OLD item.
-     * Remember that getItem CAN return null.
-     *
-     * @param stack The ItemStack
-     * @param nbt   NBT of this item serialized, or null.
-     * @return A holder instance associated with this ItemStack where you can hold capabilities for the life of this item.
-     */
-    @Nullable
-    @Override
-    public ICapabilityProvider initCapabilities(
-      final ItemStack stack, @Nullable final NBTTagCompound nbt)
-    {
-        return super.initCapabilities(stack, nbt);
-    }
+    //TODO: Capability provider logic.
 
     @Override
     public ImmutableMap<String, ITimeValue> getAnimationParameters(
       final ItemStack stack, final World world, final EntityLivingBase entity)
     {
-        return super.getAnimationParameters(stack, world, entity);
+        return ImmutableMap.copyOf(PipelineProcessor.processTypedPipeline(
+          this,
+          new GetAnimationParametersContext(fromForge(stack), Dimension.fromForge(world), LivingBaseEntity.fromForge(entity)),
+          pipeline.getGetAnimationParametersPipeline(),
+          (c) -> ImmutableMap.copyOf(super.getAnimationParameters(
+            asForge(c.getStack()),
+            Dimension.asForge(c.getWorld()),
+            LivingBaseEntity.asForge(c.getEntity())
+          ).entrySet().stream().map(e -> new Tuple<>(e.getKey(), TimedValue.fromForge(e.getValue()))).collect(Collectors.toMap(Tuple::getFirst, Tuple::getSecond)))
+        ).entrySet().stream().map(e -> new Tuple<>(e.getKey(), TimedValue.asForge(e.getValue()))).collect(Collectors.toMap(Tuple::getFirst, Tuple::getSecond)));
     }
 
     /**
@@ -1542,7 +1863,17 @@ public class JVoxItem<I> extends Item implements IItem<I>
     public boolean canDisableShield(
       final ItemStack stack, final ItemStack shield, final EntityLivingBase entity, final EntityLivingBase attacker)
     {
-        return super.canDisableShield(stack, shield, entity, attacker);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new CanDisableShieldContext(fromForge(stack), fromForge(shield), LivingBaseEntity.fromForge(entity), LivingBaseEntity.fromForge(attacker)),
+          pipeline.getCanDisableShieldPipeline(),
+          (c) -> super.canDisableShield(
+            asForge(c.getStack()),
+            asForge(c.getShield()),
+            LivingBaseEntity.asForge(c.getEntity()),
+            LivingBaseEntity.asForge(c.getAttacker())
+          )
+        );
     }
 
     /**
@@ -1555,7 +1886,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public boolean isShield(final ItemStack stack, @Nullable final EntityLivingBase entity)
     {
-        return super.isShield(stack, entity);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new IsShieldContext(fromForge(stack), LivingBaseEntity.fromForge(entity)),
+          pipeline.getIsShieldPipeline(),
+          (c) -> super.isShield(asForge(c.getStack()), LivingBaseEntity.asForge(c.getEntity()))
+        );
     }
 
     /**
@@ -1566,7 +1902,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public int getItemBurnTime(final ItemStack itemStack)
     {
-        return super.getItemBurnTime(itemStack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetItemBurnTimeContext(fromForge(itemStack)),
+          pipeline.getGetItemBurnTimePipeline(),
+          (c) -> super.getItemBurnTime(asForge(c.getItemStack()))
+        );
     }
 
     /**
@@ -1579,13 +1920,27 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public HorseArmorType getHorseArmorType(final ItemStack stack)
     {
-        return super.getHorseArmorType(stack);
+        return com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.passive.HorseArmorType.asForge(
+          PipelineProcessor.processTypedPipeline(
+            this,
+            new GetHorseArmorTypeContext(fromForge(stack)),
+            pipeline.getGetHorseArmorTypePipeline(),
+            (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.passive.HorseArmorType.fromForge(
+              super.getHorseArmorType(asForge(c.getStack()))
+            )
+          )
+        );
     }
 
     @Override
     public String getHorseArmorTexture(final EntityLiving wearer, final ItemStack stack)
     {
-        return super.getHorseArmorTexture(wearer, stack);
+        return PipelineProcessor.processTypedPipeline(
+          this,
+          new GetHorseArmorTextureContext(LivingEntity.fromForge(wearer), fromForge(stack)),
+          pipeline.getGetHorseArmorTexturePipeline(),
+          (c) -> super.getHorseArmorTexture(LivingEntity.asForge(c.getWearer()), asForge(c.getStack()))
+        );
     }
 
     /**
@@ -1598,30 +1953,37 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public void onHorseArmorTick(final World world, final EntityLiving horse, final ItemStack armor)
     {
-        super.onHorseArmorTick(world, horse, armor);
+        PipelineProcessor.processVoidPipeline(
+          this,
+          new OnHorseArmorTickContext(Dimension.fromForge(world), LivingEntity.fromForge(horse), fromForge(armor)),
+          pipeline.getOnHorseArmorTickPipeline(),
+          (c) -> super.onHorseArmorTick(Dimension.asForge(c.getWorld()), LivingEntity.asForge(c.getHorse()), asForge(c.getArmor()))
+        );
     }
 
     @Override
     public void setTileEntityItemStackRenderer(@Nullable final TileEntityItemStackRenderer teisr)
     {
-        super.setTileEntityItemStackRenderer(teisr);
+        PipelineProcessor.processVoidPipeline(
+          this,
+          new SetTileEntityItemStackRendererContext(BlockEntityRenderer.fromForge(teisr)),
+          pipeline.getSetTileEntityItemStackRendererPipeline(),
+          (c) -> super.setTileEntityItemStackRenderer(BlockEntityRenderer.asForge(c.getTeisr()))
+        );
     }
 
     @Override
     public ItemStack getDefaultInstance()
     {
-        return super.getDefaultInstance();
+        return asForge(
+          PipelineProcessor.processTypedPipeline(
+            this,
+            new GetDefaultInstanceContext(),
+            pipeline.getGetDefaultInstancePipeline(),
+            (c) -> fromForge(super.getDefaultInstance())
+          )
+        );
     }
-
-
-    //////////////////////////////////////////////////////////////
-    /// Raycoms: Implement pipeline processing up until here
-    //////////////////////////////////////////////////////////////
-
-
-    //////////////////////////////////////////////////////////////
-    /// Raycoms: Implement JVox to Forge conversion from here down
-    //////////////////////////////////////////////////////////////
 
     @Override
     public void addPropertyOverride(final IIdentifier key, final com.ldtteam.jvoxelizer.item.IItemPropertyGetter getter)

@@ -8,7 +8,6 @@ import com.ldtteam.jvoxelizer.client.model.IModelBiped;
 import com.ldtteam.jvoxelizer.client.renderer.blockentity.IBlockEntityRenderer;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
 import com.ldtteam.jvoxelizer.common.animation.ITimedValue;
-import com.ldtteam.jvoxelizer.common.capability.ICapabilityProvider;
 import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.enchantment.IEnchantment;
@@ -47,7 +46,6 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.facing.Facing;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.hand.Hand;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.Identifier;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block.BlockCoordinate;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.raytraceresult.RayTraceResult;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt.NBTCompound;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.rarity.Rarity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.tooltipflag.ToolTipFlag;
@@ -59,22 +57,17 @@ import com.ldtteam.jvoxelizer.util.facing.IFacing;
 import com.ldtteam.jvoxelizer.util.hand.IHand;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
-import com.ldtteam.jvoxelizer.util.math.raytraceresult.IRayTraceResult;
 import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
 import com.ldtteam.jvoxelizer.util.rarity.IRarity;
 import com.ldtteam.jvoxelizer.util.stream.multimap.MultiMapCollector;
 import com.ldtteam.jvoxelizer.util.tooltipflag.IToolTipFlag;
-import com.sun.xml.internal.bind.v2.model.core.ID;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.common.animation.ITimeValue;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Item implements IItem<DummyInstanceData>

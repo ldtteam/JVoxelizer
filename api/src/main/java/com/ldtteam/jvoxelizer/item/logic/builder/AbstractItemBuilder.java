@@ -427,12 +427,12 @@ public abstract class AbstractItemBuilder<C extends AbstractItemBuilder<C, I, O>
     protected final List<Function<TypedPipelineElementContext<GetHorseArmorTypeContext, IHorseArmorType, O, I>, IHorseArmorType>> GetHorseArmorTypePipeline = new ArrayList<>();
 
     @Override
-    public C GetItemUseAction(Function<TypedPipelineElementContext<GetItemUseActionContext, IActionResultType, O, I>, IActionResultType>... components) {
+    public C GetItemUseAction(Function<TypedPipelineElementContext<GetItemUseActionContext, IActionType, O, I>, IActionType>... components) {
         this.GetItemUseActionPipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    protected final List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionResultType, O, I>, IActionResultType>> GetItemUseActionPipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionType, O, I>, IActionType>> GetItemUseActionPipeline = new ArrayList<>();
 
     @Override
     public C InitCapabilities(Function<TypedPipelineElementContext<InitCapabilitiesContext, ICapabilityManager, O, I>, ICapabilityManager>... components) {

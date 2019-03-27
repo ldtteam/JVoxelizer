@@ -4,37 +4,43 @@ import com.ldtteam.jvoxelizer.client.gui.IScaledResolution;
 
 public class ScaledResolution implements IScaledResolution
 {
-    private net.minecraft.client.gui.ScaledResolution resolution;
+    private net.minecraft.client.gui.ScaledResolution forgeScaledResolution;
 
-    public ScaledResolution(final net.minecraft.client.gui.ScaledResolution resolution)
+    private ScaledResolution(final net.minecraft.client.gui.ScaledResolution forgeScaledResolution)
     {
-        this.resolution = resolution;
+        this.forgeScaledResolution = forgeScaledResolution;
     }
 
     @Override
     public int getScaledWidth()
     {
-        return resolution.getScaledWidth();
+        return forgeScaledResolution.getScaledWidth();
     }
 
     @Override
     public int getScaledHeight()
     {
-        return resolution.getScaledHeight();
+        return forgeScaledResolution.getScaledHeight();
     }
 
     @Override
     public int getScaleFactor()
     {
-        return resolution.getScaleFactor();
+        return forgeScaledResolution.getScaleFactor();
     }
 
-    /**
-     * Get the wrapped resolution.
-     * @return net.minecraft.client.gui.ScaledResolution.
-     */
-    public net.minecraft.client.gui.ScaledResolution getForgeResolution()
+    private net.minecraft.client.gui.ScaledResolution getForgeScaledResolution()
     {
-        return this.resolution;
+        return this.forgeScaledResolution;
+    }
+
+    public static IScaledResolution fromForge(net.minecraft.client.gui.ScaledResolution scaledResolution)
+    {
+        return new ScaledResolution(scaledResolution);
+    }
+
+    public static net.minecraft.client.gui.ScaledResolution asForge(IScaledResolution resolution)
+    {
+        return ((ScaledResolution) resolution).getForgeScaledResolution();
     }
 }

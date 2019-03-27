@@ -35,12 +35,12 @@ public class ActionResult<T, I> implements IActionResult<T>
         return actionResult;
     }
 
-    public static net.minecraft.util.ActionResult<?> asForge(IActionResult<?> actionType)
+    public static <S, R> net.minecraft.util.ActionResult<R> asForge(IActionResult<S> actionType)
     {
         if (actionType instanceof net.minecraft.util.ActionResult)
-            return (net.minecraft.util.ActionResult) actionType;
+            return (net.minecraft.util.ActionResult<R>) actionType;
 
-        return ((ActionResult) actionType).getActionResult();
+        return ((ActionResult<S, R>) actionType).getActionResult();
     }
 
     public static <S, R> IActionResult<S> fromForge(final net.minecraft.util.ActionResult<R> actionResult, Function<R, S> convertor)

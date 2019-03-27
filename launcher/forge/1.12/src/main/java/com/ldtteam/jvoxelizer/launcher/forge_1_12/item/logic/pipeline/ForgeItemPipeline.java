@@ -132,7 +132,7 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
 
         private final List<Function<TypedPipelineElementContext<GetHorseArmorTypeContext, IHorseArmorType, O, I>, IHorseArmorType>> GetHorseArmorTypePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetItemUseActionContext, ActionType, O, I>, ActionType>> GetItemUseActionPipeline;
+        private final List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionType, O, I>, IActionType>> GetItemUseActionPipeline;
 
         private final List<Function<TypedPipelineElementContext<InitCapabilitiesContext, ICapabilityManager, O, I>, ICapabilityManager>> InitCapabilitiesPipeline;
 
@@ -310,7 +310,7 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
       final List<Function<TypedPipelineElementContext<OnItemUseFinishContext, IItemStack, O, I>, IItemStack>> onItemUseFinishPipeline,
       final List<Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResultType, O, I>, IActionResultType>> onItemUseFirstPipeline,
       final List<Function<TypedPipelineElementContext<GetHorseArmorTypeContext, IHorseArmorType, O, I>, IHorseArmorType>> getHorseArmorTypePipeline,
-      final List<Function<TypedPipelineElementContext<GetItemUseActionContext, ActionType, O, I>, ActionType>> getItemUseActionPipeline,
+      final List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionType, O, I>, IActionType>> getItemUseActionPipeline,
       final List<Function<TypedPipelineElementContext<InitCapabilitiesContext, ICapabilityManager, O, I>, ICapabilityManager>> initCapabilitiesPipeline,
       final List<Function<TypedPipelineElementContext<HasCustomPropertiesContext, Boolean, O, I>, Boolean>> hasCustomPropertiesPipeline,
       final List<Function<TypedPipelineElementContext<GetItemBurnTimeContext, Integer, O, I>, Integer>> getItemBurnTimePipeline,
@@ -734,7 +734,7 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
         return GetHorseArmorTypePipeline;
     }
 
-    public List<Function<TypedPipelineElementContext<GetItemUseActionContext, ActionType, O, I>, ActionType>> getGetItemUseActionPipeline()
+    public List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionType, O, I>, IActionType>> getGetItemUseActionPipeline()
     {
         return GetItemUseActionPipeline;
     }

@@ -12,6 +12,11 @@ import java.util.function.Function;
 
 public interface IGuiScreenBuilder<C extends IGuiScreenBuilder<C, I, O>, I, O extends IGuiScreen<I>> extends IGuiBuilder<C, I, O>
 {
+    static <I> IGuiScreenBuilder<?, I, IGuiScreen<I>> create(I instanceData)
+    {
+        return IGuiScreenBuilderProviderHolder.getInstance().provide(instanceData);
+    }
+
     C DrawHoveringText(Consumer<VoidPipelineElementContext<DrawHoveringTextContext, O, I>>... components);
 
     C DrawHoveringTextWithTextLinesAsStringList(Consumer<VoidPipelineElementContext<DrawHoveringTextWithTextLinesAsStringListContext, O, I>>... components);

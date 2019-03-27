@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer.client.gui.logic.builder;
 
 import com.ldtteam.jvoxelizer.client.gui.IGui;
+import com.ldtteam.jvoxelizer.client.gui.IGuiButton;
 import com.ldtteam.jvoxelizer.client.gui.logic.builder.contexts.*;
 import com.ldtteam.jvoxelizer.core.logic.VoidPipelineElementContext;
 
@@ -8,6 +9,11 @@ import java.util.function.Consumer;
 
 public interface IGuiBuilder<C extends IGuiBuilder<C, I, O>, I, O extends IGui<I>>
 {
+    static <T> IGuiBuilder<?, T, IGui<T>> create(T instanceData)
+    {
+        return IGuiBuilderProviderHolder.getInstance().provide(instanceData);
+    }
+
     C DrawCenteredString(Consumer<VoidPipelineElementContext<DrawCenteredStringContext, O, I>>... components);
 
     C DrawGradientRect(Consumer<VoidPipelineElementContext<DrawGradientRectContext, O, I>>... components);

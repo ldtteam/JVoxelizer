@@ -1,13 +1,14 @@
 package com.ldtteam.jvoxelizer.item.logic.builder.contexts;
 
 import com.ldtteam.jvoxelizer.dimension.IDimension;
+import com.ldtteam.jvoxelizer.dimension.IDimensionReader;
 import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 
 public class DoesSneakBypassUseContext {
 
-    public DoesSneakBypassUseContext(IItemStack stack, IDimension world, IBlockCoordinate pos, IPlayerEntity player) {
+    public DoesSneakBypassUseContext(IItemStack stack, IDimensionReader world, IBlockCoordinate pos, IPlayerEntity player) {
         this.stack = stack;
         this.world = world;
         this.pos = pos;
@@ -24,13 +25,13 @@ public class DoesSneakBypassUseContext {
         this.stack = stack;
     }
 
-    private IDimension world;
+    private IDimensionReader world;
 
-    public IDimension getWorld() {
+    public IDimensionReader getWorld() {
         return world;
     }
 
-    public void setWorld(IDimension world) {
+    public void setWorld(IDimensionReader world) {
         this.world = world;
     }
 

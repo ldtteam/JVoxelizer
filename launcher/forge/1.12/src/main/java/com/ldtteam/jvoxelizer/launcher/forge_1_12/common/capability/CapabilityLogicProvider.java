@@ -1,9 +1,9 @@
-package com.ldtteam.jvoxelizer.launcher.forge_1_12.common.animation;
+package com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability;
 
 import com.ldtteam.jvoxelizer.common.capability.ICapability;
 import com.ldtteam.jvoxelizer.common.capability.ICapabilityLogicProvider;
 import com.ldtteam.jvoxelizer.item.handling.IItemHandler;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability.Capability;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.handling.ItemHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 public class CapabilityLogicProvider implements ICapabilityLogicProvider
@@ -22,6 +22,6 @@ public class CapabilityLogicProvider implements ICapabilityLogicProvider
     @Override
     public ICapability<IItemHandler> getItemHandlerCapability()
     {
-        return Capability.fromForge(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY);
+        return Capability.fromForge(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, ItemHandler::fromForge);
     }
 }

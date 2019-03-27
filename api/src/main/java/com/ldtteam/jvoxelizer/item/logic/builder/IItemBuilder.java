@@ -134,7 +134,7 @@ public interface IItemBuilder<C extends AbstractItemBuilder<C, I, O>, I, O exten
 
     C GetHorseArmorType(Function<TypedPipelineElementContext<GetHorseArmorTypeContext, IHorseArmorType, O, I>, IHorseArmorType>... components);
 
-    C GetItemUseAction(Function<TypedPipelineElementContext<GetItemUseActionContext, IActionResultType, O, I>, IActionResultType>... components);
+    C GetItemUseAction(Function<TypedPipelineElementContext<GetItemUseActionContext, IActionType, O, I>, IActionType>... components);
 
     C InitCapabilities(Function<TypedPipelineElementContext<InitCapabilitiesContext, ICapabilityManager, O, I>, ICapabilityManager>... components);
 

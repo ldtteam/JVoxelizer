@@ -53,6 +53,7 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.utils.target.Networ
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.profiler.Profiler;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.profiler.ProfilerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.progressmanager.ProgressManagerProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.sound.SoundHandlerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.DistributionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt.NBTProvider;
 import com.ldtteam.jvoxelizer.modloader.IModLoader;
@@ -61,6 +62,7 @@ import com.ldtteam.jvoxelizer.networking.utils.target.INetworkTargetPoint;
 import com.ldtteam.jvoxelizer.networking.utils.target.INetworkTargetPointProvider;
 import com.ldtteam.jvoxelizer.profiler.IProfiler;
 import com.ldtteam.jvoxelizer.progressmanager.IProgressManager;
+import com.ldtteam.jvoxelizer.sound.ISoundHandler;
 import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
 import com.ldtteam.jvoxelizer.util.nbt.INBTBase;
 import net.minecraftforge.fml.common.Mod;
@@ -138,6 +140,9 @@ public abstract class AbstractForgeMod
 
         //ProgressManager
         ProviderResolver.getInstance().registerProvider(IProgressManager.class.getName(), ProgressManagerProvider.getInstance());
+
+        //Sound
+        ProviderResolver.getInstance().registerProvider(ISoundHandler.class.getName(), SoundHandlerProvider.getInstance());
 
         //Util
         ProviderResolver.getInstance().registerProvider(IDistribution.class.getName(), DistributionProvider.getInstance());

@@ -10,7 +10,7 @@ public interface ISoundHandler
 
     static ISound getMissingSound()
     {
-        throw new NotImplementedException();
+        return ISoundHandler.getMissingSound();
     }
 
     ISoundEventAccessor getAccessor(IIdentifier location);

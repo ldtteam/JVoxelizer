@@ -23,7 +23,7 @@ public class Container implements IContainer<DummyInstanceData>
     @Override
     public void addSlotToContainer(final ISlot<?> slot)
     {
-        throw new FeatureNotImplementedException("'Adding Slots to Wrapped Container'");
+        throw new FeatureNotImplementedException("Adding Slots to Wrapped Container");
     }
 
     @Override
@@ -156,6 +156,12 @@ public class Container implements IContainer<DummyInstanceData>
     public List<IItemStack> getInventoryItemStacks()
     {
         return getContents();
+    }
+
+    @Override
+    public boolean mergeItemStack(final IItemStack stack, final int startIndex, final int endIndex, final boolean reverseDirection)
+    {
+        throw new FeatureNotImplementedException("Merging ItemStack with Slot contents");
     }
 
     @Override

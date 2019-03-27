@@ -65,4 +65,6 @@ public interface IContainer<I> extends IInstancedObject<I> {
     List<ISlot<?>> getInventorySlots();
 
     List<IItemStack> getInventoryItemStacks();
+
+    boolean mergeItemStack(final IItemStack stack, final int startIndex, final int endIndex, final boolean reverseDirection);
 }

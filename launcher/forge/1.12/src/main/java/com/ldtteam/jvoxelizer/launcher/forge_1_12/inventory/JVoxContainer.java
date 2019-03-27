@@ -526,6 +526,12 @@ public class JVoxContainer<I> extends Container implements IContainer<I>
     }
 
     @Override
+    public boolean mergeItemStack(final IItemStack stack, final int startIndex, final int endIndex, final boolean reverseDirection)
+    {
+        return this.mergeItemStack(asForge(stack), startIndex, endIndex, reverseDirection);
+    }
+
+    @Override
     public I getInstanceData()
     {
         return instanceData;

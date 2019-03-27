@@ -50,12 +50,15 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.logic.builder.provider.It
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.modloader.ModLoaderProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.endpoint.NetworkEndpointProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.utils.target.NetworkTargetPointProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.profiler.Profiler;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.profiler.ProfilerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.DistributionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt.NBTProvider;
 import com.ldtteam.jvoxelizer.modloader.IModLoader;
 import com.ldtteam.jvoxelizer.networking.endpoint.INetworkEndpoint;
 import com.ldtteam.jvoxelizer.networking.utils.target.INetworkTargetPoint;
 import com.ldtteam.jvoxelizer.networking.utils.target.INetworkTargetPointProvider;
+import com.ldtteam.jvoxelizer.profiler.IProfiler;
 import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
 import com.ldtteam.jvoxelizer.util.nbt.INBTBase;
 import net.minecraftforge.fml.common.Mod;
@@ -127,6 +130,9 @@ public abstract class AbstractForgeMod
         //Network
         ProviderResolver.getInstance().registerProvider(INetworkEndpoint.class.getName(), NetworkEndpointProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(INetworkTargetPoint.class.getName(), NetworkTargetPointProvider.getInstance());
+
+        //Profiler
+        ProviderResolver.getInstance().registerProvider(IProfiler.class.getName(), ProfilerProvider.getInstance());
 
         //Util
         ProviderResolver.getInstance().registerProvider(IDistribution.class.getName(), DistributionProvider.getInstance());

@@ -14,7 +14,7 @@ public interface IProfiler
 {
     static IProfiler create()
     {
-        throw new NotImplementedException();
+        return IProfilerProviderHolder.getInstance().provide();
     }
 
     /**

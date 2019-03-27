@@ -47,8 +47,10 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStackProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.group.logic.builder.provider.ItemGroupBuilderProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.handling.ItemHandlerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.logic.builder.provider.ItemBuilderProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.modloader.ModLoaderProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.DistributionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt.NBTProvider;
+import com.ldtteam.jvoxelizer.modloader.IModLoader;
 import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
 import com.ldtteam.jvoxelizer.util.nbt.INBTBase;
 import net.minecraftforge.fml.common.Mod;
@@ -113,6 +115,9 @@ public abstract class AbstractForgeMod
         ProviderResolver.getInstance().registerProvider(IItemGroupBuilder.class.getName(), ItemGroupBuilderProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(IItemHandler.class.getName(), ItemHandlerProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(IItemStack.class.getName(), ItemStackProvider.getInstance());
+
+        //Modloader
+        ProviderResolver.getInstance().registerProvider(IModLoader.class.getName(), ModLoaderProvider.getInstance());
 
         //Util
         ProviderResolver.getInstance().registerProvider(IDistribution.class.getName(), DistributionProvider.getInstance());

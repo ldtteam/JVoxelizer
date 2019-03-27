@@ -9,7 +9,7 @@ public interface IModLoader
 {
     static IModLoader instance()
     {
-        throw new NotImplementedException();
+        return IModLoaderProviderHolder.getInstance().provide();
     }
 
     List<IMod> getActiveModList();

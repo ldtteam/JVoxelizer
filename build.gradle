@@ -38,7 +38,7 @@ project (':JVoxerlizer - Api') {
     }
 
     task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
+        classifier = 'api-sources'
         from sourceSets.main.allSource
     }
 
@@ -102,7 +102,7 @@ project (':launcher:forge:JVoxelizer - Launchers - Forge - 1.12') {
     }
 
     task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
+        classifier = 'forge-1.12-sources'
         from sourceSets.main.allSource
     }
 

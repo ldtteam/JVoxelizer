@@ -11,7 +11,7 @@ public class NetworkTargetPoint implements INetworkTargetPoint
 {
     private NetworkRegistry.TargetPoint target;
 
-    public NetworkTargetPoint(final NetworkRegistry.TargetPoint target)
+    private NetworkTargetPoint(final NetworkRegistry.TargetPoint target)
     {
         this.target = target;
     }
@@ -34,12 +34,18 @@ public class NetworkTargetPoint implements INetworkTargetPoint
         return target.dimension;
     }
 
-    /**
-     * Getter for the wrapped forge object.
-     * @return NetworkRegistry.TargetPoint.
-     */
-    public NetworkRegistry.TargetPoint getForgeTargetPoint()
+    private NetworkRegistry.TargetPoint getForgeTargetPoint()
     {
         return this.target;
+    }
+
+    public static INetworkTargetPoint fromForge(NetworkRegistry.TargetPoint target)
+    {
+        return new NetworkTargetPoint(target);
+    }
+
+    public static NetworkRegistry.TargetPoint asForge(INetworkTargetPoint targetPoint)
+    {
+        return ((NetworkTargetPoint) targetPoint).getForgeTargetPoint();
     }
 }

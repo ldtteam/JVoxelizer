@@ -43,7 +43,7 @@ public class NetworkEndpoint implements INetworkEndpoint
     @Override
     public void sendToAllAround(final IMessage message, final INetworkTargetPoint point)
     {
-        manager.sendToAllAround(new JVoxMessageWrapper(message), ((NetworkTargetPoint) point).getForgeTargetPoint());
+        manager.sendToAllAround(new JVoxMessageWrapper(message), NetworkTargetPoint.asForge(point));
     }
 
     @Override

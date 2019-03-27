@@ -5,7 +5,6 @@ import com.ldtteam.jvoxelizer.networking.messaging.IMessage;
 import com.ldtteam.jvoxelizer.networking.messaging.IMessageContext;
 import com.ldtteam.jvoxelizer.networking.utils.target.INetworkTargetPoint;
 import com.ldtteam.jvoxelizer.threading.IExecutor;
-import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
 
 public interface INetworkEndpoint
 {

@@ -11,7 +11,6 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.stream.nonnulllist.NonNul
 import com.ldtteam.jvoxelizer.util.enchantmenttype.IEnchantmentType;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;

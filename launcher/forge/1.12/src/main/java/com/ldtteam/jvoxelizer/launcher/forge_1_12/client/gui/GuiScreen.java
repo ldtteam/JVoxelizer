@@ -1,7 +1,6 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui;
 
 import com.ldtteam.jvoxelizer.IGameEngine;
-import com.ldtteam.jvoxelizer.client.gui.IGui;
 import com.ldtteam.jvoxelizer.client.gui.IGuiScreen;
 import com.ldtteam.jvoxelizer.client.renderer.item.IItemRenderer;
 import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;

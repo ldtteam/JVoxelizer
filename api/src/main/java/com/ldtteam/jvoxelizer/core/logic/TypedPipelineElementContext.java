@@ -1,7 +1,5 @@
 package com.ldtteam.jvoxelizer.core.logic;
 
-import com.ldtteam.jvoxelizer.client.gui.IGui;
-
 import java.util.List;
 import java.util.function.Function;
 

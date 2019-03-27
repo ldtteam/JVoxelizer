@@ -1,7 +1,6 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12;
 
 import com.ldtteam.jvoxelizer.IGameEngine;
-import com.ldtteam.jvoxelizer.client.gui.IGui;
 import com.ldtteam.jvoxelizer.client.gui.IGuiScreen;
 import com.ldtteam.jvoxelizer.client.renderer.block.IBlockRenderDispatcher;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;

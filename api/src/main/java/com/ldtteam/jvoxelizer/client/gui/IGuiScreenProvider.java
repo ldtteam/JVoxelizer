@@ -1,7 +1,5 @@
 package com.ldtteam.jvoxelizer.client.gui;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public interface IGuiScreenProvider
 {
 

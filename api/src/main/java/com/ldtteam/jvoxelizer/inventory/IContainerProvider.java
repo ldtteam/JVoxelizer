@@ -2,7 +2,6 @@ package com.ldtteam.jvoxelizer.inventory;
 
 import com.ldtteam.jvoxelizer.inventory.slot.ISlot;
 import com.ldtteam.jvoxelizer.item.IItemStack;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 

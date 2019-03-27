@@ -1,9 +1,7 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.tessellator;
 
-import com.ldtteam.jvoxelizer.IGameEngine;
 import com.ldtteam.jvoxelizer.client.renderer.tessellator.ITessellator;
 import com.ldtteam.jvoxelizer.client.renderer.tessellator.ITessellatorProvider;
-import net.minecraft.client.Minecraft;
 
 public class TessellatorProvider implements ITessellatorProvider
 {

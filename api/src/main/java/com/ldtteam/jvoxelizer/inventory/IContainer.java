@@ -5,11 +5,8 @@ import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 import com.ldtteam.jvoxelizer.inventory.slot.ISlot;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.handling.IInventory;
-import com.ldtteam.jvoxelizer.dimension.IDimension;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
-import java.util.Set;
 
 public interface IContainer<I> extends IInstancedObject<I> {
 

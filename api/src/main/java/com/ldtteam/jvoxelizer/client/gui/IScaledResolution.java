@@ -1,7 +1,6 @@
 package com.ldtteam.jvoxelizer.client.gui;
 
 import com.ldtteam.jvoxelizer.IGameEngine;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public interface IScaledResolution
 {

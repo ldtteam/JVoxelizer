@@ -1,7 +1,5 @@
 package com.ldtteam.jvoxelizer.client.renderer.texture;
 
-import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
-
 /**
  * Defines a collection of sprites in a map.
  */

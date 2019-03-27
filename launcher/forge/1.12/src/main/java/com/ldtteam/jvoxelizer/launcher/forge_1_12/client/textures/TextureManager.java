@@ -6,7 +6,6 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.Sprite
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.Identifier;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.ResourceLocation;
 
 public class TextureManager implements ITextureManager
 {

@@ -1,13 +1,11 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui;
 
 import com.ldtteam.jvoxelizer.IGameEngine;
-import com.ldtteam.jvoxelizer.client.gui.IGuiButton;
 import com.ldtteam.jvoxelizer.client.gui.IGuiScreen;
 import com.ldtteam.jvoxelizer.client.gui.logic.builder.contexts.*;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
 import com.ldtteam.jvoxelizer.client.renderer.item.IItemRenderer;
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISprite;
-import com.ldtteam.jvoxelizer.core.logic.IInstancedObject;
 import com.ldtteam.jvoxelizer.core.logic.PipelineProcessor;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.GameEngine;
@@ -23,7 +21,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 
 import java.io.IOException;
-import java.nio.channels.Pipe;
 import java.util.List;
 
 import static com.ldtteam.jvoxelizer.core.logic.PipelineProcessor.processTypedPipeline;

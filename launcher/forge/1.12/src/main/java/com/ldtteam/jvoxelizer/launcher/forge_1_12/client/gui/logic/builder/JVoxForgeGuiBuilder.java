@@ -2,7 +2,6 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.builder;
 
 import com.ldtteam.jvoxelizer.client.gui.IGui;
 import com.ldtteam.jvoxelizer.client.gui.logic.builder.AbstractGuiBuilder;
-import com.ldtteam.jvoxelizer.client.gui.logic.builder.contexts.DrawHorizontalLineContext;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.JVoxForgeGui;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.pipeline.ForgeGuiPipeline;
 

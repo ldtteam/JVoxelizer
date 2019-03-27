@@ -1,7 +1,6 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12;
 
 import com.ldtteam.jvoxelizer.IGameEngine;
-import com.ldtteam.jvoxelizer.client.gui.IGui;
 import com.ldtteam.jvoxelizer.client.gui.IGuiScreen;
 import com.ldtteam.jvoxelizer.client.renderer.block.IBlockRenderDispatcher;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
@@ -9,10 +8,8 @@ import com.ldtteam.jvoxelizer.client.renderer.item.IItemRenderer;
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISpriteMap;
 import com.ldtteam.jvoxelizer.client.textures.ITextureManager;
 import com.ldtteam.jvoxelizer.entity.living.player.ISingleplayerPlayerEntity;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.SinglePlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.server.ServerInstance;
 import com.ldtteam.jvoxelizer.server.IServerInstance;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class DedicatedServerGameEngine implements IGameEngine

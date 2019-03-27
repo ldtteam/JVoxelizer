@@ -1,7 +1,5 @@
 package com.ldtteam.jvoxelizer.util.identifier;
 
-import com.ldtteam.jvoxelizer.fluid.IFluidStack;
-
 /**
  * Represents an identifier of a on disk / in jar resource.
  */

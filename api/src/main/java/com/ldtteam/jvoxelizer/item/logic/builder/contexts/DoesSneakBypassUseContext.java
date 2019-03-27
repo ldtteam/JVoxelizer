@@ -1,6 +1,5 @@
 package com.ldtteam.jvoxelizer.item.logic.builder.contexts;
 
-import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.dimension.IDimensionReader;
 import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 import com.ldtteam.jvoxelizer.item.IItemStack;

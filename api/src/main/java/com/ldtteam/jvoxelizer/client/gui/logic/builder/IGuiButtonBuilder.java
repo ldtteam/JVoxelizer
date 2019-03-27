@@ -1,6 +1,5 @@
 package com.ldtteam.jvoxelizer.client.gui.logic.builder;
 
-import com.ldtteam.jvoxelizer.client.gui.IGui;
 import com.ldtteam.jvoxelizer.client.gui.IGuiButton;
 import com.ldtteam.jvoxelizer.client.gui.logic.builder.contexts.*;
 import com.ldtteam.jvoxelizer.core.logic.TypedPipelineElementContext;

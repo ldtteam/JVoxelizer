@@ -2,7 +2,6 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state;
 
 import com.ldtteam.jvoxelizer.block.state.IBlockState;
 import com.ldtteam.jvoxelizer.block.state.IBlockStateProvider;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.Block;
 import net.minecraft.init.Blocks;
 
 public class BlockStateProvider implements IBlockStateProvider

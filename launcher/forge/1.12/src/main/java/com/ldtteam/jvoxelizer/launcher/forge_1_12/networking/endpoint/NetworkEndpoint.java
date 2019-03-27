@@ -6,13 +6,11 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging.JVoxMessa
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging.MessageContext;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.utils.target.NetworkTargetPoint;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.threading.Executor;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.Distribution;
 import com.ldtteam.jvoxelizer.networking.endpoint.INetworkEndpoint;
 import com.ldtteam.jvoxelizer.networking.messaging.IMessage;
 import com.ldtteam.jvoxelizer.networking.messaging.IMessageContext;
 import com.ldtteam.jvoxelizer.networking.utils.target.INetworkTargetPoint;
 import com.ldtteam.jvoxelizer.threading.IExecutor;
-import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;

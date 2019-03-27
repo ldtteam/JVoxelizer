@@ -6,7 +6,6 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
 import it.unimi.dsi.fastutil.ints.IntList;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class Ingredient implements IIngredient
 {

@@ -1,7 +1,6 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension;
 
 import com.ldtteam.jvoxelizer.biome.IBiome;
-import com.ldtteam.jvoxelizer.block.IBlock;
 import com.ldtteam.jvoxelizer.block.entity.IBlockEntity;
 import com.ldtteam.jvoxelizer.block.state.IBlockState;
 import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;

@@ -1,7 +1,6 @@
 package com.ldtteam.jvoxelizer.item.handling;
 
 import com.ldtteam.jvoxelizer.item.IItemStack;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public interface IItemHandler
 {

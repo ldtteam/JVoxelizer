@@ -2,13 +2,9 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.slot.logic.builder;
 
 import com.ldtteam.jvoxelizer.inventory.slot.ISlotItemHandler;
 import com.ldtteam.jvoxelizer.inventory.slot.logic.builder.AbstractSlotItemHandlerBuilder;
-import com.ldtteam.jvoxelizer.item.handling.IInventory;
 import com.ldtteam.jvoxelizer.item.handling.IItemHandler;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.Inventory;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.slot.JVoxSlot;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.slot.JVoxSlotItemHandler;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.slot.logic.pipeline.ForgeSlotItemHandlerPipeline;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.slot.logic.pipeline.ForgeSlotPipeline;
 
 public class JVoxSlotItemHandlerBuilder<I> extends AbstractSlotItemHandlerBuilder<JVoxSlotItemHandlerBuilder<I>, I, ISlotItemHandler<I>>
 {

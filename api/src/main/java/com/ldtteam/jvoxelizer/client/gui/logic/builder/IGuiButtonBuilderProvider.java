@@ -1,6 +1,5 @@
 package com.ldtteam.jvoxelizer.client.gui.logic.builder;
 
-import com.ldtteam.jvoxelizer.client.gui.IGui;
 import com.ldtteam.jvoxelizer.client.gui.IGuiButton;
 
 public interface IGuiButtonBuilderProvider

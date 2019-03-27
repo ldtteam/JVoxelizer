@@ -1,14 +1,12 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.slot;
 
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISprite;
-import com.ldtteam.jvoxelizer.client.renderer.texture.ISpriteMap;
 import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 import com.ldtteam.jvoxelizer.inventory.slot.ISlot;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.handling.IInventory;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.Sprite;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.SpriteMap;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.PlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.Inventory;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;

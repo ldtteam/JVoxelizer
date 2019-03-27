@@ -1,7 +1,6 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living;
 
 import com.ldtteam.jvoxelizer.entity.living.ILivingEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import org.jetbrains.annotations.NotNull;
 

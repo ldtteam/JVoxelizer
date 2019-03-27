@@ -1,7 +1,6 @@
 package com.ldtteam.jvoxelizer.common.capability;
 
 import com.ldtteam.jvoxelizer.item.handling.IItemHandler;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Represents a single capability an object might have.

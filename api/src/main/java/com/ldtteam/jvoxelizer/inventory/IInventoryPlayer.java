@@ -6,7 +6,6 @@ import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.handling.IInventory;
 import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
 import com.ldtteam.jvoxelizer.util.nbt.INBTList;
-import com.ldtteam.jvoxelizer.util.textcomponent.ITextComponent;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
 
 public interface IInventoryPlayer extends IInventory

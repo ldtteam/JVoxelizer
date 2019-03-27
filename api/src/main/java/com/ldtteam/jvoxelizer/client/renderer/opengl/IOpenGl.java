@@ -2,7 +2,6 @@ package com.ldtteam.jvoxelizer.client.renderer.opengl;
 
 import com.ldtteam.jvoxelizer.client.renderer.opengl.util.*;
 import org.lwjgl.util.vector.Quaternion;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;

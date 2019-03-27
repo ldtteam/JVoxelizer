@@ -3,8 +3,6 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult;
 import com.ldtteam.jvoxelizer.util.actionresult.IActionResult;
 import com.ldtteam.jvoxelizer.util.actionresult.IActionResultType;
 
-import net.minecraft.util.EnumActionResult;
-
 import java.util.function.Function;
 
 public class ActionResult<T, I> implements IActionResult<T>

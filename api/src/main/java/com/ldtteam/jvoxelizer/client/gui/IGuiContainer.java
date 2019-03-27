@@ -1,11 +1,9 @@
 package com.ldtteam.jvoxelizer.client.gui;
 
-import com.ldtteam.jvoxelizer.inventory.IClickType;
 import com.ldtteam.jvoxelizer.inventory.IContainer;
 import com.ldtteam.jvoxelizer.inventory.slot.ISlot;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface IGuiContainer<I> extends IGuiScreen<I> {

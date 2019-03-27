@@ -8,11 +8,6 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.textcomponent.TextComponent;
 import com.ldtteam.jvoxelizer.util.textcomponent.ITextComponent;
 
-import static com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.PlayerEntity.asForge;
-import static com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.asForge;
-import static com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForge;
-import static com.ldtteam.jvoxelizer.launcher.forge_1_12.util.textcomponent.TextComponent.fromForge;
-
 public class InventoryCrafting implements IInventoryCrafting
 {
     private final net.minecraft.inventory.InventoryCrafting forgeInventoryCrafting;

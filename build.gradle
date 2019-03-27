@@ -78,3 +78,16 @@ project (':launcher:forge:JVoxelizer - Launchers - Forge - 1.12') {
     }
 
 }
+
+task setupCiWorkspace {
+    group 'build setup'
+    description 'Sets up the build environment for the CI/CD Platform'
+
+    subprojects.each {
+        if (it.tasks.findByName("setupCiWorkspace") != null)
+        {
+            println "Detected ci workspace setup infrastructure on: ${it.name}"
+            dependsOn("${it.path}:setupCiWorkspace" )
+        }
+    }
+}

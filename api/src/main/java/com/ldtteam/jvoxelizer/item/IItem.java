@@ -30,7 +30,6 @@ import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
 import com.ldtteam.jvoxelizer.util.rarity.IRarity;
 import com.ldtteam.jvoxelizer.util.tooltipflag.IToolTipFlag;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
 
@@ -39,8 +38,7 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     static int getIdFromItem(IItem<?> item)
     {
-        //TODO: Implement
-        throw new NotImplementedException();
+        return IItemProviderHolder.getInstance().provideIdFromItem(item);
     }
 
     void addPropertyOverride(IIdentifier key, IItemPropertyGetter getter);

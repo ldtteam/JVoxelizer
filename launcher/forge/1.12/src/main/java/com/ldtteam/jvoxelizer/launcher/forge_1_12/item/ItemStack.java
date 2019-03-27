@@ -43,7 +43,7 @@ public class ItemStack implements IItemStack
     @Override
     public IItem<?> getItem()
     {
-        return new Item(forgeItemStack.getItem());
+        return Item.fromForge(forgeItemStack.getItem());
     }
 
     @Override

@@ -110,7 +110,7 @@ public interface IItemBuilder<C extends AbstractItemBuilder<C, I, O>, I, O exten
 
     C GetCreatorModId(Function<TypedPipelineElementContext<GetCreatorModIdContext, String, O, I>, String>... components);
 
-    C OnItemUse(Function<TypedPipelineElementContext<OnItemUseContext, IActionResult, O, I>, IActionResult>... components);
+    C OnItemUse(Function<TypedPipelineElementContext<OnItemUseContext, IActionResultType, O, I>, IActionResultType>... components);
 
     C IsDamaged(Function<TypedPipelineElementContext<IsDamagedContext, Boolean, O, I>, Boolean>... components);
 
@@ -261,4 +261,6 @@ public interface IItemBuilder<C extends AbstractItemBuilder<C, I, O>, I, O exten
     C OnCreated(Consumer<VoidPipelineElementContext<OnCreatedContext, O, I>>... components);
 
     C SetHarvestLevel(Consumer<VoidPipelineElementContext<SetHarvestLevelContext, O, I>>... components);
+
+    O build(I instanceData);
 }

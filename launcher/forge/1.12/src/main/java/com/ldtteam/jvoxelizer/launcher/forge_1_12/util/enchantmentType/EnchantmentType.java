@@ -24,7 +24,7 @@ public class EnchantmentType implements IEnchantmentType
     @Override
     public boolean canEnchantItem(final IItem itemInput)
     {
-        return minecraftEnchantMentType.canEnchantItem(((Item)itemInput).getForgeItem());
+        return minecraftEnchantMentType.canEnchantItem(Item.asForge(itemInput));
     }
 
     public static EnumEnchantmentType asForge(IEnchantmentType type)

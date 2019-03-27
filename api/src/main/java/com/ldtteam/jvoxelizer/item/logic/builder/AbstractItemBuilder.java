@@ -331,12 +331,12 @@ public abstract class AbstractItemBuilder<C extends AbstractItemBuilder<C, I, O>
     protected final List<Function<TypedPipelineElementContext<GetCreatorModIdContext, String, O, I>, String>> GetCreatorModIdPipeline = new ArrayList<>();
 
     @Override
-    public C OnItemUse(Function<TypedPipelineElementContext<OnItemUseContext, IActionResult, O, I>, IActionResult>... components) {
+    public C OnItemUse(Function<TypedPipelineElementContext<OnItemUseContext, IActionResultType, O, I>, IActionResultType>... components) {
         this.OnItemUsePipeline.addAll(Arrays.asList(components));
         return (C) this;
     }
 
-    protected final List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResult, O, I>, IActionResult>> OnItemUsePipeline = new ArrayList<>();
+    protected final List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResultType, O, I>, IActionResultType>> OnItemUsePipeline = new ArrayList<>();
 
     @Override
     public C IsDamaged(Function<TypedPipelineElementContext<IsDamagedContext, Boolean, O, I>, Boolean>... components) {

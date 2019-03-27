@@ -554,7 +554,7 @@ public class Item implements IItem<DummyInstanceData>
     @Override
     public void renderHelmetOverlay(final IItemStack stack, final IPlayerEntity player, final IScaledResolution resolution, final float partialTicks)
     {
-        forgeItem.renderHelmetOverlay(ItemStack.asForge(stack), PlayerEntity.asForge(player), ((ScaledResolution)resolution).getForgeResolution(), partialTicks);
+        forgeItem.renderHelmetOverlay(ItemStack.asForge(stack), PlayerEntity.asForge(player), ScaledResolution.asForge(resolution), partialTicks);
     }
 
     @Override

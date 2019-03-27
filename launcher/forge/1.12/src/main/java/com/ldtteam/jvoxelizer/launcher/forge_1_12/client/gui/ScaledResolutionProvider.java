@@ -21,6 +21,6 @@ public class ScaledResolutionProvider implements IScaledResolutionProvider
     @Override
     public IScaledResolution provide(final IGameEngine engine)
     {
-        return new ScaledResolution(new net.minecraft.client.gui.ScaledResolution(GameEngine.asForge(engine)));
+        return ScaledResolution.fromForge(new net.minecraft.client.gui.ScaledResolution(GameEngine.asForge(engine)));
     }
 }

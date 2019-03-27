@@ -21,4 +21,10 @@ public class ItemStackProvider implements IItemStackProvider
     {
         return ItemStack.fromForge(net.minecraft.item.ItemStack.EMPTY);
     }
+
+    @Override
+    public boolean areItemStackTagsEqual(final IItemStack pItemStack1, final IItemStack pItemStack2)
+    {
+        return net.minecraft.item.ItemStack.areItemStacksEqual(ItemStack.asForge(pItemStack1), ItemStack.asForge(pItemStack2));
+    }
 }

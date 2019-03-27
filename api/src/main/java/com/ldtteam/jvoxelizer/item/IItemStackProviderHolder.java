@@ -21,4 +21,10 @@ final class IItemStackProviderHolder extends AbstractHolder<IItemStackProvider> 
     {
         return getProvider().provide();
     }
+
+    @Override
+    public boolean areItemStackTagsEqual(final IItemStack pItemStack1, final IItemStack pItemStack2)
+    {
+        return getProvider().areItemStackTagsEqual(pItemStack1, pItemStack2);
+    }
 }

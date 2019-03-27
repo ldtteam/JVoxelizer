@@ -7,6 +7,8 @@ import com.ldtteam.jvoxelizer.client.gui.IGuiScreen;
 import com.ldtteam.jvoxelizer.client.gui.IScaledResolution;
 import com.ldtteam.jvoxelizer.client.gui.logic.builder.IGuiBuilder;
 import com.ldtteam.jvoxelizer.client.gui.logic.builder.IGuiButtonBuilder;
+import com.ldtteam.jvoxelizer.client.gui.logic.builder.IGuiContainerBuilder;
+import com.ldtteam.jvoxelizer.client.gui.logic.builder.IGuiScreenBuilder;
 import com.ldtteam.jvoxelizer.client.mouse.IMouse;
 import com.ldtteam.jvoxelizer.client.renderer.opengl.IOpenGl;
 import com.ldtteam.jvoxelizer.client.renderer.opengl.util.vertexformat.IVertexFormat;
@@ -26,7 +28,9 @@ import com.ldtteam.jvoxelizer.item.handling.IItemHandler;
 import com.ldtteam.jvoxelizer.item.logic.builder.IItemBuilder;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.biome.BiomeProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockStateProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.GuiScreen;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolutionProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.GuiScreenProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.builder.provider.GuiBuilderProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.builder.provider.GuiButtonBuilderProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.builder.provider.GuiContainerBuilderProvider;
@@ -98,10 +102,11 @@ public abstract class AbstractForgeMod
         ProviderResolver.getInstance().registerProvider(IBlockState.class.getName(), BlockStateProvider.getInstance());
 
         //Client
+        ProviderResolver.getInstance().registerProvider(IGuiScreen.class.getName(), GuiScreenProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(IGuiBuilder.class.getName(), GuiBuilderProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(IGuiButtonBuilder.class.getName(), GuiButtonBuilderProvider.getInstance());
-        ProviderResolver.getInstance().registerProvider(IGuiScreen.class.getName(), GuiScreenBuilderProvider.getInstance());
-        ProviderResolver.getInstance().registerProvider(IGuiContainer.class.getName(), GuiContainerBuilderProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(IGuiScreenBuilder.class.getName(), GuiScreenBuilderProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(IGuiContainerBuilder.class.getName(), GuiContainerBuilderProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(IScaledResolution.class.getName(), ScaledResolutionProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(IMouse.class.getName(), MouseProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(IVertexFormat.class.getName(), VertexFormatProvider.getInstance());

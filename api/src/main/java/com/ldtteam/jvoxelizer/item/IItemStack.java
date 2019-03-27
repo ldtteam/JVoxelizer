@@ -1,5 +1,6 @@
 package com.ldtteam.jvoxelizer.item;
 
+import com.ldtteam.jvoxelizer.entity.item.IItemStackEntityProviderHolder;
 import com.ldtteam.jvoxelizer.util.nbt.INBTSerializable;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -17,8 +18,7 @@ public interface IItemStack extends INBTSerializable
 
     static boolean areItemStackTagsEqual(IItemStack pItemStack1, IItemStack pItemStack2)
     {
-        //TODO: Implement:
-        throw new NotImplementedException();
+        return IItemStackProviderHolder.getInstance().areItemStackTagsEqual(pItemStack1, pItemStack2);
     }
 
     /**

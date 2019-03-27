@@ -1,7 +1,7 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.translation;
 
 import com.ldtteam.jvoxelizer.translation.ITranslator;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.translation.I18n;
 
 public class Translator implements ITranslator
 {

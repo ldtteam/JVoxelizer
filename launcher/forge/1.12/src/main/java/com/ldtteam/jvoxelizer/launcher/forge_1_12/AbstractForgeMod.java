@@ -52,6 +52,7 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.endpoint.NetworkEnd
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.utils.target.NetworkTargetPointProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.profiler.Profiler;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.profiler.ProfilerProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.progressmanager.ProgressManagerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.DistributionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt.NBTProvider;
 import com.ldtteam.jvoxelizer.modloader.IModLoader;
@@ -59,6 +60,7 @@ import com.ldtteam.jvoxelizer.networking.endpoint.INetworkEndpoint;
 import com.ldtteam.jvoxelizer.networking.utils.target.INetworkTargetPoint;
 import com.ldtteam.jvoxelizer.networking.utils.target.INetworkTargetPointProvider;
 import com.ldtteam.jvoxelizer.profiler.IProfiler;
+import com.ldtteam.jvoxelizer.progressmanager.IProgressManager;
 import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
 import com.ldtteam.jvoxelizer.util.nbt.INBTBase;
 import net.minecraftforge.fml.common.Mod;
@@ -133,6 +135,9 @@ public abstract class AbstractForgeMod
 
         //Profiler
         ProviderResolver.getInstance().registerProvider(IProfiler.class.getName(), ProfilerProvider.getInstance());
+
+        //ProgressManager
+        ProviderResolver.getInstance().registerProvider(IProgressManager.class.getName(), ProgressManagerProvider.getInstance());
 
         //Util
         ProviderResolver.getInstance().registerProvider(IDistribution.class.getName(), DistributionProvider.getInstance());

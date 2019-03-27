@@ -1,5 +1,6 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12;
 
+import com.ldtteam.jvoxelizer.IGameEngine;
 import com.ldtteam.jvoxelizer.biome.IBiome;
 import com.ldtteam.jvoxelizer.block.state.IBlockState;
 import com.ldtteam.jvoxelizer.client.gui.IGuiScreen;
@@ -157,6 +158,9 @@ public abstract class AbstractForgeMod
         //Util
         ProviderResolver.getInstance().registerProvider(IDistribution.class.getName(), DistributionProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(INBTBase.class.getName(), NBTProvider.getInstance());
+
+        //JVox
+        ProviderResolver.getInstance().registerProvider(IGameEngine.class.getName(), GameEngineProvider.getInstance());
     }
 
     protected abstract void registerModProviders();

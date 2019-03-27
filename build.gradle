@@ -101,6 +101,9 @@ project (':launcher:forge:JVoxelizer - Launchers - Forge - 1.12') {
         }
     }
 
+    artifacts {
+        archives sourcesJar
+    }
 }
 
 task setupCiWorkspace {

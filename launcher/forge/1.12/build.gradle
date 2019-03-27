@@ -1,0 +1,12 @@
+jar {
+    manifest {
+        attributes([
+            'Maven-Artifact': "${project.group}:${project.archivesBaseName}:${project.version}:forge-1.12",
+            'Timestamp': System.currentTimeMillis(),
+            'FMLAT': "jvoxelizer_at.cfg"
+        ])
+    }
+
+    classifier 'forge-1.12'
+}
+

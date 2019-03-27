@@ -21,6 +21,9 @@ subprojects {
 }
 
 project (':JVoxerlizer - Api') {
+    version = System.getenv("Version")
+    group = "com.ldtteam"
+    archivesBaseName = "JVoxelizer-Api"
 }
 
 project (':launcher:forge:JVoxelizer - Launchers - Forge - 1.12') {
@@ -39,7 +42,7 @@ project (':launcher:forge:JVoxelizer - Launchers - Forge - 1.12') {
 
     version = System.getenv("Version")
     group = "com.ldtteam"
-    archivesBaseName = "JVoxelizer - Launcher"
+    archivesBaseName = "JVoxelizer-Launcher"
 
     sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
     compileJava {

@@ -775,4 +775,16 @@ final class IOpenGlProviderHolder extends AbstractHolder<IOpenGlProvider> implem
     {
         return getProvider().getOpenGlLineRenderMode();
     }
+
+    @Override
+    public void disableScissor()
+    {
+        getProvider().disableScissor();
+    }
+
+    @Override
+    public void enableScissor(final int x, final int y, final int w, final int h)
+    {
+        getProvider().enableScissor(x, y, w, h);
+    }
 }

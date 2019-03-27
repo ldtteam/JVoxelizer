@@ -2,6 +2,7 @@ package com.ldtteam.jvoxelizer.client.renderer.opengl;
 
 import com.ldtteam.jvoxelizer.client.renderer.opengl.util.*;
 import org.lwjgl.util.vector.Quaternion;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -259,4 +260,8 @@ public interface IOpenGlProvider
     int getOpenGlQuadsRenderMode();
 
     int getOpenGlLineRenderMode();
+
+    void disableScissor();
+
+    void enableScissor(int x, int y, int w, int h);
 }

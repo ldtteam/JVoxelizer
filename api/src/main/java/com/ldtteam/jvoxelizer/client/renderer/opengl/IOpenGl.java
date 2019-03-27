@@ -649,11 +649,11 @@ public interface IOpenGl
 
     static void disableScissor()
     {
-        throw new NotImplementedException();
+        IOpenGlProviderHolder.getInstance().disableScissor();
     }
 
     static void enableScissor(int x, int y, int w, int h)
     {
-        throw new NotImplementedException();
+        IOpenGlProviderHolder.getInstance().enableScissor(x, y, w, h);
     }
 }

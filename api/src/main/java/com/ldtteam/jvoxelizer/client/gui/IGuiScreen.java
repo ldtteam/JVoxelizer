@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer.client.gui;
 
 import com.ldtteam.jvoxelizer.IGameEngine;
+import com.ldtteam.jvoxelizer.client.gui.logic.builder.IGuiScreenBuilderProvider;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
 import com.ldtteam.jvoxelizer.client.renderer.item.IItemRenderer;
 import com.ldtteam.jvoxelizer.item.IItemStack;
@@ -14,22 +15,22 @@ public interface IGuiScreen<I> extends IGui<I>, IGuiYesNoCallback {
 
     static boolean isShiftKeyDown()
     {
-        throw new NotImplementedException();
+        return IGuiScreenProviderHolder.getInstance().isShiftKeyDown();
     }
 
     static boolean isCtrlKeyDown()
     {
-        throw new NotImplementedException();
+        return IGuiScreenProviderHolder.getInstance().isCtrlKeyDown();
     }
 
     static void setClipboardString(String selectedText)
     {
-        throw new NotImplementedException();
+        IGuiScreenProviderHolder.getInstance().setClipboardString(selectedText);
     }
 
     static String getClipboardString()
     {
-        throw new NotImplementedException();
+        return IGuiScreenProviderHolder.getInstance().getClipboardString();
     }
 
     void drawScreen(int mouseX, int mouseY, float partialTicks);

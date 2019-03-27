@@ -830,4 +830,19 @@ public class OpenGlProvider implements IOpenGlProvider
     {
         return GL11.GL_LINE;
     }
+
+    @Override
+    public void disableScissor()
+    {
+        GL11.glDisable(GL11.GL_SCISSOR_TEST);
+        GL11.glPopAttrib();
+    }
+
+    @Override
+    public void enableScissor(final int x, final int y, final int w, final int h)
+    {
+        GL11.glPushAttrib(GL11.GL_SCISSOR_BIT);
+        GL11.glEnable(GL11.GL_SCISSOR_TEST);
+        GL11.glScissor(x, y, w, h);
+    }
 }

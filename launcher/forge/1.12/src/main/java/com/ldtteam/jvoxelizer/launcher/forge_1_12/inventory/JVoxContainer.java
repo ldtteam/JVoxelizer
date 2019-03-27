@@ -24,6 +24,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -396,6 +397,12 @@ public class JVoxContainer<I> extends Container implements IContainer<I>
               throw new IllegalStateException("Can not call 'canInteractWith' on Container. It is abstract.");
           }
         );
+    }
+
+    @Override
+    public void addSlotToContainer(final ISlot<?> slot)
+    {
+        this.addSlotToContainer(com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.slot.Slot.asForge(slot));
     }
 
     @Override

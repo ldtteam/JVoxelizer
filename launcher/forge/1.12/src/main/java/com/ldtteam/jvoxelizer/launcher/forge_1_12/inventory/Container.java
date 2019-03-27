@@ -1,5 +1,6 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory;
 
+import com.ldtteam.jvoxelizer.core.exceptions.FeatureNotImplementedException;
 import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 import com.ldtteam.jvoxelizer.inventory.*;
@@ -18,6 +19,12 @@ public class Container implements IContainer<DummyInstanceData>
     private final net.minecraft.inventory.Container forgeContainer;
 
     private Container(final net.minecraft.inventory.Container forgeContainer) {this.forgeContainer = forgeContainer;}
+
+    @Override
+    public void addSlotToContainer(final ISlot<?> slot)
+    {
+        throw new FeatureNotImplementedException("'Adding Slots to Wrapped Container'");
+    }
 
     @Override
     public void addListener(final IContainerListener listener)

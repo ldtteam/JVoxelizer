@@ -20,6 +20,8 @@ public interface IContainer<I> extends IInstancedObject<I> {
         IContainerProviderHolder.getInstance().computeStackSize(dragSlotsIn, dragModeIn, stack, slotStackSize);
     }
 
+    void addSlotToContainer(ISlot<?> slot);
+
     void addListener(IContainerListener listener);
 
     List<IItemStack> getContents();

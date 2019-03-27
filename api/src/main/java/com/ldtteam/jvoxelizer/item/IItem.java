@@ -101,7 +101,7 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     boolean getShareTag();
 
-    IItem<I> getRemainderItemAfterUse();
+    IItem<?> getRemainderItemAfterUse();
 
     boolean hasContainerItem();
 

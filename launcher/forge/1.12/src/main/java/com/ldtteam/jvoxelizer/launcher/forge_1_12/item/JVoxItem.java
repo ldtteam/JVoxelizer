@@ -21,6 +21,7 @@ import com.ldtteam.jvoxelizer.item.IItem;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.group.IItemGroup;
 import com.ldtteam.jvoxelizer.item.logic.builder.contexts.*;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.entity.BlockEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockState;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.blockentity.BlockEntityRenderer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.animation.TimedValue;
@@ -41,6 +42,7 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.Identifier;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block.BlockCoordinate;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt.NBTCompound;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.rarity.Rarity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.stream.nonnulllist.NonNullListCollector;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.tooltipflag.ToolTipFlag;
 import com.ldtteam.jvoxelizer.util.action.IActionType;
 import com.ldtteam.jvoxelizer.util.actionresult.IActionResult;
@@ -54,6 +56,8 @@ import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
 import com.ldtteam.jvoxelizer.util.rarity.IRarity;
 import com.ldtteam.jvoxelizer.util.stream.multimap.MultiMapCollector;
 import com.ldtteam.jvoxelizer.util.tooltipflag.IToolTipFlag;
+import com.sun.org.apache.xpath.internal.operations.Mult;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -1988,25 +1992,26 @@ public class JVoxItem<I> extends Item implements IItem<I>
     @Override
     public void addPropertyOverride(final IIdentifier key, final com.ldtteam.jvoxelizer.item.IItemPropertyGetter getter)
     {
-
+        this.addPropertyOverride(Identifier.asForge(key), ItemPropertyGetter.asForge(getter));
     }
 
     @Override
     public com.ldtteam.jvoxelizer.item.IItemPropertyGetter getPropertyGetter(final IIdentifier key)
     {
-        return null;
+        return ItemPropertyGetter.fromForge(this.getPropertyGetter(Identifier.asForge(key)));
     }
 
     @Override
     public boolean updateItemStackNBT(final INBTCompound nbt)
     {
-        return false;
+        return this.updateItemStackNBT(NBTCompound.asForge(nbt));
     }
 
     @Override
     public IItem<I> setMaxItemStackSize(final int maxStackSize)
     {
-        return null;
+        this.setMaxStackSize(maxStackSize);
+        return this;
     }
 
     @Override
@@ -2020,46 +2025,69 @@ public class JVoxItem<I> extends Item implements IItem<I>
       final float hitY,
       final float hitZ)
     {
-        return null;
+        return ActionResultType.fromForge(
+          this.onItemUse(
+            PlayerEntity.asForge(player),
+            Dimension.asForge(worldIn),
+            BlockCoordinate.asForge(pos),
+            Hand.asForge(hand),
+            Facing.asForge(facing),
+            hitX,
+            hitY,
+            hitZ
+          )
+        );
     }
 
     @Override
     public float getDestroySpeed(final IItemStack stack, final com.ldtteam.jvoxelizer.block.state.IBlockState state)
     {
-        return 0;
+        return getDestroySpeed(
+          asForge(stack),
+          BlockState.asForge(state)
+        );
     }
 
     @Override
     public IActionResult<IItemStack> onItemRightClick(
       final IDimension worldIn, final IPlayerEntity playerIn, final IHand handIn)
     {
-        return null;
+        return com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResult.fromForge(
+          this.onItemRightClick(
+            Dimension.asForge(worldIn),
+            PlayerEntity.asForge(playerIn),
+            Hand.asForge(handIn)
+          ),
+          com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack::fromForge
+        );
     }
 
     @Override
     public IItemStack onItemUseFinish(
       final IItemStack stack, final IDimension worldIn, final ILivingBaseEntity entityLiving)
     {
-        return null;
+        return fromForge(this.onItemUseFinish(asForge(stack), Dimension.asForge(worldIn), LivingBaseEntity.asForge(entityLiving)));
     }
 
     @Override
     public IItem<I> setHasSubItems(final boolean hasSubtypes)
     {
-        return null;
+        this.setHasSubtypes(hasSubtypes);
+        return this;
     }
 
     @Override
     public IItem<I> setMaxSustainableDamage(final int maxDamageIn)
     {
-        return null;
+        this.setMaxDamage(maxDamageIn);
+        return this;
     }
 
     @Override
     public boolean hitEntity(
       final IItemStack stack, final ILivingBaseEntity target, final ILivingBaseEntity attacker)
     {
-        return false;
+        return this.hitEntity(asForge(stack), LivingBaseEntity.asForge(target), LivingBaseEntity.asForge(attacker));
     }
 
     @Override
@@ -2070,169 +2098,192 @@ public class JVoxItem<I> extends Item implements IItem<I>
       final IBlockCoordinate pos,
       final ILivingBaseEntity entityLiving)
     {
-        return false;
+        return this.onBlockDestroyed(
+          asForge(stack),
+          Dimension.asForge(worldIn),
+          BlockState.asForge(state),
+          BlockCoordinate.asForge(pos),
+          LivingBaseEntity.asForge(entityLiving)
+        );
     }
 
     @Override
     public boolean canHarvestBlock(final com.ldtteam.jvoxelizer.block.state.IBlockState blockIn)
     {
-        return false;
+        return this.canHarvestBlock(
+          BlockState.asForge(blockIn)
+        );
     }
 
     @Override
     public boolean itemInteractionForEntity(
       final IItemStack stack, final IPlayerEntity playerIn, final ILivingBaseEntity target, final IHand hand)
     {
-        return false;
+        return this.itemInteractionForEntity(
+          asForge(stack),
+          PlayerEntity.asForge(playerIn),
+          LivingBaseEntity.asForge(target),
+          Hand.asForge(hand)
+        );
     }
 
     @Override
     public IItem<I> setItemIsFull3D()
     {
-        return null;
+        this.setFull3D();
+        return this;
     }
 
     @Override
     public IItem<I> setUnlocalizedNameForItem(final String unlocalizedName)
     {
-        return null;
+        this.setUnlocalizedName(unlocalizedName);
+        return this;
     }
 
     @Override
     public String getUnlocalizedNameInefficiently(final IItemStack stack)
     {
-        return null;
+        return this.getUnlocalizedNameInefficiently(asForge(stack));
     }
 
     @Override
     public String getUnlocalizedName(final IItemStack stack)
     {
-        return null;
+        return this.getUnlocalizedName(asForge(stack));
     }
 
     @Override
     public IItem<I> setContainerItem(final IItem<I> containerItem)
     {
-        return null;
+        this.setContainerItem(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.Item.asForge(containerItem));
+        return this;
     }
 
     @Override
-    public IItem<I> getRemainderItemAfterUse()
+    public IItem<?> getRemainderItemAfterUse()
     {
-        return null;
+        return com.ldtteam.jvoxelizer.launcher.forge_1_12.item.Item.fromForge(this.getContainerItem());
     }
 
     @Override
     public void onUpdate(
       final IItemStack stack, final IDimension worldIn, final IEntity entityIn, final int itemSlot, final boolean isSelected)
     {
-
+        this.onUpdate(asForge(stack), Dimension.asForge(worldIn), com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.asForge(entityIn), itemSlot, isSelected);
     }
 
     @Override
     public void onCreated(
       final IItemStack stack, final IDimension worldIn, final IPlayerEntity playerIn)
     {
-
+        this.onCreated(asForge(stack), Dimension.asForge(worldIn), PlayerEntity.asForge(playerIn));
     }
 
     @Override
     public IActionType getItemUseAction(final IItemStack stack)
     {
-        return null;
+        return ActionType.fromForge(this.getItemUseAction(asForge(stack)));
     }
 
     @Override
     public int getMaxItemUseDuration(final IItemStack stack)
     {
-        return 0;
+        return getMaxItemUseDuration(asForge(stack));
     }
 
     @Override
     public void onPlayerStoppedUsing(
       final IItemStack stack, final IDimension worldIn, final ILivingBaseEntity entityLiving, final int timeLeft)
     {
-
+        this.onPlayerStoppedUsing(asForge(stack), Dimension.asForge(worldIn), LivingBaseEntity.asForge(entityLiving), timeLeft);
     }
 
     @Override
     public void addInformation(
       final IItemStack stack, final IDimension worldIn, final List<String> tooltip, final IToolTipFlag flagIn)
     {
-
+        this.addInformation(asForge(stack), Dimension.asForge(worldIn), tooltip, ToolTipFlag.asForge(flagIn));
     }
 
     @Override
     public String getItemStackDisplayName(final IItemStack stack)
     {
-        return null;
+        return this.getItemStackDisplayName(asForge(stack));
     }
 
     @Override
     public boolean hasEffect(final IItemStack stack)
     {
-        return false;
+        return this.hasEffect(asForge(stack));
     }
 
     @Override
     public IRarity getRarity(final IItemStack stack)
     {
-        return null;
+        return Rarity.fromForge(this.getRarity(asForge(stack)));
     }
 
     @Override
     public boolean isEnchantable(final IItemStack stack)
     {
-        return false;
+        return this.isEnchantable(asForge(stack));
     }
 
     @Override
     public void getSubItems(final IItemGroup<?> tab, final List<IItemStack> items)
     {
+        final NonNullList<ItemStack> stacks = items.stream().map(i -> asForge(i)).collect(NonNullListCollector.toList());
+        this.getSubItems(ItemGroup.asForge(tab), stacks);
 
+        items.clear();
+        items.addAll(stacks.stream().map(i -> fromForge(i)).collect(Collectors.toList()));
     }
 
     @Override
     public IItemGroup<?> getItemGroup()
     {
-        return null;
+        return ItemGroup.fromForge(this.getCreativeTab());
     }
 
     @Override
     public IItem<I> setItemGroup(final IItemGroup<?> tab)
     {
-        return null;
+        this.setCreativeTab(ItemGroup.asForge(tab));
+        return this;
     }
 
     @Override
     public boolean getIsRepairable(final IItemStack toRepair, final IItemStack repair)
     {
-        return false;
+        return this.getIsRepairable(asForge(toRepair), asForge(repair));
     }
 
     @Override
     public Multimap<String, IAttributeModifier> getItemAttributeModifiers(final IEquipmentSlot equipmentSlot)
     {
-        return null;
+        return this.getItemAttributeModifiers(EquipmentSlot.asForge(equipmentSlot)).entries().stream().map(e -> new Tuple<>(e.getKey(),
+          com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.ai.AttributeModifier.fromForge(e.getValue()))).collect(MultiMapCollector.toMultimap(Tuple::getFirst, Tuple::getSecond));
     }
 
     @Override
     public Multimap<String, IAttributeModifier> getAttributeModifiers(
       final IEquipmentSlot slot, final IItemStack stack)
     {
-        return null;
+        return this.getAttributeModifiers(EquipmentSlot.asForge(slot), asForge(stack)).entries().stream().map(e -> new Tuple<>(e.getKey(),
+          com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.ai.AttributeModifier.fromForge(e.getValue()))).collect(MultiMapCollector.toMultimap(Tuple::getFirst, Tuple::getSecond));
     }
 
     @Override
     public boolean onDroppedByPlayer(final IItemStack IItem, final IPlayerEntity player)
     {
-        return false;
+        return this.onDroppedByPlayer(asForge(IItem), PlayerEntity.asForge(player));
     }
 
     @Override
     public String getHighlightTip(final IItemStack IItem, final String displayName)
     {
-        return null;
+        return this.getHighlightTip(asForge(IItem), displayName);
     }
 
     @Override
@@ -2246,375 +2297,406 @@ public class JVoxItem<I> extends Item implements IItem<I>
       final float hitZ,
       final IHand hand)
     {
-        return null;
+        return ActionResultType.fromForge(
+          this.onItemUseFirst(
+            PlayerEntity.asForge(player),
+            Dimension.asForge(IDimension),
+            BlockCoordinate.asForge(pos),
+            Facing.asForge(side),
+            hitX,
+            hitY,
+            hitZ,
+            Hand.asForge(hand)
+          )
+        );
     }
 
     @Override
     public IItem<I> disableRepair()
     {
-        return null;
+        this.setNoRepair();
+        return this;
     }
 
     @Override
     public float getXpRepairRatio(final IItemStack stack)
     {
-        return 0;
+        return this.getXpRepairRatio(asForge(stack));
     }
 
     @Override
     public INBTCompound getNBTShareTag(final IItemStack stack)
     {
-        return null;
+        return NBTCompound.fromForge(this.getNBTShareTag(asForge(stack)));
     }
 
     @Override
     public void readNBTShareTag(final IItemStack stack, final INBTCompound nbt)
     {
-
+        this.readNBTShareTag(asForge(stack), NBTCompound.asForge(nbt));
     }
 
     @Override
     public boolean onBlockStartBreak(
       final IItemStack IItemStack, final IBlockCoordinate pos, final IPlayerEntity player)
     {
-        return false;
+        return this.onBlockStartBreak(asForge(IItemStack), BlockCoordinate.asForge(pos), PlayerEntity.asForge(player));
     }
 
     @Override
     public void onUsingTick(final IItemStack stack, final ILivingBaseEntity player, final int count)
     {
-
+        this.onUsingTick(asForge(stack), LivingBaseEntity.asForge(player), count);
     }
 
     @Override
     public boolean onLeftClickEntity(
       final IItemStack stack, final IPlayerEntity player, final IEntity IEntity)
     {
-        return false;
+        return this.onLeftClickEntity(
+          asForge(stack),
+          PlayerEntity.asForge(player),
+          com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.asForge(IEntity)
+        );
     }
 
     @Override
     public IItemStack getRemainderItemAfterUse(final IItemStack IItemStack)
     {
-        return null;
+        return fromForge(this.getContainerItem(asForge(IItemStack)));
     }
 
     @Override
     public boolean hasContainerItem(final IItemStack stack)
     {
-        return false;
+        return this.hasContainerItem(asForge(stack));
     }
 
     @Override
     public int getEntityLifespan(final IItemStack IItemStack, final IDimension IDimension)
     {
-        return 0;
+        return this.getEntityLifespan(asForge(IItemStack), Dimension.asForge(IDimension));
     }
 
     @Override
     public boolean hasCustomEntity(final IItemStack stack)
     {
-        return false;
+        return this.hasCustomEntity(asForge(stack));
     }
 
     @Override
     public IEntity createEntity(
       final IDimension IDimension, final IEntity location, final IItemStack IItemStack)
     {
-        return null;
+        return com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.fromForge(this.createEntity(Dimension.asForge(IDimension),
+          com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.asForge(location), asForge(IItemStack)));
     }
 
     @Override
     public boolean onEntityItemUpdate(final IItemStackEntity entityItem)
     {
-        return false;
+        return this.onEntityItemUpdate(ItemStackEntity.asForge(entityItem));
     }
 
     @Override
     public IItemGroup<?>[] getItemGroups()
     {
-        return new IItemGroup[0];
+        return Arrays.stream(this.getCreativeTabs()).map(ItemGroup::fromForge).toArray(IItemGroup<?>[]::new);
     }
 
     @Override
     public float getSmeltingExperience(final IItemStack IItem)
     {
-        return 0;
+        return this.getSmeltingExperience(asForge(IItem));
     }
 
     @Override
     public boolean doesSneakBypassUse(
       final IItemStack stack, final IDimension world, final IBlockCoordinate pos, final IPlayerEntity player)
     {
-        return false;
+        return this.doesSneakBypassUse(asForge(stack), Dimension.asForge(world), BlockCoordinate.asForge(pos), PlayerEntity.asForge(player));
     }
 
     @Override
     public void onArmorTick(
       final IDimension IDimension, final IPlayerEntity player, final IItemStack IItemStack)
     {
-
+        this.onArmorTick(Dimension.asForge(IDimension), PlayerEntity.asForge(player), asForge(IItemStack));
     }
 
     @Override
     public boolean isValidArmor(
       final IItemStack stack, final IEquipmentSlot armorType, final IEntity IEntity)
     {
-        return false;
+        return this.isValidArmor(asForge(stack), EquipmentSlot.asForge(armorType), com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.asForge(IEntity));
     }
 
     @Override
     public IEquipmentSlot getEquipmentSlot(final IItemStack stack)
     {
-        return null;
+        return EquipmentSlot.fromForge(this.getEquipmentSlot(asForge(stack)));
     }
 
     @Override
     public boolean isBookEnchantable(final IItemStack stack, final IItemStack book)
     {
-        return false;
+        return this.isBookEnchantable(asForge(stack), asForge(book));
     }
 
     @Override
     public String getArmorTexture(
       final IItemStack stack, final IEntity IEntity, final IEquipmentSlot slot, final String type)
     {
-        return null;
+        return this.getArmorTexture(asForge(stack), com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.asForge(IEntity), EquipmentSlot.asForge(slot), type);
     }
 
     @Override
     public IFontRenderer getFontRenderer(final IItemStack stack)
     {
-        return null;
+        return com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.fromForge(this.getFontRenderer(asForge(stack)));
     }
 
     @Override
     public IModelBiped getArmorModel(
       final ILivingBaseEntity entityLiving, final IItemStack IItemStack, final IEquipmentSlot armorSlot, final IModelBiped _default)
     {
-        return null;
+        return com.ldtteam.jvoxelizer.launcher.forge_1_12.client.model.ModelBiped.fromForge(
+          this.getArmorModel(
+            LivingBaseEntity.asForge(entityLiving),
+            asForge(IItemStack),
+            EquipmentSlot.asForge(armorSlot),
+            com.ldtteam.jvoxelizer.launcher.forge_1_12.client.model.ModelBiped.asForge(_default)
+          )
+        );
     }
 
     @Override
     public boolean onEntitySwing(final ILivingBaseEntity entityLiving, final IItemStack stack)
     {
-        return false;
+        return this.onEntitySwing(LivingBaseEntity.asForge(entityLiving), asForge(stack));
     }
 
     @Override
     public void renderHelmetOverlay(
       final IItemStack stack, final IPlayerEntity player, final IScaledResolution resolution, final float partialTicks)
     {
-
+        this.renderHelmetOverlay(asForge(stack), PlayerEntity.asForge(player), com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolution.asForge(resolution), partialTicks);
     }
 
     @Override
     public int getDamage(final IItemStack stack)
     {
-        return 0;
+        return this.getDamage(asForge(stack));
     }
 
     @Override
     public int getMetadata(final IItemStack stack)
     {
-        return 0;
+        return this.getMetadata(asForge(stack));
     }
 
     @Override
     public boolean showDurabilityBar(final IItemStack stack)
     {
-        return false;
+        return this.showDurabilityBar(asForge(stack));
     }
 
     @Override
     public double getDurabilityForDisplay(final IItemStack stack)
     {
-        return 0;
+        return this.getDurabilityForDisplay(asForge(stack));
     }
 
     @Override
     public int getRGBDurabilityForDisplay(final IItemStack stack)
     {
-        return 0;
+        return this.getRGBDurabilityForDisplay(asForge(stack));
     }
 
     @Override
     public int getMaxDamage(final IItemStack stack)
     {
-        return 0;
+        return this.getMaxDamage(asForge(stack));
     }
 
     @Override
     public boolean isDamaged(final IItemStack stack)
     {
-        return false;
+        return this.isDamaged(asForge(stack));
     }
 
     @Override
     public void setDamage(final IItemStack stack, final int damage)
     {
-
+        this.setDamage(asForge(stack), damage);
     }
 
     @Override
     public boolean canDestroyBlockInCreative(
       final IDimension IDimension, final IBlockCoordinate pos, final IItemStack stack, final IPlayerEntity player)
     {
-        return false;
+        return this.canDestroyBlockInCreative(Dimension.asForge(IDimension), BlockCoordinate.asForge(pos), asForge(stack), PlayerEntity.asForge(player));
     }
 
     @Override
     public boolean canHarvestBlock(final com.ldtteam.jvoxelizer.block.state.IBlockState state, final IItemStack stack)
     {
-        return false;
+        return this.canHarvestBlock(BlockState.asForge(state), asForge(stack));
     }
 
     @Override
     public int getItemStackLimit(final IItemStack stack)
     {
-        return 0;
+        return this.getItemStackLimit(asForge(stack));
     }
 
     @Override
     public Set<String> getToolClasses(final IItemStack stack)
     {
-        return null;
+        return this.getToolClasses(asForge(stack));
     }
 
     @Override
     public int getHarvestLevel(
       final IItemStack stack, final String toolClass, final IPlayerEntity player, final com.ldtteam.jvoxelizer.block.state.IBlockState blockState)
     {
-        return 0;
+        return this.getHarvestLevel(asForge(stack), toolClass, PlayerEntity.asForge(player), BlockState.asForge(blockState));
     }
 
     @Override
     public int getItemEnchantability(final IItemStack stack)
     {
-        return 0;
+        return this.getItemEnchantability(asForge(stack));
     }
 
     @Override
     public boolean canApplyAtEnchantingTable(final IItemStack stack, final IEnchantment enchantment)
     {
-        return false;
+        return this.canApplyAtEnchantingTable(asForge(stack), com.ldtteam.jvoxelizer.launcher.forge_1_12.enchantment.Enchantment.asForge(enchantment));
     }
 
     @Override
     public boolean isBeaconPayment(final IItemStack stack)
     {
-        return false;
+        return this.isBeaconPayment(asForge(stack));
     }
 
     @Override
     public boolean shouldCauseReequipAnimation(final IItemStack oldStack, final IItemStack newStack, final boolean slotChanged)
     {
-        return false;
+        return this.shouldCauseReequipAnimation(asForge(oldStack), asForge(newStack), slotChanged);
     }
 
     @Override
     public boolean shouldCauseBlockBreakReset(final IItemStack oldStack, final IItemStack newStack)
     {
-        return false;
+        return this.shouldCauseBlockBreakReset(asForge(oldStack), asForge(newStack));
     }
 
     @Override
     public boolean canContinueUsing(final IItemStack oldStack, final IItemStack newStack)
     {
-        return false;
+        return this.canContinueUsing(asForge(oldStack), asForge(newStack));
     }
 
     @Override
     public String getCreatorModId(final IItemStack IItemStack)
     {
-        return null;
+        return this.getCreatorModId(asForge(IItemStack));
     }
 
     @Override
     public ImmutableMap<String, ITimedValue> getAnimationParameters(
       final IItemStack stack, final IDimension IDimension, final ILivingBaseEntity IEntity)
     {
-        return null;
+        return ImmutableMap.copyOf(
+          this.getAnimationParameters(
+            asForge(stack),
+            Dimension.asForge(IDimension),
+            LivingBaseEntity.asForge(IEntity)
+          ).entrySet().stream().map(e -> new Tuple<>(e.getKey(), TimedValue.fromForge(e.getValue()))).collect(Collectors.toMap(Tuple::getFirst, Tuple::getSecond))
+        );
     }
 
     @Override
     public boolean canDisableShield(
       final IItemStack stack, final IItemStack shield, final ILivingBaseEntity IEntity, final ILivingBaseEntity attacker)
     {
-        return false;
+        return this.canDisableShield(asForge(stack), asForge(shield), LivingBaseEntity.asForge(IEntity), LivingBaseEntity.asForge(attacker));
     }
 
     @Override
     public boolean isShield(final IItemStack stack, final ILivingBaseEntity IEntity)
     {
-        return false;
+        return this.isShield(asForge(stack), LivingBaseEntity.asForge(IEntity));
     }
 
     @Override
     public int getItemBurnTime(final IItemStack IItemStack)
     {
-        return 0;
+        return this.getItemBurnTime(asForge(IItemStack));
     }
 
     @Override
     public IHorseArmorType getHorseArmorType(final IItemStack stack)
     {
-        return null;
+        return com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.passive.HorseArmorType.fromForge(this.getHorseArmorType(asForge(stack)));
     }
 
     @Override
     public String getHorseArmorTexture(final ILivingEntity wearer, final IItemStack stack)
     {
-        return null;
+        return this.getHorseArmorTexture(LivingEntity.asForge(wearer), asForge(stack));
     }
 
     @Override
     public void onHorseArmorTick(
       final IDimension IDimension, final ILivingEntity horse, final IItemStack armor)
     {
-
+        this.onHorseArmorTick(Dimension.asForge(IDimension), LivingEntity.asForge(horse), asForge(armor));
     }
 
     @Override
     public IBlockEntityRenderer getBlockEntityItemStackRenderer()
     {
-        return null;
+        return BlockEntityRenderer.fromForge(this.getTileEntityItemStackRenderer());
     }
 
     @Override
     public void setBlockEntityItemStackRenderer(final IBlockEntityRenderer teisr)
     {
-
+        this.setTileEntityItemStackRenderer(BlockEntityRenderer.asForge(teisr));
     }
 
     @Override
     public IItemStack createDefaultItemStack()
     {
-        return null;
+        return fromForge(this.getDefaultInstance());
     }
 
     @Override
     public String getTranslationKey(final IItemStack pItemStack1)
     {
-        return null;
+        return this.getUnlocalizedName(pItemStack1);
     }
 
     @Override
     public I getInstanceData()
     {
-        return null;
+        return instanceData;
     }
 
     @Override
     public IItem<I> setRegistryIdentifier(final IIdentifier name)
     {
-        return null;
+        this.setRegistryName(Identifier.asForge(name));
+        return this;
     }
 
     @Override
     public IIdentifier getRegistryIdentifier()
     {
-        return null;
+        return Identifier.fromForge(this.getRegistryName());
     }
 
     @Override
@@ -2622,8 +2704,4 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return IItem.class;
     }
-
-    //////////////////////////////////////////////////////////////
-    /// Raycoms: Implement JVox to Forge conversion up until here.
-    //////////////////////////////////////////////////////////////
 }

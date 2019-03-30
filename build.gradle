@@ -30,11 +30,11 @@ project (':JVoxerlizer - Api') {
     archivesBaseName = "JVoxelizer"
 
     dependencies {
-        compileOnly 'com.google.guava:guava:21.0'
+        compile 'com.google.guava:guava:21.0'
         compile 'com.intellij:annotations:+@jar'
-        compileOnly 'io.netty:netty-all:4.1.9.Final'
-        compileOnly 'org.lwjgl.lwjgl:lwjgl_util:2.9.3'
-        compileOnly 'it.unimi.dsi:fastutil:7.1.0'
+        compile 'io.netty:netty-all:4.1.9.Final'
+        compile 'org.lwjgl.lwjgl:lwjgl_util:2.9.3'
+        compile 'it.unimi.dsi:fastutil:7.1.0'
     }
 
     task sourcesJar(type: Jar, dependsOn: classes) {

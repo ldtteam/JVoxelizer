@@ -27,6 +27,11 @@ public class ProviderResolver
         providerMap.putIfAbsent(name, provider);
     }
 
+    public void registerProvider(final Class<?> name, final Object provider)
+    {
+        this.registerProvider(name.getName(), provider);
+    }
+
     public Object getProvider(final String name)
     {
         return providerMap.get(name);

@@ -3,6 +3,7 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12;
 import com.ldtteam.jvoxelizer.IGameEngine;
 import com.ldtteam.jvoxelizer.biome.IBiome;
 import com.ldtteam.jvoxelizer.block.state.IBlockState;
+import com.ldtteam.jvoxelizer.bootstrap.IGameEngineBootstrapper;
 import com.ldtteam.jvoxelizer.client.gui.IGuiScreen;
 import com.ldtteam.jvoxelizer.client.gui.IScaledResolution;
 import com.ldtteam.jvoxelizer.client.gui.logic.builder.IGuiBuilder;
@@ -31,6 +32,7 @@ import com.ldtteam.jvoxelizer.item.handling.IItemHandler;
 import com.ldtteam.jvoxelizer.item.logic.builder.IItemBuilder;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.biome.BiomeProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockStateProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.bootstrap.GameEngineBootstrapperProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolutionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.GuiScreenProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.builder.provider.GuiBuilderProvider;
@@ -103,6 +105,9 @@ public abstract class AbstractForgeMod
 
         //Block
         ProviderResolver.getInstance().registerProvider(IBlockState.class.getName(), BlockStateProvider.getInstance());
+
+        //Bootstraü
+        ProviderResolver.getInstance().registerProvider(IGameEngineBootstrapper.class.getName(), GameEngineBootstrapperProvider.getInstance());
 
         //Client
         ProviderResolver.getInstance().registerProvider(IGuiScreen.class.getName(), GuiScreenProvider.getInstance());

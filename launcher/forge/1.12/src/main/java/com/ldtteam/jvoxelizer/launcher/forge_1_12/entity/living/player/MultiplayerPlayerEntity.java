@@ -1,10 +1,11 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player;
 
 import com.ldtteam.jvoxelizer.entity.living.player.IMultiplayerPlayerEntity;
+import com.ldtteam.jvoxelizer.inventory.IContainerListener;
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.jetbrains.annotations.NotNull;
 
-public class MultiplayerPlayerEntity extends PlayerEntity implements IMultiplayerPlayerEntity
+public class MultiplayerPlayerEntity extends PlayerEntity implements IMultiplayerPlayerEntity, IContainerListener
 {
     private EntityPlayerMP forgeMPPlayer;
 

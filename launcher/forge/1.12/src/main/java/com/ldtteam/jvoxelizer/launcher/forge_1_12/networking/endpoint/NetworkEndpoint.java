@@ -3,6 +3,7 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.endpoint;
 import com.ldtteam.jvoxelizer.entity.living.player.IMultiplayerPlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.MultiplayerPlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging.JVoxMessageWrapper;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging.JVoxMessageWrapperHandler;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging.MessageContext;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.utils.target.NetworkTargetPoint;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.threading.Executor;
@@ -22,8 +23,8 @@ public class NetworkEndpoint implements INetworkEndpoint
     private NetworkEndpoint(final SimpleNetworkWrapper manager)
     {
         this.manager = manager;
-        this.manager.registerMessage(JVoxMessageWrapper.class, JVoxMessageWrapper.class, 0, Side.CLIENT);
-        this.manager.registerMessage(JVoxMessageWrapper.class, JVoxMessageWrapper.class, 1, Side.SERVER);
+        this.manager.registerMessage(JVoxMessageWrapperHandler.class, JVoxMessageWrapper.class, 0, Side.CLIENT);
+        this.manager.registerMessage(JVoxMessageWrapperHandler.class, JVoxMessageWrapper.class, 1, Side.SERVER);
     }
 
     @Override

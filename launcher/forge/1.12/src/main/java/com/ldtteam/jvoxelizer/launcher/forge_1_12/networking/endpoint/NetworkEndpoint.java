@@ -7,14 +7,19 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging.JVoxMessa
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging.MessageContext;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.utils.target.NetworkTargetPoint;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.threading.Executor;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.executor.DistributionExecutor;
 import com.ldtteam.jvoxelizer.networking.endpoint.INetworkEndpoint;
 import com.ldtteam.jvoxelizer.networking.messaging.IMessage;
 import com.ldtteam.jvoxelizer.networking.messaging.IMessageContext;
 import com.ldtteam.jvoxelizer.networking.utils.target.INetworkTargetPoint;
 import com.ldtteam.jvoxelizer.threading.IExecutor;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.IThreadListener;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
+
+import java.util.function.Supplier;
 
 public class NetworkEndpoint implements INetworkEndpoint
 {
@@ -60,7 +65,37 @@ public class NetworkEndpoint implements INetworkEndpoint
     @Override
     public IExecutor getExecutorFromContext(final IMessageContext context)
     {
-        return Executor.fromForge(FMLCommonHandler.instance().getWorldThread(MessageContext.asForge(context).netHandler));
+        final Supplier<IThreadListener> threadListenerSuplier = DistributionExecutor.getInstance().runOn(
+          () -> new Supplier<IThreadListener>() {
+              /**
+               * Gets a result.
+               *
+               * @return a result
+               */
+              @Override
+              public IThreadListener get()
+              {
+                  return Minecraft.getMinecraft();
+              }
+          },
+          () -> new Supplier<IThreadListener>()
+          {
+              /**
+               * Gets a result.
+               *
+               * @return a result
+               */
+              @Override
+              public IThreadListener get()
+              {
+                  return FMLCommonHandler.instance().getMinecraftServerInstance();
+              }
+          }
+        );
+
+        final IThreadListener threadListener = threadListenerSuplier.get();
+
+        return Executor.fromForge(threadListener);
     }
 
     public static SimpleNetworkWrapper asForge(final INetworkEndpoint endpoint)

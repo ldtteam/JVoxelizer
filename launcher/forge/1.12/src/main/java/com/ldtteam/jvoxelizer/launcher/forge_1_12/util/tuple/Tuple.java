@@ -2,6 +2,8 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.util.tuple;
 
 import com.ldtteam.jvoxelizer.util.tuple.ITuple;
 
+import java.util.Objects;
+
 public class Tuple<A, B> implements ITuple
 {
     private net.minecraft.util.Tuple tuple;
@@ -37,5 +39,28 @@ public class Tuple<A, B> implements ITuple
             return (ITuple) tuple;
 
         return new Tuple(tuple);
+    }
+
+    @Override
+    public boolean equals(final Object o)
+    {
+        if (this == o)
+        {
+            return true;
+        }
+        if (!(o instanceof Tuple))
+        {
+            return false;
+        }
+
+        final Tuple<?, ?> tuple1 = (Tuple<?, ?>) o;
+
+        return Objects.equals(tuple, tuple1.tuple);
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return tuple != null ? tuple.hashCode() : 0;
     }
 }

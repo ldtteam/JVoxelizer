@@ -68,6 +68,7 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.Distribution
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.executor.DistributionExecutor;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.IdentifierProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt.NBTProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.textformatting.TextFormattingProvider;
 import com.ldtteam.jvoxelizer.modloader.IModLoader;
 import com.ldtteam.jvoxelizer.networking.endpoint.INetworkEndpoint;
 import com.ldtteam.jvoxelizer.networking.utils.target.INetworkTargetPoint;
@@ -78,6 +79,7 @@ import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
 import com.ldtteam.jvoxelizer.util.distribution.executor.IDistributionExecutor;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 import com.ldtteam.jvoxelizer.util.nbt.INBTBase;
+import com.ldtteam.jvoxelizer.util.textformatting.ITextFormatting;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
@@ -169,6 +171,7 @@ public abstract class AbstractForgeMod
         ProviderResolver.getInstance().registerProvider(IDistributionExecutor.class.getName(), DistributionExecutor.getInstance());
         ProviderResolver.getInstance().registerProvider(INBTBase.class.getName(), NBTProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(IIdentifier.class.getName(), IdentifierProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(ITextFormatting.class.getName(), TextFormattingProvider.getInstance());
 
         //JVox
         ProviderResolver.getInstance().registerProvider(IGameEngine.class.getName(), GameEngineProvider.getInstance());

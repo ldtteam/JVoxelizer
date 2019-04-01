@@ -19,7 +19,7 @@ public class GuiScreen extends Gui implements IGuiScreen<DummyInstanceData>
 
     private final net.minecraft.client.gui.GuiScreen forgeGuiScreen;
 
-    private GuiScreen(final net.minecraft.client.gui.GuiScreen forgeGuiScreen)
+    protected GuiScreen(final net.minecraft.client.gui.GuiScreen forgeGuiScreen)
     {
         super(forgeGuiScreen);
         this.forgeGuiScreen = forgeGuiScreen;

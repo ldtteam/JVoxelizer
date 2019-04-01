@@ -141,13 +141,13 @@ public class JVoxForgeGuiButton<I> extends GuiButton implements IGuiButton<I>
     @Override
     public void drawCenteredString(final IFontRenderer fontRendererIn, final String text, final int x, final int y, final int color)
     {
-        PipelineProcessor.processVoidPipeline(this, new DrawCenteredStringContext(fontRendererIn, text, x, y, color), pipeline.getDrawCenteredStringPipeline(), (c) -> super.drawCenteredString(((FontRenderer) c.getFontRendererIn()).getForgeFontRenderer(), c.getText(), c.getX(), c.getY(), c.getColor()));
+        PipelineProcessor.processVoidPipeline(this, new DrawCenteredStringContext(fontRendererIn, text, x, y, color), pipeline.getDrawCenteredStringPipeline(), (c) -> super.drawCenteredString(FontRenderer.asForge(c.getFontRendererIn()), c.getText(), c.getX(), c.getY(), c.getColor()));
     }
 
     @Override
     public void drawString(final IFontRenderer fontRendererIn, final String text, final int x, final int y, final int color)
     {
-        PipelineProcessor.processVoidPipeline(this, new DrawStringContext(fontRendererIn, text, x, y, color), pipeline.getDrawStringPipeline(), (c) -> super.drawString(((FontRenderer) c.getFontRendererIn()).getForgeFontRenderer(), c.getText(), c.getX(), c.getY(), c.getColor()));
+        PipelineProcessor.processVoidPipeline(this, new DrawStringContext(fontRendererIn, text, x, y, color), pipeline.getDrawStringPipeline(), (c) -> super.drawString(FontRenderer.asForge(c.getFontRendererIn()), c.getText(), c.getX(), c.getY(), c.getColor()));
     }
 
     @Override
@@ -168,13 +168,13 @@ public class JVoxForgeGuiButton<I> extends GuiButton implements IGuiButton<I>
         PipelineProcessor.processVoidPipeline(this,
           new DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntContext(xCoord, yCoord, textureSprite, widthIn, heightIn),
           pipeline.getDrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntPipeline(),
-          (c) -> super.drawTexturedModalRect(c.getXCoord(), c.getYCoord(), ((Sprite) c.getTextureSprite()).getForgeSprite(), c.getWidthIn(), c.getHeightIn()));
+          (c) -> super.drawTexturedModalRect(c.getXCoord(), c.getYCoord(), Sprite.asForge(c.getTextureSprite()), c.getWidthIn(), c.getHeightIn()));
     }
 
     @Override
     public void drawTexturedModalRect(final int xCoord, final int yCoord, final TextureAtlasSprite textureSprite, final int widthIn, final int heightIn)
     {
-        this.drawTexturedModalRect(xCoord, yCoord, new Sprite(textureSprite), widthIn, heightIn);
+        this.drawTexturedModalRect(xCoord, yCoord, Sprite.fromForge(textureSprite), widthIn, heightIn);
     }
 
     @Override

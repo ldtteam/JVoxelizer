@@ -26,10 +26,19 @@ public class SpriteMap implements ISpriteMap, IForgeJVoxelizerWrapper
     public static TextureMap asForge(ISpriteMap spriteMap)
     {
         if (spriteMap instanceof TextureMap)
+        {
             return (TextureMap) spriteMap;
+        }
+
+        if (spriteMap == null)
+        {
+            return null;
+        }
 
         if (!(spriteMap instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("SpriteMap is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) spriteMap).getForgeInstance();
     }
@@ -37,7 +46,9 @@ public class SpriteMap implements ISpriteMap, IForgeJVoxelizerWrapper
     public static ISpriteMap fromForge(TextureMap textureMap)
     {
         if (textureMap instanceof ISpriteMap)
+        {
             return (ISpriteMap) textureMap;
+        }
 
         return new SpriteMap(textureMap);
     }

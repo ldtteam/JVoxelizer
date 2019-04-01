@@ -15,53 +15,53 @@ import java.util.function.Function;
 
 public class ForgeSlotPipeline<O extends ISlot<I>, I>
 {
-        private final List<Function<TypedPipelineElementContext<DecrStackSizeContext, IItemStack, O, I>, IItemStack>> DecrStackSizePipeline;
+    private final List<Function<TypedPipelineElementContext<DecrStackSizeContext, IItemStack, O, I>, IItemStack>> DecrStackSizePipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<OnSlotChangeContext, O, I>>> OnSlotChangePipeline;
+    private final List<Consumer<VoidPipelineElementContext<OnSlotChangeContext, O, I>>> OnSlotChangePipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsItemValidContext, Boolean, O, I>, Boolean>> IsItemValidPipeline;
+    private final List<Function<TypedPipelineElementContext<IsItemValidContext, Boolean, O, I>, Boolean>> IsItemValidPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<OnSlotChangedContext, O, I>>> OnSlotChangedPipeline;
+    private final List<Consumer<VoidPipelineElementContext<OnSlotChangedContext, O, I>>> OnSlotChangedPipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsSameInventoryContext, Boolean, O, I>, Boolean>> IsSameInventoryPipeline;
+    private final List<Function<TypedPipelineElementContext<IsSameInventoryContext, Boolean, O, I>, Boolean>> IsSameInventoryPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetSlotStackLimitContext, Integer, O, I>, Integer>> GetSlotStackLimitPipeline;
+    private final List<Function<TypedPipelineElementContext<GetSlotStackLimitContext, Integer, O, I>, Integer>> GetSlotStackLimitPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<OnCraftingContext, O, I>>> OnCraftingPipeline;
+    private final List<Consumer<VoidPipelineElementContext<OnCraftingContext, O, I>>> OnCraftingPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<OnCraftingWithAmountAsintContext, O, I>>> OnCraftingWithAmountAsintPipeline;
+    private final List<Consumer<VoidPipelineElementContext<OnCraftingWithAmountAsintContext, O, I>>> OnCraftingWithAmountAsintPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<PutStackContext, O, I>>> PutStackPipeline;
+    private final List<Consumer<VoidPipelineElementContext<PutStackContext, O, I>>> PutStackPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetHasStackContext, Boolean, O, I>, Boolean>> GetHasStackPipeline;
+    private final List<Function<TypedPipelineElementContext<GetHasStackContext, Boolean, O, I>, Boolean>> GetHasStackPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetBackgroundSpriteContext, ISprite, O, I>, ISprite>> GetBackgroundSpritePipeline;
+    private final List<Function<TypedPipelineElementContext<GetBackgroundSpriteContext, ISprite, O, I>, ISprite>> GetBackgroundSpritePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetItemStackLimitContext, Integer, O, I>, Integer>> GetIItemStackLimitPipeline;
+    private final List<Function<TypedPipelineElementContext<GetItemStackLimitContext, Integer, O, I>, Integer>> GetIItemStackLimitPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<SetBackgroundLocationContext, O, I>>> SetBackgroundLocationPipeline;
+    private final List<Consumer<VoidPipelineElementContext<SetBackgroundLocationContext, O, I>>> SetBackgroundLocationPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetSlotIndexContext, Integer, O, I>, Integer>> GetSlotIndexPipeline;
+    private final List<Function<TypedPipelineElementContext<GetSlotIndexContext, Integer, O, I>, Integer>> GetSlotIndexPipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsEnabledContext, Boolean, O, I>, Boolean>> IsEnabledPipeline;
+    private final List<Function<TypedPipelineElementContext<IsEnabledContext, Boolean, O, I>, Boolean>> IsEnabledPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetBackgroundMapContext, ISpriteMap, O, I>, ISpriteMap>> GetBackgroundMapPipeline;
+    private final List<Function<TypedPipelineElementContext<GetBackgroundMapContext, ISpriteMap, O, I>, ISpriteMap>> GetBackgroundMapPipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsHereContext, Boolean, O, I>, Boolean>> IsHerePipeline;
+    private final List<Function<TypedPipelineElementContext<IsHereContext, Boolean, O, I>, Boolean>> IsHerePipeline;
 
-        private final List<Function<TypedPipelineElementContext<OnTakeContext, IItemStack, O, I>, IItemStack>> OnTakePipeline;
+    private final List<Function<TypedPipelineElementContext<OnTakeContext, IItemStack, O, I>, IItemStack>> OnTakePipeline;
 
-        private final List<Function<TypedPipelineElementContext<CanTakeStackContext, Boolean, O, I>, Boolean>> CanTakeStackPipeline;
+    private final List<Function<TypedPipelineElementContext<CanTakeStackContext, Boolean, O, I>, Boolean>> CanTakeStackPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetStackContext, IItemStack, O, I>, IItemStack>> GetStackPipeline;
+    private final List<Function<TypedPipelineElementContext<GetStackContext, IItemStack, O, I>, IItemStack>> GetStackPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<OnSwapCraftContext, O, I>>> OnSwapCraftPipeline;
+    private final List<Consumer<VoidPipelineElementContext<OnSwapCraftContext, O, I>>> OnSwapCraftPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<SetBackgroundNameContext, O, I>>> SetBackgroundNamePipeline;
+    private final List<Consumer<VoidPipelineElementContext<SetBackgroundNameContext, O, I>>> SetBackgroundNamePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetBackgroundLocationContext, IIdentifier, O, I>, IIdentifier>> GetBackgroundLocationPipeline;
+    private final List<Function<TypedPipelineElementContext<GetBackgroundLocationContext, IIdentifier, O, I>, IIdentifier>> GetBackgroundLocationPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetSlotTextureContext, String, O, I>, String>> GetSlotTexturePipeline;
+    private final List<Function<TypedPipelineElementContext<GetSlotTextureContext, String, O, I>, String>> GetSlotTexturePipeline;
 
     public ForgeSlotPipeline(
       final List<Function<TypedPipelineElementContext<DecrStackSizeContext, IItemStack, O, I>, IItemStack>> decrStackSizePipeline,
@@ -87,7 +87,8 @@ public class ForgeSlotPipeline<O extends ISlot<I>, I>
       final List<Consumer<VoidPipelineElementContext<OnSwapCraftContext, O, I>>> onSwapCraftPipeline,
       final List<Consumer<VoidPipelineElementContext<SetBackgroundNameContext, O, I>>> setBackgroundNamePipeline,
       final List<Function<TypedPipelineElementContext<GetBackgroundLocationContext, IIdentifier, O, I>, IIdentifier>> getBackgroundLocationPipeline,
-      final List<Function<TypedPipelineElementContext<GetSlotTextureContext, String, O, I>, String>> getSlotTexturePipeline) {
+      final List<Function<TypedPipelineElementContext<GetSlotTextureContext, String, O, I>, String>> getSlotTexturePipeline)
+    {
         DecrStackSizePipeline = decrStackSizePipeline;
         OnSlotChangePipeline = onSlotChangePipeline;
         IsItemValidPipeline = isItemValidPipeline;

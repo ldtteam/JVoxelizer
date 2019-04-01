@@ -181,6 +181,4 @@ public abstract class AbstractForgeMod
     }
 
     protected abstract void registerModProviders();
-
-
 }

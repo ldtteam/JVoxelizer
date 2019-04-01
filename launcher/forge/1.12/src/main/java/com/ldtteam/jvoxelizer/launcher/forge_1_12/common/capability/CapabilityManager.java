@@ -13,6 +13,7 @@ public class CapabilityManager implements ICapabilityManager
 
     /**
      * Getter for the wrapped element.
+     *
      * @return the net.minecraftforge.common.capabilities.CapabilityManager.
      */
     private net.minecraftforge.common.capabilities.CapabilityManager getForgeCapabilityManager()

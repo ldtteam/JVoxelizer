@@ -50,8 +50,15 @@ public class Ingredient implements IIngredient, IForgeJVoxelizerWrapper
 
     public static net.minecraft.item.crafting.Ingredient asForge(IIngredient ingredient)
     {
+
+        if (ingredient == null)
+        {
+            return null;
+        }
         if (!(ingredient instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Ingredient is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) ingredient).getForgeInstance();
     }

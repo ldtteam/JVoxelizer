@@ -30,7 +30,9 @@ public class EnchantmentType implements IEnchantmentType
     public static EnumEnchantmentType asForge(IEnchantmentType type)
     {
         if (type instanceof EnumEnchantmentType)
+        {
             return (EnumEnchantmentType) type;
+        }
 
         return ((EnchantmentType) type).minecraftEnchantMentType;
     }
@@ -38,7 +40,9 @@ public class EnchantmentType implements IEnchantmentType
     public static IEnchantmentType fromForge(EnumEnchantmentType type)
     {
         if (type instanceof IEnchantmentType)
+        {
             return (IEnchantmentType) type;
+        }
 
         return new EnchantmentType(type);
     }

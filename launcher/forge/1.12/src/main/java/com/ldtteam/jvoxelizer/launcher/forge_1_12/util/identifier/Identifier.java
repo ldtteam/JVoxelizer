@@ -8,27 +8,33 @@ import java.util.Objects;
 /**
  * Identifier class for holding resource locations
  */
-public class Identifier implements IIdentifier {
+public class Identifier implements IIdentifier
+{
     private ResourceLocation forgeIdentifier;
 
-    private Identifier(ResourceLocation forgeIdentifier) {
+    private Identifier(ResourceLocation forgeIdentifier)
+    {
         this.forgeIdentifier = forgeIdentifier;
     }
 
     @Override
-    public String getDomain() {
+    public String getDomain()
+    {
         return forgeIdentifier.getResourceDomain();
     }
 
     @Override
-    public String getPath() {
+    public String getPath()
+    {
         return forgeIdentifier.getResourcePath();
     }
 
     public static ResourceLocation asForge(IIdentifier identifier)
     {
         if (identifier instanceof ResourceLocation)
+        {
             return (ResourceLocation) identifier;
+        }
 
         return ((Identifier) identifier).forgeIdentifier;
     }
@@ -36,7 +42,9 @@ public class Identifier implements IIdentifier {
     public static IIdentifier fromForge(ResourceLocation location)
     {
         if (location instanceof IIdentifier)
+        {
             return (IIdentifier) location;
+        }
 
         return new Identifier(location);
     }

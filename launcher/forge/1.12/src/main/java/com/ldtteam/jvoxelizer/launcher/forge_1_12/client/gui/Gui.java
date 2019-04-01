@@ -42,7 +42,7 @@ public class Gui implements IGui<DummyInstanceData>, IForgeJVoxelizerWrapper
     @Override
     public void drawTexturedModalRect(final int xCoord, final int yCoord, final ISprite textureSprite, final int widthIn, final int heightIn)
     {
-        forgeGui.drawTexturedModalRect(xCoord,yCoord, Sprite.asForge(textureSprite), widthIn, heightIn);
+        forgeGui.drawTexturedModalRect(xCoord, yCoord, Sprite.asForge(textureSprite), widthIn, heightIn);
     }
 
     @Override
@@ -65,10 +65,19 @@ public class Gui implements IGui<DummyInstanceData>, IForgeJVoxelizerWrapper
     public static net.minecraft.client.gui.Gui asForge(IGui<?> gui)
     {
         if (gui instanceof net.minecraft.client.gui.Gui)
+        {
             return (net.minecraft.client.gui.Gui) gui;
+        }
+
+        if (gui == null)
+        {
+            return null;
+        }
 
         if (!(gui instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Gui is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) gui).getForgeInstance();
     }
@@ -76,7 +85,9 @@ public class Gui implements IGui<DummyInstanceData>, IForgeJVoxelizerWrapper
     public static IGui<?> fromForge(final net.minecraft.client.gui.Gui ingameGUI)
     {
         if (ingameGUI instanceof IGui)
+        {
             return (IGui<?>) ingameGUI;
+        }
 
         return new Gui(ingameGUI);
     }

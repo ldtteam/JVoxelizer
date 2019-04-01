@@ -31,10 +31,19 @@ public class ModLoader implements IModLoader, IForgeJVoxelizerWrapper
     public static Loader asForge(final IModLoader modLoader)
     {
         if (modLoader instanceof Loader)
+        {
             return (Loader) modLoader;
+        }
+
+        if (modLoader == null)
+        {
+            return null;
+        }
 
         if (!(modLoader instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("ModLoader is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) modLoader).getForgeInstance();
     }
@@ -42,7 +51,9 @@ public class ModLoader implements IModLoader, IForgeJVoxelizerWrapper
     public static IModLoader fromForge(final Loader modLoader)
     {
         if (modLoader instanceof IModLoader)
+        {
             return (IModLoader) modLoader;
+        }
 
         return new ModLoader(modLoader);
     }

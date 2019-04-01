@@ -39,10 +39,19 @@ public class Dimension extends DimensionReader implements IDimension<DummyInstan
     public static World asForge(IDimension<?> dimension)
     {
         if (dimension instanceof World)
+        {
             return (World) dimension;
+        }
+
+        if (dimension == null)
+        {
+            return null;
+        }
 
         if (!(dimension instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Dimension is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) dimension).getForgeInstance();
     }
@@ -50,7 +59,9 @@ public class Dimension extends DimensionReader implements IDimension<DummyInstan
     public static IDimension<?> fromForge(World world)
     {
         if (world instanceof IDimension)
+        {
             return (IDimension<?>) world;
+        }
 
         return new Dimension(world);
     }

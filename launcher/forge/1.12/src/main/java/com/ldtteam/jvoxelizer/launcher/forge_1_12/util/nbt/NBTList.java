@@ -39,7 +39,9 @@ public class NBTList implements INBTList
     public boolean contains(final Object o)
     {
         if (!(o instanceof INBTBase))
+        {
             return false;
+        }
 
         return toList().contains(o);
     }
@@ -79,7 +81,9 @@ public class NBTList implements INBTList
         int index = toList().indexOf(o);
 
         if (index == -1)
+        {
             return false;
+        }
 
         forgeNbtList.removeTag(index);
         return true;

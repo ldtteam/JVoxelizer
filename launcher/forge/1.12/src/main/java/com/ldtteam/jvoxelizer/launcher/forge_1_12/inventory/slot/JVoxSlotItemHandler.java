@@ -34,7 +34,7 @@ import static com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForg
 public class JVoxSlotItemHandler<I> extends SlotItemHandler implements ISlotItemHandler<I>
 {
 
-    private final I instanceData;
+    private final I                                                    instanceData;
     private final ForgeSlotItemHandlerPipeline<ISlotItemHandler<I>, I> pipeline;
 
     public JVoxSlotItemHandler(
@@ -323,7 +323,6 @@ public class JVoxSlotItemHandler<I> extends SlotItemHandler implements ISlotItem
         );
     }
 
-
     @Nullable
     @Override
     @SideOnly(Side.CLIENT)
@@ -484,7 +483,6 @@ public class JVoxSlotItemHandler<I> extends SlotItemHandler implements ISlotItem
     {
         return Sprite.fromForge(this.getBackgroundSprite());
     }
-
 
     @Override
     public IIdentifier getIdentifierOfBackgroundLocation()

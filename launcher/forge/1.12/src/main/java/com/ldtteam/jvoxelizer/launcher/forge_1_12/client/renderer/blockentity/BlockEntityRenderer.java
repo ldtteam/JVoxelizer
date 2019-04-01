@@ -21,10 +21,19 @@ public class BlockEntityRenderer implements IBlockEntityRenderer, IForgeJVoxeliz
     public static TileEntityItemStackRenderer asForge(IBlockEntityRenderer blockEntityRenderer)
     {
         if (blockEntityRenderer instanceof TileEntityItemStackRenderer)
+        {
             return (TileEntityItemStackRenderer) blockEntityRenderer;
+        }
+
+        if (blockEntityRenderer == null)
+        {
+            return null;
+        }
 
         if (!(blockEntityRenderer instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("BlockEntityRenderer is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) blockEntityRenderer).getForgeInstance();
     }
@@ -32,7 +41,9 @@ public class BlockEntityRenderer implements IBlockEntityRenderer, IForgeJVoxeliz
     public static IBlockEntityRenderer fromForge(TileEntityItemStackRenderer tileEntitySpecialRenderer)
     {
         if (tileEntitySpecialRenderer instanceof IBlockEntityRenderer)
+        {
             return (IBlockEntityRenderer) tileEntitySpecialRenderer;
+        }
 
         return new BlockEntityRenderer(tileEntitySpecialRenderer);
     }

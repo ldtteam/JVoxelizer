@@ -37,7 +37,7 @@ import static com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForg
 public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
 {
 
-    private final I                            instanceData;
+    private final I                                        instanceData;
     private final ForgeGuiScreenPipeline<IGuiScreen<I>, I> pipeline;
 
     public JVoxForgeGuiScreen(final I instanceData, final ForgeGuiScreenPipeline<IGuiScreen<I>, I> pipeline)
@@ -70,7 +70,7 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
           this,
           new KeyTypedContext(typedChar, keyCode),
           pipeline.getKeyTypedPipeline(),
-          (c)-> super.keyTyped(typedChar, keyCode)
+          (c) -> super.keyTyped(typedChar, keyCode)
         );
     }
 
@@ -136,7 +136,7 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
           this,
           new DrawHoveringTextWithTextLinesAsStringListContext(textLines, x, y),
           pipeline.getDrawHoveringTextWithTextLinesAsStringListPipeline(),
-          (c)-> super.drawHoveringText(c.getTextLines(), c.getX(), c.getY())
+          (c) -> super.drawHoveringText(c.getTextLines(), c.getX(), c.getY())
         );
     }
 
@@ -153,7 +153,7 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
           this,
           new DrawHoveringTextWithFontAsFontRendererContext(textLines, x, y, fromForge(font)),
           pipeline.getDrawHoveringTextWithFontAsFontRendererPipeline(),
-          (c)-> super.drawHoveringText(c.getTextLines(), c.getX(), c.getY(), asForge(c.getFont()))
+          (c) -> super.drawHoveringText(c.getTextLines(), c.getX(), c.getY(), asForge(c.getFont()))
         );
     }
 
@@ -175,7 +175,7 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
           this,
           new SetTextContext(newChatText, shouldOverwrite),
           pipeline.getSetTextPipeline(),
-          (c)-> super.setText(c.getNewChatText(), c.getShouldOverwrite())
+          (c) -> super.setText(c.getNewChatText(), c.getShouldOverwrite())
         );
     }
 
@@ -186,7 +186,7 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
           this,
           new HandleComponentClickContext(TextComponent.fromForge(component)),
           pipeline.getHandleComponentClickPipeline(),
-          (c)-> super.handleComponentClick(TextComponent.asForge(c.getComponent()))
+          (c) -> super.handleComponentClick(TextComponent.asForge(c.getComponent()))
         );
     }
 
@@ -208,7 +208,7 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
           this,
           new SendChatMessageWithAddToChatAsbooleanContext(msg, addToChat),
           pipeline.getSendChatMessageWithAddToChatAsbooleanPipeline(),
-          (c)-> super.sendChatMessage(c.getMsg(), c.getAddToChat())
+          (c) -> super.sendChatMessage(c.getMsg(), c.getAddToChat())
         );
     }
 
@@ -225,7 +225,7 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
           this,
           new MouseClickedContext(mouseX, mouseY, mouseButton),
           pipeline.getMouseClickedPipeline(),
-          (c)-> super.mouseClicked(c.getMouseX(), c.getMouseY(), c.getMouseButton())
+          (c) -> super.mouseClicked(c.getMouseX(), c.getMouseY(), c.getMouseButton())
         );
     }
 
@@ -291,7 +291,7 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
           this,
           new InitGuiContext(),
           pipeline.getInitGuiPipeline(),
-          (c)-> super.initGui()
+          (c) -> super.initGui()
         );
     }
 
@@ -302,7 +302,7 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
           this,
           new HandleInputContext(),
           pipeline.getHandleInputPipeline(),
-          (c)-> super.handleInput()
+          (c) -> super.handleInput()
         );
     }
 
@@ -488,7 +488,7 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
     public void drawString(final FontRenderer fontRendererIn, final String text, final int x, final int y, final int color)
     {
         processVoidPipeline(
-          this, 
+          this,
           new DrawStringContext(fromForge(fontRendererIn), text, x, y, color),
           pipeline.getDrawStringPipeline(),
           (c) -> super.drawString(asForge(c.getFontRendererIn()), c.getText(), c.getX(), c.getY(), c.getColor())
@@ -513,7 +513,7 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
           this,
           new DrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsIntContext(xCoord, yCoord, minU, minV, maxU, maxV),
           pipeline.getDrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsIntPipeline(),
-          (c)-> super.drawTexturedModalRect(c.getXCoord(), c.getYCoord(), c.getMinU(), c.getMinV(), c.getMaxU(), c.getMaxV())
+          (c) -> super.drawTexturedModalRect(c.getXCoord(), c.getYCoord(), c.getMinU(), c.getMinV(), c.getMaxU(), c.getMaxV())
         );
     }
 
@@ -534,7 +534,11 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
     {
         processVoidPipeline(
           this,
-          new DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntContext(xCoord, yCoord, fromForge(textureSprite), widthIn, heightIn),
+          new DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntContext(xCoord,
+            yCoord,
+            fromForge(textureSprite),
+            widthIn,
+            heightIn),
           pipeline.getDrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntPipeline(),
           (c) -> super.drawTexturedModalRect(c.getXCoord(), c.getYCoord(), asForge(c.getTextureSprite()), c.getWidthIn(), c.getHeightIn())
         );

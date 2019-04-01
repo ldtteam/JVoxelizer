@@ -24,15 +24,19 @@ class NBTLong implements INBTLong
     public static NBTTagLong asForge(INBTLong compound)
     {
         if (compound instanceof NBTTagLong)
+        {
             return (NBTTagLong) compound;
+        }
 
-        return ((NBTLong)compound).forgeNbtLong;
+        return ((NBTLong) compound).forgeNbtLong;
     }
 
     public static INBTLong fromForge(NBTTagLong compound)
     {
         if (compound instanceof INBTLong)
+        {
             return (INBTLong) compound;
+        }
 
         return new NBTLong(compound);
     }

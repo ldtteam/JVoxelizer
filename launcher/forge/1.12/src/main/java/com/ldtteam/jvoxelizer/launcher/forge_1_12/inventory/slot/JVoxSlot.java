@@ -34,7 +34,7 @@ import static com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.Identif
 
 public class JVoxSlot<I> extends Slot implements ISlot<I>
 {
-    private final I instanceData;
+    private final I                              instanceData;
     private final ForgeSlotPipeline<ISlot<I>, I> pipeline;
 
     public JVoxSlot(
@@ -323,7 +323,6 @@ public class JVoxSlot<I> extends Slot implements ISlot<I>
         );
     }
 
-
     @Nullable
     @Override
     @SideOnly(Side.CLIENT)
@@ -465,7 +464,6 @@ public class JVoxSlot<I> extends Slot implements ISlot<I>
     {
         return Sprite.fromForge(this.getBackgroundSprite());
     }
-
 
     @Override
     public IIdentifier getIdentifierOfBackgroundLocation()

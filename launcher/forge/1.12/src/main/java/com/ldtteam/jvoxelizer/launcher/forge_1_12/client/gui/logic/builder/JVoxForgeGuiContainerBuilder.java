@@ -10,11 +10,13 @@ public class JVoxForgeGuiContainerBuilder<I> extends AbstractGuiContainerBuilder
 {
 
     private final IContainer<?> container;
-    private final I instanceData;
+    private final I             instanceData;
 
-    public JVoxForgeGuiContainerBuilder(final IContainer<?> container, final I instanceData) {
+    public JVoxForgeGuiContainerBuilder(final IContainer<?> container, final I instanceData)
+    {
         this.container = container;
-        this.instanceData = instanceData;}
+        this.instanceData = instanceData;
+    }
 
     @Override
     public IGuiContainer<I> build()

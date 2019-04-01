@@ -16,7 +16,8 @@ public enum ClickType implements IClickType
     PICKUP_ALL(net.minecraft.inventory.ClickType.PICKUP_ALL);
 
     static final Map<net.minecraft.inventory.ClickType, ClickType> FORGE_MAP = Maps.newHashMap();
-    static {
+    static
+    {
         FORGE_MAP.put(net.minecraft.inventory.ClickType.PICKUP, PICKUP);
         FORGE_MAP.put(net.minecraft.inventory.ClickType.QUICK_MOVE, QUICK_MOVE);
         FORGE_MAP.put(net.minecraft.inventory.ClickType.SWAP, SWAP);
@@ -28,7 +29,8 @@ public enum ClickType implements IClickType
 
     private final net.minecraft.inventory.ClickType forgeClickType;
 
-    ClickType(final net.minecraft.inventory.ClickType forgeClickType) {
+    ClickType(final net.minecraft.inventory.ClickType forgeClickType)
+    {
         this.forgeClickType = forgeClickType;
     }
 

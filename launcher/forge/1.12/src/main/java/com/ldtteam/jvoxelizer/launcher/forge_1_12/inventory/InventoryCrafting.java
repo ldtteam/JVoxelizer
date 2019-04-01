@@ -155,10 +155,19 @@ public class InventoryCrafting implements IInventoryCrafting, IForgeJVoxelizerWr
     public static net.minecraft.inventory.InventoryCrafting asForge(IInventoryCrafting inventoryCrafting)
     {
         if (inventoryCrafting instanceof net.minecraft.inventory.InventoryCrafting)
+        {
             return (net.minecraft.inventory.InventoryCrafting) inventoryCrafting;
+        }
+
+        if (inventoryCrafting == null)
+        {
+            return null;
+        }
 
         if (!(inventoryCrafting instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("InventoryCrafting is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) inventoryCrafting).getForgeInstance();
     }
@@ -166,7 +175,9 @@ public class InventoryCrafting implements IInventoryCrafting, IForgeJVoxelizerWr
     public static IInventoryCrafting fromForge(net.minecraft.inventory.InventoryCrafting inventoryCrafting)
     {
         if (inventoryCrafting instanceof IInventoryCrafting)
+        {
             return (IInventoryCrafting) inventoryCrafting;
+        }
 
         return new InventoryCrafting(inventoryCrafting);
     }

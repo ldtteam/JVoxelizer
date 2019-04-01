@@ -42,8 +42,15 @@ public class ScaledResolution implements IScaledResolution, IForgeJVoxelizerWrap
 
     public static net.minecraft.client.gui.ScaledResolution asForge(IScaledResolution resolution)
     {
+
+        if (resolution == null)
+        {
+            return null;
+        }
         if (!(resolution instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("ScaledResolution is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) resolution).getForgeInstance();
     }

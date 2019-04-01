@@ -55,10 +55,19 @@ public class Sprite implements ISprite, IForgeJVoxelizerWrapper
     public static TextureAtlasSprite asForge(ISprite sprite)
     {
         if (sprite instanceof TextureAtlasSprite)
+        {
             return (TextureAtlasSprite) sprite;
+        }
+
+        if (sprite == null)
+        {
+            return null;
+        }
 
         if (!(sprite instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Sprite is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) sprite).getForgeInstance();
     }
@@ -66,7 +75,9 @@ public class Sprite implements ISprite, IForgeJVoxelizerWrapper
     public static ISprite fromForge(TextureAtlasSprite sprite)
     {
         if (sprite instanceof ISprite)
+        {
             return (ISprite) sprite;
+        }
 
         return new Sprite(sprite);
     }

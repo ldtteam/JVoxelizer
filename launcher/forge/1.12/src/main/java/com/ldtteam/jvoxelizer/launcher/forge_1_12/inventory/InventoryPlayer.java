@@ -196,7 +196,9 @@ public class InventoryPlayer extends Inventory implements IInventoryPlayer
     public static IInventoryPlayer fromForge(net.minecraft.entity.player.InventoryPlayer inventoryPlayer)
     {
         if (inventoryPlayer instanceof IInventoryPlayer)
+        {
             return (IInventoryPlayer) inventoryPlayer;
+        }
 
         return new InventoryPlayer(inventoryPlayer);
     }
@@ -204,10 +206,19 @@ public class InventoryPlayer extends Inventory implements IInventoryPlayer
     public static net.minecraft.entity.player.InventoryPlayer asForge(IInventoryPlayer inventoryPlayer)
     {
         if (inventoryPlayer instanceof net.minecraft.entity.player.InventoryPlayer)
+        {
             return (net.minecraft.entity.player.InventoryPlayer) inventoryPlayer;
+        }
+
+        if (inventoryPlayer == null)
+        {
+            return null;
+        }
 
         if (!(inventoryPlayer instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("InventoryPlayer is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) inventoryPlayer).getForgeInstance();
     }

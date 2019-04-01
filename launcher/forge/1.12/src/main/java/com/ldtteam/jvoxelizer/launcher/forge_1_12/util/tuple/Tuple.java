@@ -28,7 +28,9 @@ public class Tuple<A, B> implements ITuple
     public static net.minecraft.util.Tuple asForge(final ITuple tuple)
     {
         if (tuple instanceof net.minecraft.util.Tuple)
+        {
             return (net.minecraft.util.Tuple) tuple;
+        }
 
         return ((Tuple) tuple).tuple;
     }
@@ -36,7 +38,9 @@ public class Tuple<A, B> implements ITuple
     public static ITuple fromForge(final net.minecraft.util.Tuple tuple)
     {
         if (tuple instanceof ITuple)
+        {
             return (ITuple) tuple;
+        }
 
         return new Tuple(tuple);
     }

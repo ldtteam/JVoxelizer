@@ -42,10 +42,19 @@ public class MultiplayerPlayerEntity extends PlayerEntity implements IMultiplaye
     public static EntityPlayerMP asForge(IMultiplayerPlayerEntity playerEntity)
     {
         if (playerEntity instanceof EntityPlayerMP)
+        {
             return (EntityPlayerMP) playerEntity;
+        }
+
+        if (playerEntity == null)
+        {
+            return null;
+        }
 
         if (!(playerEntity instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("PlayerEntity is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) playerEntity).getForgeInstance();
     }
@@ -53,7 +62,9 @@ public class MultiplayerPlayerEntity extends PlayerEntity implements IMultiplaye
     public static IMultiplayerPlayerEntity fromForge(EntityPlayerMP playerMP)
     {
         if (playerMP instanceof IMultiplayerPlayerEntity)
+        {
             return (IMultiplayerPlayerEntity) playerMP;
+        }
 
         return new MultiplayerPlayerEntity(playerMP);
     }

@@ -19,10 +19,19 @@ public class DimensionType implements IDimensionType, IForgeJVoxelizerWrapper
     public static WorldType asForge(IDimensionType dimensionType)
     {
         if (dimensionType instanceof WorldType)
+        {
             return (WorldType) dimensionType;
+        }
+
+        if (dimensionType == null)
+        {
+            return null;
+        }
 
         if (!(dimensionType instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("DimensionType is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) dimensionType).getForgeInstance();
     }
@@ -30,7 +39,9 @@ public class DimensionType implements IDimensionType, IForgeJVoxelizerWrapper
     public static IDimensionType fromForge(WorldType worldType)
     {
         if (worldType instanceof IDimensionType)
+        {
             return (IDimensionType) worldType;
+        }
 
         return new DimensionType(worldType);
     }

@@ -33,10 +33,19 @@ public class CapabilityProvider implements ICapabilityProvider, IForgeJVoxelizer
     public static net.minecraftforge.common.capabilities.ICapabilityProvider asForge(ICapabilityProvider capabilityProvider)
     {
         if (capabilityProvider instanceof net.minecraftforge.common.capabilities.ICapabilityProvider)
+        {
             return (net.minecraftforge.common.capabilities.ICapabilityProvider) capabilityProvider;
+        }
+
+        if (capabilityProvider == null)
+        {
+            return null;
+        }
 
         if (!(capabilityProvider instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("CapabilityProvider is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) capabilityProvider).getForgeInstance();
     }
@@ -44,7 +53,9 @@ public class CapabilityProvider implements ICapabilityProvider, IForgeJVoxelizer
     public static ICapabilityProvider fromForge(net.minecraftforge.common.capabilities.ICapabilityProvider capabilityProvider)
     {
         if (capabilityProvider instanceof ICapabilityProvider)
+        {
             return (ICapabilityProvider) capabilityProvider;
+        }
 
         return new CapabilityProvider(capabilityProvider);
     }

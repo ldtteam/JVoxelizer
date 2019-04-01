@@ -81,10 +81,19 @@ public class ItemStackEntity extends Entity implements IItemStackEntity, IForgeJ
     public static EntityItem asForge(IItemStackEntity entity)
     {
         if (entity instanceof EntityItem)
+        {
             return (EntityItem) entity;
+        }
+
+        if (entity == null)
+        {
+            return null;
+        }
 
         if (!(entity instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("ItemStackEntity is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) entity).getForgeInstance();
     }
@@ -92,7 +101,9 @@ public class ItemStackEntity extends Entity implements IItemStackEntity, IForgeJ
     public static IItemStackEntity fromForge(EntityItem entityItem)
     {
         if (entityItem instanceof IItemStackEntity)
+        {
             return (IItemStackEntity) entityItem;
+        }
 
         return new ItemStackEntity(entityItem);
     }

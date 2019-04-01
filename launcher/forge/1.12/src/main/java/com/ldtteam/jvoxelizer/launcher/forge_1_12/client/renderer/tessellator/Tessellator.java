@@ -32,10 +32,19 @@ public class Tessellator implements ITessellator, IForgeJVoxelizerWrapper
     public static net.minecraft.client.renderer.Tessellator asForge(ITessellator tessellator)
     {
         if (tessellator instanceof net.minecraft.client.renderer.Tessellator)
+        {
             return (net.minecraft.client.renderer.Tessellator) tessellator;
+        }
+
+        if (tessellator == null)
+        {
+            return null;
+        }
 
         if (!(tessellator instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Tessellator is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) tessellator).getForgeInstance();
     }
@@ -43,7 +52,9 @@ public class Tessellator implements ITessellator, IForgeJVoxelizerWrapper
     public static ITessellator fromForge(net.minecraft.client.renderer.Tessellator tessellator)
     {
         if (tessellator instanceof ITessellator)
+        {
             return (ITessellator) tessellator;
+        }
 
         return new Tessellator(tessellator);
     }

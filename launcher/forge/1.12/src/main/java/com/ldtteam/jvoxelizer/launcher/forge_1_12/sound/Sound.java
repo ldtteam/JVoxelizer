@@ -41,7 +41,9 @@ public class Sound implements ISound
     public static net.minecraft.client.audio.Sound asForge(final ISound sound)
     {
         if (sound instanceof net.minecraft.client.audio.Sound)
+        {
             return (net.minecraft.client.audio.Sound) sound;
+        }
 
         return ((Sound) sound).forgeSound;
     }
@@ -49,7 +51,9 @@ public class Sound implements ISound
     public static ISound fromForge(final net.minecraft.client.audio.Sound sound)
     {
         if (sound instanceof ISound)
+        {
             return (ISound) sound;
+        }
 
         return new Sound(sound);
     }

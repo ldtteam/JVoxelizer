@@ -26,9 +26,10 @@ import javax.annotation.Nullable;
 public class JVoxDimensionReader<I> implements IBlockAccess, IDimensionReader<I>
 {
     private final DimensionReaderBuilderPipeline<IDimensionReader<I>, I> pipeline;
-    private final I instanceData;
+    private final I                                                      instanceData;
 
-    public JVoxDimensionReader(final DimensionReaderBuilderPipeline<IDimensionReader<I>, I> pipeline, final I instanceData) {
+    public JVoxDimensionReader(final DimensionReaderBuilderPipeline<IDimensionReader<I>, I> pipeline, final I instanceData)
+    {
         this.pipeline = pipeline;
         this.instanceData = instanceData;
     }
@@ -110,7 +111,6 @@ public class JVoxDimensionReader<I> implements IBlockAccess, IDimensionReader<I>
           }
         );
     }
-
 
     @Override
     public int getStrongPower(final IBlockCoordinate pos, final IFacing direction)

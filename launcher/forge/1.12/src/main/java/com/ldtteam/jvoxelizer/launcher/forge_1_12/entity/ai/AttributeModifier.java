@@ -60,10 +60,19 @@ public class AttributeModifier implements IAttributeModifier, IForgeJVoxelizerWr
     public static net.minecraft.entity.ai.attributes.AttributeModifier asForge(IAttributeModifier modifier)
     {
         if (modifier instanceof net.minecraft.entity.ai.attributes.AttributeModifier)
+        {
             return (net.minecraft.entity.ai.attributes.AttributeModifier) modifier;
+        }
+
+        if (modifier == null)
+        {
+            return null;
+        }
 
         if (!(modifier instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("AttributeModifier is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) modifier).getForgeInstance();
     }
@@ -71,7 +80,9 @@ public class AttributeModifier implements IAttributeModifier, IForgeJVoxelizerWr
     public static IAttributeModifier fromForge(net.minecraft.entity.ai.attributes.AttributeModifier modifier)
     {
         if (modifier instanceof IAttributeModifier)
+        {
             return (IAttributeModifier) modifier;
+        }
 
         return new AttributeModifier(modifier);
     }

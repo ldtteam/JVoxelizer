@@ -10,11 +10,12 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.slot.logic.pipeline.
 public class JVoxSlotBuilder<I> extends AbstractSlotBuilder<JVoxSlotBuilder<I>, I, ISlot<I>>
 {
     private final IInventory inventory;
-    private final int index;
-    private final int x;
-    private final int y;
+    private final int        index;
+    private final int        x;
+    private final int        y;
 
-    public JVoxSlotBuilder(final IInventory inventory, final int index, final int x, final int y) {
+    public JVoxSlotBuilder(final IInventory inventory, final int index, final int x, final int y)
+    {
         this.inventory = inventory;
         this.index = index;
         this.x = x;

@@ -28,7 +28,7 @@ public class BufferBuilder implements IBufferBuilder, IForgeJVoxelizerWrapper
     @Override
     public IBufferBuilder tex(final double u, final double v)
     {
-        forgeBufferBuilder.tex(u,v);
+        forgeBufferBuilder.tex(u, v);
         return this;
     }
 
@@ -53,10 +53,19 @@ public class BufferBuilder implements IBufferBuilder, IForgeJVoxelizerWrapper
     public static net.minecraft.client.renderer.BufferBuilder asForge(IBufferBuilder bufferBuilder)
     {
         if (bufferBuilder instanceof net.minecraft.client.renderer.BufferBuilder)
+        {
             return (net.minecraft.client.renderer.BufferBuilder) bufferBuilder;
+        }
+
+        if (bufferBuilder == null)
+        {
+            return null;
+        }
 
         if (!(bufferBuilder instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("BufferBuilder is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) bufferBuilder).getForgeInstance();
     }
@@ -64,7 +73,9 @@ public class BufferBuilder implements IBufferBuilder, IForgeJVoxelizerWrapper
     public static IBufferBuilder fromForge(net.minecraft.client.renderer.BufferBuilder bufferBuilder)
     {
         if (bufferBuilder instanceof IBufferBuilder)
+        {
             return (IBufferBuilder) bufferBuilder;
+        }
 
         return new BufferBuilder(bufferBuilder);
     }

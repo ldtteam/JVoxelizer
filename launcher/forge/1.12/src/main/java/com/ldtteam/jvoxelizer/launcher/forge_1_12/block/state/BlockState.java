@@ -32,7 +32,10 @@ public class BlockState implements IBlockState, IForgeJVoxelizerWrapper
     @Override
     public IBlock getBlock()
     {
-        if (forgeBlockState == null) throw new IllegalStateException("JVoxelizer IBlockState has not been initialized with its counterpart!");
+        if (forgeBlockState == null)
+        {
+            throw new IllegalStateException("JVoxelizer IBlockState has not been initialized with its counterpart!");
+        }
 
         return Block.fromForge(forgeBlockState.getBlock());
     }
@@ -64,10 +67,19 @@ public class BlockState implements IBlockState, IForgeJVoxelizerWrapper
     public static net.minecraft.block.state.IBlockState asForge(IBlockState blockState)
     {
         if (blockState instanceof net.minecraft.block.state.IBlockState)
+        {
             return (net.minecraft.block.state.IBlockState) blockState;
+        }
+
+        if (blockState == null)
+        {
+            return null;
+        }
 
         if (!(blockState instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("BlockState is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) blockState).getForgeInstance();
     }
@@ -75,7 +87,9 @@ public class BlockState implements IBlockState, IForgeJVoxelizerWrapper
     public static IBlockState fromForge(net.minecraft.block.state.IBlockState blockState)
     {
         if (blockState instanceof IBlockState)
+        {
             return (IBlockState) blockState;
+        }
 
         return new BlockState(blockState);
     }

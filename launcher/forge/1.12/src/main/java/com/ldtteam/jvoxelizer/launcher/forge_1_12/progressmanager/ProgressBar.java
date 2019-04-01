@@ -27,10 +27,19 @@ public class ProgressBar implements IProgressBar, IForgeJVoxelizerWrapper
     public static ProgressManager.ProgressBar asForge(final IProgressBar progressBar)
     {
         if (progressBar instanceof ProgressManager.ProgressBar)
+        {
             return (ProgressManager.ProgressBar) progressBar;
+        }
+
+        if (progressBar == null)
+        {
+            return null;
+        }
 
         if (!(progressBar instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("ProgressBar is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) progressBar).getForgeInstance();
     }
@@ -38,7 +47,9 @@ public class ProgressBar implements IProgressBar, IForgeJVoxelizerWrapper
     public static IProgressBar fromForge(final ProgressManager.ProgressBar progressBar)
     {
         if (progressBar instanceof IProgressBar)
+        {
             return (IProgressBar) progressBar;
+        }
 
         return new ProgressBar(progressBar);
     }

@@ -25,7 +25,9 @@ public class ItemHandler implements IItemHandler, IForgeJVoxelizerWrapper
     public static IItemHandler fromForge(net.minecraftforge.items.IItemHandler itemHandler)
     {
         if (itemHandler instanceof IItemHandler)
+        {
             return (IItemHandler) itemHandler;
+        }
 
         return new ItemHandler(itemHandler);
     }
@@ -33,10 +35,19 @@ public class ItemHandler implements IItemHandler, IForgeJVoxelizerWrapper
     public static net.minecraftforge.items.IItemHandler asForge(IItemHandler itemHandler)
     {
         if (itemHandler instanceof net.minecraftforge.items.IItemHandler)
+        {
             return (net.minecraftforge.items.IItemHandler) itemHandler;
+        }
+
+        if (itemHandler == null)
+        {
+            return null;
+        }
 
         if (!(itemHandler instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("ItemHandler is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) itemHandler).getForgeInstance();
     }

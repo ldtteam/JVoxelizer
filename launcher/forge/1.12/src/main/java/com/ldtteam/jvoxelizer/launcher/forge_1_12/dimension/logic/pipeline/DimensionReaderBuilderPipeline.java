@@ -13,21 +13,21 @@ import java.util.function.Function;
 
 public class DimensionReaderBuilderPipeline<O extends IDimensionReader<I>, I>
 {
-        private final List<Function<TypedPipelineElementContext<GetBlockEntityContext, IBlockEntity, O, I>, IBlockEntity>> GetBlockEntityPipeline;
+    private final List<Function<TypedPipelineElementContext<GetBlockEntityContext, IBlockEntity, O, I>, IBlockEntity>> GetBlockEntityPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetCombinedLightContext, Integer, O, I>, Integer>> GetCombinedLightPipeline;
+    private final List<Function<TypedPipelineElementContext<GetCombinedLightContext, Integer, O, I>, Integer>> GetCombinedLightPipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsAirBlockContext, Boolean, O, I>, Boolean>> IsAirBlockPipeline;
+    private final List<Function<TypedPipelineElementContext<IsAirBlockContext, Boolean, O, I>, Boolean>> IsAirBlockPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetStrongPowerContext, Integer, O, I>, Integer>> GetStrongPowerPipeline;
+    private final List<Function<TypedPipelineElementContext<GetStrongPowerContext, Integer, O, I>, Integer>> GetStrongPowerPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetBlockStateContext, IBlockState, O, I>, IBlockState>> GetBlockStatePipeline;
+    private final List<Function<TypedPipelineElementContext<GetBlockStateContext, IBlockState, O, I>, IBlockState>> GetBlockStatePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetWorldTypeContext, IDimensionType, O, I>, IDimensionType>> GetWorldTypePipeline;
+    private final List<Function<TypedPipelineElementContext<GetWorldTypeContext, IDimensionType, O, I>, IDimensionType>> GetWorldTypePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetBiomeContext, IBiome, O, I>, IBiome>> GetBiomePipeline;
+    private final List<Function<TypedPipelineElementContext<GetBiomeContext, IBiome, O, I>, IBiome>> GetBiomePipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsSideSolidContext, Boolean, O, I>, Boolean>> IsSideSolidPipeline;
+    private final List<Function<TypedPipelineElementContext<IsSideSolidContext, Boolean, O, I>, Boolean>> IsSideSolidPipeline;
 
     public DimensionReaderBuilderPipeline(
       final List<Function<TypedPipelineElementContext<GetBlockEntityContext, IBlockEntity, O, I>, IBlockEntity>> getBlockEntityPipeline,

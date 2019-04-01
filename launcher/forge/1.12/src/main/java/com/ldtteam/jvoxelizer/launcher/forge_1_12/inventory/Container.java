@@ -179,10 +179,19 @@ public class Container implements IContainer<DummyInstanceData>, IForgeJVoxelize
     public static net.minecraft.inventory.Container asForge(IContainer<?> container)
     {
         if (container instanceof net.minecraft.inventory.Container)
+        {
             return (net.minecraft.inventory.Container) container;
+        }
+
+        if (container == null)
+        {
+            return null;
+        }
 
         if (!(container instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Container is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) container).getForgeInstance();
     }
@@ -190,7 +199,9 @@ public class Container implements IContainer<DummyInstanceData>, IForgeJVoxelize
     public static IContainer<?> fromForge(net.minecraft.inventory.Container container)
     {
         if (container instanceof IContainer)
+        {
             return (IContainer<?>) container;
+        }
 
         return new Container(container);
     }

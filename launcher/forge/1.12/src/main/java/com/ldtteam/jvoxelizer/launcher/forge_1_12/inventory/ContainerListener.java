@@ -17,11 +17,20 @@ public class ContainerListener implements IContainerListener, IForgeJVoxelizerWr
 
     public static net.minecraft.inventory.IContainerListener asForge(IContainerListener containerListener)
     {
-        if (containerListener  instanceof net.minecraft.inventory.IContainerListener)
+        if (containerListener instanceof net.minecraft.inventory.IContainerListener)
+        {
             return (net.minecraft.inventory.IContainerListener) containerListener;
+        }
+
+        if (containerListener == null)
+        {
+            return null;
+        }
 
         if (!(containerListener instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("ContainerListener is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) containerListener).getForgeInstance();
     }
@@ -29,7 +38,9 @@ public class ContainerListener implements IContainerListener, IForgeJVoxelizerWr
     public static IContainerListener fromForge(net.minecraft.inventory.IContainerListener listener)
     {
         if (listener instanceof IContainerListener)
+        {
             return (IContainerListener) listener;
+        }
 
         return new ContainerListener(listener);
     }

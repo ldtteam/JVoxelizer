@@ -177,10 +177,19 @@ public class GuiScreen extends Gui implements IGuiScreen<DummyInstanceData>
     public static net.minecraft.client.gui.GuiScreen asForge(IGuiScreen<?> guiScreen)
     {
         if (guiScreen instanceof net.minecraft.client.gui.GuiScreen)
+        {
             return (net.minecraft.client.gui.GuiScreen) guiScreen;
+        }
+
+        if (guiScreen == null)
+        {
+            return null;
+        }
 
         if (!(guiScreen instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("GuiScreen is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) guiScreen).getForgeInstance();
     }
@@ -188,7 +197,9 @@ public class GuiScreen extends Gui implements IGuiScreen<DummyInstanceData>
     public static IGuiScreen<?> fromForge(final net.minecraft.client.gui.GuiScreen guiScreen)
     {
         if (guiScreen instanceof IGuiScreen)
+        {
             return (IGuiScreen<?>) guiScreen;
+        }
 
         return new GuiScreen(guiScreen);
     }

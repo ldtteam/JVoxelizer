@@ -18,7 +18,8 @@ public class GuiContainer extends GuiScreen implements IGuiContainer<DummyInstan
 
     private final net.minecraft.client.gui.inventory.GuiContainer forgeGuiContainer;
 
-    public GuiContainer(final net.minecraft.client.gui.inventory.GuiContainer forgeGuiContainer) {
+    public GuiContainer(final net.minecraft.client.gui.inventory.GuiContainer forgeGuiContainer)
+    {
         super(forgeGuiContainer);
         this.forgeGuiContainer = forgeGuiContainer;
     }
@@ -127,10 +128,19 @@ public class GuiContainer extends GuiScreen implements IGuiContainer<DummyInstan
     public static net.minecraft.client.gui.inventory.GuiContainer asForge(IGuiContainer<?> guiContainer)
     {
         if (guiContainer instanceof net.minecraft.client.gui.inventory.GuiContainer)
+        {
             return (net.minecraft.client.gui.inventory.GuiContainer) guiContainer;
+        }
+
+        if (guiContainer == null)
+        {
+            return null;
+        }
 
         if (!(guiContainer instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("GuiContainer is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) guiContainer).getForgeInstance();
     }
@@ -138,7 +148,9 @@ public class GuiContainer extends GuiScreen implements IGuiContainer<DummyInstan
     public static IGuiContainer<?> fromForge(net.minecraft.client.gui.inventory.GuiContainer guiContainer)
     {
         if (guiContainer instanceof IGuiContainer)
+        {
             return (IGuiContainer<?>) guiContainer;
+        }
 
         return new GuiContainer(guiContainer);
     }

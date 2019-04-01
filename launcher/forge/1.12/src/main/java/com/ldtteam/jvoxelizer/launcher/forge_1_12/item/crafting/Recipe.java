@@ -107,7 +107,9 @@ public class Recipe implements IRecipe, IForgeJVoxelizerWrapper
     public static IRecipe fromForge(net.minecraft.item.crafting.IRecipe recipe)
     {
         if (recipe instanceof IRecipe)
+        {
             return (IRecipe) recipe;
+        }
 
         return new Recipe(recipe);
     }
@@ -115,10 +117,19 @@ public class Recipe implements IRecipe, IForgeJVoxelizerWrapper
     public static net.minecraft.item.crafting.IRecipe asForge(IRecipe recipe)
     {
         if (recipe instanceof net.minecraft.item.crafting.IRecipe)
+        {
             return (net.minecraft.item.crafting.IRecipe) recipe;
+        }
+
+        if (recipe == null)
+        {
+            return null;
+        }
 
         if (!(recipe instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Recipe is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) recipe).getForgeInstance();
     }

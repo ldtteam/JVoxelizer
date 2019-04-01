@@ -32,10 +32,19 @@ public class ItemPropertyGetter implements IItemPropertyGetter, IForgeJVoxelizer
     public static net.minecraft.item.IItemPropertyGetter asForge(final IItemPropertyGetter itemPropertyGetter)
     {
         if (itemPropertyGetter instanceof net.minecraft.item.IItemPropertyGetter)
+        {
             return (net.minecraft.item.IItemPropertyGetter) itemPropertyGetter;
+        }
+
+        if (itemPropertyGetter == null)
+        {
+            return null;
+        }
 
         if (!(itemPropertyGetter instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("ItemPropertyGetter is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) itemPropertyGetter).getForgeInstance();
     }
@@ -43,7 +52,9 @@ public class ItemPropertyGetter implements IItemPropertyGetter, IForgeJVoxelizer
     public static IItemPropertyGetter fromForge(final net.minecraft.item.IItemPropertyGetter itemPropertyGetter)
     {
         if (itemPropertyGetter instanceof IItemPropertyGetter)
+        {
             return (IItemPropertyGetter) itemPropertyGetter;
+        }
 
         return new ItemPropertyGetter(itemPropertyGetter);
     }

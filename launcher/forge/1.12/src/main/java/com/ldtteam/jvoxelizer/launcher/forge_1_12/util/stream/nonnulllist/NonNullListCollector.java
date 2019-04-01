@@ -18,9 +18,10 @@ public class NonNullListCollector
     }
 
     public static <T>
-    Collector<T, ?, NonNullList<T>> toList() {
+    Collector<T, ?, NonNullList<T>> toList()
+    {
         return new Collector<T, NonNullList<T>, NonNullList<T>>()
-          {
+        {
             @Override
             public Supplier<NonNullList<T>> supplier()
             {

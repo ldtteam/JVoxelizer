@@ -33,231 +33,238 @@ import java.util.function.Function;
 public class ForgeItemPipeline<O extends IItem<I>, I>
 {
 
-        private final List<Function<TypedPipelineElementContext<SetMaxDamageContext, O, O, I>, O>> SetMaxDamagePipeline;
+    private final List<Function<TypedPipelineElementContext<SetMaxDamageContext, O, O, I>, O>> SetMaxDamagePipeline;
 
-        private final List<Function<TypedPipelineElementContext<UpdateItemStackNBTContext, Boolean, O, I>, Boolean>> UpdateItemStackNBTPipeline;
+    private final List<Function<TypedPipelineElementContext<UpdateItemStackNBTContext, Boolean, O, I>, Boolean>> UpdateItemStackNBTPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetDestroySpeedContext, Float, O, I>, Float>> GetDestroySpeedPipeline;
+    private final List<Function<TypedPipelineElementContext<GetDestroySpeedContext, Float, O, I>, Float>> GetDestroySpeedPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetSmeltingExperienceContext, Float, O, I>, Float>> GetSmeltingExperiencePipeline;
+    private final List<Function<TypedPipelineElementContext<GetSmeltingExperienceContext, Float, O, I>, Float>> GetSmeltingExperiencePipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<SetDamageContext, O, I>>> SetDamagePipeline;
+    private final List<Consumer<VoidPipelineElementContext<SetDamageContext, O, I>>> SetDamagePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetUnlocalizedNameContext, String, O, I>, String>> GetUnlocalizedNamePipeline;
+    private final List<Function<TypedPipelineElementContext<GetUnlocalizedNameContext, String, O, I>, String>> GetUnlocalizedNamePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetUnlocalizedNameWithStackAsItemStackContext, String, O, I>, String>> GetUnlocalizedNameWithStackAsItemStackPipeline;
+    private final List<Function<TypedPipelineElementContext<GetUnlocalizedNameWithStackAsItemStackContext, String, O, I>, String>> GetUnlocalizedNameWithStackAsItemStackPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetItemEnchantabilityContext, Integer, O, I>, Integer>> GetItemEnchantabilityPipeline;
+    private final List<Function<TypedPipelineElementContext<GetItemEnchantabilityContext, Integer, O, I>, Integer>> GetItemEnchantabilityPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetItemEnchantabilityWithStackAsItemStackContext, Integer, O, I>, Integer>> GetItemEnchantabilityWithStackAsItemStackPipeline;
+    private final List<Function<TypedPipelineElementContext<GetItemEnchantabilityWithStackAsItemStackContext, Integer, O, I>, Integer>>
+      GetItemEnchantabilityWithStackAsItemStackPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetTileEntityItemStackRendererContext, IBlockEntityRenderer, O, I>, IBlockEntityRenderer>> GetTileEntityItemStackRendererPipeline;
+    private final List<Function<TypedPipelineElementContext<GetTileEntityItemStackRendererContext, IBlockEntityRenderer, O, I>, IBlockEntityRenderer>>
+      GetTileEntityItemStackRendererPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetXpRepairRatioContext, Float, O, I>, Float>> GetXpRepairRatioPipeline;
+    private final List<Function<TypedPipelineElementContext<GetXpRepairRatioContext, Float, O, I>, Float>> GetXpRepairRatioPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetArmorModelContext, IModelBiped, O, I>, IModelBiped>> GetArmorModelPipeline;
+    private final List<Function<TypedPipelineElementContext<GetArmorModelContext, IModelBiped, O, I>, IModelBiped>> GetArmorModelPipeline;
 
-        private final List<Function<TypedPipelineElementContext<OnEntityItemUpdateContext, Boolean, O, I>, Boolean>> OnEntityItemUpdatePipeline;
+    private final List<Function<TypedPipelineElementContext<OnEntityItemUpdateContext, Boolean, O, I>, Boolean>> OnEntityItemUpdatePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetDamageContext, Integer, O, I>, Integer>> GetDamagePipeline;
+    private final List<Function<TypedPipelineElementContext<GetDamageContext, Integer, O, I>, Integer>> GetDamagePipeline;
 
-        private final List<Function<TypedPipelineElementContext<CanDisableShieldContext, Boolean, O, I>, Boolean>> CanDisableShieldPipeline;
+    private final List<Function<TypedPipelineElementContext<CanDisableShieldContext, Boolean, O, I>, Boolean>> CanDisableShieldPipeline;
 
-        private final List<Function<TypedPipelineElementContext<HitEntityContext, Boolean, O, I>, Boolean>> HitEntityPipeline;
+    private final List<Function<TypedPipelineElementContext<HitEntityContext, Boolean, O, I>, Boolean>> HitEntityPipeline;
 
-        private final List<Function<TypedPipelineElementContext<CanDestroyBlockInCreativeContext, Boolean, O, I>, Boolean>> CanDestroyBlockInCreativePipeline;
+    private final List<Function<TypedPipelineElementContext<CanDestroyBlockInCreativeContext, Boolean, O, I>, Boolean>> CanDestroyBlockInCreativePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetToolClassesContext, Set<String>, O, I>, Set<String>>> GetToolClassesPipeline;
+    private final List<Function<TypedPipelineElementContext<GetToolClassesContext, Set<String>, O, I>, Set<String>>> GetToolClassesPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<OnPlayerStoppedUsingContext, O, I>>> OnPlayerStoppedUsingPipeline;
+    private final List<Consumer<VoidPipelineElementContext<OnPlayerStoppedUsingContext, O, I>>> OnPlayerStoppedUsingPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<AddPropertyOverrideContext, O, I>>> AddPropertyOverridePipeline;
+    private final List<Consumer<VoidPipelineElementContext<AddPropertyOverrideContext, O, I>>> AddPropertyOverridePipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsMapContext, Boolean, O, I>, Boolean>> IsMapPipeline;
+    private final List<Function<TypedPipelineElementContext<IsMapContext, Boolean, O, I>, Boolean>> IsMapPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetShareTagContext, Boolean, O, I>, Boolean>> GetShareTagPipeline;
+    private final List<Function<TypedPipelineElementContext<GetShareTagContext, Boolean, O, I>, Boolean>> GetShareTagPipeline;
 
-        private final List<Function<TypedPipelineElementContext<OnDroppedByPlayerContext, Boolean, O, I>, Boolean>> OnDroppedByPlayerPipeline;
+    private final List<Function<TypedPipelineElementContext<OnDroppedByPlayerContext, Boolean, O, I>, Boolean>> OnDroppedByPlayerPipeline;
 
-        private final List<Function<TypedPipelineElementContext<OnEntitySwingContext, Boolean, O, I>, Boolean>> OnEntitySwingPipeline;
+    private final List<Function<TypedPipelineElementContext<OnEntitySwingContext, Boolean, O, I>, Boolean>> OnEntitySwingPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetAttributeModifiersContext, Multimap<String, IAttributeModifier>, O, I>, Multimap<String, IAttributeModifier>>> GetAttributeModifiersPipeline;
+    private final List<Function<TypedPipelineElementContext<GetAttributeModifiersContext, Multimap<String, IAttributeModifier>, O, I>, Multimap<String, IAttributeModifier>>>
+      GetAttributeModifiersPipeline;
 
-        private final List<Function<TypedPipelineElementContext<SetCreativeTabContext, O, O, I>, O>> SetCreativeTabPipeline;
+    private final List<Function<TypedPipelineElementContext<SetCreativeTabContext, O, O, I>, O>> SetCreativeTabPipeline;
 
-        private final List<Function<TypedPipelineElementContext<SetMaxStackSizeContext, O, O, I>, O>> SetMaxStackSizePipeline;
+    private final List<Function<TypedPipelineElementContext<SetMaxStackSizeContext, O, O, I>, O>> SetMaxStackSizePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetCreativeTabContext, IItemGroup<?>, O, I>, IItemGroup<?>>> GetCreativeTabPipeline;
+    private final List<Function<TypedPipelineElementContext<GetCreativeTabContext, IItemGroup<?>, O, I>, IItemGroup<?>>> GetCreativeTabPipeline;
 
-        private final List<Function<TypedPipelineElementContext<OnBlockStartBreakContext, Boolean, O, I>, Boolean>> OnBlockStartBreakPipeline;
+    private final List<Function<TypedPipelineElementContext<OnBlockStartBreakContext, Boolean, O, I>, Boolean>> OnBlockStartBreakPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetDefaultInstanceContext, IItemStack, O, I>, IItemStack>> GetDefaultInstancePipeline;
+    private final List<Function<TypedPipelineElementContext<GetDefaultInstanceContext, IItemStack, O, I>, IItemStack>> GetDefaultInstancePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetAnimationParametersContext, ImmutableMap<String, ITimedValue>, O, I>, ImmutableMap<String, ITimedValue>>> GetAnimationParametersPipeline;
+    private final List<Function<TypedPipelineElementContext<GetAnimationParametersContext, ImmutableMap<String, ITimedValue>, O, I>, ImmutableMap<String, ITimedValue>>>
+      GetAnimationParametersPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetEntityLifespanContext, Integer, O, I>, Integer>> GetEntityLifespanPipeline;
+    private final List<Function<TypedPipelineElementContext<GetEntityLifespanContext, Integer, O, I>, Integer>> GetEntityLifespanPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetArmorTextureContext, String, O, I>, String>> GetArmorTexturePipeline;
+    private final List<Function<TypedPipelineElementContext<GetArmorTextureContext, String, O, I>, String>> GetArmorTexturePipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsBeaconPaymentContext, Boolean, O, I>, Boolean>> IsBeaconPaymentPipeline;
+    private final List<Function<TypedPipelineElementContext<IsBeaconPaymentContext, Boolean, O, I>, Boolean>> IsBeaconPaymentPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetMaxDamageContext, Integer, O, I>, Integer>> GetMaxDamagePipeline;
+    private final List<Function<TypedPipelineElementContext<GetMaxDamageContext, Integer, O, I>, Integer>> GetMaxDamagePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetMaxDamageWithStackAsItemStackContext, Integer, O, I>, Integer>> GetMaxDamageWithStackAsItemStackPipeline;
+    private final List<Function<TypedPipelineElementContext<GetMaxDamageWithStackAsItemStackContext, Integer, O, I>, Integer>> GetMaxDamageWithStackAsItemStackPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetCreatorModIdContext, String, O, I>, String>> GetCreatorModIdPipeline;
+    private final List<Function<TypedPipelineElementContext<GetCreatorModIdContext, String, O, I>, String>> GetCreatorModIdPipeline;
 
-        private final List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResultType, O, I>, IActionResultType>> OnItemUsePipeline;
+    private final List<Function<TypedPipelineElementContext<OnItemUseContext, IActionResultType, O, I>, IActionResultType>> OnItemUsePipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsDamagedContext, Boolean, O, I>, Boolean>> IsDamagedPipeline;
+    private final List<Function<TypedPipelineElementContext<IsDamagedContext, Boolean, O, I>, Boolean>> IsDamagedPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<OnArmorTickContext, O, I>>> OnArmorTickPipeline;
+    private final List<Consumer<VoidPipelineElementContext<OnArmorTickContext, O, I>>> OnArmorTickPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetNBTShareTagContext, INBTCompound, O, I>, INBTCompound>> GetNBTShareTagPipeline;
+    private final List<Function<TypedPipelineElementContext<GetNBTShareTagContext, INBTCompound, O, I>, INBTCompound>> GetNBTShareTagPipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsValidArmorContext, Boolean, O, I>, Boolean>> IsValidArmorPipeline;
+    private final List<Function<TypedPipelineElementContext<IsValidArmorContext, Boolean, O, I>, Boolean>> IsValidArmorPipeline;
 
-        private final List<Function<TypedPipelineElementContext<HasContainerItemContext, Boolean, O, I>, Boolean>> HasContainerItemPipeline;
+    private final List<Function<TypedPipelineElementContext<HasContainerItemContext, Boolean, O, I>, Boolean>> HasContainerItemPipeline;
 
-        private final List<Function<TypedPipelineElementContext<HasContainerItemWithStackAsItemStackContext, Boolean, O, I>, Boolean>> HasContainerItemWithStackAsItemStackPipeline;
+    private final List<Function<TypedPipelineElementContext<HasContainerItemWithStackAsItemStackContext, Boolean, O, I>, Boolean>> HasContainerItemWithStackAsItemStackPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<GetSubItemsContext, O, I>>> GetSubItemsPipeline;
+    private final List<Consumer<VoidPipelineElementContext<GetSubItemsContext, O, I>>> GetSubItemsPipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsShieldContext, Boolean, O, I>, Boolean>> IsShieldPipeline;
+    private final List<Function<TypedPipelineElementContext<IsShieldContext, Boolean, O, I>, Boolean>> IsShieldPipeline;
 
-        private final List<Function<TypedPipelineElementContext<OnItemUseFinishContext, IItemStack, O, I>, IItemStack>> OnItemUseFinishPipeline;
+    private final List<Function<TypedPipelineElementContext<OnItemUseFinishContext, IItemStack, O, I>, IItemStack>> OnItemUseFinishPipeline;
 
-        private final List<Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResultType, O, I>, IActionResultType>> OnItemUseFirstPipeline;
+    private final List<Function<TypedPipelineElementContext<OnItemUseFirstContext, IActionResultType, O, I>, IActionResultType>> OnItemUseFirstPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetHorseArmorTypeContext, IHorseArmorType, O, I>, IHorseArmorType>> GetHorseArmorTypePipeline;
+    private final List<Function<TypedPipelineElementContext<GetHorseArmorTypeContext, IHorseArmorType, O, I>, IHorseArmorType>> GetHorseArmorTypePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionType, O, I>, IActionType>> GetItemUseActionPipeline;
+    private final List<Function<TypedPipelineElementContext<GetItemUseActionContext, IActionType, O, I>, IActionType>> GetItemUseActionPipeline;
 
-        private final List<Function<TypedPipelineElementContext<InitCapabilitiesContext, ICapabilityManager, O, I>, ICapabilityManager>> InitCapabilitiesPipeline;
+    private final List<Function<TypedPipelineElementContext<InitCapabilitiesContext, ICapabilityManager, O, I>, ICapabilityManager>> InitCapabilitiesPipeline;
 
-        private final List<Function<TypedPipelineElementContext<HasCustomPropertiesContext, Boolean, O, I>, Boolean>> HasCustomPropertiesPipeline;
+    private final List<Function<TypedPipelineElementContext<HasCustomPropertiesContext, Boolean, O, I>, Boolean>> HasCustomPropertiesPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetItemBurnTimeContext, Integer, O, I>, Integer>> GetItemBurnTimePipeline;
+    private final List<Function<TypedPipelineElementContext<GetItemBurnTimeContext, Integer, O, I>, Integer>> GetItemBurnTimePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetFontRendererContext, IFontRenderer, O, I>, IFontRenderer>> GetFontRendererPipeline;
+    private final List<Function<TypedPipelineElementContext<GetFontRendererContext, IFontRenderer, O, I>, IFontRenderer>> GetFontRendererPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<OnUpdateContext, O, I>>> OnUpdatePipeline;
+    private final List<Consumer<VoidPipelineElementContext<OnUpdateContext, O, I>>> OnUpdatePipeline;
 
-        private final List<Function<TypedPipelineElementContext<CanApplyAtEnchantingTableContext, Boolean, O, I>, Boolean>> CanApplyAtEnchantingTablePipeline;
+    private final List<Function<TypedPipelineElementContext<CanApplyAtEnchantingTableContext, Boolean, O, I>, Boolean>> CanApplyAtEnchantingTablePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetPropertyGetterContext, IItemPropertyGetter, O, I>, IItemPropertyGetter>> GetPropertyGetterPipeline;
+    private final List<Function<TypedPipelineElementContext<GetPropertyGetterContext, IItemPropertyGetter, O, I>, IItemPropertyGetter>> GetPropertyGetterPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetUnlocalizedNameInefficientlyContext, String, O, I>, String>> GetUnlocalizedNameInefficientlyPipeline;
+    private final List<Function<TypedPipelineElementContext<GetUnlocalizedNameInefficientlyContext, String, O, I>, String>> GetUnlocalizedNameInefficientlyPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetHarvestLevelContext, Integer, O, I>, Integer>> GetHarvestLevelPipeline;
+    private final List<Function<TypedPipelineElementContext<GetHarvestLevelContext, Integer, O, I>, Integer>> GetHarvestLevelPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetRarityContext, IRarity, O, I>, IRarity>> GetRarityPipeline;
+    private final List<Function<TypedPipelineElementContext<GetRarityContext, IRarity, O, I>, IRarity>> GetRarityPipeline;
 
-        private final List<Function<TypedPipelineElementContext<CanHarvestBlockContext, Boolean, O, I>, Boolean>> CanHarvestBlockPipeline;
+    private final List<Function<TypedPipelineElementContext<CanHarvestBlockContext, Boolean, O, I>, Boolean>> CanHarvestBlockPipeline;
 
-        private final List<Function<TypedPipelineElementContext<CanHarvestBlockWithStateAsIBlockStateAndStackAsItemStackContext, Boolean, O, I>, Boolean>> CanHarvestBlockWithStateAsIBlockStateAndStackAsItemStackPipeline;
+    private final List<Function<TypedPipelineElementContext<CanHarvestBlockWithStateAsIBlockStateAndStackAsItemStackContext, Boolean, O, I>, Boolean>>
+      CanHarvestBlockWithStateAsIBlockStateAndStackAsItemStackPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<RenderHelmetOverlayContext, O, I>>> RenderHelmetOverlayPipeline;
+    private final List<Consumer<VoidPipelineElementContext<RenderHelmetOverlayContext, O, I>>> RenderHelmetOverlayPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetItemAttributeModifiersContext, Multimap<String, IAttributeModifier>, O, I>, Multimap<String, IAttributeModifier>>> GetItemAttributeModifiersPipeline;
+    private final List<Function<TypedPipelineElementContext<GetItemAttributeModifiersContext, Multimap<String, IAttributeModifier>, O, I>, Multimap<String, IAttributeModifier>>>
+      GetItemAttributeModifiersPipeline;
 
-        private final List<Function<TypedPipelineElementContext<ShouldCauseBlockBreakResetContext, Boolean, O, I>, Boolean>> ShouldCauseBlockBreakResetPipeline;
+    private final List<Function<TypedPipelineElementContext<ShouldCauseBlockBreakResetContext, Boolean, O, I>, Boolean>> ShouldCauseBlockBreakResetPipeline;
 
-        private final List<Function<TypedPipelineElementContext<ShouldCauseReequipAnimationContext, Boolean, O, I>, Boolean>> ShouldCauseReequipAnimationPipeline;
+    private final List<Function<TypedPipelineElementContext<ShouldCauseReequipAnimationContext, Boolean, O, I>, Boolean>> ShouldCauseReequipAnimationPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<AddInformationContext, O, I>>> AddInformationPipeline;
+    private final List<Consumer<VoidPipelineElementContext<AddInformationContext, O, I>>> AddInformationPipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsInCreativeTabContext, Boolean, O, I>, Boolean>> IsInCreativeTabPipeline;
+    private final List<Function<TypedPipelineElementContext<IsInCreativeTabContext, Boolean, O, I>, Boolean>> IsInCreativeTabPipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsEnchantableContext, Boolean, O, I>, Boolean>> IsEnchantablePipeline;
+    private final List<Function<TypedPipelineElementContext<IsEnchantableContext, Boolean, O, I>, Boolean>> IsEnchantablePipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<SetTileEntityItemStackRendererContext, O, I>>> SetTileEntityItemStackRendererPipeline;
+    private final List<Consumer<VoidPipelineElementContext<SetTileEntityItemStackRendererContext, O, I>>> SetTileEntityItemStackRendererPipeline;
 
-        private final List<Function<TypedPipelineElementContext<SetContainerItemContext, O, O, I>, O>> SetContainerItemPipeline;
+    private final List<Function<TypedPipelineElementContext<SetContainerItemContext, O, O, I>, O>> SetContainerItemPipeline;
 
-        private final List<Function<TypedPipelineElementContext<ShowDurabilityBarContext, Boolean, O, I>, Boolean>> ShowDurabilityBarPipeline;
+    private final List<Function<TypedPipelineElementContext<ShowDurabilityBarContext, Boolean, O, I>, Boolean>> ShowDurabilityBarPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetMetadataContext, Integer, O, I>, Integer>> GetMetadataPipeline;
+    private final List<Function<TypedPipelineElementContext<GetMetadataContext, Integer, O, I>, Integer>> GetMetadataPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetMetadataWithStackAsItemStackContext, Integer, O, I>, Integer>> GetMetadataWithStackAsItemStackPipeline;
+    private final List<Function<TypedPipelineElementContext<GetMetadataWithStackAsItemStackContext, Integer, O, I>, Integer>> GetMetadataWithStackAsItemStackPipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsBookEnchantableContext, Boolean, O, I>, Boolean>> IsBookEnchantablePipeline;
+    private final List<Function<TypedPipelineElementContext<IsBookEnchantableContext, Boolean, O, I>, Boolean>> IsBookEnchantablePipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<OnUsingTickContext, O, I>>> OnUsingTickPipeline;
+    private final List<Consumer<VoidPipelineElementContext<OnUsingTickContext, O, I>>> OnUsingTickPipeline;
 
-        private final List<Function<TypedPipelineElementContext<CreateEntityContext, IEntity, O, I>, IEntity>> CreateEntityPipeline;
+    private final List<Function<TypedPipelineElementContext<CreateEntityContext, IEntity, O, I>, IEntity>> CreateEntityPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetCreativeTabsContext, IItemGroup<?>[], O, I>, IItemGroup<?>[]>> GetCreativeTabsPipeline;
+    private final List<Function<TypedPipelineElementContext<GetCreativeTabsContext, IItemGroup<?>[], O, I>, IItemGroup<?>[]>> GetCreativeTabsPipeline;
 
-        private final List<Function<TypedPipelineElementContext<ShouldRotateAroundWhenRenderingContext, Boolean, O, I>, Boolean>> ShouldRotateAroundWhenRenderingPipeline;
+    private final List<Function<TypedPipelineElementContext<ShouldRotateAroundWhenRenderingContext, Boolean, O, I>, Boolean>> ShouldRotateAroundWhenRenderingPipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsRepairableContext, Boolean, O, I>, Boolean>> IsRepairablePipeline;
+    private final List<Function<TypedPipelineElementContext<IsRepairableContext, Boolean, O, I>, Boolean>> IsRepairablePipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetMaxItemUseDurationContext, Integer, O, I>, Integer>> GetMaxItemUseDurationPipeline;
+    private final List<Function<TypedPipelineElementContext<GetMaxItemUseDurationContext, Integer, O, I>, Integer>> GetMaxItemUseDurationPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetRGBDurabilityForDisplayContext, Integer, O, I>, Integer>> GetRGBDurabilityForDisplayPipeline;
+    private final List<Function<TypedPipelineElementContext<GetRGBDurabilityForDisplayContext, Integer, O, I>, Integer>> GetRGBDurabilityForDisplayPipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsDamageableContext, Boolean, O, I>, Boolean>> IsDamageablePipeline;
+    private final List<Function<TypedPipelineElementContext<IsDamageableContext, Boolean, O, I>, Boolean>> IsDamageablePipeline;
 
-        private final List<Function<TypedPipelineElementContext<SetUnlocalizedNameContext, O, O, I>, O>> SetUnlocalizedNamePipeline;
+    private final List<Function<TypedPipelineElementContext<SetUnlocalizedNameContext, O, O, I>, O>> SetUnlocalizedNamePipeline;
 
-        private final List<Function<TypedPipelineElementContext<SetFull3DContext, O, O, I>, O>> SetFull3DPipeline;
+    private final List<Function<TypedPipelineElementContext<SetFull3DContext, O, O, I>, O>> SetFull3DPipeline;
 
-        private final List<Function<TypedPipelineElementContext<OnLeftClickEntityContext, Boolean, O, I>, Boolean>> OnLeftClickEntityPipeline;
+    private final List<Function<TypedPipelineElementContext<OnLeftClickEntityContext, Boolean, O, I>, Boolean>> OnLeftClickEntityPipeline;
 
-        private final List<Function<TypedPipelineElementContext<OnBlockDestroyedContext, Boolean, O, I>, Boolean>> OnBlockDestroyedPipeline;
+    private final List<Function<TypedPipelineElementContext<OnBlockDestroyedContext, Boolean, O, I>, Boolean>> OnBlockDestroyedPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetDurabilityForDisplayContext, Double, O, I>, Double>> GetDurabilityForDisplayPipeline;
+    private final List<Function<TypedPipelineElementContext<GetDurabilityForDisplayContext, Double, O, I>, Double>> GetDurabilityForDisplayPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<OnHorseArmorTickContext, O, I>>> OnHorseArmorTickPipeline;
+    private final List<Consumer<VoidPipelineElementContext<OnHorseArmorTickContext, O, I>>> OnHorseArmorTickPipeline;
 
-        private final List<Function<TypedPipelineElementContext<CanContinueUsingContext, Boolean, O, I>, Boolean>> CanContinueUsingPipeline;
+    private final List<Function<TypedPipelineElementContext<CanContinueUsingContext, Boolean, O, I>, Boolean>> CanContinueUsingPipeline;
 
-        private final List<Function<TypedPipelineElementContext<IsFull3DContext, Boolean, O, I>, Boolean>> IsFull3DPipeline;
+    private final List<Function<TypedPipelineElementContext<IsFull3DContext, Boolean, O, I>, Boolean>> IsFull3DPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetIsRepairableContext, Boolean, O, I>, Boolean>> GetIsRepairablePipeline;
+    private final List<Function<TypedPipelineElementContext<GetIsRepairableContext, Boolean, O, I>, Boolean>> GetIsRepairablePipeline;
 
-        private final List<Function<TypedPipelineElementContext<OnItemRightClickContext, IActionResult<IItemStack>, O, I>, IActionResult<IItemStack>>> OnItemRightClickPipeline;
+    private final List<Function<TypedPipelineElementContext<OnItemRightClickContext, IActionResult<IItemStack>, O, I>, IActionResult<IItemStack>>> OnItemRightClickPipeline;
 
-        private final List<Function<TypedPipelineElementContext<HasCustomEntityContext, Boolean, O, I>, Boolean>> HasCustomEntityPipeline;
+    private final List<Function<TypedPipelineElementContext<HasCustomEntityContext, Boolean, O, I>, Boolean>> HasCustomEntityPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetHighlightTipContext, String, O, I>, String>> GetHighlightTipPipeline;
+    private final List<Function<TypedPipelineElementContext<GetHighlightTipContext, String, O, I>, String>> GetHighlightTipPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetHasSubtypesContext, Boolean, O, I>, Boolean>> GetHasSubtypesPipeline;
+    private final List<Function<TypedPipelineElementContext<GetHasSubtypesContext, Boolean, O, I>, Boolean>> GetHasSubtypesPipeline;
 
-        private final List<Function<TypedPipelineElementContext<HasEffectContext, Boolean, O, I>, Boolean>> HasEffectPipeline;
+    private final List<Function<TypedPipelineElementContext<HasEffectContext, Boolean, O, I>, Boolean>> HasEffectPipeline;
 
-        private final List<Function<TypedPipelineElementContext<CanItemEditBlocksContext, Boolean, O, I>, Boolean>> CanItemEditBlocksPipeline;
+    private final List<Function<TypedPipelineElementContext<CanItemEditBlocksContext, Boolean, O, I>, Boolean>> CanItemEditBlocksPipeline;
 
-        private final List<Function<TypedPipelineElementContext<ItemInteractionForEntityContext, Boolean, O, I>, Boolean>> ItemInteractionForEntityPipeline;
+    private final List<Function<TypedPipelineElementContext<ItemInteractionForEntityContext, Boolean, O, I>, Boolean>> ItemInteractionForEntityPipeline;
 
-        private final List<Function<TypedPipelineElementContext<DoesSneakBypassUseContext, Boolean, O, I>, Boolean>> DoesSneakBypassUsePipeline;
+    private final List<Function<TypedPipelineElementContext<DoesSneakBypassUseContext, Boolean, O, I>, Boolean>> DoesSneakBypassUsePipeline;
 
-        private final List<Function<TypedPipelineElementContext<SetNoRepairContext, O, O, I>, O>> SetNoRepairPipeline;
+    private final List<Function<TypedPipelineElementContext<SetNoRepairContext, O, O, I>, O>> SetNoRepairPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetContainerItemContext, O, O, I>, O>> GetContainerItemPipeline;
+    private final List<Function<TypedPipelineElementContext<GetContainerItemContext, O, O, I>, O>> GetContainerItemPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetContainerItemWithItemStackAsItemStackContext, IItemStack, O, I>, IItemStack>> GetContainerItemWithItemStackAsItemStackPipeline;
+    private final List<Function<TypedPipelineElementContext<GetContainerItemWithItemStackAsItemStackContext, IItemStack, O, I>, IItemStack>>
+      GetContainerItemWithItemStackAsItemStackPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetItemStackDisplayNameContext, String, O, I>, String>> GetItemStackDisplayNamePipeline;
+    private final List<Function<TypedPipelineElementContext<GetItemStackDisplayNameContext, String, O, I>, String>> GetItemStackDisplayNamePipeline;
 
-        private final List<Function<TypedPipelineElementContext<RayTraceContext, IRayTraceResult, O, I>, IRayTraceResult>> RayTracePipeline;
+    private final List<Function<TypedPipelineElementContext<RayTraceContext, IRayTraceResult, O, I>, IRayTraceResult>> RayTracePipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<ReadNBTShareTagContext, O, I>>> ReadNBTShareTagPipeline;
+    private final List<Consumer<VoidPipelineElementContext<ReadNBTShareTagContext, O, I>>> ReadNBTShareTagPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetEquipmentSlotContext, IEquipmentSlot, O, I>, IEquipmentSlot>> GetEquipmentSlotPipeline;
+    private final List<Function<TypedPipelineElementContext<GetEquipmentSlotContext, IEquipmentSlot, O, I>, IEquipmentSlot>> GetEquipmentSlotPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetItemStackLimitContext, Integer, O, I>, Integer>> GetItemStackLimitPipeline;
+    private final List<Function<TypedPipelineElementContext<GetItemStackLimitContext, Integer, O, I>, Integer>> GetItemStackLimitPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetItemStackLimitWithStackAsItemStackContext, Integer, O, I>, Integer>> GetItemStackLimitWithStackAsItemStackPipeline;
+    private final List<Function<TypedPipelineElementContext<GetItemStackLimitWithStackAsItemStackContext, Integer, O, I>, Integer>> GetItemStackLimitWithStackAsItemStackPipeline;
 
-        private final List<Function<TypedPipelineElementContext<SetHasSubtypesContext, O, O, I>, O>> SetHasSubtypesPipeline;
+    private final List<Function<TypedPipelineElementContext<SetHasSubtypesContext, O, O, I>, O>> SetHasSubtypesPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetHorseArmorTextureContext, String, O, I>, String>> GetHorseArmorTexturePipeline;
+    private final List<Function<TypedPipelineElementContext<GetHorseArmorTextureContext, String, O, I>, String>> GetHorseArmorTexturePipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<OnCreatedContext, O, I>>> OnCreatedPipeline;
+    private final List<Consumer<VoidPipelineElementContext<OnCreatedContext, O, I>>> OnCreatedPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<SetHarvestLevelContext, O, I>>> SetHarvestLevelPipeline;
+    private final List<Consumer<VoidPipelineElementContext<SetHarvestLevelContext, O, I>>> SetHarvestLevelPipeline;
 
     public ForgeItemPipeline(
       final List<Function<TypedPipelineElementContext<SetMaxDamageContext, O, O, I>, O>> setMaxDamagePipeline,
@@ -372,7 +379,8 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
       final List<Function<TypedPipelineElementContext<SetHasSubtypesContext, O, O, I>, O>> setHasSubtypesPipeline,
       final List<Function<TypedPipelineElementContext<GetHorseArmorTextureContext, String, O, I>, String>> getHorseArmorTexturePipeline,
       final List<Consumer<VoidPipelineElementContext<OnCreatedContext, O, I>>> onCreatedPipeline,
-      final List<Consumer<VoidPipelineElementContext<SetHarvestLevelContext, O, I>>> setHarvestLevelPipeline) {
+      final List<Consumer<VoidPipelineElementContext<SetHarvestLevelContext, O, I>>> setHarvestLevelPipeline)
+    {
         SetMaxDamagePipeline = setMaxDamagePipeline;
         UpdateItemStackNBTPipeline = updateItemStackNBTPipeline;
         GetDestroySpeedPipeline = getDestroySpeedPipeline;

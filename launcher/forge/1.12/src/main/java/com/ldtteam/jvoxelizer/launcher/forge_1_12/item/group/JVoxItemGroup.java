@@ -28,7 +28,7 @@ import static com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForg
 public class JVoxItemGroup<I> extends CreativeTabs implements IItemGroup<I>
 {
 
-    private final I instanceData;
+    private final I                                        instanceData;
     private final ForgeItemGroupPipeline<IItemGroup<I>, I> pipeline;
 
     public JVoxItemGroup(

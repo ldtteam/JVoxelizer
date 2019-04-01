@@ -251,7 +251,9 @@ public class TextStyle implements ITextStyle
     public static Style asForge(ITextStyle style)
     {
         if (style instanceof Style)
+        {
             return (Style) style;
+        }
 
         return ((TextStyle) style).forgeStyle;
     }
@@ -259,7 +261,9 @@ public class TextStyle implements ITextStyle
     public static ITextStyle fromForge(Style style)
     {
         if (style instanceof ITextStyle)
+        {
             return (ITextStyle) style;
+        }
 
         return new TextStyle(style);
     }

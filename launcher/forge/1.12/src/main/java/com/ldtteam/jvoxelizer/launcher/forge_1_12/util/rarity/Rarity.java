@@ -11,7 +11,7 @@ public class Rarity implements IRarity
     {
         this.rarity = rarity;
     }
-    
+
     @Override
     public boolean isCommon()
     {

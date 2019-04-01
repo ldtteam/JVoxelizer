@@ -78,8 +78,10 @@ public class GuiButton extends Gui implements IGuiButton<DummyInstanceData>
             return ((GuiButton) guiButton).getForgeGuiButton();
         }
 
-        if(!(guiButton instanceof IForgeJVoxelizerWrapper))
+        if (!(guiButton instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("GuiButton is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) guiButton).getForgeInstance();
     }

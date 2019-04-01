@@ -23,10 +23,19 @@ public class SinglePlayerEntity extends PlayerEntity implements ISingleplayerPla
     public static EntityPlayerSP asForge(ISingleplayerPlayerEntity playerEntity)
     {
         if (playerEntity instanceof EntityPlayerSP)
+        {
             return (EntityPlayerSP) playerEntity;
+        }
+
+        if (playerEntity == null)
+        {
+            return null;
+        }
 
         if (!(playerEntity instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("SinglePlayerEntity is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) playerEntity).getForgeInstance();
     }
@@ -34,7 +43,9 @@ public class SinglePlayerEntity extends PlayerEntity implements ISingleplayerPla
     public static ISingleplayerPlayerEntity fromForge(EntityPlayerSP playerSP)
     {
         if (playerSP instanceof ISingleplayerPlayerEntity)
+        {
             return (ISingleplayerPlayerEntity) playerSP;
+        }
 
         return new SinglePlayerEntity(playerSP);
     }

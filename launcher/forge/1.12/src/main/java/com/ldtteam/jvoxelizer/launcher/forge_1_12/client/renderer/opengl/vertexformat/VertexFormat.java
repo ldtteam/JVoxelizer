@@ -18,10 +18,19 @@ public class VertexFormat implements IVertexFormat, IForgeJVoxelizerWrapper
     public static net.minecraft.client.renderer.vertex.VertexFormat asForge(IVertexFormat vertexFormat)
     {
         if (vertexFormat instanceof net.minecraft.client.renderer.vertex.VertexFormat)
+        {
             return (net.minecraft.client.renderer.vertex.VertexFormat) vertexFormat;
+        }
+
+        if (vertexFormat == null)
+        {
+            return null;
+        }
 
         if (!(vertexFormat instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("VertexFormat is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) vertexFormat).getForgeInstance();
     }
@@ -29,7 +38,9 @@ public class VertexFormat implements IVertexFormat, IForgeJVoxelizerWrapper
     public static IVertexFormat fromForge(net.minecraft.client.renderer.vertex.VertexFormat vertexFormat)
     {
         if (vertexFormat instanceof IVertexFormat)
+        {
             return (IVertexFormat) vertexFormat;
+        }
 
         return new VertexFormat(vertexFormat);
     }

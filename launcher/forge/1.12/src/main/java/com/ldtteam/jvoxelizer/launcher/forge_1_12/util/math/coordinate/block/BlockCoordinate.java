@@ -3,10 +3,12 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block;
 import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 import net.minecraft.util.math.BlockPos;
 
-public class BlockCoordinate implements IBlockCoordinate {
+public class BlockCoordinate implements IBlockCoordinate
+{
     private BlockPos forgeBlockPos;
 
-    private BlockCoordinate(BlockPos forgeBlockPos) {
+    private BlockCoordinate(BlockPos forgeBlockPos)
+    {
         this.forgeBlockPos = forgeBlockPos;
     }
 
@@ -16,17 +18,20 @@ public class BlockCoordinate implements IBlockCoordinate {
     }
 
     @Override
-    public int getX() {
+    public int getX()
+    {
         return forgeBlockPos.getX();
     }
 
     @Override
-    public int getY() {
+    public int getY()
+    {
         return forgeBlockPos.getY();
     }
 
     @Override
-    public int getZ() {
+    public int getZ()
+    {
         return forgeBlockPos.getZ();
     }
 
@@ -38,7 +43,9 @@ public class BlockCoordinate implements IBlockCoordinate {
     public static BlockPos asForge(IBlockCoordinate blockCoordinate)
     {
         if (blockCoordinate instanceof BlockPos)
+        {
             return (BlockPos) blockCoordinate;
+        }
 
         return ((BlockCoordinate) blockCoordinate).getForgeBlockPos();
     }
@@ -46,7 +53,9 @@ public class BlockCoordinate implements IBlockCoordinate {
     public static IBlockCoordinate fromForge(BlockPos blockPos)
     {
         if (blockPos instanceof IBlockCoordinate)
+        {
             return (IBlockCoordinate) blockPos;
+        }
 
         return new BlockCoordinate(blockPos);
     }

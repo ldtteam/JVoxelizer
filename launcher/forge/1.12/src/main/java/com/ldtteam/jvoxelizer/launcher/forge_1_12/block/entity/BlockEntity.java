@@ -54,10 +54,19 @@ public class BlockEntity implements IBlockEntity, IForgeJVoxelizerWrapper
     public static TileEntity asForge(IBlockEntity blockEntity)
     {
         if (blockEntity instanceof TileEntity)
+        {
             return (TileEntity) blockEntity;
+        }
+
+        if (blockEntity == null)
+        {
+            return null;
+        }
 
         if (!(blockEntity instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("BlockEntity is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) blockEntity).getForgeInstance();
     }
@@ -65,7 +74,9 @@ public class BlockEntity implements IBlockEntity, IForgeJVoxelizerWrapper
     public static IBlockEntity fromForge(TileEntity tileEntity)
     {
         if (tileEntity instanceof IBlockEntity)
+        {
             return (IBlockEntity) tileEntity;
+        }
 
         return new BlockEntity(tileEntity);
     }

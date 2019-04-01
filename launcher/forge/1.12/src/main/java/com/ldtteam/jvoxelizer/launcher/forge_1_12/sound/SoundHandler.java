@@ -33,7 +33,7 @@ public class SoundHandler implements ISoundHandler
     @Override
     public void setListener(final IEntity entity, final float partialTicks)
     {
-        forgeSoundHandler.setListener(Entity.asForge(entity) ,partialTicks);
+        forgeSoundHandler.setListener(Entity.asForge(entity), partialTicks);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class SoundHandler implements ISoundHandler
     @Override
     public void setSoundLevel(final ISoundCategory category, final float volume)
     {
-        forgeSoundHandler.setSoundLevel(SoundCategory.asForge(category) ,volume);
+        forgeSoundHandler.setSoundLevel(SoundCategory.asForge(category), volume);
     }
 
     @Override
@@ -89,11 +89,13 @@ public class SoundHandler implements ISoundHandler
     {
         forgeSoundHandler.stop(p_189520_1_, SoundCategory.asForge(p_189520_2_));
     }
-    
+
     public static net.minecraft.client.audio.SoundHandler asForge(final ISoundHandler handler)
     {
         if (handler instanceof net.minecraft.client.audio.SoundHandler)
+        {
             return (net.minecraft.client.audio.SoundHandler) handler;
+        }
 
         return ((SoundHandler) handler).forgeSoundHandler;
     }
@@ -101,7 +103,9 @@ public class SoundHandler implements ISoundHandler
     public static ISoundHandler fromForge(final net.minecraft.client.audio.SoundHandler handler)
     {
         if (handler instanceof ISoundHandler)
+        {
             return (ISoundHandler) handler;
+        }
 
         return new SoundHandler(handler);
     }

@@ -11,16 +11,16 @@ import java.util.function.Function;
 
 public class ForgeGuiButtonPipeline<O extends IGuiButton<I>, I> extends ForgeGuiPipeline<O, I>
 {
-    private final List<Consumer<VoidPipelineElementContext<MouseReleasedContext, O, I>>> MouseReleasedPipeline;
-    private final List<Function<TypedPipelineElementContext<IsMouseOverContext, Boolean, O, I>, Boolean>> IsMouseOverPipeline;
-    private final List<Consumer<VoidPipelineElementContext<MouseDraggedContext, O, I>>> MouseDraggedPipeline;
-    private final List<Function<TypedPipelineElementContext<GetHoverStateContext, Integer, O, I>, Integer>> GetHoverStatePipeline;
-    private final List<Consumer<VoidPipelineElementContext<PlayPressSoundContext, O, I>>> PlayPressSoundPipeline;
-    private final List<Consumer<VoidPipelineElementContext<DrawButtonForegroundLayerContext, O, I>>> DrawButtonForegroundLayerPipeline;
+    private final List<Consumer<VoidPipelineElementContext<MouseReleasedContext, O, I>>>                     MouseReleasedPipeline;
+    private final List<Function<TypedPipelineElementContext<IsMouseOverContext, Boolean, O, I>, Boolean>>    IsMouseOverPipeline;
+    private final List<Consumer<VoidPipelineElementContext<MouseDraggedContext, O, I>>>                      MouseDraggedPipeline;
+    private final List<Function<TypedPipelineElementContext<GetHoverStateContext, Integer, O, I>, Integer>>  GetHoverStatePipeline;
+    private final List<Consumer<VoidPipelineElementContext<PlayPressSoundContext, O, I>>>                    PlayPressSoundPipeline;
+    private final List<Consumer<VoidPipelineElementContext<DrawButtonForegroundLayerContext, O, I>>>         DrawButtonForegroundLayerPipeline;
     private final List<Function<TypedPipelineElementContext<GetButtonWidthContext, Integer, O, I>, Integer>> GetButtonWidthPipeline;
-    private final List<Consumer<VoidPipelineElementContext<SetWidthContext, O, I>>> SetWidthPipeline;
-    private final List<Consumer<VoidPipelineElementContext<DrawButtonContext, O, I>>> DrawButtonPipeline;
-    private final List<Function<TypedPipelineElementContext<MousePressedContext, Boolean, O, I>, Boolean>> MousePressedPipeline;
+    private final List<Consumer<VoidPipelineElementContext<SetWidthContext, O, I>>>                          SetWidthPipeline;
+    private final List<Consumer<VoidPipelineElementContext<DrawButtonContext, O, I>>>                        DrawButtonPipeline;
+    private final List<Function<TypedPipelineElementContext<MousePressedContext, Boolean, O, I>, Boolean>>   MousePressedPipeline;
 
     public ForgeGuiButtonPipeline(
       final List<Consumer<VoidPipelineElementContext<DrawCenteredStringContext, O, I>>> drawCenteredStringPipeline,

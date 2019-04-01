@@ -55,14 +55,15 @@ public class Entity implements IEntity, IForgeJVoxelizerWrapper
     @Override
     public ITickingDataEntry<IEntityCoordinate> getPositionOfEntityOrigin()
     {
-        return new ITickingDataEntry<IEntityCoordinate>() {
+        return new ITickingDataEntry<IEntityCoordinate>()
+        {
             @Override
             public ITickingDataEntry<IEntityCoordinate> setPrevious(final IEntityCoordinate previous)
             {
                 forgeEntity.prevPosX = previous.getX();
                 forgeEntity.prevPosY = previous.getY();
                 forgeEntity.prevPosZ = previous.getZ();
-                
+
                 return this;
             }
 
@@ -93,14 +94,15 @@ public class Entity implements IEntity, IForgeJVoxelizerWrapper
     @Override
     public ITickingDataEntry<IBlockCoordinate> getPositionOfBlockContainingEntity()
     {
-        return new ITickingDataEntry<IBlockCoordinate>() {
+        return new ITickingDataEntry<IBlockCoordinate>()
+        {
             @Override
             public ITickingDataEntry<IBlockCoordinate> setPrevious(final IBlockCoordinate previous)
             {
                 forgeEntity.prevPosX = previous.getX() + (forgeEntity.prevPosX - Math.floor(forgeEntity.prevPosX));
                 forgeEntity.prevPosY = previous.getY() + (forgeEntity.prevPosY - Math.floor(forgeEntity.prevPosY)) - 0.5d;
                 forgeEntity.prevPosX = previous.getZ() + (forgeEntity.prevPosZ - Math.floor(forgeEntity.prevPosZ));
-                
+
                 return this;
             }
 
@@ -131,7 +133,8 @@ public class Entity implements IEntity, IForgeJVoxelizerWrapper
     @Override
     public IReadOnlyTickingDataEntry<Float> getRotationYaw()
     {
-        return new IReadOnlyTickingDataEntry<Float>() {
+        return new IReadOnlyTickingDataEntry<Float>()
+        {
             @Override
             public Float getPrevious()
             {
@@ -149,7 +152,8 @@ public class Entity implements IEntity, IForgeJVoxelizerWrapper
     @Override
     public IReadOnlyTickingDataEntry<Float> getRotationPitch()
     {
-        return new IReadOnlyTickingDataEntry<Float>() {
+        return new IReadOnlyTickingDataEntry<Float>()
+        {
             @Override
             public Float getPrevious()
             {
@@ -203,7 +207,8 @@ public class Entity implements IEntity, IForgeJVoxelizerWrapper
     @Override
     public IReadOnlyTickingDataEntry<Float> getDistanceWalkedModified()
     {
-        return new IReadOnlyTickingDataEntry<Float>() {
+        return new IReadOnlyTickingDataEntry<Float>()
+        {
             @Override
             public Float getPrevious()
             {
@@ -269,10 +274,19 @@ public class Entity implements IEntity, IForgeJVoxelizerWrapper
     public static net.minecraft.entity.Entity asForge(IEntity entity)
     {
         if (entity instanceof net.minecraft.entity.Entity)
+        {
             return (net.minecraft.entity.Entity) entity;
+        }
+
+        if (entity == null)
+        {
+            return null;
+        }
 
         if (!(entity instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Entity is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) entity).getForgeInstance();
     }
@@ -280,7 +294,9 @@ public class Entity implements IEntity, IForgeJVoxelizerWrapper
     public static IEntity fromForge(net.minecraft.entity.Entity entity)
     {
         if (entity instanceof IEntity)
+        {
             return (IEntity) entity;
+        }
 
         return new Entity(entity);
     }

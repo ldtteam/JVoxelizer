@@ -29,10 +29,19 @@ public class ServerNetworkHandler implements IServerNetworkHandler, IForgeJVoxel
     public static NetHandlerPlayServer asForge(final IServerNetworkHandler handler)
     {
         if (handler instanceof NetHandlerPlayServer)
+        {
             return (NetHandlerPlayServer) handler;
+        }
+
+        if (handler == null)
+        {
+            return null;
+        }
 
         if (!(handler instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Handler is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) handler).getForgeInstance();
     }
@@ -40,7 +49,9 @@ public class ServerNetworkHandler implements IServerNetworkHandler, IForgeJVoxel
     public static IServerNetworkHandler fromForge(final NetHandlerPlayServer handler)
     {
         if (handler instanceof IServerNetworkHandler)
+        {
             return (IServerNetworkHandler) handler;
+        }
 
         return new ServerNetworkHandler(handler);
     }

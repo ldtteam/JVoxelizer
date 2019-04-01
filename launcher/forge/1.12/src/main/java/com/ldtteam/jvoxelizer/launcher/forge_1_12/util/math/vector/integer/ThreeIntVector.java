@@ -33,7 +33,9 @@ public class ThreeIntVector implements I3IntVector
     public static Vec3i asForge(I3IntVector vec)
     {
         if (vec instanceof Vec3i)
+        {
             return (Vec3i) vec;
+        }
 
         return ((ThreeIntVector) vec).vec3i;
     }
@@ -41,7 +43,9 @@ public class ThreeIntVector implements I3IntVector
     public static I3IntVector fromForge(Vec3i vec)
     {
         if (vec instanceof I3IntVector)
+        {
             return (I3IntVector) vec;
+        }
 
         return new ThreeIntVector(vec);
     }

@@ -24,7 +24,9 @@ class NBTByte implements INBTByte
     public static NBTTagByte asForge(INBTByte compound)
     {
         if (compound instanceof NBTTagByte)
+        {
             return (NBTTagByte) compound;
+        }
 
         return ((NBTByte) compound).forgeNbtByte;
     }
@@ -32,7 +34,9 @@ class NBTByte implements INBTByte
     public static INBTByte fromForge(NBTTagByte compound)
     {
         if (compound instanceof INBTByte)
+        {
             return (INBTByte) compound;
+        }
 
         return new NBTByte(compound);
     }

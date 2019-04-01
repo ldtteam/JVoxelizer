@@ -35,10 +35,19 @@ public class Fluid implements IFluid, IForgeJVoxelizerWrapper
     public static net.minecraftforge.fluids.Fluid asForge(IFluid fluid)
     {
         if (fluid instanceof net.minecraftforge.fluids.Fluid)
+        {
             return (net.minecraftforge.fluids.Fluid) fluid;
+        }
+
+        if (fluid == null)
+        {
+            return null;
+        }
 
         if (!(fluid instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Fluid is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) fluid).getForgeInstance();
     }
@@ -46,7 +55,9 @@ public class Fluid implements IFluid, IForgeJVoxelizerWrapper
     public static IFluid fromForge(net.minecraftforge.fluids.Fluid fluid)
     {
         if (fluid instanceof IFluid)
+        {
             return (IFluid) fluid;
+        }
 
         return new Fluid(fluid);
     }

@@ -9,9 +9,11 @@ public class InventoryCraftResult extends Inventory implements IInventoryCraftRe
 {
     private final net.minecraft.inventory.InventoryCraftResult forgeInventoryCraftResult;
 
-    private InventoryCraftResult(final net.minecraft.inventory.InventoryCraftResult forgeInventoryCraftResult) {
+    private InventoryCraftResult(final net.minecraft.inventory.InventoryCraftResult forgeInventoryCraftResult)
+    {
         super(forgeInventoryCraftResult);
-        this.forgeInventoryCraftResult = forgeInventoryCraftResult;}
+        this.forgeInventoryCraftResult = forgeInventoryCraftResult;
+    }
 
     @Override
     public void setRecipeUsed(final IRecipe p_193056_1_)
@@ -33,7 +35,9 @@ public class InventoryCraftResult extends Inventory implements IInventoryCraftRe
     public static IInventoryCraftResult fromForge(net.minecraft.inventory.InventoryCraftResult inventoryCraftResult)
     {
         if (inventoryCraftResult instanceof IInventoryCraftResult)
+        {
             return (IInventoryCraftResult) inventoryCraftResult;
+        }
 
         return new InventoryCraftResult(inventoryCraftResult);
     }
@@ -41,10 +45,19 @@ public class InventoryCraftResult extends Inventory implements IInventoryCraftRe
     public static net.minecraft.inventory.InventoryCraftResult asForge(IInventoryCraftResult inventoryCraftResult)
     {
         if (inventoryCraftResult instanceof net.minecraft.inventory.InventoryCraftResult)
+        {
             return (net.minecraft.inventory.InventoryCraftResult) inventoryCraftResult;
+        }
+
+        if (inventoryCraftResult == null)
+        {
+            return null;
+        }
 
         if (!(inventoryCraftResult instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("InventoryCraftResult is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) inventoryCraftResult).getForgeInstance();
     }

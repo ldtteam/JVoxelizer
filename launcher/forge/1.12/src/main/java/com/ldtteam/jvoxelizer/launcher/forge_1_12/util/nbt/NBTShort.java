@@ -24,15 +24,19 @@ class NBTShort implements INBTShort
     public static NBTTagShort asForge(INBTShort compound)
     {
         if (compound instanceof NBTTagShort)
+        {
             return (NBTTagShort) compound;
+        }
 
-        return ((NBTShort)compound).forgeNbtShort;
+        return ((NBTShort) compound).forgeNbtShort;
     }
 
     public static INBTShort fromForge(NBTTagShort compound)
     {
         if (compound instanceof INBTShort)
+        {
             return (INBTShort) compound;
+        }
 
         return new NBTShort(compound);
     }

@@ -18,10 +18,19 @@ public class Biome implements IBiome, IForgeJVoxelizerWrapper
     public static net.minecraft.world.biome.Biome asForge(IBiome biome)
     {
         if (biome instanceof net.minecraft.world.biome.Biome)
+        {
             return (net.minecraft.world.biome.Biome) biome;
+        }
+
+        if (biome == null)
+        {
+            return null;
+        }
 
         if (!(biome instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Biome is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) biome).getForgeInstance();
     }
@@ -29,7 +38,9 @@ public class Biome implements IBiome, IForgeJVoxelizerWrapper
     public static IBiome fromForge(net.minecraft.world.biome.Biome biome)
     {
         if (biome instanceof IBiome)
+        {
             return (IBiome) biome;
+        }
 
         return new Biome(biome);
     }

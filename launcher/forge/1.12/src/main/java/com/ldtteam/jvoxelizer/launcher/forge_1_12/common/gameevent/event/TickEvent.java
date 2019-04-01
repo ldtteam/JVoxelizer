@@ -8,9 +8,10 @@ import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
 public abstract class TickEvent implements ITickEvent
 {
     private final IDistribution distribution;
-    private final Phase phase;
+    private final Phase         phase;
 
-    protected TickEvent(final IDistribution distribution, final Phase phase) {
+    protected TickEvent(final IDistribution distribution, final Phase phase)
+    {
         this.distribution = distribution;
         this.phase = phase;
     }

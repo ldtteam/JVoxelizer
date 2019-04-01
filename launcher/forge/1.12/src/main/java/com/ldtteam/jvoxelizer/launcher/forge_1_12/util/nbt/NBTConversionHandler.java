@@ -16,7 +16,9 @@ public final class NBTConversionHandler
     public static INBTBase toINbtBase(final NBTBase nbtBase)
     {
         if (nbtBase == null)
+        {
             return null;
+        }
 
         final int type = nbtBase.getId();
 

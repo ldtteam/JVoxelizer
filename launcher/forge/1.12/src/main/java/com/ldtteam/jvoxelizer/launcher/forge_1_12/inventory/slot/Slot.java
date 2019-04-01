@@ -29,7 +29,7 @@ public class Slot implements ISlot<DummyInstanceData>, IForgeJVoxelizerWrapper
     @Override
     public IItemStack onTake(final IPlayerEntity thePlayer, final IItemStack stack)
     {
-        return ItemStack.fromForge(forgeSlot.onTake(PlayerEntity.asForge(thePlayer),  ItemStack.asForge(stack)));
+        return ItemStack.fromForge(forgeSlot.onTake(PlayerEntity.asForge(thePlayer), ItemStack.asForge(stack)));
     }
 
     @Override
@@ -166,10 +166,19 @@ public class Slot implements ISlot<DummyInstanceData>, IForgeJVoxelizerWrapper
     public static net.minecraft.inventory.Slot asForge(ISlot slot)
     {
         if (slot instanceof net.minecraft.inventory.Slot)
+        {
             return (net.minecraft.inventory.Slot) slot;
+        }
+
+        if (slot == null)
+        {
+            return null;
+        }
 
         if (!(slot instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Slot is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) slot).getForgeInstance();
     }
@@ -177,7 +186,9 @@ public class Slot implements ISlot<DummyInstanceData>, IForgeJVoxelizerWrapper
     public static ISlot<?> fromForge(net.minecraft.inventory.Slot slot)
     {
         if (slot instanceof ISlot)
+        {
             return (ISlot<?>) slot;
+        }
 
         return new Slot(slot);
     }

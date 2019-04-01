@@ -67,7 +67,8 @@ public class NetworkEndpoint implements INetworkEndpoint, IForgeJVoxelizerWrappe
     public IExecutor getExecutorFromContext(final IMessageContext context)
     {
         final Supplier<IThreadListener> threadListenerSuplier = DistributionExecutor.getInstance().runOn(
-          () -> new Supplier<IThreadListener>() {
+          () -> new Supplier<IThreadListener>()
+          {
               /**
                * Gets a result.
                *
@@ -107,10 +108,19 @@ public class NetworkEndpoint implements INetworkEndpoint, IForgeJVoxelizerWrappe
     public static SimpleNetworkWrapper asForge(final INetworkEndpoint endpoint)
     {
         if (endpoint instanceof SimpleNetworkWrapper)
+        {
             return (SimpleNetworkWrapper) endpoint;
+        }
+
+        if (endpoint == null)
+        {
+            return null;
+        }
 
         if (!(endpoint instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Endpoint is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) endpoint).getForgeInstance();
     }
@@ -118,7 +128,9 @@ public class NetworkEndpoint implements INetworkEndpoint, IForgeJVoxelizerWrappe
     public static INetworkEndpoint fromForge(final SimpleNetworkWrapper networkWrapper)
     {
         if (networkWrapper instanceof INetworkEndpoint)
+        {
             return (INetworkEndpoint) networkWrapper;
+        }
 
         return new NetworkEndpoint(networkWrapper);
     }

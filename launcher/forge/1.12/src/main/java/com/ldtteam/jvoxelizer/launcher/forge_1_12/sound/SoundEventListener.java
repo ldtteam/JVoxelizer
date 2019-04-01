@@ -11,7 +11,9 @@ public class SoundEventListener implements ISoundEventListener
     public static net.minecraft.client.audio.ISoundEventListener asForge(final ISoundEventListener listener)
     {
         if (listener instanceof net.minecraft.client.audio.ISoundEventListener)
+        {
             return (net.minecraft.client.audio.ISoundEventListener) listener;
+        }
 
         return ((SoundEventListener) listener).forgeSoundEventListener;
     }
@@ -19,7 +21,9 @@ public class SoundEventListener implements ISoundEventListener
     public static ISoundEventListener fromForge(final net.minecraft.client.audio.ISoundEventListener listener)
     {
         if (listener instanceof ISoundEventListener)
+        {
             return (ISoundEventListener) listener;
+        }
 
         return new SoundEventListener(listener);
     }

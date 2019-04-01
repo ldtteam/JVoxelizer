@@ -20,9 +20,8 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 public class JVoxForgeGuiButton<I> extends GuiButton implements IGuiButton<I>
 {
 
-    private final I instanceData;
+    private final I                                        instanceData;
     private final ForgeGuiButtonPipeline<IGuiButton<I>, I> pipeline;
-    
 
     public JVoxForgeGuiButton(
       final int buttonId,
@@ -40,7 +39,7 @@ public class JVoxForgeGuiButton<I> extends GuiButton implements IGuiButton<I>
     @Override
     public int getHoverState(final boolean mouseOver)
     {
-        return PipelineProcessor.processTypedPipeline(this, new GetHoverStateContext(mouseOver), pipeline.getGetHoverStatePipeline(), (c)-> super.getHoverState(c.getMouseOver()));
+        return PipelineProcessor.processTypedPipeline(this, new GetHoverStateContext(mouseOver), pipeline.getGetHoverStatePipeline(), (c) -> super.getHoverState(c.getMouseOver()));
     }
 
     @Override
@@ -58,7 +57,10 @@ public class JVoxForgeGuiButton<I> extends GuiButton implements IGuiButton<I>
     @Override
     public void mouseReleased(final int mouseX, final int mouseY)
     {
-        PipelineProcessor.processVoidPipeline(this, new MouseReleasedContext(mouseX, mouseY, IMouse.getEventButton()), pipeline.getMouseReleasedPipeline(), c -> super.mouseReleased(c.getMouseX(), c.getMouseY()));
+        PipelineProcessor.processVoidPipeline(this,
+          new MouseReleasedContext(mouseX, mouseY, IMouse.getEventButton()),
+          pipeline.getMouseReleasedPipeline(),
+          c -> super.mouseReleased(c.getMouseX(), c.getMouseY()));
     }
 
     @Override
@@ -76,7 +78,10 @@ public class JVoxForgeGuiButton<I> extends GuiButton implements IGuiButton<I>
     @Override
     public void drawButtonForegroundLayer(final int mouseX, final int mouseY)
     {
-        PipelineProcessor.processVoidPipeline(this, new DrawButtonForegroundLayerContext(mouseX, mouseY), pipeline.getDrawButtonForegroundLayerPipeline(), c -> super.drawButtonForegroundLayer(c.getMouseX(), c.getMouseY()));
+        PipelineProcessor.processVoidPipeline(this,
+          new DrawButtonForegroundLayerContext(mouseX, mouseY),
+          pipeline.getDrawButtonForegroundLayerPipeline(),
+          c -> super.drawButtonForegroundLayer(c.getMouseX(), c.getMouseY()));
     }
 
     @Override
@@ -100,54 +105,81 @@ public class JVoxForgeGuiButton<I> extends GuiButton implements IGuiButton<I>
     @Override
     public void drawButton(final IGameEngine mc, final int mouseX, final int mouseY, final float partialTicks)
     {
-        PipelineProcessor.processVoidPipeline(this, new DrawButtonContext(mc, mouseX, mouseY, partialTicks), pipeline.getDrawButtonPipeline(), c -> super.drawButton(GameEngine.asForge(c.getMc()), c.getMouseX(), c.getMouseY(), c.getPartialTicks()));
+        PipelineProcessor.processVoidPipeline(this,
+          new DrawButtonContext(mc, mouseX, mouseY, partialTicks),
+          pipeline.getDrawButtonPipeline(),
+          c -> super.drawButton(GameEngine.asForge(c.getMc()), c.getMouseX(), c.getMouseY(), c.getPartialTicks()));
     }
 
     public void mouseDragged(final IGameEngine mc, final int mouseX, final int mouseY)
     {
-        PipelineProcessor.processVoidPipeline(this, new MouseDraggedContext(mc, mouseX, mouseY), pipeline.getMouseDraggedPipeline(), c -> super.mouseDragged(GameEngine.asForge(c.getMc()), c.getMouseX(), c.getMouseY()));
+        PipelineProcessor.processVoidPipeline(this,
+          new MouseDraggedContext(mc, mouseX, mouseY),
+          pipeline.getMouseDraggedPipeline(),
+          c -> super.mouseDragged(GameEngine.asForge(c.getMc()), c.getMouseX(), c.getMouseY()));
     }
 
     @Override
     public boolean mousePressed(final IGameEngine mc, final int mouseX, final int mouseY)
     {
-        return PipelineProcessor.processTypedPipeline(this, new MousePressedContext(mc, mouseX, mouseY), pipeline.getMousePressedPipeline(), c -> super.mousePressed(GameEngine.asForge(c.getMc()), c.getMouseX(), c.getMouseY()));
+        return PipelineProcessor.processTypedPipeline(this,
+          new MousePressedContext(mc, mouseX, mouseY),
+          pipeline.getMousePressedPipeline(),
+          c -> super.mousePressed(GameEngine.asForge(c.getMc()), c.getMouseX(), c.getMouseY()));
     }
 
     @Override
     public void playPressSound(final ISoundHandler soundHandlerIn)
     {
-        PipelineProcessor.processVoidPipeline(this, new PlayPressSoundContext(soundHandlerIn), pipeline.getPlayPressSoundPipeline(), c -> super.playPressSound(com.ldtteam.jvoxelizer.launcher.forge_1_12.sound.SoundHandler.asForge(c.getSoundHandlerIn())));
+        PipelineProcessor.processVoidPipeline(this,
+          new PlayPressSoundContext(soundHandlerIn),
+          pipeline.getPlayPressSoundPipeline(),
+          c -> super.playPressSound(com.ldtteam.jvoxelizer.launcher.forge_1_12.sound.SoundHandler.asForge(c.getSoundHandlerIn())));
     }
 
     @Override
     public void drawHorizontalLine(final int startX, final int endX, final int y, final int color)
     {
-        PipelineProcessor.processVoidPipeline(this, new DrawHorizontalLineContext(startX, endX, y, color), pipeline.getDrawHorizontalLinePipeline(), (c) -> super.drawHorizontalLine(c.getStartX(), c.getEndX(), c.getY(), c.getColor()));
+        PipelineProcessor.processVoidPipeline(this,
+          new DrawHorizontalLineContext(startX, endX, y, color),
+          pipeline.getDrawHorizontalLinePipeline(),
+          (c) -> super.drawHorizontalLine(c.getStartX(), c.getEndX(), c.getY(), c.getColor()));
     }
 
     @Override
     public void drawVerticalLine(final int x, final int startY, final int endY, final int color)
     {
-        PipelineProcessor.processVoidPipeline(this, new DrawVerticalLineContext(x, startY, endY, color), pipeline.getDrawVerticalLinePipeline(), (c) -> super.drawVerticalLine(c.getX(), c.getStartY(), c.getEndY(), c.getColor()));
+        PipelineProcessor.processVoidPipeline(this,
+          new DrawVerticalLineContext(x, startY, endY, color),
+          pipeline.getDrawVerticalLinePipeline(),
+          (c) -> super.drawVerticalLine(c.getX(), c.getStartY(), c.getEndY(), c.getColor()));
     }
 
     @Override
     public void drawGradientRect(final int left, final int top, final int right, final int bottom, final int startColor, final int endColor)
     {
-        PipelineProcessor.processVoidPipeline(this, new DrawGradientRectContext(left, top, right, bottom, startColor, endColor), pipeline.getDrawGradientRectPipeline(), (c) -> super.drawGradientRect(c.getLeft(), c.getTop(), c.getRight(), c.getBottom(), c.getStartColor(), c.getEndColor()));
+        PipelineProcessor.processVoidPipeline(this,
+          new DrawGradientRectContext(left, top, right, bottom, startColor, endColor),
+          pipeline.getDrawGradientRectPipeline(),
+          (c) -> super.drawGradientRect(c.getLeft(), c.getTop(), c.getRight(), c.getBottom(), c.getStartColor(), c.getEndColor()));
     }
 
     @Override
     public void drawCenteredString(final IFontRenderer fontRendererIn, final String text, final int x, final int y, final int color)
     {
-        PipelineProcessor.processVoidPipeline(this, new DrawCenteredStringContext(fontRendererIn, text, x, y, color), pipeline.getDrawCenteredStringPipeline(), (c) -> super.drawCenteredString(FontRenderer.asForge(c.getFontRendererIn()), c.getText(), c.getX(), c.getY(), c.getColor()));
+        PipelineProcessor.processVoidPipeline(this,
+          new DrawCenteredStringContext(fontRendererIn, text, x, y, color),
+          pipeline.getDrawCenteredStringPipeline(),
+          (c) -> super.drawCenteredString(FontRenderer.asForge(c.getFontRendererIn()), c.getText(), c.getX(), c.getY(), c.getColor()));
     }
 
     @Override
     public void drawString(final IFontRenderer fontRendererIn, final String text, final int x, final int y, final int color)
     {
-        PipelineProcessor.processVoidPipeline(this, new DrawStringContext(fontRendererIn, text, x, y, color), pipeline.getDrawStringPipeline(), (c) -> super.drawString(FontRenderer.asForge(c.getFontRendererIn()), c.getText(), c.getX(), c.getY(), c.getColor()));
+        PipelineProcessor.processVoidPipeline(this,
+          new DrawStringContext(fontRendererIn, text, x, y, color),
+          pipeline.getDrawStringPipeline(),
+          (c) -> super.drawString(FontRenderer.asForge(c.getFontRendererIn()), c.getText(), c.getX(), c.getY(), c.getColor()));
     }
 
     @Override
@@ -166,7 +198,11 @@ public class JVoxForgeGuiButton<I> extends GuiButton implements IGuiButton<I>
     public void drawTexturedModalRect(final int xCoord, final int yCoord, final ISprite textureSprite, final int widthIn, final int heightIn)
     {
         PipelineProcessor.processVoidPipeline(this,
-          new DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntContext(xCoord, yCoord, textureSprite, widthIn, heightIn),
+          new DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntContext(xCoord,
+            yCoord,
+            textureSprite,
+            widthIn,
+            heightIn),
           pipeline.getDrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntPipeline(),
           (c) -> super.drawTexturedModalRect(c.getXCoord(), c.getYCoord(), Sprite.asForge(c.getTextureSprite()), c.getWidthIn(), c.getHeightIn()));
     }
@@ -183,7 +219,7 @@ public class JVoxForgeGuiButton<I> extends GuiButton implements IGuiButton<I>
         PipelineProcessor.processVoidPipeline(this,
           new DrawTexturedModalRectContext(x, y, textureX, textureY, width, height),
           pipeline.getDrawTexturedModalRectPipeline(),
-          (c)-> super.drawTexturedModalRect(c.getX(), c.getY(), c.getTextureX(), c.getTextureY(), c.getWidth(), c.getHeight()));
+          (c) -> super.drawTexturedModalRect(c.getX(), c.getY(), c.getTextureX(), c.getTextureY(), c.getWidth(), c.getHeight()));
     }
 
     @Override

@@ -27,10 +27,19 @@ public class FluidStack implements IFluidStack, IForgeJVoxelizerWrapper
     public static net.minecraftforge.fluids.FluidStack asForge(IFluidStack fluidStack)
     {
         if (fluidStack instanceof net.minecraftforge.fluids.FluidStack)
+        {
             return (net.minecraftforge.fluids.FluidStack) fluidStack;
+        }
+
+        if (fluidStack == null)
+        {
+            return null;
+        }
 
         if (!(fluidStack instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("FluidStack is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) fluidStack).getForgeInstance();
     }
@@ -38,7 +47,9 @@ public class FluidStack implements IFluidStack, IForgeJVoxelizerWrapper
     public static IFluidStack fromForge(net.minecraftforge.fluids.FluidStack fluidStack)
     {
         if (fluidStack instanceof IFluidStack)
+        {
             return (IFluidStack) fluidStack;
+        }
 
         return new FluidStack(fluidStack);
     }

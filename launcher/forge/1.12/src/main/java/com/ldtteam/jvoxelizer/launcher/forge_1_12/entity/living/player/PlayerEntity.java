@@ -47,10 +47,19 @@ public class PlayerEntity extends LivingBaseEntity implements IPlayerEntity
     public static EntityPlayer asForge(IPlayerEntity playerEntity)
     {
         if (playerEntity instanceof EntityPlayer)
+        {
             return (EntityPlayer) playerEntity;
+        }
+
+        if (playerEntity == null)
+        {
+            return null;
+        }
 
         if (!(playerEntity instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("PlayerEntity is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) playerEntity).getForgeInstance();
     }
@@ -58,7 +67,9 @@ public class PlayerEntity extends LivingBaseEntity implements IPlayerEntity
     public static IPlayerEntity fromForge(EntityPlayer player)
     {
         if (player instanceof IPlayerEntity)
+        {
             return (IPlayerEntity) player;
+        }
 
         return new PlayerEntity(player);
     }

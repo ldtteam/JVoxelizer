@@ -15,6 +15,7 @@ public class TimedValue implements ITimedValue, IForgeJVoxelizerWrapper
 
     /**
      * Get the wrapped forge class.
+     *
      * @return the ITimeValue.
      */
     private ITimeValue getForgeTimeValue()
@@ -25,7 +26,9 @@ public class TimedValue implements ITimedValue, IForgeJVoxelizerWrapper
     public static ITimedValue fromForge(ITimeValue value)
     {
         if (value instanceof ITimedValue)
+        {
             return (ITimedValue) value;
+        }
 
         return new TimedValue(value);
     }
@@ -33,10 +36,19 @@ public class TimedValue implements ITimedValue, IForgeJVoxelizerWrapper
     public static ITimeValue asForge(ITimedValue value)
     {
         if (value instanceof ITimeValue)
+        {
             return (ITimeValue) value;
+        }
+
+        if (value == null)
+        {
+            return null;
+        }
 
         if (!(value instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("TimedValue is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) value).getForgeInstance();
     }

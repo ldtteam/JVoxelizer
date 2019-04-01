@@ -37,7 +37,7 @@ import static com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForg
 
 public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContainer<I>
 {
-    private final I instanceData;
+    private final I                                              instanceData;
     private final ForgeGuiContainerPipeline<IGuiContainer<I>, I> pipeline;
 
     public JVoxForgeGuiContainer(
@@ -60,8 +60,6 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
           (c) -> super.renderHoveredToolTip(c.getP_191948_1_(), c.getP_191948_2_())
         );
     }
-
-
 
     @Override
     protected void drawGuiContainerForegroundLayer(final int mouseX, final int mouseY)
@@ -292,7 +290,7 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
           this,
           new KeyTypedContext(typedChar, keyCode),
           pipeline.getKeyTypedPipeline(),
-          (c)-> super.keyTyped(typedChar, keyCode)
+          (c) -> super.keyTyped(typedChar, keyCode)
         );
     }
 
@@ -358,7 +356,7 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
           this,
           new DrawHoveringTextWithTextLinesAsStringListContext(textLines, x, y),
           pipeline.getDrawHoveringTextWithTextLinesAsStringListPipeline(),
-          (c)-> super.drawHoveringText(c.getTextLines(), c.getX(), c.getY())
+          (c) -> super.drawHoveringText(c.getTextLines(), c.getX(), c.getY())
         );
     }
 
@@ -375,7 +373,7 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
           this,
           new DrawHoveringTextWithFontAsFontRendererContext(textLines, x, y, com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.fromForge(font)),
           pipeline.getDrawHoveringTextWithFontAsFontRendererPipeline(),
-          (c)-> super.drawHoveringText(c.getTextLines(), c.getX(), c.getY(), com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.asForge(c.getFont()))
+          (c) -> super.drawHoveringText(c.getTextLines(), c.getX(), c.getY(), com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.asForge(c.getFont()))
         );
     }
 
@@ -397,7 +395,7 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
           this,
           new SetTextContext(newChatText, shouldOverwrite),
           pipeline.getSetTextPipeline(),
-          (c)-> super.setText(c.getNewChatText(), c.getShouldOverwrite())
+          (c) -> super.setText(c.getNewChatText(), c.getShouldOverwrite())
         );
     }
 
@@ -408,7 +406,7 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
           this,
           new HandleComponentClickContext(TextComponent.fromForge(component)),
           pipeline.getHandleComponentClickPipeline(),
-          (c)-> super.handleComponentClick(TextComponent.asForge(c.getComponent()))
+          (c) -> super.handleComponentClick(TextComponent.asForge(c.getComponent()))
         );
     }
 
@@ -430,7 +428,7 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
           this,
           new SendChatMessageWithAddToChatAsbooleanContext(msg, addToChat),
           pipeline.getSendChatMessageWithAddToChatAsbooleanPipeline(),
-          (c)-> super.sendChatMessage(c.getMsg(), c.getAddToChat())
+          (c) -> super.sendChatMessage(c.getMsg(), c.getAddToChat())
         );
     }
 
@@ -447,7 +445,7 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
           this,
           new MouseClickedContext(mouseX, mouseY, mouseButton),
           pipeline.getMouseClickedPipeline(),
-          (c)-> super.mouseClicked(c.getMouseX(), c.getMouseY(), c.getMouseButton())
+          (c) -> super.mouseClicked(c.getMouseX(), c.getMouseY(), c.getMouseButton())
         );
     }
 
@@ -513,7 +511,7 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
           this,
           new InitGuiContext(),
           pipeline.getInitGuiPipeline(),
-          (c)-> super.initGui()
+          (c) -> super.initGui()
         );
     }
 
@@ -524,7 +522,7 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
           this,
           new HandleInputContext(),
           pipeline.getHandleInputPipeline(),
-          (c)-> super.handleInput()
+          (c) -> super.handleInput()
         );
     }
 
@@ -702,7 +700,11 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
           this,
           new DrawCenteredStringContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.fromForge(fontRenderer), text, x, y, color),
           pipeline.getDrawCenteredStringPipeline(),
-          (c) -> super.drawCenteredString(com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.asForge(c.getFontRendererIn()), c.getText(), c.getX(), c.getY(), c.getColor())
+          (c) -> super.drawCenteredString(com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.asForge(c.getFontRendererIn()),
+            c.getText(),
+            c.getX(),
+            c.getY(),
+            c.getColor())
         );
     }
 
@@ -713,7 +715,11 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
           this,
           new DrawStringContext(com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.fromForge(fontRendererIn), text, x, y, color),
           pipeline.getDrawStringPipeline(),
-          (c) -> super.drawString(com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.asForge(c.getFontRendererIn()), c.getText(), c.getX(), c.getY(), c.getColor())
+          (c) -> super.drawString(com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer.asForge(c.getFontRendererIn()),
+            c.getText(),
+            c.getX(),
+            c.getY(),
+            c.getColor())
         );
     }
 
@@ -735,7 +741,7 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
           this,
           new DrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsIntContext(xCoord, yCoord, minU, minV, maxU, maxV),
           pipeline.getDrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsIntPipeline(),
-          (c)-> super.drawTexturedModalRect(c.getXCoord(), c.getYCoord(), c.getMinU(), c.getMinV(), c.getMaxU(), c.getMaxV())
+          (c) -> super.drawTexturedModalRect(c.getXCoord(), c.getYCoord(), c.getMinU(), c.getMinV(), c.getMaxU(), c.getMaxV())
         );
     }
 
@@ -756,7 +762,11 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
     {
         processVoidPipeline(
           this,
-          new DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntContext(xCoord, yCoord, Sprite.fromForge(textureSprite), widthIn, heightIn),
+          new DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntContext(xCoord,
+            yCoord,
+            Sprite.fromForge(textureSprite),
+            widthIn,
+            heightIn),
           pipeline.getDrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntPipeline(),
           (c) -> super.drawTexturedModalRect(c.getXCoord(), c.getYCoord(), Sprite.asForge(c.getTextureSprite()), c.getWidthIn(), c.getHeightIn())
         );

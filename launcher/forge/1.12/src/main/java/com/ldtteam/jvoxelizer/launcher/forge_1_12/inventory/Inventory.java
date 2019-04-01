@@ -138,10 +138,19 @@ public class Inventory implements IInventory, IForgeJVoxelizerWrapper
     public static net.minecraft.inventory.IInventory asForge(IInventory inventory)
     {
         if (inventory instanceof net.minecraft.inventory.IInventory)
+        {
             return (net.minecraft.inventory.IInventory) inventory;
+        }
+
+        if (inventory == null)
+        {
+            return null;
+        }
 
         if (!(inventory instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Inventory is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) inventory).getForgeInstance();
     }
@@ -149,7 +158,9 @@ public class Inventory implements IInventory, IForgeJVoxelizerWrapper
     public static IInventory fromForge(net.minecraft.inventory.IInventory inventory)
     {
         if (inventory instanceof IInventory)
+        {
             return (IInventory) inventory;
+        }
 
         return new Inventory(inventory);
     }

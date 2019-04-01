@@ -18,19 +18,29 @@ public class ModelBiped implements IModelBiped, IForgeJVoxelizerWrapper
     public static IModelBiped fromForge(net.minecraft.client.model.ModelBiped modelBiped)
     {
         if (modelBiped instanceof IModelBiped)
+        {
             return (IModelBiped) modelBiped;
+        }
 
         return new ModelBiped(modelBiped);
     }
 
-
     public static net.minecraft.client.model.ModelBiped asForge(IModelBiped modelBiped)
     {
         if (modelBiped instanceof net.minecraft.client.model.ModelBiped)
+        {
             return (net.minecraft.client.model.ModelBiped) modelBiped;
+        }
+
+        if (modelBiped == null)
+        {
+            return null;
+        }
 
         if (!(modelBiped instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("ModelBiped is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) modelBiped).getForgeInstance();
     }

@@ -35,7 +35,9 @@ public class Nameable implements INameable
     public static IWorldNameable asForge(INameable nameable)
     {
         if (nameable instanceof IWorldNameable)
+        {
             return (IWorldNameable) nameable;
+        }
 
         return ((Nameable) nameable).nameable;
     }
@@ -43,7 +45,9 @@ public class Nameable implements INameable
     public static INameable fromForge(IWorldNameable nameable)
     {
         if (nameable instanceof INameable)
+        {
             return (INameable) nameable;
+        }
 
         return new Nameable(nameable);
     }

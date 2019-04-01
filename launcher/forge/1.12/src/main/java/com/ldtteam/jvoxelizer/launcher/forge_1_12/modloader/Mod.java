@@ -27,10 +27,19 @@ public class Mod implements IMod, IForgeJVoxelizerWrapper
     public static ModContainer asForge(final IMod mod)
     {
         if (mod instanceof ModContainer)
+        {
             return (ModContainer) mod;
+        }
+
+        if (mod == null)
+        {
+            return null;
+        }
 
         if (!(mod instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Mod is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) mod).getForgeInstance();
     }
@@ -38,7 +47,9 @@ public class Mod implements IMod, IForgeJVoxelizerWrapper
     public static IMod fromForge(final ModContainer modContainer)
     {
         if (modContainer instanceof IMod)
+        {
             return (IMod) modContainer;
+        }
 
         return new Mod(modContainer);
     }

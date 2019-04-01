@@ -35,7 +35,9 @@ public class TextureManager implements ITextureManager, IForgeJVoxelizerWrapper
     public static ITextureManager fromForge(net.minecraft.client.renderer.texture.TextureManager textureManager)
     {
         if (textureManager instanceof ITextureManager)
+        {
             return (ITextureManager) textureManager;
+        }
 
         return new TextureManager(textureManager);
     }
@@ -43,10 +45,19 @@ public class TextureManager implements ITextureManager, IForgeJVoxelizerWrapper
     public static net.minecraft.client.renderer.texture.TextureManager asForge(ITextureManager textureManager)
     {
         if (textureManager instanceof net.minecraft.client.renderer.texture.TextureManager)
+        {
             return (net.minecraft.client.renderer.texture.TextureManager) textureManager;
+        }
+
+        if (textureManager == null)
+        {
+            return null;
+        }
 
         if (!(textureManager instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("TextureManager is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) textureManager).getForgeInstance();
     }

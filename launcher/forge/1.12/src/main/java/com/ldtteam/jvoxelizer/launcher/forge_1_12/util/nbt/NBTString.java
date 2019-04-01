@@ -24,15 +24,19 @@ class NBTString implements INBTString
     public static NBTTagString asForge(INBTString compound)
     {
         if (compound instanceof NBTTagString)
+        {
             return (NBTTagString) compound;
+        }
 
-        return ((NBTString)compound).forgeNbtString;
+        return ((NBTString) compound).forgeNbtString;
     }
 
     public static INBTString fromForge(NBTTagString compound)
     {
         if (compound instanceof INBTString)
+        {
             return (INBTString) compound;
+        }
 
         return new NBTString(compound);
     }

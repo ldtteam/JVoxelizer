@@ -31,7 +31,9 @@ public class Executor implements IExecutor
     public static IThreadListener asForge(IExecutor executor)
     {
         if (executor instanceof IThreadListener)
+        {
             return (IThreadListener) executor;
+        }
 
         return ((Executor) executor).getThreadListener();
     }
@@ -39,7 +41,9 @@ public class Executor implements IExecutor
     public static IExecutor fromForge(IThreadListener threadListener)
     {
         if (threadListener instanceof IExecutor)
+        {
             return (IExecutor) threadListener;
+        }
 
         return new Executor(threadListener);
     }

@@ -8,19 +8,21 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.pipeline.Forg
 public class JVoxForgeGuiButtonBuilder<I> extends AbstractGuiButtonBuilder<JVoxForgeGuiButtonBuilder<I>, I, IGuiButton<I>>
 {
 
-    private final int buttonId;
-    private final int x;
-    private final int y;
+    private final int    buttonId;
+    private final int    x;
+    private final int    y;
     private final String buttonText;
 
     private final I instanceData;
 
-    public JVoxForgeGuiButtonBuilder(final int buttonId, final int x, final int y, final String buttonText, final I instanceData) {
+    public JVoxForgeGuiButtonBuilder(final int buttonId, final int x, final int y, final String buttonText, final I instanceData)
+    {
         this.buttonId = buttonId;
         this.x = x;
         this.y = y;
         this.buttonText = buttonText;
-        this.instanceData = instanceData;}
+        this.instanceData = instanceData;
+    }
 
     @Override
     public IGuiButton<I> build()

@@ -84,10 +84,19 @@ public class DimensionReader implements IDimensionReader<DummyInstanceData>, IFo
     public static IBlockAccess asForge(IDimensionReader<?> dimensionReader)
     {
         if (dimensionReader instanceof IBlockAccess)
+        {
             return (IBlockAccess) dimensionReader;
+        }
+
+        if (dimensionReader == null)
+        {
+            return null;
+        }
 
         if (!(dimensionReader instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("DimensionReader is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) dimensionReader).getForgeInstance();
     }
@@ -95,7 +104,9 @@ public class DimensionReader implements IDimensionReader<DummyInstanceData>, IFo
     public static IDimensionReader<?> fromForge(IBlockAccess blockAccess)
     {
         if (blockAccess instanceof IDimensionReader)
+        {
             return (IDimensionReader<?>) blockAccess;
+        }
 
         return new DimensionReader(blockAccess);
     }

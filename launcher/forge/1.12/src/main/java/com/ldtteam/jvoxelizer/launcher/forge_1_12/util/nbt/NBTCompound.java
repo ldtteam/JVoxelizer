@@ -51,7 +51,9 @@ public class NBTCompound implements INBTCompound
     public INBTBase get(final Object key)
     {
         if (containsKey(key))
+        {
             return null;
+        }
 
         return NBTConversionHandler.toINbtBase(forgeNbtCompound.getTag((String) key));
     }
@@ -71,7 +73,9 @@ public class NBTCompound implements INBTCompound
     public INBTBase remove(final Object key)
     {
         if (!containsKey(key))
+        {
             return null;
+        }
 
         final INBTBase current = get(key);
 
@@ -128,15 +132,19 @@ public class NBTCompound implements INBTCompound
     public static NBTTagCompound asForge(INBTCompound compound)
     {
         if (compound instanceof NBTTagCompound)
+        {
             return (NBTTagCompound) compound;
+        }
 
-        return ((NBTCompound)compound).forgeNbtCompound;
+        return ((NBTCompound) compound).forgeNbtCompound;
     }
 
     public static INBTCompound fromForge(NBTTagCompound compound)
     {
         if (compound instanceof INBTCompound)
+        {
             return (INBTCompound) compound;
+        }
 
         return new NBTCompound(compound);
     }

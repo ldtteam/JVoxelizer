@@ -175,9 +175,23 @@ public class JVoxItem<I> extends Item implements IItem<I>
         return com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResultType.asForge(
           PipelineProcessor.processTypedPipeline(
             this,
-            new OnItemUseContext(PlayerEntity.fromForge(player), Dimension.fromForge(worldIn), BlockCoordinate.fromForge(pos), Hand.fromForge(hand), Facing.fromForge(facing), hitX, hitY, hitZ),
+            new OnItemUseContext(PlayerEntity.fromForge(player),
+              Dimension.fromForge(worldIn),
+              BlockCoordinate.fromForge(pos),
+              Hand.fromForge(hand),
+              Facing.fromForge(facing),
+              hitX,
+              hitY,
+              hitZ),
             pipeline.getOnItemUsePipeline(),
-            (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResultType.fromForge(super.onItemUse(PlayerEntity.asForge(c.getPlayer()), Dimension.asForge(c.getWorldIn()), BlockCoordinate.asForge(c.getPos()), Hand.asForge(c.getHand()), Facing.asForge(c.getFacing()), c.getHitX(), c.getHitY(), c.getHitZ()))
+            (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResultType.fromForge(super.onItemUse(PlayerEntity.asForge(c.getPlayer()),
+              Dimension.asForge(c.getWorldIn()),
+              BlockCoordinate.asForge(c.getPos()),
+              Hand.asForge(c.getHand()),
+              Facing.asForge(c.getFacing()),
+              c.getHitX(),
+              c.getHitY(),
+              c.getHitZ()))
           )
         );
     }
@@ -205,7 +219,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
             this,
             new OnItemRightClickContext(Dimension.fromForge(worldIn), PlayerEntity.fromForge(playerIn), Hand.fromForge(handIn)),
             pipeline.getOnItemRightClickPipeline(),
-            (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResult.fromForge(super.onItemRightClick(Dimension.asForge(c.getWorldIn()), PlayerEntity.asForge(c.getPlayerIn()), Hand.asForge(c.getHandIn())),
+            (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.util.actionresult.ActionResult.fromForge(super.onItemRightClick(Dimension.asForge(c.getWorldIn()),
+              PlayerEntity.asForge(c.getPlayerIn()),
+              Hand.asForge(c.getHandIn())),
               com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack::fromForge)
           )
         );
@@ -344,10 +360,18 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return PipelineProcessor.processTypedPipeline(
           this,
-          new OnBlockDestroyedContext(fromForge(stack), Dimension.fromForge(worldIn), BlockState.fromForge(state), BlockCoordinate.fromForge(pos), LivingBaseEntity.fromForge(entityLiving)),
+          new OnBlockDestroyedContext(fromForge(stack),
+            Dimension.fromForge(worldIn),
+            BlockState.fromForge(state),
+            BlockCoordinate.fromForge(pos),
+            LivingBaseEntity.fromForge(entityLiving)),
           pipeline.getOnBlockDestroyedPipeline(),
-          (c) -> super.onBlockDestroyed(asForge(c.getStack()), Dimension.asForge(c.getWorldIn()), BlockState.asForge(c.getState()), BlockCoordinate.asForge(c.getPos()), LivingBaseEntity.asForge(c.getEntityLiving()))
-          );
+          (c) -> super.onBlockDestroyed(asForge(c.getStack()),
+            Dimension.asForge(c.getWorldIn()),
+            BlockState.asForge(c.getState()),
+            BlockCoordinate.asForge(c.getPos()),
+            LivingBaseEntity.asForge(c.getEntityLiving()))
+        );
     }
 
     /**
@@ -687,7 +711,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
           this,
           new RayTraceContext(Dimension.fromForge(worldIn), PlayerEntity.fromForge(playerIn), useLiquids),
           pipeline.getRayTracePipeline(),
-          (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.raytraceresult.RayTraceResult.fromForge(super.rayTrace(Dimension.asForge(c.getWorldIn()), PlayerEntity.asForge(c.getPlayerIn()), c.getUseLiquids())))
+          (c) -> com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.raytraceresult.RayTraceResult.fromForge(super.rayTrace(Dimension.asForge(c.getWorldIn()),
+            PlayerEntity.asForge(c.getPlayerIn()),
+            c.getUseLiquids())))
         );
     }
 
@@ -826,8 +852,12 @@ public class JVoxItem<I> extends Item implements IItem<I>
           this,
           new GetAttributeModifiersContext(EquipmentSlot.fromForge(slot), fromForge(stack)),
           pipeline.getGetAttributeModifiersPipeline(),
-          (c) -> super.getAttributeModifiers(EquipmentSlot.asForge(c.getSlot()), asForge(c.getStack())).entries().stream().map(e -> new Tuple<>(e.getKey(), fromForge(e.getValue()))).collect(
-            MultiMapCollector.toMultimap(Tuple::getFirst, Tuple::getSecond))
+          (c) -> super.getAttributeModifiers(EquipmentSlot.asForge(c.getSlot()), asForge(c.getStack()))
+                   .entries()
+                   .stream()
+                   .map(e -> new Tuple<>(e.getKey(), fromForge(e.getValue())))
+                   .collect(
+                     MultiMapCollector.toMultimap(Tuple::getFirst, Tuple::getSecond))
         ).entries().stream().map(e -> new Tuple<>(e.getKey(), asForge(e.getValue()))).collect(MultiMapCollector.toMultimap(Tuple::getFirst, Tuple::getSecond));
     }
 
@@ -886,7 +916,14 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         return ActionResultType.asForge(PipelineProcessor.processTypedPipeline(
           this,
-          new OnItemUseFirstContext(PlayerEntity.fromForge(player), Dimension.fromForge(world), BlockCoordinate.fromForge(pos), Facing.fromForge(side), hitX, hitY, hitZ, Hand.fromForge(hand)),
+          new OnItemUseFirstContext(PlayerEntity.fromForge(player),
+            Dimension.fromForge(world),
+            BlockCoordinate.fromForge(pos),
+            Facing.fromForge(side),
+            hitX,
+            hitY,
+            hitZ,
+            Hand.fromForge(hand)),
           pipeline.getOnItemUseFirstPipeline(),
           (c) -> ActionResultType.fromForge(super.onItemUseFirst(
             PlayerEntity.asForge(c.getPlayer()),
@@ -1049,7 +1086,9 @@ public class JVoxItem<I> extends Item implements IItem<I>
           this,
           new OnLeftClickEntityContext(fromForge(stack), PlayerEntity.fromForge(player), com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.fromForge(entity)),
           pipeline.getOnLeftClickEntityPipeline(),
-          (c) -> super.onLeftClickEntity(asForge(c.getStack()), PlayerEntity.asForge(c.getPlayer()), com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.asForge(c.getEntity()))
+          (c) -> super.onLeftClickEntity(asForge(c.getStack()),
+            PlayerEntity.asForge(c.getPlayer()),
+            com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity.asForge(c.getEntity()))
         );
     }
 
@@ -1429,9 +1468,15 @@ public class JVoxItem<I> extends Item implements IItem<I>
     {
         PipelineProcessor.processVoidPipeline(
           this,
-          new RenderHelmetOverlayContext(fromForge(stack), PlayerEntity.fromForge(player), com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolution.fromForge(resolution), partialTicks),
+          new RenderHelmetOverlayContext(fromForge(stack),
+            PlayerEntity.fromForge(player),
+            com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolution.fromForge(resolution),
+            partialTicks),
           pipeline.getRenderHelmetOverlayPipeline(),
-          (c) -> super.renderHelmetOverlay(asForge(c.getStack()), PlayerEntity.asForge(c.getPlayer()), com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolution.asForge(c.getResolution()), c.getPartialTicks())
+          (c) -> super.renderHelmetOverlay(asForge(c.getStack()),
+            PlayerEntity.asForge(c.getPlayer()),
+            com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolution.asForge(c.getResolution()),
+            c.getPartialTicks())
         );
     }
 
@@ -2476,7 +2521,10 @@ public class JVoxItem<I> extends Item implements IItem<I>
     public void renderHelmetOverlay(
       final IItemStack stack, final IPlayerEntity player, final IScaledResolution resolution, final float partialTicks)
     {
-        this.renderHelmetOverlay(asForge(stack), PlayerEntity.asForge(player), com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolution.asForge(resolution), partialTicks);
+        this.renderHelmetOverlay(asForge(stack),
+          PlayerEntity.asForge(player),
+          com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolution.asForge(resolution),
+          partialTicks);
     }
 
     @Override

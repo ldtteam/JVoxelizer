@@ -9,14 +9,16 @@ import java.util.function.Consumer;
 
 public class ForgeGuiPipeline<O extends IGui<I>, I>
 {
-    private final List<Consumer<VoidPipelineElementContext<DrawCenteredStringContext, O, I>>> DrawCenteredStringPipeline;
-    private final List<Consumer<VoidPipelineElementContext<DrawGradientRectContext, O, I>>> DrawGradientRectPipeline;
+    private final List<Consumer<VoidPipelineElementContext<DrawCenteredStringContext, O, I>>>    DrawCenteredStringPipeline;
+    private final List<Consumer<VoidPipelineElementContext<DrawGradientRectContext, O, I>>>      DrawGradientRectPipeline;
     private final List<Consumer<VoidPipelineElementContext<DrawTexturedModalRectContext, O, I>>> DrawTexturedModalRectPipeline;
-    private final List<Consumer<VoidPipelineElementContext<DrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsIntContext, O, I>>> DrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsIntPipeline;
-    private final List<Consumer<VoidPipelineElementContext<DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntContext, O, I>>> DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntPipeline;
-    private final List<Consumer<VoidPipelineElementContext<DrawHorizontalLineContext, O, I>>> DrawHorizontalLinePipeline;
-    private final List<Consumer<VoidPipelineElementContext<DrawStringContext, O, I>>> DrawStringPipeline;
-    private final List<Consumer<VoidPipelineElementContext<DrawVerticalLineContext, O, I>>> DrawVerticalLinePipeline;
+    private final List<Consumer<VoidPipelineElementContext<DrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsIntContext, O, I>>>
+                                                                                                 DrawTexturedModalRectWithXCoordAsFloatAndYCoordAsFloatAndMinUAsIntAndMinVAsIntAndMaxUAsIntAndMaxVAsIntPipeline;
+    private final List<Consumer<VoidPipelineElementContext<DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntContext, O, I>>>
+                                                                                                 DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntPipeline;
+    private final List<Consumer<VoidPipelineElementContext<DrawHorizontalLineContext, O, I>>>    DrawHorizontalLinePipeline;
+    private final List<Consumer<VoidPipelineElementContext<DrawStringContext, O, I>>>            DrawStringPipeline;
+    private final List<Consumer<VoidPipelineElementContext<DrawVerticalLineContext, O, I>>>      DrawVerticalLinePipeline;
 
     public ForgeGuiPipeline(
       final List<Consumer<VoidPipelineElementContext<DrawCenteredStringContext, O, I>>> drawCenteredStringPipeline,
@@ -26,7 +28,8 @@ public class ForgeGuiPipeline<O extends IGui<I>, I>
       final List<Consumer<VoidPipelineElementContext<DrawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntContext, O, I>>> drawTexturedModalRectWithXCoordAsIntAndYCoordAsIntAndTextureSpriteAsTextureAtlasSpriteAndWidthInAsIntAndHeightInAsIntPipeline,
       final List<Consumer<VoidPipelineElementContext<DrawHorizontalLineContext, O, I>>> drawHorizontalLinePipeline,
       final List<Consumer<VoidPipelineElementContext<DrawStringContext, O, I>>> drawStringPipeline,
-      final List<Consumer<VoidPipelineElementContext<DrawVerticalLineContext, O, I>>> drawVerticalLinePipeline) {
+      final List<Consumer<VoidPipelineElementContext<DrawVerticalLineContext, O, I>>> drawVerticalLinePipeline)
+    {
         DrawCenteredStringPipeline = drawCenteredStringPipeline;
         DrawGradientRectPipeline = drawGradientRectPipeline;
         DrawTexturedModalRectPipeline = drawTexturedModalRectPipeline;

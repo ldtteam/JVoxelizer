@@ -13,7 +13,8 @@ public class JVoxSlotItemHandlerBuilder<I> extends AbstractSlotItemHandlerBuilde
     private final int          x;
     private final int          y;
 
-    public JVoxSlotItemHandlerBuilder(final IItemHandler inventory, final int index, final int x, final int y) {
+    public JVoxSlotItemHandlerBuilder(final IItemHandler inventory, final int index, final int x, final int y)
+    {
         this.inventory = inventory;
         this.index = index;
         this.x = x;

@@ -40,10 +40,14 @@ public class Block implements IBlock, IForgeJVoxelizerWrapper
     public static net.minecraft.block.Block asForge(IBlock block)
     {
         if (block instanceof net.minecraft.block.Block)
+        {
             return (net.minecraft.block.Block) block;
+        }
 
-        if(!(block instanceof IForgeJVoxelizerWrapper))
+        if (!(block instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Block is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) block).getForgeInstance();
     }
@@ -51,7 +55,9 @@ public class Block implements IBlock, IForgeJVoxelizerWrapper
     public static IBlock fromForge(net.minecraft.block.Block block)
     {
         if (block instanceof IBlock)
+        {
             return (IBlock) block;
+        }
 
         return new Block(block);
     }

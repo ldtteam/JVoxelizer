@@ -19,7 +19,7 @@ public class ActionResult<T, I> implements IActionResult<T>
     @Override
     public T get()
     {
-         return convertor.apply(actionResult.getResult());
+        return convertor.apply(actionResult.getResult());
     }
 
     @Override
@@ -36,7 +36,9 @@ public class ActionResult<T, I> implements IActionResult<T>
     public static <S, R> net.minecraft.util.ActionResult<R> asForge(IActionResult<S> actionType)
     {
         if (actionType instanceof net.minecraft.util.ActionResult)
+        {
             return (net.minecraft.util.ActionResult<R>) actionType;
+        }
 
         return ((ActionResult<S, R>) actionType).getActionResult();
     }
@@ -44,7 +46,9 @@ public class ActionResult<T, I> implements IActionResult<T>
     public static <S, R> IActionResult<S> fromForge(final net.minecraft.util.ActionResult<R> actionResult, Function<R, S> convertor)
     {
         if (actionResult instanceof IActionResult)
+        {
             return (IActionResult<S>) actionResult;
+        }
 
         return new ActionResult<>(actionResult, convertor);
     }

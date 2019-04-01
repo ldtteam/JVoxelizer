@@ -28,10 +28,19 @@ public class MessageContext implements IMessageContext, IForgeJVoxelizerWrapper
     public static net.minecraftforge.fml.common.network.simpleimpl.MessageContext asForge(final IMessageContext messageContext)
     {
         if (messageContext instanceof net.minecraftforge.fml.common.network.simpleimpl.MessageContext)
+        {
             return (net.minecraftforge.fml.common.network.simpleimpl.MessageContext) messageContext;
+        }
+
+        if (messageContext == null)
+        {
+            return null;
+        }
 
         if (!(messageContext instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("MessageContext is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) messageContext).getForgeInstance();
     }
@@ -39,7 +48,9 @@ public class MessageContext implements IMessageContext, IForgeJVoxelizerWrapper
     public static IMessageContext fromForge(final net.minecraftforge.fml.common.network.simpleimpl.MessageContext tuple)
     {
         if (tuple instanceof IMessageContext)
+        {
             return (IMessageContext) tuple;
+        }
 
         return new MessageContext(tuple);
     }

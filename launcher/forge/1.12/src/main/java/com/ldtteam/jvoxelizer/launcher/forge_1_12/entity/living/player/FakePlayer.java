@@ -22,10 +22,19 @@ public class FakePlayer extends PlayerEntity implements IFakePlayer
     public net.minecraftforge.common.util.FakePlayer asForge(IFakePlayer fakePlayer)
     {
         if (fakePlayer instanceof net.minecraftforge.common.util.FakePlayer)
+        {
             return (net.minecraftforge.common.util.FakePlayer) fakePlayer;
+        }
+
+        if (fakePlayer == null)
+        {
+            return null;
+        }
 
         if (!(fakePlayer instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("FakePlayer is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) fakePlayer).getForgeInstance();
     }
@@ -33,7 +42,9 @@ public class FakePlayer extends PlayerEntity implements IFakePlayer
     public IFakePlayer fromForge(net.minecraftforge.common.util.FakePlayer fakePlayer)
     {
         if (fakePlayer instanceof IFakePlayer)
+        {
             return (IFakePlayer) fakePlayer;
+        }
 
         return new FakePlayer(fakePlayer);
     }

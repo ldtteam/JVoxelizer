@@ -121,7 +121,14 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
       final float hitY,
       final float hitZ)
     {
-        return ActionResultType.fromForge(forgeItem.onItemUse(PlayerEntity.asForge(player), Dimension.asForge(worldIn), BlockCoordinate.asForge(pos), Hand.asForge(hand), Facing.asForge(facing), hitX, hitY, hitZ));
+        return ActionResultType.fromForge(forgeItem.onItemUse(PlayerEntity.asForge(player),
+          Dimension.asForge(worldIn),
+          BlockCoordinate.asForge(pos),
+          Hand.asForge(hand),
+          Facing.asForge(facing),
+          hitX,
+          hitY,
+          hitZ));
     }
 
     @Override
@@ -256,7 +263,7 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     @Override
     public IItem setContainerItem(final IItem containerItem)
     {
-        return new Item(forgeItem.setContainerItem(((Item)containerItem).forgeItem));
+        return new Item(forgeItem.setContainerItem(((Item) containerItem).forgeItem));
     }
 
     @Override
@@ -365,7 +372,7 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     public Multimap<String, IAttributeModifier> getItemAttributeModifiers(final IEquipmentSlot equipmentSlot)
     {
         return forgeItem.getItemAttributeModifiers(EquipmentSlot.asForge(equipmentSlot)).entries().stream()
-          .collect(MultiMapCollector.toMultimap(Map.Entry::getKey, e -> AttributeModifier.fromForge(e.getValue())));
+                 .collect(MultiMapCollector.toMultimap(Map.Entry::getKey, e -> AttributeModifier.fromForge(e.getValue())));
     }
 
     @Override
@@ -398,7 +405,14 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
       final float hitZ,
       final IHand hand)
     {
-        return ActionResultType.fromForge(forgeItem.onItemUse(PlayerEntity.asForge(player), Dimension.asForge(iDimension), BlockCoordinate.asForge(pos), Hand.asForge(hand), Facing.asForge(side), hitX, hitY, hitZ));
+        return ActionResultType.fromForge(forgeItem.onItemUse(PlayerEntity.asForge(player),
+          Dimension.asForge(iDimension),
+          BlockCoordinate.asForge(pos),
+          Hand.asForge(hand),
+          Facing.asForge(side),
+          hitX,
+          hitY,
+          hitZ));
     }
 
     @Override
@@ -543,7 +557,10 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     public IModelBiped getArmorModel(
       final ILivingBaseEntity entityLiving, final IItemStack IItemStack, final IEquipmentSlot armorSlot, final IModelBiped _default)
     {
-        return ModelBiped.fromForge(forgeItem.getArmorModel(LivingBaseEntity.asForge(entityLiving), ItemStack.asForge(IItemStack), EquipmentSlot.asForge(armorSlot), ModelBiped.asForge(_default)));
+        return ModelBiped.fromForge(forgeItem.getArmorModel(LivingBaseEntity.asForge(entityLiving),
+          ItemStack.asForge(IItemStack),
+          EquipmentSlot.asForge(armorSlot),
+          ModelBiped.asForge(_default)));
     }
 
     @Override
@@ -689,12 +706,12 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
       final IItemStack stack, final IDimension world, final ILivingBaseEntity iEntity)
     {
         final Map<String, ITimedValue> value = forgeItem.getAnimationParameters(ItemStack.asForge(stack), Dimension.asForge(world), LivingBaseEntity.asForge(iEntity))
-                                                .entrySet().stream()
-                                                    .collect(Collectors.toMap(
-                                                      Map.Entry::getKey,
-                                                      e -> TimedValue.fromForge(e.getValue())
-                                                    ));
-        
+                                                 .entrySet().stream()
+                                                 .collect(Collectors.toMap(
+                                                   Map.Entry::getKey,
+                                                   e -> TimedValue.fromForge(e.getValue())
+                                                 ));
+
         return ImmutableMap.<String, ITimedValue>builder().putAll(value).build();
     }
 
@@ -811,10 +828,14 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     public static net.minecraft.item.Item asForge(IItem<?> item)
     {
         if (item instanceof net.minecraft.item.Item)
+        {
             return (net.minecraft.item.Item) item;
+        }
 
         if (!(item instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Item is not wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) item).getForgeInstance();
     }
@@ -822,7 +843,9 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     public static IItem fromForge(net.minecraft.item.Item item)
     {
         if (item instanceof IItem)
+        {
             return (IItem<?>) item;
+        }
 
         return new Item(item);
     }

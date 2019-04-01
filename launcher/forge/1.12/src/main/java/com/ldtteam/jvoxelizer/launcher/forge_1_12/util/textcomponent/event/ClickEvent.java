@@ -14,7 +14,9 @@ public class ClickEvent implements IClickEvent
     public static net.minecraft.util.text.event.ClickEvent asForge(IClickEvent event)
     {
         if (event instanceof net.minecraft.util.text.event.ClickEvent)
+        {
             return (net.minecraft.util.text.event.ClickEvent) event;
+        }
 
         return ((ClickEvent) event).forgeClickEvent;
     }
@@ -22,7 +24,9 @@ public class ClickEvent implements IClickEvent
     public static IClickEvent fromForge(net.minecraft.util.text.event.ClickEvent event)
     {
         if (event instanceof IClickEvent)
+        {
             return (IClickEvent) event;
+        }
 
         return new ClickEvent(event);
     }

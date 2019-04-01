@@ -13,55 +13,55 @@ import java.util.function.Function;
 
 public class ForgeContainerPipeline<O extends IContainer<I>, I>
 {
-        private final List<Consumer<VoidPipelineElementContext<SlotChangedCraftingGridContext, O, I>>> SlotChangedCraftingGridPipeline;
+    private final List<Consumer<VoidPipelineElementContext<SlotChangedCraftingGridContext, O, I>>> SlotChangedCraftingGridPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<ClearContainerContext, O, I>>> ClearContainerPipeline;
+    private final List<Consumer<VoidPipelineElementContext<ClearContainerContext, O, I>>> ClearContainerPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<PutStackInSlotContext, O, I>>> PutStackInSlotPipeline;
+    private final List<Consumer<VoidPipelineElementContext<PutStackInSlotContext, O, I>>> PutStackInSlotPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<SetCanCraftContext, O, I>>> SetCanCraftPipeline;
+    private final List<Consumer<VoidPipelineElementContext<SetCanCraftContext, O, I>>> SetCanCraftPipeline;
 
-        private final List<Function<TypedPipelineElementContext<SlotClickContext, IItemStack, O, I>, IItemStack>> SlotClickPipeline;
+    private final List<Function<TypedPipelineElementContext<SlotClickContext, IItemStack, O, I>, IItemStack>> SlotClickPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<OnContainerClosedContext, O, I>>> OnContainerClosedPipeline;
+    private final List<Consumer<VoidPipelineElementContext<OnContainerClosedContext, O, I>>> OnContainerClosedPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetInventoryContext, List<IItemStack>, O, I>, List<IItemStack>>> GetInventoryPipeline;
+    private final List<Function<TypedPipelineElementContext<GetInventoryContext, List<IItemStack>, O, I>, List<IItemStack>>> GetInventoryPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<SetAllContext, O, I>>> SetAllPipeline;
+    private final List<Consumer<VoidPipelineElementContext<SetAllContext, O, I>>> SetAllPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<AddListenerContext, O, I>>> AddListenerPipeline;
+    private final List<Consumer<VoidPipelineElementContext<AddListenerContext, O, I>>> AddListenerPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<UpdateProgressBarContext, O, I>>> UpdateProgressBarPipeline;
+    private final List<Consumer<VoidPipelineElementContext<UpdateProgressBarContext, O, I>>> UpdateProgressBarPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<DetectAndSendChangesContext, O, I>>> DetectAndSendChangesPipeline;
+    private final List<Consumer<VoidPipelineElementContext<DetectAndSendChangesContext, O, I>>> DetectAndSendChangesPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetCanCraftContext, Boolean, O, I>, Boolean>> GetCanCraftPipeline;
+    private final List<Function<TypedPipelineElementContext<GetCanCraftContext, Boolean, O, I>, Boolean>> GetCanCraftPipeline;
 
-        private final List<Function<TypedPipelineElementContext<TransferStackInSlotContext, IItemStack, O, I>, IItemStack>> TransferStackInSlotPipeline;
+    private final List<Function<TypedPipelineElementContext<TransferStackInSlotContext, IItemStack, O, I>, IItemStack>> TransferStackInSlotPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<OnCraftMatrixChangedContext, O, I>>> OnCraftMatrixChangedPipeline;
+    private final List<Consumer<VoidPipelineElementContext<OnCraftMatrixChangedContext, O, I>>> OnCraftMatrixChangedPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<RemoveListenerContext, O, I>>> RemoveListenerPipeline;
+    private final List<Consumer<VoidPipelineElementContext<RemoveListenerContext, O, I>>> RemoveListenerPipeline;
 
-        private final List<Function<TypedPipelineElementContext<CanInteractWithContext, Boolean, O, I>, Boolean>> CanInteractWithPipeline;
+    private final List<Function<TypedPipelineElementContext<CanInteractWithContext, Boolean, O, I>, Boolean>> CanInteractWithPipeline;
 
-        private final List<Function<TypedPipelineElementContext<CanDragIntoSlotContext, Boolean, O, I>, Boolean>> CanDragIntoSlotPipeline;
+    private final List<Function<TypedPipelineElementContext<CanDragIntoSlotContext, Boolean, O, I>, Boolean>> CanDragIntoSlotPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetSlotContext, ISlot, O, I>, ISlot>> GetSlotPipeline;
+    private final List<Function<TypedPipelineElementContext<GetSlotContext, ISlot, O, I>, ISlot>> GetSlotPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetSlotFromInventoryContext, ISlot, O, I>, ISlot>> GetSlotFromInventoryPipeline;
+    private final List<Function<TypedPipelineElementContext<GetSlotFromInventoryContext, ISlot, O, I>, ISlot>> GetSlotFromInventoryPipeline;
 
-        private final List<Function<TypedPipelineElementContext<AddSlotToContainerContext, ISlot, O, I>, ISlot>> AddSlotToContainerPipeline;
+    private final List<Function<TypedPipelineElementContext<AddSlotToContainerContext, ISlot, O, I>, ISlot>> AddSlotToContainerPipeline;
 
-        private final List<Function<TypedPipelineElementContext<CanMergeSlotContext, Boolean, O, I>, Boolean>> CanMergeSlotPipeline;
+    private final List<Function<TypedPipelineElementContext<CanMergeSlotContext, Boolean, O, I>, Boolean>> CanMergeSlotPipeline;
 
-        private final List<Consumer<VoidPipelineElementContext<ResetDragContext, O, I>>> ResetDragPipeline;
+    private final List<Consumer<VoidPipelineElementContext<ResetDragContext, O, I>>> ResetDragPipeline;
 
-        private final List<Function<TypedPipelineElementContext<EnchantItemContext, Boolean, O, I>, Boolean>> EnchantItemPipeline;
+    private final List<Function<TypedPipelineElementContext<EnchantItemContext, Boolean, O, I>, Boolean>> EnchantItemPipeline;
 
-        private final List<Function<TypedPipelineElementContext<GetNextTransactionIDContext, Short, O, I>, Short>> GetNextTransactionIDPipeline;
+    private final List<Function<TypedPipelineElementContext<GetNextTransactionIDContext, Short, O, I>, Short>> GetNextTransactionIDPipeline;
 
-        private final List<Function<TypedPipelineElementContext<MergeItemStackContext, Boolean, O, I>, Boolean>> MergeItemStackPipeline;
+    private final List<Function<TypedPipelineElementContext<MergeItemStackContext, Boolean, O, I>, Boolean>> MergeItemStackPipeline;
 
     public ForgeContainerPipeline(
       final List<Consumer<VoidPipelineElementContext<SlotChangedCraftingGridContext, O, I>>> slotChangedCraftingGridPipeline,

@@ -30,7 +30,9 @@ public class ItemHandlerProvider implements IItemHandlerProvider
     {
         final net.minecraftforge.items.IItemHandler forgeHandler = ItemHandler.asForge(other);
         if (!(forgeHandler instanceof IItemHandlerModifiable))
+        {
             throw new IllegalArgumentException("Only modifiable itemhandlers can be range wrapped.");
+        }
 
         final IItemHandlerModifiable forgeModifiableItemHandler = (IItemHandlerModifiable) forgeHandler;
         return ItemHandler.fromForge(new RangedWrapper(forgeModifiableItemHandler, minSlot, maxSlotExlcuding));

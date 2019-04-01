@@ -33,7 +33,9 @@ public class ThreeDoubleVector implements I3DoubleVector
     public static Vec3d asForge(I3DoubleVector vec)
     {
         if (vec instanceof Vec3d)
+        {
             return (Vec3d) vec;
+        }
 
         return ((ThreeDoubleVector) vec).vec3d;
     }
@@ -41,7 +43,9 @@ public class ThreeDoubleVector implements I3DoubleVector
     public static I3DoubleVector fromForge(Vec3d vec)
     {
         if (vec instanceof I3DoubleVector)
+        {
             return (I3DoubleVector) vec;
+        }
 
         return new ThreeDoubleVector(vec);
     }

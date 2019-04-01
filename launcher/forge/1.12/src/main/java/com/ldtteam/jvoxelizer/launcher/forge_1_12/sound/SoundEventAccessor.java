@@ -17,7 +17,9 @@ public class SoundEventAccessor implements ISoundEventAccessor<Sound>
     public static net.minecraft.client.audio.SoundEventAccessor asForge(final ISoundEventAccessor accessor)
     {
         if (accessor instanceof net.minecraft.client.audio.SoundEventAccessor)
+        {
             return (net.minecraft.client.audio.SoundEventAccessor) accessor;
+        }
 
         return ((SoundEventAccessor) accessor).forgeSourceEventAccessor;
     }
@@ -25,7 +27,9 @@ public class SoundEventAccessor implements ISoundEventAccessor<Sound>
     public static ISoundEventAccessor fromForge(final net.minecraft.client.audio.SoundEventAccessor accessor)
     {
         if (accessor instanceof ISoundEventAccessor)
+        {
             return (ISoundEventAccessor) accessor;
+        }
 
         return new SoundEventAccessor(accessor);
     }

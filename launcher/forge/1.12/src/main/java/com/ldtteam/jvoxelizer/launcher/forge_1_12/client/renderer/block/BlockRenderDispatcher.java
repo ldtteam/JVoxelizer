@@ -33,10 +33,19 @@ public class BlockRenderDispatcher implements IBlockRenderDispatcher, IForgeJVox
     public static BlockRendererDispatcher asForge(final IBlockRenderDispatcher dispatcher)
     {
         if (dispatcher instanceof BlockRendererDispatcher)
+        {
             return (BlockRendererDispatcher) dispatcher;
+        }
+
+        if (dispatcher == null)
+        {
+            return null;
+        }
 
         if (!(dispatcher instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("BlockRenderDispatcher is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) dispatcher).getForgeInstance();
     }
@@ -44,7 +53,9 @@ public class BlockRenderDispatcher implements IBlockRenderDispatcher, IForgeJVox
     public static IBlockRenderDispatcher fromForge(final BlockRendererDispatcher dispatcher)
     {
         if (dispatcher instanceof IBlockRenderDispatcher)
+        {
             return (IBlockRenderDispatcher) dispatcher;
+        }
 
         return new BlockRenderDispatcher(dispatcher);
     }

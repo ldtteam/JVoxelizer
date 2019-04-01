@@ -24,10 +24,19 @@ public class LivingBaseEntity extends Entity implements ILivingBaseEntity
     public static EntityLivingBase asForge(ILivingBaseEntity entity)
     {
         if (entity instanceof EntityLivingBase)
+        {
             return (EntityLivingBase) entity;
+        }
+
+        if (entity == null)
+        {
+            return null;
+        }
 
         if (!(entity instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("LivingBaseEntity is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) entity).getForgeInstance();
     }
@@ -35,7 +44,9 @@ public class LivingBaseEntity extends Entity implements ILivingBaseEntity
     public static ILivingBaseEntity fromForge(EntityLivingBase entityLivingBase)
     {
         if (entityLivingBase instanceof ILivingBaseEntity)
+        {
             return (ILivingBaseEntity) entityLivingBase;
+        }
 
         return new LivingBaseEntity(entityLivingBase);
     }

@@ -7,7 +7,7 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.group.logic.pipeline.Forg
 
 public class ItemGroupBuilder<I> extends AbstractItemGroupBuilder<ItemGroupBuilder<I>, I, IItemGroup<I>>
 {
-    private final int index;
+    private final int    index;
     private final String label;
 
     public ItemGroupBuilder(final String label)
@@ -16,7 +16,8 @@ public class ItemGroupBuilder<I> extends AbstractItemGroupBuilder<ItemGroupBuild
         this.label = label;
     }
 
-    public ItemGroupBuilder(final int index, final String label) {
+    public ItemGroupBuilder(final int index, final String label)
+    {
         this.index = index;
         this.label = label;
     }
@@ -51,7 +52,9 @@ public class ItemGroupBuilder<I> extends AbstractItemGroupBuilder<ItemGroupBuild
         );
 
         if (index == -1)
+        {
             return new JVoxItemGroup<>(label, context, pipeline);
+        }
 
         return new JVoxItemGroup<>(index, label, context, pipeline);
     }

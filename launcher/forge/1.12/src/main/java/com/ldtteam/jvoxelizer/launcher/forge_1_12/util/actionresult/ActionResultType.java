@@ -12,7 +12,7 @@ public class ActionResultType implements IActionResultType
     {
         this.forgeActionResult = forgeActionResult;
     }
-    
+
     @Override
     public boolean isSuccess()
     {

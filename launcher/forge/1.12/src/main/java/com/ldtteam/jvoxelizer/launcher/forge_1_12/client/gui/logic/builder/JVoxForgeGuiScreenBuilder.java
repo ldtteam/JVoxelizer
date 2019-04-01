@@ -56,6 +56,6 @@ public class JVoxForgeGuiScreenBuilder<I> extends AbstractGuiScreenBuilder<JVoxF
             SetWorldAndResolutionPipeline,
             SetFocusedPipeline,
             SetTextPipeline
-            ));
+          ));
     }
 }

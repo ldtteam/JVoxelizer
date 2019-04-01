@@ -66,10 +66,19 @@ public class Profiler implements IProfiler, IForgeJVoxelizerWrapper
     public static net.minecraft.profiler.Profiler asForge(final IProfiler profiler)
     {
         if (profiler instanceof net.minecraft.profiler.Profiler)
+        {
             return (net.minecraft.profiler.Profiler) profiler;
+        }
+
+        if (profiler == null)
+        {
+            return null;
+        }
 
         if (!(profiler instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("Profiler is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) profiler).getForgeInstance();
     }
@@ -77,7 +86,9 @@ public class Profiler implements IProfiler, IForgeJVoxelizerWrapper
     public static IProfiler fromForge(final net.minecraft.profiler.Profiler profiler)
     {
         if (profiler instanceof IProfiler)
+        {
             return (IProfiler) profiler;
+        }
 
         return new Profiler(profiler);
     }

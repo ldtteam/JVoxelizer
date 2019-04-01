@@ -27,7 +27,9 @@ public class ToolTipFlag implements IToolTipFlag
     public static ITooltipFlag asForge(final IToolTipFlag flag)
     {
         if (flag instanceof ITooltipFlag)
+        {
             return (ITooltipFlag) flag;
+        }
 
         return ((ToolTipFlag) flag).flag;
     }
@@ -35,7 +37,9 @@ public class ToolTipFlag implements IToolTipFlag
     public static IToolTipFlag fromForge(final ITooltipFlag flag)
     {
         if (flag instanceof IToolTipFlag)
+        {
             return (IToolTipFlag) flag;
+        }
 
         return new ToolTipFlag(flag);
     }

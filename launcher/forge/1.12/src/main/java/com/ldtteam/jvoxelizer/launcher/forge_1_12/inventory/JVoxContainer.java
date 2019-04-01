@@ -40,7 +40,7 @@ import static com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack.fromForg
 public class JVoxContainer<I> extends Container implements IContainer<I>
 {
 
-    private final I instanceData;
+    private final I                                        instanceData;
     private final ForgeContainerPipeline<IContainer<I>, I> pipeline;
 
     public JVoxContainer(
@@ -71,7 +71,7 @@ public class JVoxContainer<I> extends Container implements IContainer<I>
     public void addListener(final IContainerListener listener)
     {
         PipelineProcessor.processVoidPipeline(
-            this,
+          this,
           new AddListenerContext(fromForge(listener)),
           pipeline.getAddListenerPipeline(),
           (c) -> super.addListener(asForge(c.getListener()))
@@ -142,7 +142,7 @@ public class JVoxContainer<I> extends Container implements IContainer<I>
           this,
           new GetSlotFromInventoryContext(Inventory.fromForge(inv), slotIn),
           pipeline.getGetSlotFromInventoryPipeline(),
-          (c)-> fromForge(super.getSlotFromInventory(Inventory.asForge(c.getInv()), c.getSlotIn()))
+          (c) -> fromForge(super.getSlotFromInventory(Inventory.asForge(c.getInv()), c.getSlotIn()))
         ));
     }
 

@@ -41,10 +41,19 @@ public class ItemRenderer implements IItemRenderer, IForgeJVoxelizerWrapper
     public static RenderItem asForge(final IItemRenderer renderer)
     {
         if (renderer instanceof RenderItem)
+        {
             return (RenderItem) renderer;
+        }
+
+        if (renderer == null)
+        {
+            return null;
+        }
 
         if (!(renderer instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("ItemRenderer is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) renderer).getForgeInstance();
     }
@@ -52,7 +61,9 @@ public class ItemRenderer implements IItemRenderer, IForgeJVoxelizerWrapper
     public static IItemRenderer fromForge(final RenderItem renderer)
     {
         if (renderer instanceof IItemRenderer)
+        {
             return (IItemRenderer) renderer;
+        }
 
         return new ItemRenderer(renderer);
     }

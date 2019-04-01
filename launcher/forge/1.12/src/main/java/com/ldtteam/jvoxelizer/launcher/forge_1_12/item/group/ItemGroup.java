@@ -180,10 +180,19 @@ public class ItemGroup implements IItemGroup<DummyInstanceData>, IForgeJVoxelize
     public static CreativeTabs asForge(final IItemGroup<?> itemGroup)
     {
         if (itemGroup instanceof CreativeTabs)
+        {
             return (CreativeTabs) itemGroup;
+        }
+
+        if (itemGroup == null)
+        {
+            return null;
+        }
 
         if (!(itemGroup instanceof IForgeJVoxelizerWrapper))
+        {
             throw new IllegalArgumentException("ItemGroup is not a wrapper");
+        }
 
         return ((IForgeJVoxelizerWrapper) itemGroup).getForgeInstance();
     }
@@ -191,7 +200,9 @@ public class ItemGroup implements IItemGroup<DummyInstanceData>, IForgeJVoxelize
     public static IItemGroup fromForge(final CreativeTabs itemGroup)
     {
         if (itemGroup instanceof IItemGroup)
+        {
             return (IItemGroup<?>) itemGroup;
+        }
 
         return new ItemGroup(itemGroup);
     }

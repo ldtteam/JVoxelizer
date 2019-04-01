@@ -3,10 +3,11 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability.provider;
 import com.ldtteam.jvoxelizer.common.capability.ICapability;
 import com.ldtteam.jvoxelizer.common.capability.provider.ICapabilityProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability.Capability;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.facing.Facing;
 import com.ldtteam.jvoxelizer.util.facing.IFacing;
 
-public class CapabilityProvider implements ICapabilityProvider
+public class CapabilityProvider implements ICapabilityProvider, IForgeJVoxelizerWrapper
 {
     private final net.minecraftforge.common.capabilities.ICapabilityProvider forgeCapabilityProvider;
 
@@ -34,7 +35,10 @@ public class CapabilityProvider implements ICapabilityProvider
         if (capabilityProvider instanceof net.minecraftforge.common.capabilities.ICapabilityProvider)
             return (net.minecraftforge.common.capabilities.ICapabilityProvider) capabilityProvider;
 
-        return ((CapabilityProvider) capabilityProvider).getForgeCapabilityProvider();
+        if (!(capabilityProvider instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("CapabilityProvider is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) capabilityProvider).getForgeInstance();
     }
 
     public static ICapabilityProvider fromForge(net.minecraftforge.common.capabilities.ICapabilityProvider capabilityProvider)
@@ -43,5 +47,11 @@ public class CapabilityProvider implements ICapabilityProvider
             return (ICapabilityProvider) capabilityProvider;
 
         return new CapabilityProvider(capabilityProvider);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeCapabilityProvider();
     }
 }

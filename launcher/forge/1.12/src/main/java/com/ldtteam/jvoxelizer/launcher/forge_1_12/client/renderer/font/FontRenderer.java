@@ -2,9 +2,10 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font;
 
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
 
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import org.jetbrains.annotations.NotNull;
 
-public class FontRenderer implements IFontRenderer
+public class FontRenderer implements IFontRenderer, IForgeJVoxelizerWrapper
 {
 
     private final net.minecraft.client.gui.FontRenderer forgeFontRenderer;
@@ -47,7 +48,7 @@ public class FontRenderer implements IFontRenderer
         return forgeFontRenderer.getStringWidth(substring);
     }
 
-    public net.minecraft.client.gui.FontRenderer getForgeFontRenderer()
+    private net.minecraft.client.gui.FontRenderer getForgeFontRenderer()
     {
         return forgeFontRenderer;
     }
@@ -57,7 +58,10 @@ public class FontRenderer implements IFontRenderer
         if (fontRenderer instanceof net.minecraft.client.gui.FontRenderer)
             return (net.minecraft.client.gui.FontRenderer) fontRenderer;
 
-        return ((FontRenderer) fontRenderer).getForgeFontRenderer();
+        if (!(fontRenderer instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("FontRenderer is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) fontRenderer).getForgeInstance();
     }
 
     public static IFontRenderer fromForge(net.minecraft.client.gui.FontRenderer fontRenderer)
@@ -66,5 +70,11 @@ public class FontRenderer implements IFontRenderer
             return (IFontRenderer) fontRenderer;
 
         return new FontRenderer(fontRenderer);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeFontRenderer();
     }
 }

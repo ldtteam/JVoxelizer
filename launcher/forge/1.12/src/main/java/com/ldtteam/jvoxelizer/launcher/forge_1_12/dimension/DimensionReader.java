@@ -9,13 +9,14 @@ import com.ldtteam.jvoxelizer.dimension.IDimensionType;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.biome.Biome;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.entity.BlockEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockState;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.facing.Facing;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block.BlockCoordinate;
 import com.ldtteam.jvoxelizer.util.facing.IFacing;
 import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 import net.minecraft.world.IBlockAccess;
 
-public class DimensionReader implements IDimensionReader<DummyInstanceData>
+public class DimensionReader implements IDimensionReader<DummyInstanceData>, IForgeJVoxelizerWrapper
 {
     private final IBlockAccess forgeBlockAcces;
 
@@ -85,7 +86,10 @@ public class DimensionReader implements IDimensionReader<DummyInstanceData>
         if (dimensionReader instanceof IBlockAccess)
             return (IBlockAccess) dimensionReader;
 
-        return ((DimensionReader) dimensionReader).getForgeBlockAcces();
+        if (!(dimensionReader instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("DimensionReader is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) dimensionReader).getForgeInstance();
     }
 
     public static IDimensionReader<?> fromForge(IBlockAccess blockAccess)
@@ -94,5 +98,11 @@ public class DimensionReader implements IDimensionReader<DummyInstanceData>
             return (IDimensionReader<?>) blockAccess;
 
         return new DimensionReader(blockAccess);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeBlockAcces();
     }
 }

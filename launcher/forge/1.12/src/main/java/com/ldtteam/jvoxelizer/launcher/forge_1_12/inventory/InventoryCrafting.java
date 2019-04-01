@@ -3,12 +3,13 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory;
 import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 import com.ldtteam.jvoxelizer.inventory.IInventoryCrafting;
 import com.ldtteam.jvoxelizer.item.IItemStack;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.PlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.textcomponent.TextComponent;
 import com.ldtteam.jvoxelizer.util.textcomponent.ITextComponent;
 
-public class InventoryCrafting implements IInventoryCrafting
+public class InventoryCrafting implements IInventoryCrafting, IForgeJVoxelizerWrapper
 {
     private final net.minecraft.inventory.InventoryCrafting forgeInventoryCrafting;
 
@@ -156,7 +157,10 @@ public class InventoryCrafting implements IInventoryCrafting
         if (inventoryCrafting instanceof net.minecraft.inventory.InventoryCrafting)
             return (net.minecraft.inventory.InventoryCrafting) inventoryCrafting;
 
-        return ((InventoryCrafting) inventoryCrafting).getForgeInventoryCrafting();
+        if (!(inventoryCrafting instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("InventoryCrafting is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) inventoryCrafting).getForgeInstance();
     }
 
     public static IInventoryCrafting fromForge(net.minecraft.inventory.InventoryCrafting inventoryCrafting)
@@ -165,5 +169,11 @@ public class InventoryCrafting implements IInventoryCrafting
             return (IInventoryCrafting) inventoryCrafting;
 
         return new InventoryCrafting(inventoryCrafting);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeInventoryCrafting();
     }
 }

@@ -1,8 +1,9 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.biome;
 
 import com.ldtteam.jvoxelizer.biome.IBiome;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 
-public class Biome implements IBiome
+public class Biome implements IBiome, IForgeJVoxelizerWrapper
 {
 
     private final net.minecraft.world.biome.Biome forgeBiome;
@@ -19,7 +20,10 @@ public class Biome implements IBiome
         if (biome instanceof net.minecraft.world.biome.Biome)
             return (net.minecraft.world.biome.Biome) biome;
 
-        return ((Biome) biome).getForgeBiome();
+        if (!(biome instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Biome is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) biome).getForgeInstance();
     }
 
     public static IBiome fromForge(net.minecraft.world.biome.Biome biome)
@@ -28,5 +32,11 @@ public class Biome implements IBiome
             return (IBiome) biome;
 
         return new Biome(biome);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeBiome();
     }
 }

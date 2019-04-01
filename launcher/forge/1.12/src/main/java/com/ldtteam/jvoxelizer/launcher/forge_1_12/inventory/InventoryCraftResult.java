@@ -2,6 +2,7 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory;
 
 import com.ldtteam.jvoxelizer.inventory.IInventoryCraftResult;
 import com.ldtteam.jvoxelizer.item.crafting.IRecipe;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.crafting.Recipe;
 
 public class InventoryCraftResult extends Inventory implements IInventoryCraftResult
@@ -42,6 +43,9 @@ public class InventoryCraftResult extends Inventory implements IInventoryCraftRe
         if (inventoryCraftResult instanceof net.minecraft.inventory.InventoryCraftResult)
             return (net.minecraft.inventory.InventoryCraftResult) inventoryCraftResult;
 
-        return ((InventoryCraftResult) inventoryCraftResult).getForgeInventoryCraftResult();
+        if (!(inventoryCraftResult instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("InventoryCraftResult is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) inventoryCraftResult).getForgeInstance();
     }
 }

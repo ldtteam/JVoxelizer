@@ -3,8 +3,9 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.tessellator;
 import com.ldtteam.jvoxelizer.client.renderer.bufferbuilder.IBufferBuilder;
 import com.ldtteam.jvoxelizer.client.renderer.tessellator.ITessellator;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.bufferbuilder.BufferBuilder;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 
-public class Tessellator implements ITessellator
+public class Tessellator implements ITessellator, IForgeJVoxelizerWrapper
 {
 
     private final net.minecraft.client.renderer.Tessellator forgeTessellator;
@@ -23,7 +24,7 @@ public class Tessellator implements ITessellator
         forgeTessellator.draw();
     }
 
-    public net.minecraft.client.renderer.Tessellator getForgeTessellator()
+    private net.minecraft.client.renderer.Tessellator getForgeTessellator()
     {
         return forgeTessellator;
     }
@@ -33,7 +34,10 @@ public class Tessellator implements ITessellator
         if (tessellator instanceof net.minecraft.client.renderer.Tessellator)
             return (net.minecraft.client.renderer.Tessellator) tessellator;
 
-        return ((Tessellator) tessellator).getForgeTessellator();
+        if (!(tessellator instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Tessellator is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) tessellator).getForgeInstance();
     }
 
     public static ITessellator fromForge(net.minecraft.client.renderer.Tessellator tessellator)
@@ -42,5 +46,11 @@ public class Tessellator implements ITessellator
             return (ITessellator) tessellator;
 
         return new Tessellator(tessellator);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeTessellator();
     }
 }

@@ -1,5 +1,6 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.utils.target;
 
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.entity.EntityCoordinate;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.vector.floatingpoint.ThreeDoubleVector;
 import com.ldtteam.jvoxelizer.networking.utils.target.INetworkTargetPoint;

@@ -3,6 +3,7 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player;
 import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 import com.ldtteam.jvoxelizer.inventory.IContainer;
 import com.ldtteam.jvoxelizer.inventory.IInventoryPlayer;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.LivingBaseEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.Container;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.InventoryPlayer;
@@ -48,7 +49,10 @@ public class PlayerEntity extends LivingBaseEntity implements IPlayerEntity
         if (playerEntity instanceof EntityPlayer)
             return (EntityPlayer) playerEntity;
 
-        return ((PlayerEntity) playerEntity).getForgePlayer();
+        if (!(playerEntity instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("PlayerEntity is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) playerEntity).getForgeInstance();
     }
 
     public static IPlayerEntity fromForge(EntityPlayer player)

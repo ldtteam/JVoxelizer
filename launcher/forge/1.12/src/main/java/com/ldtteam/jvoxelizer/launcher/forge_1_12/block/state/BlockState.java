@@ -4,6 +4,7 @@ import com.ldtteam.jvoxelizer.block.IBlock;
 import com.ldtteam.jvoxelizer.block.state.IBlockState;
 import com.ldtteam.jvoxelizer.dimension.IDimensionReader;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.Block;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.DimensionReader;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.facing.Facing;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block.BlockCoordinate;
@@ -14,7 +15,7 @@ import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 
-public class BlockState implements IBlockState
+public class BlockState implements IBlockState, IForgeJVoxelizerWrapper
 {
 
     private net.minecraft.block.state.IBlockState forgeBlockState;
@@ -65,7 +66,10 @@ public class BlockState implements IBlockState
         if (blockState instanceof net.minecraft.block.state.IBlockState)
             return (net.minecraft.block.state.IBlockState) blockState;
 
-        return ((BlockState) blockState).getForgeBlockState();
+        if (!(blockState instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("BlockState is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) blockState).getForgeInstance();
     }
 
     public static IBlockState fromForge(net.minecraft.block.state.IBlockState blockState)
@@ -74,5 +78,11 @@ public class BlockState implements IBlockState
             return (IBlockState) blockState;
 
         return new BlockState(blockState);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeBlockState();
     }
 }

@@ -1,14 +1,15 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture;
 
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISprite;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
-public class Sprite implements ISprite
+public class Sprite implements ISprite, IForgeJVoxelizerWrapper
 {
 
     private final TextureAtlasSprite forgeSprite;
 
-    public Sprite(final TextureAtlasSprite forgeSprite) {this.forgeSprite = forgeSprite;}
+    private Sprite(final TextureAtlasSprite forgeSprite) {this.forgeSprite = forgeSprite;}
 
     @Override
     public float getMinU()
@@ -46,14 +47,20 @@ public class Sprite implements ISprite
         return forgeSprite.getMinV();
     }
 
-    public TextureAtlasSprite getForgeSprite()
+    private TextureAtlasSprite getForgeSprite()
     {
         return forgeSprite;
     }
 
     public static TextureAtlasSprite asForge(ISprite sprite)
     {
-        return ((Sprite) sprite).getForgeSprite();
+        if (sprite instanceof TextureAtlasSprite)
+            return (TextureAtlasSprite) sprite;
+
+        if (!(sprite instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Sprite is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) sprite).getForgeInstance();
     }
 
     public static ISprite fromForge(TextureAtlasSprite sprite)
@@ -62,5 +69,11 @@ public class Sprite implements ISprite
             return (ISprite) sprite;
 
         return new Sprite(sprite);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return null;
     }
 }

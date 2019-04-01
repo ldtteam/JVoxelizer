@@ -1,8 +1,9 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory;
 
 import com.ldtteam.jvoxelizer.inventory.IContainerListener;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 
-public class ContainerListener implements IContainerListener
+public class ContainerListener implements IContainerListener, IForgeJVoxelizerWrapper
 {
 
     private final net.minecraft.inventory.IContainerListener forgeContainerListener;
@@ -19,7 +20,10 @@ public class ContainerListener implements IContainerListener
         if (containerListener  instanceof net.minecraft.inventory.IContainerListener)
             return (net.minecraft.inventory.IContainerListener) containerListener;
 
-        return ((ContainerListener) containerListener).getForgeContainerListener();
+        if (!(containerListener instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("ContainerListener is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) containerListener).getForgeInstance();
     }
 
     public static IContainerListener fromForge(net.minecraft.inventory.IContainerListener listener)
@@ -28,5 +32,11 @@ public class ContainerListener implements IContainerListener
             return (IContainerListener) listener;
 
         return new ContainerListener(listener);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeContainerListener();
     }
 }

@@ -1,10 +1,11 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability;
 
 import com.ldtteam.jvoxelizer.common.capability.ICapability;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 
 import java.util.function.Function;
 
-public class Capability<T, R> implements ICapability<T>
+public class Capability<T, R> implements ICapability<T>, IForgeJVoxelizerWrapper
 {
     private final net.minecraftforge.common.capabilities.Capability<R> forgeCapability;
     private final Function<R, T> forgeToJVoxConversionCallback;
@@ -24,7 +25,10 @@ public class Capability<T, R> implements ICapability<T>
         if (capability instanceof net.minecraftforge.common.capabilities.Capability)
             return (net.minecraftforge.common.capabilities.Capability<?>) capability;
 
-        return ((Capability<?, ?>) capability).getForgeCapability();
+        if (!(capability instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Capability is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) capability).getForgeInstance();
     }
 
     public static <S, Q> ICapability<S> fromForge(net.minecraftforge.common.capabilities.Capability<Q> capability, Function<Q, S> forgeToJVoxConversionCallback)
@@ -43,5 +47,11 @@ public class Capability<T, R> implements ICapability<T>
 
         final Capability<T, S> wrappedCap = (Capability<T, S>) capability;
         return wrappedCap.forgeToJVoxConversionCallback.apply(object);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeCapability();
     }
 }

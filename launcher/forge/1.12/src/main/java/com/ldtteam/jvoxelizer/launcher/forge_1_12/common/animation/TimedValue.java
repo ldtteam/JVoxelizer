@@ -1,9 +1,10 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.common.animation;
 
 import com.ldtteam.jvoxelizer.common.animation.ITimedValue;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import net.minecraftforge.common.animation.ITimeValue;
 
-public class TimedValue implements ITimedValue
+public class TimedValue implements ITimedValue, IForgeJVoxelizerWrapper
 {
     private ITimeValue timeValue;
 
@@ -34,6 +35,15 @@ public class TimedValue implements ITimedValue
         if (value instanceof ITimeValue)
             return (ITimeValue) value;
 
-        return ((TimedValue) value).getForgeTimeValue();
+        if (!(value instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("TimedValue is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) value).getForgeInstance();
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeTimeValue();
     }
 }

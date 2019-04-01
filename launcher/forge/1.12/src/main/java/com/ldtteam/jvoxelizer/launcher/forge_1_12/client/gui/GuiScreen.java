@@ -6,6 +6,7 @@ import com.ldtteam.jvoxelizer.client.renderer.item.IItemRenderer;
 import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.GameEngine;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.textcomponent.TextComponent;
 import com.ldtteam.jvoxelizer.util.textcomponent.ITextComponent;
@@ -18,7 +19,7 @@ public class GuiScreen extends Gui implements IGuiScreen<DummyInstanceData>
 
     private final net.minecraft.client.gui.GuiScreen forgeGuiScreen;
 
-    public GuiScreen(final net.minecraft.client.gui.GuiScreen forgeGuiScreen)
+    private GuiScreen(final net.minecraft.client.gui.GuiScreen forgeGuiScreen)
     {
         super(forgeGuiScreen);
         this.forgeGuiScreen = forgeGuiScreen;
@@ -168,19 +169,27 @@ public class GuiScreen extends Gui implements IGuiScreen<DummyInstanceData>
         return IGameEngine.getInstance().getItemRenderer();
     }
 
-    public static net.minecraft.client.gui.GuiScreen asForge(IGuiScreen<?> gui)
+    private net.minecraft.client.gui.GuiScreen getForgeGuiScreen()
     {
-        if (gui instanceof net.minecraft.client.gui.GuiScreen)
-            return (net.minecraft.client.gui.GuiScreen) gui;
-
-        return ((GuiScreen) gui).forgeGuiScreen;
+        return forgeGuiScreen;
     }
 
-    public static IGuiScreen<?> fromForge(final net.minecraft.client.gui.GuiScreen ingameGUI)
+    public static net.minecraft.client.gui.GuiScreen asForge(IGuiScreen<?> guiScreen)
     {
-        if (ingameGUI instanceof IGuiScreen)
-            return (IGuiScreen<?>) ingameGUI;
+        if (guiScreen instanceof net.minecraft.client.gui.GuiScreen)
+            return (net.minecraft.client.gui.GuiScreen) guiScreen;
 
-        return new GuiScreen(ingameGUI);
+        if (!(guiScreen instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("GuiScreen is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) guiScreen).getForgeInstance();
+    }
+
+    public static IGuiScreen<?> fromForge(final net.minecraft.client.gui.GuiScreen guiScreen)
+    {
+        if (guiScreen instanceof IGuiScreen)
+            return (IGuiScreen<?>) guiScreen;
+
+        return new GuiScreen(guiScreen);
     }
 }

@@ -2,24 +2,25 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture;
 
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISprite;
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISpriteMap;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import net.minecraft.client.renderer.texture.TextureMap;
 
-public class SpriteMap implements ISpriteMap
+public class SpriteMap implements ISpriteMap, IForgeJVoxelizerWrapper
 {
 
-    private final TextureMap forgeMap;
+    private final TextureMap forgeSpriteMap;
 
-    public SpriteMap(final TextureMap forgeMap) {this.forgeMap = forgeMap;}
+    private SpriteMap(final TextureMap forgeSpriteMap) {this.forgeSpriteMap = forgeSpriteMap;}
 
     @Override
     public ISprite getSrite(final String spriteName)
     {
-        return Sprite.fromForge(forgeMap.getAtlasSprite(spriteName));
+        return Sprite.fromForge(forgeSpriteMap.getAtlasSprite(spriteName));
     }
 
-    public TextureMap getForgeMap()
+    private TextureMap getForgeSpriteMap()
     {
-        return forgeMap;
+        return forgeSpriteMap;
     }
 
     public static TextureMap asForge(ISpriteMap spriteMap)
@@ -27,7 +28,10 @@ public class SpriteMap implements ISpriteMap
         if (spriteMap instanceof TextureMap)
             return (TextureMap) spriteMap;
 
-        return ((SpriteMap) spriteMap).getForgeMap();
+        if (!(spriteMap instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("SpriteMap is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) spriteMap).getForgeInstance();
     }
 
     public static ISpriteMap fromForge(TextureMap textureMap)
@@ -36,5 +40,11 @@ public class SpriteMap implements ISpriteMap
             return (ISpriteMap) textureMap;
 
         return new SpriteMap(textureMap);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeSpriteMap();
     }
 }

@@ -5,6 +5,7 @@ import com.ldtteam.jvoxelizer.inventory.IInventoryCrafting;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.crafting.IIngredient;
 import com.ldtteam.jvoxelizer.item.crafting.IRecipe;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.Dimension;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.InventoryCrafting;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
@@ -14,7 +15,7 @@ import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Recipe implements IRecipe
+public class Recipe implements IRecipe, IForgeJVoxelizerWrapper
 {
 
     private net.minecraft.item.crafting.IRecipe forgeRecipe;
@@ -116,6 +117,15 @@ public class Recipe implements IRecipe
         if (recipe instanceof net.minecraft.item.crafting.IRecipe)
             return (net.minecraft.item.crafting.IRecipe) recipe;
 
-        return ((Recipe) recipe).getForgeRecipe();
+        if (!(recipe instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Recipe is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) recipe).getForgeInstance();
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeRecipe();
     }
 }

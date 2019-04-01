@@ -3,6 +3,7 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.item.group;
 import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.group.IItemGroup;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.enchantmentType.EnchantmentType;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.Identifier;
@@ -16,7 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ItemGroup implements IItemGroup<DummyInstanceData>
+public class ItemGroup implements IItemGroup<DummyInstanceData>, IForgeJVoxelizerWrapper
 {
     private CreativeTabs creativeTab;
 
@@ -171,12 +172,20 @@ public class ItemGroup implements IItemGroup<DummyInstanceData>
         return new DummyInstanceData();
     }
 
+    public CreativeTabs getCreativeTab()
+    {
+        return creativeTab;
+    }
+
     public static CreativeTabs asForge(final IItemGroup<?> itemGroup)
     {
         if (itemGroup instanceof CreativeTabs)
             return (CreativeTabs) itemGroup;
 
-        return ((ItemGroup) itemGroup).creativeTab;
+        if (!(itemGroup instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("ItemGroup is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) itemGroup).getForgeInstance();
     }
 
     public static IItemGroup fromForge(final CreativeTabs itemGroup)
@@ -185,5 +194,11 @@ public class ItemGroup implements IItemGroup<DummyInstanceData>
             return (IItemGroup<?>) itemGroup;
 
         return new ItemGroup(itemGroup);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getCreativeTab();
     }
 }

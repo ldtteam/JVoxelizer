@@ -1,10 +1,11 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging;
 
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.handler.ServerNetworkHandler;
 import com.ldtteam.jvoxelizer.networking.handler.IServerNetworkHandler;
 import com.ldtteam.jvoxelizer.networking.messaging.IMessageContext;
 
-public class MessageContext implements IMessageContext
+public class MessageContext implements IMessageContext, IForgeJVoxelizerWrapper
 {
     private net.minecraftforge.fml.common.network.simpleimpl.MessageContext context;
 
@@ -19,12 +20,20 @@ public class MessageContext implements IMessageContext
         return ServerNetworkHandler.fromForge(context.getServerHandler());
     }
 
-    public static net.minecraftforge.fml.common.network.simpleimpl.MessageContext asForge(final IMessageContext tuple)
+    private net.minecraftforge.fml.common.network.simpleimpl.MessageContext getContext()
     {
-        if (tuple instanceof net.minecraftforge.fml.common.network.simpleimpl.MessageContext)
-            return (net.minecraftforge.fml.common.network.simpleimpl.MessageContext) tuple;
+        return context;
+    }
 
-        return ((MessageContext) tuple).context;
+    public static net.minecraftforge.fml.common.network.simpleimpl.MessageContext asForge(final IMessageContext messageContext)
+    {
+        if (messageContext instanceof net.minecraftforge.fml.common.network.simpleimpl.MessageContext)
+            return (net.minecraftforge.fml.common.network.simpleimpl.MessageContext) messageContext;
+
+        if (!(messageContext instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("MessageContext is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) messageContext).getForgeInstance();
     }
 
     public static IMessageContext fromForge(final net.minecraftforge.fml.common.network.simpleimpl.MessageContext tuple)
@@ -33,5 +42,11 @@ public class MessageContext implements IMessageContext
             return (IMessageContext) tuple;
 
         return new MessageContext(tuple);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getContext();
     }
 }

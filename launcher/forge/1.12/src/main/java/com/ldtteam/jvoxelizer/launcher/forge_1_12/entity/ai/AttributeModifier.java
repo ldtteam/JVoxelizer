@@ -1,11 +1,12 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.ai;
 
 import com.ldtteam.jvoxelizer.entity.ai.IAttributeModifier;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class AttributeModifier implements IAttributeModifier
+public class AttributeModifier implements IAttributeModifier, IForgeJVoxelizerWrapper
 {
     private net.minecraft.entity.ai.attributes.AttributeModifier forgeAttributeModifier;
 
@@ -61,7 +62,10 @@ public class AttributeModifier implements IAttributeModifier
         if (modifier instanceof net.minecraft.entity.ai.attributes.AttributeModifier)
             return (net.minecraft.entity.ai.attributes.AttributeModifier) modifier;
 
-        return ((AttributeModifier) modifier).getForgeAttributeModifier();
+        if (!(modifier instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("AttributeModifier is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) modifier).getForgeInstance();
     }
 
     public static IAttributeModifier fromForge(net.minecraft.entity.ai.attributes.AttributeModifier modifier)
@@ -70,5 +74,11 @@ public class AttributeModifier implements IAttributeModifier
             return (IAttributeModifier) modifier;
 
         return new AttributeModifier(modifier);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeAttributeModifier();
     }
 }

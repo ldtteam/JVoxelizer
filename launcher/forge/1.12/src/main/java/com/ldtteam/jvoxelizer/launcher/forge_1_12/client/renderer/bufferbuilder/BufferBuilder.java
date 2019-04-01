@@ -3,13 +3,14 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.bufferbuilder
 import com.ldtteam.jvoxelizer.client.renderer.bufferbuilder.IBufferBuilder;
 import com.ldtteam.jvoxelizer.client.renderer.opengl.util.vertexformat.IVertexFormat;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.opengl.vertexformat.VertexFormat;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 
-public class BufferBuilder implements IBufferBuilder
+public class BufferBuilder implements IBufferBuilder, IForgeJVoxelizerWrapper
 {
 
     private final net.minecraft.client.renderer.BufferBuilder forgeBufferBuilder;
 
-    public BufferBuilder(final net.minecraft.client.renderer.BufferBuilder forgeBufferBuilder) {this.forgeBufferBuilder = forgeBufferBuilder;}
+    private BufferBuilder(final net.minecraft.client.renderer.BufferBuilder forgeBufferBuilder) {this.forgeBufferBuilder = forgeBufferBuilder;}
 
     @Override
     public void begin(final int mode, final IVertexFormat format)
@@ -44,7 +45,7 @@ public class BufferBuilder implements IBufferBuilder
         forgeBufferBuilder.endVertex();
     }
 
-    public net.minecraft.client.renderer.BufferBuilder getForgeBufferBuilder()
+    private net.minecraft.client.renderer.BufferBuilder getForgeBufferBuilder()
     {
         return forgeBufferBuilder;
     }
@@ -54,7 +55,10 @@ public class BufferBuilder implements IBufferBuilder
         if (bufferBuilder instanceof net.minecraft.client.renderer.BufferBuilder)
             return (net.minecraft.client.renderer.BufferBuilder) bufferBuilder;
 
-        return ((BufferBuilder) bufferBuilder).getForgeBufferBuilder();
+        if (!(bufferBuilder instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("BufferBuilder is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) bufferBuilder).getForgeInstance();
     }
 
     public static IBufferBuilder fromForge(net.minecraft.client.renderer.BufferBuilder bufferBuilder)
@@ -63,5 +67,11 @@ public class BufferBuilder implements IBufferBuilder
             return (IBufferBuilder) bufferBuilder;
 
         return new BufferBuilder(bufferBuilder);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeBufferBuilder();
     }
 }

@@ -2,9 +2,10 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.item.handling;
 
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.handling.IItemHandler;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
 
-public class ItemHandler implements IItemHandler
+public class ItemHandler implements IItemHandler, IForgeJVoxelizerWrapper
 {
     private final net.minecraftforge.items.IItemHandler forgeItemHandler;
 
@@ -34,6 +35,15 @@ public class ItemHandler implements IItemHandler
         if (itemHandler instanceof net.minecraftforge.items.IItemHandler)
             return (net.minecraftforge.items.IItemHandler) itemHandler;
 
-        return ((ItemHandler) itemHandler).getForgeItemHandler();
+        if (!(itemHandler instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("ItemHandler is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) itemHandler).getForgeInstance();
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeItemHandler();
     }
 }

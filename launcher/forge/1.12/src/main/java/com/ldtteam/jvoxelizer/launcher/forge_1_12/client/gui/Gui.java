@@ -7,8 +7,9 @@ import com.ldtteam.jvoxelizer.client.renderer.texture.ISprite;
 import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.Sprite;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 
-public class Gui implements IGui<DummyInstanceData>
+public class Gui implements IGui<DummyInstanceData>, IForgeJVoxelizerWrapper
 {
     private final net.minecraft.client.gui.Gui forgeGui;
 
@@ -56,12 +57,20 @@ public class Gui implements IGui<DummyInstanceData>
         return new DummyInstanceData();
     }
 
+    private net.minecraft.client.gui.Gui getForgeGui()
+    {
+        return forgeGui;
+    }
+
     public static net.minecraft.client.gui.Gui asForge(IGui<?> gui)
     {
         if (gui instanceof net.minecraft.client.gui.Gui)
             return (net.minecraft.client.gui.Gui) gui;
 
-        return ((Gui) gui).forgeGui;
+        if (!(gui instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Gui is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) gui).getForgeInstance();
     }
 
     public static IGui<?> fromForge(final net.minecraft.client.gui.Gui ingameGUI)
@@ -70,5 +79,11 @@ public class Gui implements IGui<DummyInstanceData>
             return (IGui<?>) ingameGUI;
 
         return new Gui(ingameGUI);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeGui();
     }
 }

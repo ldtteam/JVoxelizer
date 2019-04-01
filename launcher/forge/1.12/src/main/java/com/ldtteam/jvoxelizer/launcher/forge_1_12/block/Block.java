@@ -6,10 +6,11 @@ import com.ldtteam.jvoxelizer.block.state.IBlockState;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.entity.BlockEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockState;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.Dimension;
 import net.minecraft.block.BlockAir;
 
-public class Block implements IBlock
+public class Block implements IBlock, IForgeJVoxelizerWrapper
 {
     private net.minecraft.block.Block forgeBlock;
 
@@ -41,7 +42,10 @@ public class Block implements IBlock
         if (block instanceof net.minecraft.block.Block)
             return (net.minecraft.block.Block) block;
 
-        return ((Block) block).getForgeBlock();
+        if(!(block instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Block is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) block).getForgeInstance();
     }
 
     public static IBlock fromForge(net.minecraft.block.Block block)
@@ -50,5 +54,11 @@ public class Block implements IBlock
             return (IBlock) block;
 
         return new Block(block);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeBlock();
     }
 }

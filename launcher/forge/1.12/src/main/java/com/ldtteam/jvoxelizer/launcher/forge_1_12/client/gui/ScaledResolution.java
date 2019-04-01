@@ -1,8 +1,9 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui;
 
 import com.ldtteam.jvoxelizer.client.gui.IScaledResolution;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 
-public class ScaledResolution implements IScaledResolution
+public class ScaledResolution implements IScaledResolution, IForgeJVoxelizerWrapper
 {
     private net.minecraft.client.gui.ScaledResolution forgeScaledResolution;
 
@@ -41,6 +42,15 @@ public class ScaledResolution implements IScaledResolution
 
     public static net.minecraft.client.gui.ScaledResolution asForge(IScaledResolution resolution)
     {
-        return ((ScaledResolution) resolution).getForgeScaledResolution();
+        if (!(resolution instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("ScaledResolution is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) resolution).getForgeInstance();
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeScaledResolution();
     }
 }

@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.endpoint;
 
 import com.ldtteam.jvoxelizer.entity.living.player.IMultiplayerPlayerEntity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.MultiplayerPlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging.JVoxMessageWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging.JVoxMessageWrapperHandler;
@@ -21,7 +22,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.function.Supplier;
 
-public class NetworkEndpoint implements INetworkEndpoint
+public class NetworkEndpoint implements INetworkEndpoint, IForgeJVoxelizerWrapper
 {
     private SimpleNetworkWrapper manager;
 
@@ -98,12 +99,20 @@ public class NetworkEndpoint implements INetworkEndpoint
         return Executor.fromForge(threadListener);
     }
 
+    private SimpleNetworkWrapper getManager()
+    {
+        return manager;
+    }
+
     public static SimpleNetworkWrapper asForge(final INetworkEndpoint endpoint)
     {
         if (endpoint instanceof SimpleNetworkWrapper)
             return (SimpleNetworkWrapper) endpoint;
 
-        return ((NetworkEndpoint) endpoint).manager;
+        if (!(endpoint instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Endpoint is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) endpoint).getForgeInstance();
     }
 
     public static INetworkEndpoint fromForge(final SimpleNetworkWrapper networkWrapper)
@@ -112,5 +121,11 @@ public class NetworkEndpoint implements INetworkEndpoint
             return (INetworkEndpoint) networkWrapper;
 
         return new NetworkEndpoint(networkWrapper);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getManager();
     }
 }

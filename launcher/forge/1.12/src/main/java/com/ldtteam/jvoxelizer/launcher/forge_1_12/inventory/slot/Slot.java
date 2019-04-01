@@ -7,13 +7,14 @@ import com.ldtteam.jvoxelizer.inventory.slot.ISlot;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.handling.IInventory;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.Sprite;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.PlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.Inventory;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.Identifier;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 
-public class Slot implements ISlot<DummyInstanceData>
+public class Slot implements ISlot<DummyInstanceData>, IForgeJVoxelizerWrapper
 {
     private final net.minecraft.inventory.Slot forgeSlot;
 
@@ -157,7 +158,7 @@ public class Slot implements ISlot<DummyInstanceData>
         return new DummyInstanceData();
     }
 
-    public net.minecraft.inventory.Slot getForgeSlot()
+    private net.minecraft.inventory.Slot getForgeSlot()
     {
         return forgeSlot;
     }
@@ -167,7 +168,10 @@ public class Slot implements ISlot<DummyInstanceData>
         if (slot instanceof net.minecraft.inventory.Slot)
             return (net.minecraft.inventory.Slot) slot;
 
-        return ((Slot) slot).getForgeSlot();
+        if (!(slot instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Slot is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) slot).getForgeInstance();
     }
 
     public static ISlot<?> fromForge(net.minecraft.inventory.Slot slot)
@@ -176,5 +180,11 @@ public class Slot implements ISlot<DummyInstanceData>
             return (ISlot<?>) slot;
 
         return new Slot(slot);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeSlot();
     }
 }

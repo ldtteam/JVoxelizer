@@ -5,6 +5,7 @@ import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.inventory.IContainer;
 import com.ldtteam.jvoxelizer.inventory.slot.ISlot;
 import com.ldtteam.jvoxelizer.item.IItemStack;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.Container;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.slot.Slot;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
@@ -118,7 +119,7 @@ public class GuiContainer extends GuiScreen implements IGuiContainer<DummyInstan
         forgeGuiContainer.updateDragSplitting();
     }
 
-    public net.minecraft.client.gui.inventory.GuiContainer getForgeGuiContainer()
+    private net.minecraft.client.gui.inventory.GuiContainer getForgeGuiContainer()
     {
         return forgeGuiContainer;
     }
@@ -128,7 +129,10 @@ public class GuiContainer extends GuiScreen implements IGuiContainer<DummyInstan
         if (guiContainer instanceof net.minecraft.client.gui.inventory.GuiContainer)
             return (net.minecraft.client.gui.inventory.GuiContainer) guiContainer;
 
-        return ((GuiContainer) guiContainer).getForgeGuiContainer();
+        if (!(guiContainer instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("GuiContainer is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) guiContainer).getForgeInstance();
     }
 
     public static IGuiContainer<?> fromForge(net.minecraft.client.gui.inventory.GuiContainer guiContainer)

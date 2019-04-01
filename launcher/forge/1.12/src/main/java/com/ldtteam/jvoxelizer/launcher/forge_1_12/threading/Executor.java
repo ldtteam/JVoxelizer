@@ -4,7 +4,6 @@ import com.google.common.util.concurrent.ListenableFuture;
 import com.ldtteam.jvoxelizer.threading.IExecutor;
 import net.minecraft.util.IThreadListener;
 
-//todo orion
 public class Executor implements IExecutor
 {
 

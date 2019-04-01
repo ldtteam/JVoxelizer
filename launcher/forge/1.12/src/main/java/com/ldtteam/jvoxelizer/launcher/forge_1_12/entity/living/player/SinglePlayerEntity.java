@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player;
 
 import com.ldtteam.jvoxelizer.entity.living.player.ISingleplayerPlayerEntity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import net.minecraft.client.entity.EntityPlayerSP;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,7 +25,10 @@ public class SinglePlayerEntity extends PlayerEntity implements ISingleplayerPla
         if (playerEntity instanceof EntityPlayerSP)
             return (EntityPlayerSP) playerEntity;
 
-        return ((SinglePlayerEntity) playerEntity).getForgeEntity();
+        if (!(playerEntity instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("SinglePlayerEntity is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) playerEntity).getForgeInstance();
     }
 
     public static ISingleplayerPlayerEntity fromForge(EntityPlayerSP playerSP)

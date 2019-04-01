@@ -6,6 +6,7 @@ import com.ldtteam.jvoxelizer.inventory.IInventoryPlayer;
 import com.ldtteam.jvoxelizer.item.IItem;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockState;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.Dimension;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.Item;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
@@ -205,6 +206,9 @@ public class InventoryPlayer extends Inventory implements IInventoryPlayer
         if (inventoryPlayer instanceof net.minecraft.entity.player.InventoryPlayer)
             return (net.minecraft.entity.player.InventoryPlayer) inventoryPlayer;
 
-        return ((InventoryPlayer) inventoryPlayer).getForgeInventoryPlayer();
+        if (!(inventoryPlayer instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("InventoryPlayer is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) inventoryPlayer).getForgeInstance();
     }
 }

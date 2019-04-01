@@ -28,6 +28,7 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.model.ModelBiped;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.blockentity.BlockEntityRenderer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.font.FontRenderer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.animation.TimedValue;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.Dimension;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.enchantment.Enchantment;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity;
@@ -70,7 +71,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Item implements IItem<DummyInstanceData>
+public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
 {
     private net.minecraft.item.Item forgeItem;
 
@@ -812,7 +813,10 @@ public class Item implements IItem<DummyInstanceData>
         if (item instanceof net.minecraft.item.Item)
             return (net.minecraft.item.Item) item;
 
-        return ((Item) item).getForgeItem();
+        if (!(item instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Item is not wrapper");
+
+        return ((IForgeJVoxelizerWrapper) item).getForgeInstance();
     }
 
     public static IItem fromForge(net.minecraft.item.Item item)
@@ -821,5 +825,11 @@ public class Item implements IItem<DummyInstanceData>
             return (IItem<?>) item;
 
         return new Item(item);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeItem();
     }
 }

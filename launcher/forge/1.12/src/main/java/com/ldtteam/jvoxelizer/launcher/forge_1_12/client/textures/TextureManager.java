@@ -3,16 +3,17 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.textures;
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISpriteMap;
 import com.ldtteam.jvoxelizer.client.textures.ITextureManager;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.SpriteMap;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.Identifier;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 import net.minecraft.client.renderer.texture.TextureMap;
 
-public class TextureManager implements ITextureManager
+public class TextureManager implements ITextureManager, IForgeJVoxelizerWrapper
 {
 
     private final net.minecraft.client.renderer.texture.TextureManager forgeTextureManager;
 
-    public TextureManager(final net.minecraft.client.renderer.texture.TextureManager forgeTextureManager) {this.forgeTextureManager = forgeTextureManager;}
+    private TextureManager(final net.minecraft.client.renderer.texture.TextureManager forgeTextureManager) {this.forgeTextureManager = forgeTextureManager;}
 
     @Override
     public void bindTexture(final IIdentifier textureLocation)
@@ -26,7 +27,7 @@ public class TextureManager implements ITextureManager
         return SpriteMap.fromForge((TextureMap) forgeTextureManager.getTexture(Identifier.asForge(spriteName)));
     }
 
-    public net.minecraft.client.renderer.texture.TextureManager getForgeTextureManager()
+    private net.minecraft.client.renderer.texture.TextureManager getForgeTextureManager()
     {
         return forgeTextureManager;
     }
@@ -44,6 +45,15 @@ public class TextureManager implements ITextureManager
         if (textureManager instanceof net.minecraft.client.renderer.texture.TextureManager)
             return (net.minecraft.client.renderer.texture.TextureManager) textureManager;
 
-        return ((TextureManager) textureManager).getForgeTextureManager();
+        if (!(textureManager instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("TextureManager is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) textureManager).getForgeInstance();
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeTextureManager();
     }
 }

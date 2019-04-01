@@ -7,6 +7,7 @@ import com.ldtteam.jvoxelizer.inventory.*;
 import com.ldtteam.jvoxelizer.inventory.slot.ISlot;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.handling.IInventory;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.PlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.slot.Slot;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
@@ -14,7 +15,7 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Container implements IContainer<DummyInstanceData>
+public class Container implements IContainer<DummyInstanceData>, IForgeJVoxelizerWrapper
 {
     private final net.minecraft.inventory.Container forgeContainer;
 
@@ -180,7 +181,10 @@ public class Container implements IContainer<DummyInstanceData>
         if (container instanceof net.minecraft.inventory.Container)
             return (net.minecraft.inventory.Container) container;
 
-        return ((Container) container).getForgeContainer();
+        if (!(container instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Container is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) container).getForgeInstance();
     }
 
     public static IContainer<?> fromForge(net.minecraft.inventory.Container container)
@@ -189,5 +193,11 @@ public class Container implements IContainer<DummyInstanceData>
             return (IContainer<?>) container;
 
         return new Container(container);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeContainer();
     }
 }

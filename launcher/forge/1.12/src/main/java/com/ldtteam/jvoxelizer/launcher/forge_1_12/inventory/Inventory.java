@@ -3,12 +3,13 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory;
 import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 import com.ldtteam.jvoxelizer.item.IItemStack;
 import com.ldtteam.jvoxelizer.item.handling.IInventory;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.PlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.textcomponent.TextComponent;
 import com.ldtteam.jvoxelizer.util.textcomponent.ITextComponent;
 
-public class Inventory implements IInventory
+public class Inventory implements IInventory, IForgeJVoxelizerWrapper
 {
 
     private final net.minecraft.inventory.IInventory forgeInventory;
@@ -139,7 +140,10 @@ public class Inventory implements IInventory
         if (inventory instanceof net.minecraft.inventory.IInventory)
             return (net.minecraft.inventory.IInventory) inventory;
 
-        return ((Inventory) inventory).getForgeInventory();
+        if (!(inventory instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Inventory is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) inventory).getForgeInstance();
     }
 
     public static IInventory fromForge(net.minecraft.inventory.IInventory inventory)
@@ -148,5 +152,11 @@ public class Inventory implements IInventory
             return (IInventory) inventory;
 
         return new Inventory(inventory);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeInventory();
     }
 }

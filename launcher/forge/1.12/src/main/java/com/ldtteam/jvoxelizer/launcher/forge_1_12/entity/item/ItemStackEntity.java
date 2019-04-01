@@ -2,12 +2,13 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.item;
 
 import com.ldtteam.jvoxelizer.entity.item.IItemStackEntity;
 import com.ldtteam.jvoxelizer.item.IItemStack;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.ItemStack;
 import net.minecraft.entity.item.EntityItem;
 import org.jetbrains.annotations.NotNull;
 
-public class ItemStackEntity extends Entity implements IItemStackEntity
+public class ItemStackEntity extends Entity implements IItemStackEntity, IForgeJVoxelizerWrapper
 {
     /**
      * The forge entity for the itemstack.
@@ -82,7 +83,10 @@ public class ItemStackEntity extends Entity implements IItemStackEntity
         if (entity instanceof EntityItem)
             return (EntityItem) entity;
 
-        return ((ItemStackEntity) entity).getForgeItemEntity();
+        if (!(entity instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("ItemStackEntity is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) entity).getForgeInstance();
     }
 
     public static IItemStackEntity fromForge(EntityItem entityItem)
@@ -91,5 +95,11 @@ public class ItemStackEntity extends Entity implements IItemStackEntity
             return (IItemStackEntity) entityItem;
 
         return new ItemStackEntity(entityItem);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeItemEntity();
     }
 }

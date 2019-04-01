@@ -1,8 +1,9 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.enchantment;
 
 import com.ldtteam.jvoxelizer.enchantment.IEnchantment;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 
-public class Enchantment implements IEnchantment
+public class Enchantment implements IEnchantment, IForgeJVoxelizerWrapper
 {
     private net.minecraft.enchantment.Enchantment enchantment;
 
@@ -25,7 +26,10 @@ public class Enchantment implements IEnchantment
         if (enchantment instanceof Enchantment)
             return (net.minecraft.enchantment.Enchantment) enchantment;
 
-        return ((Enchantment) enchantment).getForgeEnchantment();
+        if (!(enchantment instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Enchantment is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) enchantment).getForgeInstance();
     }
 
     public static IEnchantment fromForge(net.minecraft.enchantment.Enchantment enchantment)
@@ -34,5 +38,11 @@ public class Enchantment implements IEnchantment
             return (IEnchantment) enchantment;
 
         return new Enchantment(enchantment);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeEnchantment();
     }
 }

@@ -1,9 +1,10 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension;
 
 import com.ldtteam.jvoxelizer.dimension.IDimensionType;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import net.minecraft.world.WorldType;
 
-public class DimensionType implements IDimensionType
+public class DimensionType implements IDimensionType, IForgeJVoxelizerWrapper
 {
 
     private final WorldType forgeWorldType;
@@ -20,7 +21,10 @@ public class DimensionType implements IDimensionType
         if (dimensionType instanceof WorldType)
             return (WorldType) dimensionType;
 
-        return ((DimensionType) dimensionType).getForgeWorldType();
+        if (!(dimensionType instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("DimensionType is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) dimensionType).getForgeInstance();
     }
 
     public static IDimensionType fromForge(WorldType worldType)
@@ -29,5 +33,11 @@ public class DimensionType implements IDimensionType
             return (IDimensionType) worldType;
 
         return new DimensionType(worldType);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeWorldType();
     }
 }

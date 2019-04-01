@@ -4,6 +4,7 @@ import com.ldtteam.jvoxelizer.block.entity.IBlockEntity;
 import com.ldtteam.jvoxelizer.common.capability.ICapability;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability.Capability;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.Dimension;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.facing.Facing;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block.BlockCoordinate;
@@ -15,7 +16,7 @@ import net.minecraft.tileentity.TileEntity;
  * Forge implementation of the IBlockEntity interface.
  * Falls back onto TileEntity.
  */
-public class BlockEntity implements IBlockEntity
+public class BlockEntity implements IBlockEntity, IForgeJVoxelizerWrapper
 {
     private final TileEntity forgeTileEntity;
 
@@ -55,7 +56,10 @@ public class BlockEntity implements IBlockEntity
         if (blockEntity instanceof TileEntity)
             return (TileEntity) blockEntity;
 
-        return ((BlockEntity) blockEntity).getForgeTileEntity();
+        if (!(blockEntity instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("BlockEntity is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) blockEntity).getForgeInstance();
     }
 
     public static IBlockEntity fromForge(TileEntity tileEntity)
@@ -64,5 +68,11 @@ public class BlockEntity implements IBlockEntity
             return (IBlockEntity) tileEntity;
 
         return new BlockEntity(tileEntity);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeTileEntity();
     }
 }

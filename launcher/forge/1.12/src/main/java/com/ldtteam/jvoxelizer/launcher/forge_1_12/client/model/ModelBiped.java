@@ -1,8 +1,9 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.model;
 
 import com.ldtteam.jvoxelizer.client.model.IModelBiped;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 
-public class ModelBiped implements IModelBiped
+public class ModelBiped implements IModelBiped, IForgeJVoxelizerWrapper
 {
 
     private final net.minecraft.client.model.ModelBiped forgeModelBiped;
@@ -28,7 +29,15 @@ public class ModelBiped implements IModelBiped
         if (modelBiped instanceof net.minecraft.client.model.ModelBiped)
             return (net.minecraft.client.model.ModelBiped) modelBiped;
 
-        return ((ModelBiped) modelBiped).getForgeModelBiped();
+        if (!(modelBiped instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("ModelBiped is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) modelBiped).getForgeInstance();
     }
 
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeModelBiped();
+    }
 }

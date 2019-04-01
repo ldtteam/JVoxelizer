@@ -3,6 +3,7 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.entity;
 import com.ldtteam.jvoxelizer.common.capability.ICapability;
 import com.ldtteam.jvoxelizer.entity.IEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability.Capability;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.facing.Facing;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block.BlockCoordinate;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.entity.EntityCoordinate;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class Entity implements IEntity
+public class Entity implements IEntity, IForgeJVoxelizerWrapper
 {
     private final net.minecraft.entity.Entity forgeEntity;
 
@@ -270,7 +271,10 @@ public class Entity implements IEntity
         if (entity instanceof net.minecraft.entity.Entity)
             return (net.minecraft.entity.Entity) entity;
 
-        return ((Entity) entity).getForgeEntity();
+        if (!(entity instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Entity is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) entity).getForgeInstance();
     }
 
     public static IEntity fromForge(net.minecraft.entity.Entity entity)
@@ -279,5 +283,11 @@ public class Entity implements IEntity
             return (IEntity) entity;
 
         return new Entity(entity);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeEntity();
     }
 }

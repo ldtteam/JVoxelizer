@@ -3,6 +3,7 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension;
 import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.entity.IEntity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import net.minecraft.world.World;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -40,7 +41,10 @@ public class Dimension extends DimensionReader implements IDimension<DummyInstan
         if (dimension instanceof World)
             return (World) dimension;
 
-        return ((Dimension) dimension).getForgeWorld();
+        if (!(dimension instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Dimension is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) dimension).getForgeInstance();
     }
 
     public static IDimension<?> fromForge(World world)

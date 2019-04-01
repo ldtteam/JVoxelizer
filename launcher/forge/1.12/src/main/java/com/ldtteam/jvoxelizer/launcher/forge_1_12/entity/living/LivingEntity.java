@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living;
 
 import com.ldtteam.jvoxelizer.entity.living.ILivingEntity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import net.minecraft.entity.EntityLiving;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,7 +25,10 @@ public class LivingEntity extends LivingBaseEntity implements ILivingEntity
         if (entity instanceof EntityLiving)
             return (EntityLiving) entity;
 
-        return ((LivingEntity) entity).getForgeEntityLiving();
+        if (!(entity instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("EntityLiving is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) entity).getForgeInstance();
     }
 
     public static ILivingEntity fromForge(EntityLiving entityLiving)

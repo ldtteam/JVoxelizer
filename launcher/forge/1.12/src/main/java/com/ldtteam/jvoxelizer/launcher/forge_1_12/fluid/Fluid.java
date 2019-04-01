@@ -2,10 +2,11 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.fluid;
 
 import com.ldtteam.jvoxelizer.fluid.IFluid;
 import com.ldtteam.jvoxelizer.fluid.IFluidStack;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.Identifier;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 
-public class Fluid implements IFluid
+public class Fluid implements IFluid, IForgeJVoxelizerWrapper
 {
     private net.minecraftforge.fluids.Fluid forgeFluid;
 
@@ -36,7 +37,10 @@ public class Fluid implements IFluid
         if (fluid instanceof net.minecraftforge.fluids.Fluid)
             return (net.minecraftforge.fluids.Fluid) fluid;
 
-        return ((Fluid) fluid).getForgeFluid();
+        if (!(fluid instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Fluid is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) fluid).getForgeInstance();
     }
 
     public static IFluid fromForge(net.minecraftforge.fluids.Fluid fluid)
@@ -45,5 +49,11 @@ public class Fluid implements IFluid
             return (IFluid) fluid;
 
         return new Fluid(fluid);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getForgeFluid();
     }
 }

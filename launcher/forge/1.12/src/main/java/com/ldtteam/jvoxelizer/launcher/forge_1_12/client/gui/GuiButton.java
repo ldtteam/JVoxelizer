@@ -4,6 +4,7 @@ import com.ldtteam.jvoxelizer.IGameEngine;
 import com.ldtteam.jvoxelizer.client.gui.IGuiButton;
 import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.GameEngine;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.sound.SoundHandler;
 import com.ldtteam.jvoxelizer.sound.ISoundHandler;
 
@@ -65,7 +66,7 @@ public class GuiButton extends Gui implements IGuiButton<DummyInstanceData>
         forgeGuiButton.setWidth(width);
     }
 
-    public net.minecraft.client.gui.GuiButton getForgeGuiButton()
+    private net.minecraft.client.gui.GuiButton getForgeGuiButton()
     {
         return forgeGuiButton;
     }
@@ -77,7 +78,10 @@ public class GuiButton extends Gui implements IGuiButton<DummyInstanceData>
             return ((GuiButton) guiButton).getForgeGuiButton();
         }
 
-        return (net.minecraft.client.gui.GuiButton) guiButton;
+        if(!(guiButton instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("GuiButton is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) guiButton).getForgeInstance();
     }
 
     public static IGuiButton<?> fromForge(net.minecraft.client.gui.GuiButton guiButton)

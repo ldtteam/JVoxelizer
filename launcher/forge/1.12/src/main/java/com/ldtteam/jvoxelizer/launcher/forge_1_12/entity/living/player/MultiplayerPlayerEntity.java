@@ -2,10 +2,11 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player;
 
 import com.ldtteam.jvoxelizer.entity.living.player.IMultiplayerPlayerEntity;
 import com.ldtteam.jvoxelizer.inventory.IContainerListener;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.jetbrains.annotations.NotNull;
 
-public class MultiplayerPlayerEntity extends PlayerEntity implements IMultiplayerPlayerEntity, IContainerListener
+public class MultiplayerPlayerEntity extends PlayerEntity implements IMultiplayerPlayerEntity
 {
     private EntityPlayerMP forgeMPPlayer;
 
@@ -43,7 +44,10 @@ public class MultiplayerPlayerEntity extends PlayerEntity implements IMultiplaye
         if (playerEntity instanceof EntityPlayerMP)
             return (EntityPlayerMP) playerEntity;
 
-        return ((MultiplayerPlayerEntity) playerEntity).getForgePlayer();
+        if (!(playerEntity instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("PlayerEntity is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) playerEntity).getForgeInstance();
     }
 
     public static IMultiplayerPlayerEntity fromForge(EntityPlayerMP playerMP)

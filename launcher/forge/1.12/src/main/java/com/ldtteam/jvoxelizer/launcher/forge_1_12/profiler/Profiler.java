@@ -1,11 +1,12 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.profiler;
 
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.profiler.IProfiler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
-public class Profiler implements IProfiler
+public class Profiler implements IProfiler, IForgeJVoxelizerWrapper
 {
     private net.minecraft.profiler.Profiler profiler;
 
@@ -57,12 +58,20 @@ public class Profiler implements IProfiler
         profiler.clearProfiling();
     }
 
+    private net.minecraft.profiler.Profiler getProfiler()
+    {
+        return profiler;
+    }
+
     public static net.minecraft.profiler.Profiler asForge(final IProfiler profiler)
     {
         if (profiler instanceof net.minecraft.profiler.Profiler)
             return (net.minecraft.profiler.Profiler) profiler;
 
-        return ((Profiler) profiler).profiler;
+        if (!(profiler instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("Profiler is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) profiler).getForgeInstance();
     }
 
     public static IProfiler fromForge(final net.minecraft.profiler.Profiler profiler)
@@ -71,5 +80,11 @@ public class Profiler implements IProfiler
             return (IProfiler) profiler;
 
         return new Profiler(profiler);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return (T) getProfiler();
     }
 }

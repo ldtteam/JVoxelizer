@@ -2,8 +2,9 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.fluid;
 
 import com.ldtteam.jvoxelizer.fluid.IFluid;
 import com.ldtteam.jvoxelizer.fluid.IFluidStack;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 
-public class FluidStack implements IFluidStack
+public class FluidStack implements IFluidStack, IForgeJVoxelizerWrapper
 {
     private net.minecraftforge.fluids.FluidStack forgeFluidStack;
 
@@ -28,7 +29,10 @@ public class FluidStack implements IFluidStack
         if (fluidStack instanceof net.minecraftforge.fluids.FluidStack)
             return (net.minecraftforge.fluids.FluidStack) fluidStack;
 
-        return ((FluidStack) fluidStack).getFluidStack();
+        if (!(fluidStack instanceof IForgeJVoxelizerWrapper))
+            throw new IllegalArgumentException("FluidStack is not a wrapper");
+
+        return ((IForgeJVoxelizerWrapper) fluidStack).getForgeInstance();
     }
 
     public static IFluidStack fromForge(net.minecraftforge.fluids.FluidStack fluidStack)
@@ -37,5 +41,11 @@ public class FluidStack implements IFluidStack
             return (IFluidStack) fluidStack;
 
         return new FluidStack(fluidStack);
+    }
+
+    @Override
+    public <T> T getForgeInstance()
+    {
+        return null;
     }
 }

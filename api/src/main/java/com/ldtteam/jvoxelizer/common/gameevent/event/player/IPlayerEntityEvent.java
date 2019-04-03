@@ -14,23 +14,23 @@ public interface IPlayerEntityEvent extends IEvent
     /**
      * Triggered on an interaction of a player with the container
      */
-    interface IPlayerContainerEvent extends IPlayerEntityEvent
+    interface IContainerEvent extends IPlayerEntityEvent
     {
         IContainer<?> getContainer();
 
-        interface IOpen extends IPlayerContainerEvent
+        interface IOpen extends IContainerEvent
         {
             static IOpen create(IPlayerEntity player, IContainer<?> container)
             {
-                return IPlayerEventProviderHolder.getInstance().provideContainerOpenEvent(player, container);
+                return IPlayerEntityEventProviderHolder.getInstance().provideContainerOpenEvent(player, container);
             }
         }
 
-        interface IClose extends IPlayerContainerEvent
+        interface IClose extends IContainerEvent
         {
             static IClose create(IPlayerEntity player, IContainer<?> container)
             {
-                return IPlayerEventProviderHolder.getInstance().provideContainerCloseEvent(player, container);
+                return IPlayerEntityEventProviderHolder.getInstance().provideContainerCloseEvent(player, container);
             }
         }
     }

@@ -1,21 +1,18 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.common.gameevent.event.player;
 
-import akka.io.IO;
 import com.ldtteam.jvoxelizer.common.gameevent.event.player.IPlayerEntityEvent;
 import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
 import com.ldtteam.jvoxelizer.inventory.IContainer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.PlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.event.Event;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.Container;
-import net.minecraftforge.event.entity.player.PlayerContainerEvent;
 
-public class PlayerEvent extends Event implements IPlayerEntityEvent
+public class PlayerEntityEvent extends Event implements IPlayerEntityEvent
 {
 
     private final net.minecraftforge.event.entity.player.PlayerEvent forgePlayerEvent;
 
-    protected PlayerEvent(final net.minecraftforge.event.entity.player.PlayerEvent forgePlayerEvent) {
+    protected PlayerEntityEvent(final net.minecraftforge.event.entity.player.PlayerEvent forgePlayerEvent) {
         super(forgePlayerEvent);
         this.forgePlayerEvent = forgePlayerEvent;
     }
@@ -39,7 +36,7 @@ public class PlayerEvent extends Event implements IPlayerEntityEvent
         if (playerEvent == null)
             return null;
 
-        return new PlayerEvent(playerEvent);
+        return new PlayerEntityEvent(playerEvent);
     }
 
     public static net.minecraftforge.event.entity.player.PlayerEvent asForge(IPlayerEntityEvent playerEvent)
@@ -56,15 +53,15 @@ public class PlayerEvent extends Event implements IPlayerEntityEvent
         return ((IForgeJVoxelizerWrapper) playerEvent).getForgeInstance();
     }
 
-    public static class PlayerContainerEvent extends PlayerEvent implements IPlayerContainerEvent
+    public static class ContainerEvent extends PlayerEntityEvent implements IContainerEvent
     {
 
         private final IContainer<?> container;
 
-        protected PlayerContainerEvent(net.minecraftforge.event.entity.player.PlayerContainerEvent playerContainerEvent)
+        protected ContainerEvent(net.minecraftforge.event.entity.player.PlayerContainerEvent playerContainerEvent)
         {
             super(playerContainerEvent);
-            this.container = Container.fromForge(playerContainerEvent.getContainer());
+            this.container = com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.Container.fromForge(playerContainerEvent.getContainer());
         }
 
         @Override
@@ -73,18 +70,18 @@ public class PlayerEvent extends Event implements IPlayerEntityEvent
             return container;
         }
 
-        public static IPlayerContainerEvent fromForge(net.minecraftforge.event.entity.player.PlayerContainerEvent playerContainerEvent)
+        public static IContainerEvent fromForge(net.minecraftforge.event.entity.player.PlayerContainerEvent playerContainerEvent)
         {
-            if (playerContainerEvent instanceof IPlayerContainerEvent)
-                return (IPlayerContainerEvent) playerContainerEvent;
+            if (playerContainerEvent instanceof IContainerEvent)
+                return (IContainerEvent) playerContainerEvent;
 
             if (playerContainerEvent == null)
                 return null;
 
-            return new PlayerContainerEvent(playerContainerEvent);
+            return new ContainerEvent(playerContainerEvent);
         }
 
-        public static net.minecraftforge.event.entity.player.PlayerContainerEvent asForge(IPlayerContainerEvent playerContainerEvent)
+        public static net.minecraftforge.event.entity.player.PlayerContainerEvent asForge(IContainerEvent playerContainerEvent)
         {
             if (playerContainerEvent instanceof net.minecraftforge.event.entity.player.PlayerContainerEvent)
                 return (net.minecraftforge.event.entity.player.PlayerContainerEvent) playerContainerEvent;
@@ -98,7 +95,7 @@ public class PlayerEvent extends Event implements IPlayerEntityEvent
             return ((IForgeJVoxelizerWrapper) playerContainerEvent).getForgeInstance();
         }
 
-        public static class Open extends PlayerContainerEvent implements IOpen
+        public static class Open extends ContainerEvent implements IOpen
         {
 
             private Open(final net.minecraftforge.event.entity.player.PlayerContainerEvent.Open playerContainerEventOpen)
@@ -114,7 +111,7 @@ public class PlayerEvent extends Event implements IPlayerEntityEvent
                 if (playerContainerEventOpen == null)
                     return null;
 
-                return new PlayerContainerEvent.Open(playerContainerEventOpen);
+                return new ContainerEvent.Open(playerContainerEventOpen);
             }
 
             public static net.minecraftforge.event.entity.player.PlayerContainerEvent.Open asForge(IOpen open)
@@ -132,7 +129,7 @@ public class PlayerEvent extends Event implements IPlayerEntityEvent
             }
         }
 
-        public static class Close extends PlayerContainerEvent implements IClose
+        public static class Close extends ContainerEvent implements IClose
         {
 
             private Close(final net.minecraftforge.event.entity.player.PlayerContainerEvent.Close playerContainerEventClose)
@@ -148,7 +145,7 @@ public class PlayerEvent extends Event implements IPlayerEntityEvent
                 if (playerContainerEventClose == null)
                     return null;
 
-                return new PlayerContainerEvent.Close(playerContainerEventClose);
+                return new ContainerEvent.Close(playerContainerEventClose);
             }
 
             public static net.minecraftforge.event.entity.player.PlayerContainerEvent.Close asForge(IClose close)

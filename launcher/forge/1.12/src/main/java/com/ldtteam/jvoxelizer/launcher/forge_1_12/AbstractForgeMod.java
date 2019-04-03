@@ -17,10 +17,13 @@ import com.ldtteam.jvoxelizer.client.renderer.tessellator.ITessellator;
 import com.ldtteam.jvoxelizer.client.renderer.texture.ISpriteMap;
 import com.ldtteam.jvoxelizer.common.capability.ICapability;
 import com.ldtteam.jvoxelizer.common.gameevent.event.player.IPlayerEntityEvent;
+import com.ldtteam.jvoxelizer.common.gameevent.event.player.IPlayerGameEvent;
 import com.ldtteam.jvoxelizer.core.provider.holder.ProviderResolver;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.dimension.IDimensionType;
 import com.ldtteam.jvoxelizer.dimension.logic.builder.IDimensionReaderBuilder;
+import com.ldtteam.jvoxelizer.event.handler.IEventHandlerManager;
+import com.ldtteam.jvoxelizer.event.handler.IEventHandlerManagerProvider;
 import com.ldtteam.jvoxelizer.event.manager.IEventManager;
 import com.ldtteam.jvoxelizer.inventory.IContainer;
 import com.ldtteam.jvoxelizer.inventory.logic.builder.IContainerBuilder;
@@ -46,10 +49,12 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.opengl.vertexf
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.tessellator.TessellatorProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.SpriteMapProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability.CapabilityLogicProvider;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.gameevent.event.player.PlayerEventProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.gameevent.event.player.PlayerEntityEventProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.gameevent.event.player.PlayerGameEventProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.DimensionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.DimensionTypeProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.logic.builder.provider.DimensionReaderBuilderProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.event.handler.EventHandlerManagerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.event.manager.EventManagerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.ContainerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.logic.builder.provider.ContainerBuilderProvider;
@@ -134,7 +139,8 @@ public abstract class AbstractForgeMod
 
         //Common
         ProviderResolver.getInstance().registerProvider(ICapability.class.getName(), CapabilityLogicProvider.getInstance());
-        ProviderResolver.getInstance().registerProvider(IPlayerEntityEvent.class.getName(), PlayerEventProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(IPlayerEntityEvent.class.getName(), PlayerEntityEventProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(IPlayerGameEvent.class.getName(), PlayerGameEventProvider.getInstance());
 
         //Dimension
         ProviderResolver.getInstance().registerProvider(IDimensionReaderBuilder.class.getName(), DimensionReaderBuilderProvider.getInstance());
@@ -142,6 +148,7 @@ public abstract class AbstractForgeMod
         ProviderResolver.getInstance().registerProvider(IDimensionType.class.getName(), DimensionTypeProvider.getInstance());
 
         //Event
+        ProviderResolver.getInstance().registerProvider(IEventHandlerManager.class, EventHandlerManagerProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(IEventManager.class.getName(), EventManagerProvider.getInstance());
 
         //Inventory

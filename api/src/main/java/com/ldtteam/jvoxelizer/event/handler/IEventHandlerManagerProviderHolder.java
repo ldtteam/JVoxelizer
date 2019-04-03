@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer.event.handler;
 
 import com.ldtteam.jvoxelizer.core.provider.holder.AbstractHolder;
+import com.ldtteam.jvoxelizer.event.IEvent;
 
 import java.util.function.Consumer;
 
@@ -19,7 +20,7 @@ final class IEventHandlerManagerProviderHolder extends AbstractHolder<IEventHand
     }
 
     @Override
-    public <T> void registerHandler(final Class<T> handledType, final Consumer<T> handler)
+    public <T extends IEvent> void registerHandler(final Class<T> handledType, final Consumer<T> handler)
     {
         getProvider().registerHandler(handledType, handler);
     }

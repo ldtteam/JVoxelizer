@@ -50,6 +50,12 @@ public class Identifier implements IIdentifier
     }
 
     @Override
+    public String toString()
+    {
+        return forgeIdentifier.toString();
+    }
+
+    @Override
     public boolean equals(final Object o)
     {
         if (this == o)

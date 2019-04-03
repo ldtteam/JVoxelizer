@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui;
 
 import com.ldtteam.jvoxelizer.client.gui.IGuiContainer;
+import com.ldtteam.jvoxelizer.core.exceptions.FeatureNotImplementedException;
 import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.inventory.IContainer;
 import com.ldtteam.jvoxelizer.inventory.slot.ISlot;
@@ -61,9 +62,21 @@ public class GuiContainer extends GuiScreen implements IGuiContainer<DummyInstan
     }
 
     @Override
+    public void setXSize(int xSize)
+    {
+        throw new FeatureNotImplementedException("Can not set x size on wrapped container");
+    }
+
+    @Override
     public int getYSize()
     {
         return forgeGuiContainer.getYSize();
+    }
+
+    @Override
+    public void setYSize(int ySize)
+    {
+        throw new FeatureNotImplementedException("Can not set x size on wrapped container");
     }
 
     @Override

@@ -194,6 +194,12 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
     }
 
     @Override
+    public void setXSize(int xSize)
+    {
+        this.xSize = xSize;
+    }
+
+    @Override
     public int getYSize()
     {
         return
@@ -203,6 +209,12 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
             pipeline.getGetYSizePipeline(),
             (c) -> super.getYSize()
           );
+    }
+
+    @Override
+    public void setYSize(int ySize)
+    {
+        this.ySize = ySize;
     }
 
     @Override

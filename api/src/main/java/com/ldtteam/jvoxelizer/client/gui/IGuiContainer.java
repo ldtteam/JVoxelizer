@@ -20,7 +20,11 @@ public interface IGuiContainer<I> extends IGuiScreen<I> {
 
     int getXSize();
 
+    void setXSize(int xSize);
+
     int getYSize();
+
+    void setYSize(int ySize);
 
     IContainer<?> getContainer();
 

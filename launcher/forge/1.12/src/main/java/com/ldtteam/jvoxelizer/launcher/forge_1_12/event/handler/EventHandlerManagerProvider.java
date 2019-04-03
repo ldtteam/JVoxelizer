@@ -1,10 +1,14 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.event.handler;
 
 import com.google.common.collect.Maps;
+import com.ldtteam.jvoxelizer.common.gameevent.event.ITickEvent;
 import com.ldtteam.jvoxelizer.common.gameevent.event.player.IPlayerGameEvent;
 import com.ldtteam.jvoxelizer.event.IEvent;
 import com.ldtteam.jvoxelizer.event.handler.IEventHandlerManagerProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.gameevent.event.TickEvent;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.event.handler.handlers.ClientTickEventHandler;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.event.handler.handlers.PlayerLoggedOutEventHandler;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.event.handler.handlers.ServerTickEventHandler;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.util.ArrayList;
@@ -28,6 +32,8 @@ public class EventHandlerManagerProvider implements IEventHandlerManagerProvider
     private EventHandlerManagerProvider()
     {
         knownEventHandlers.put(IPlayerGameEvent.ILoggedOutEvent.class, new PlayerLoggedOutEventHandler());
+        knownEventHandlers.put(ITickEvent.IClientTickEvent.class, new ClientTickEventHandler());
+        knownEventHandlers.put(ITickEvent.IServerTickEvent.class, new ServerTickEventHandler());
     }
 
     @Override

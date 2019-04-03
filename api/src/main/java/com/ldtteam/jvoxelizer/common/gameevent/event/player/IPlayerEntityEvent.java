@@ -7,21 +7,14 @@ import com.ldtteam.jvoxelizer.inventory.IContainer;
 /**
  * An event descriptor used to handle events that are related to a player.
  */
-public interface IPlayerEvent extends IEvent
+public interface IPlayerEntityEvent extends IEvent
 {
     IPlayerEntity getPlayer();
 
     /**
-     * Triggered when the player logs out of the game or server.
-     */
-    interface IPlayerLoggedOutEvent extends IPlayerEvent
-    {
-    }
-
-    /**
      * Triggered on an interaction of a player with the container
      */
-    interface IPlayerContainerEvent extends IPlayerEvent
+    interface IPlayerContainerEvent extends IPlayerEntityEvent
     {
         IContainer<?> getContainer();
 
@@ -30,6 +23,14 @@ public interface IPlayerEvent extends IEvent
             static IOpen create(IPlayerEntity player, IContainer<?> container)
             {
                 return IPlayerEventProviderHolder.getInstance().provideContainerOpenEvent(player, container);
+            }
+        }
+
+        interface IClose extends IPlayerContainerEvent
+        {
+            static IClose create(IPlayerEntity player, IContainer<?> container)
+            {
+                return IPlayerEventProviderHolder.getInstance().provideContainerCloseEvent(player, container);
             }
         }
     }

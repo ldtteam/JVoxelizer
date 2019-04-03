@@ -6,5 +6,7 @@ import com.ldtteam.jvoxelizer.inventory.IContainer;
 public interface IPlayerEventProvider
 {
 
-    IPlayerEvent.IPlayerContainerEvent.IOpen provideContainerOpenEvent(IPlayerEntity playerEntity, IContainer<?> inventoryContainer);
+    IPlayerEntityEvent.IPlayerContainerEvent.IOpen provideContainerOpenEvent(IPlayerEntity playerEntity, IContainer<?> inventoryContainer);
+
+    IPlayerEntityEvent.IPlayerContainerEvent.IClose provideContainerCloseEvent(IPlayerEntity player, IContainer<?> container);
 }

@@ -1,5 +1,9 @@
 package com.ldtteam.jvoxelizer.core.provider.holder;
 
+import com.ldtteam.jvoxelizer.common.gameevent.event.player.IPlayerEntityEvent;
+import com.ldtteam.jvoxelizer.entity.living.player.IPlayerEntity;
+import com.ldtteam.jvoxelizer.inventory.IContainer;
+
 /**
  * An abstract class that will handle the lookup of providers using their names.
  *

@@ -15,12 +15,18 @@ final class IPlayerEventProviderHolder extends AbstractHolder<IPlayerEventProvid
 
     private IPlayerEventProviderHolder()
     {
-        super(IPlayerEvent.class.getName());
+        super(IPlayerEntityEvent.class.getName());
     }
 
     @Override
-    public IPlayerEvent.IPlayerContainerEvent.IOpen provideContainerOpenEvent(final IPlayerEntity playerEntity, final IContainer<?> inventoryContainer)
+    public IPlayerEntityEvent.IPlayerContainerEvent.IOpen provideContainerOpenEvent(final IPlayerEntity playerEntity, final IContainer<?> inventoryContainer)
     {
         return getProvider().provideContainerOpenEvent(playerEntity, inventoryContainer);
+    }
+
+    @Override
+    public IPlayerEntityEvent.IPlayerContainerEvent.IClose provideContainerCloseEvent(final IPlayerEntity player, final IContainer<?> container)
+    {
+        return getProvider().provideContainerCloseEvent(player, container);
     }
 }

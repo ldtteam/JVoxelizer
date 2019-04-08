@@ -24,7 +24,7 @@ public class ProviderResolver
 
     public void registerProvider(final String name, final Object provider)
     {
-        providerMap.putIfAbsent(name, provider);
+        providerMap.put(name, provider);
     }
 
     public void registerProvider(final Class<?> name, final Object provider)

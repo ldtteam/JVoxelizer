@@ -1,6 +1,7 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12;
 
 import com.ldtteam.jvoxelizer.IGameEngine;
+import com.ldtteam.jvoxelizer.IGameEngineProvider;
 import com.ldtteam.jvoxelizer.client.gui.IGuiScreen;
 import com.ldtteam.jvoxelizer.client.renderer.block.IBlockRenderDispatcher;
 import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
@@ -12,8 +13,15 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.server.ServerInstance;
 import com.ldtteam.jvoxelizer.server.IServerInstance;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
-public class DedicatedServerGameEngine implements IGameEngine
+public class DedicatedServerGameEngine implements IGameEngineProvider, IGameEngine
 {
+    private static DedicatedServerGameEngine ourInstance = new DedicatedServerGameEngine();
+
+    public static DedicatedServerGameEngine getInstance()
+    {
+        return ourInstance;
+    }
+
     @Override
     public boolean isDedicatedServer()
     {
@@ -47,7 +55,7 @@ public class DedicatedServerGameEngine implements IGameEngine
     @Override
     public void displayGuiScreen(final IGuiScreen<?> gui)
     {
-        //Noop
+
     }
 
     @Override
@@ -84,5 +92,15 @@ public class DedicatedServerGameEngine implements IGameEngine
     public IItemRenderer getItemRenderer()
     {
         return null;
+    }
+
+    private DedicatedServerGameEngine()
+    {
+    }
+
+    @Override
+    public IGameEngine provide()
+    {
+        return this;
     }
 }

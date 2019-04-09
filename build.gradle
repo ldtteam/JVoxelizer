@@ -20,94 +20,15 @@ subprojects {
     }
 }
 
-project (':JVoxerlizer - Api') {
-    apply plugin: 'idea'
-    apply plugin: 'java'
-    apply plugin: 'maven'
+task setupDecompWorkspace {
+    group 'build setup'
+    description 'Sets up the build environment for the development Platform'
 
-    version = System.getenv("Version")
-    group = "com.ldtteam"
-    archivesBaseName = "JVoxelizer"
-
-    dependencies {
-        compile 'com.google.guava:guava:21.0'
-        compile 'com.intellij:annotations:+@jar'
-        compile 'io.netty:netty-all:4.1.9.Final'
-        compile 'org.lwjgl.lwjgl:lwjgl_util:2.9.3'
-        compile 'it.unimi.dsi:fastutil:7.1.0'
-    }
-
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'api-sources'
-        from sourceSets.main.allSource
-    }
-
-    artifacts {
-        archives sourcesJar
-    }
-}
-
-project (':launcher:forge:JVoxelizer - Launchers - Forge - 1.12') {
-    apply plugin: 'net.minecraftforge.gradle.forge'
-    apply plugin: 'idea'
-
-    repositories {
-        maven {
-            name 'LDTTeam - Modding'
-            url 'https://ldtteam.jfrog.io/ldtteam/modding/'
+    subprojects.each {
+        if (it.tasks.findByName("setupDecompWorkspace") != null)
+        {
+            dependsOn("${it.path}:setupDecompWorkspace" )
         }
-        flatDir {
-            dirs 'libs'
-        }
-    }
-
-    version = System.getenv("Version")
-    group = "com.ldtteam"
-    archivesBaseName = "JVoxelizer"
-
-    sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-    compileJava {
-        sourceCompatibility = targetCompatibility = '1.8'
-    }
-
-    minecraft {
-        version = minecraft_version + "-" + forge_version
-        runDir = "run"
-
-        mappings = "snapshot_20171003"
-    }
-
-    configurations.forgeGradleUserDevPackage {
-        resolutionStrategy {
-            force 'net.minecraftforge:forge:1.12.2-14.23.5.2815:userdev'
-        }
-    }
-
-    dependencies {
-        compile project(':JVoxerlizer - Api')
-    }
-
-    processResources {
-        inputs.property "version", project.version
-        inputs.property "mcversion", project.minecraft.version
-
-        from(sourceSets.main.resources.srcDirs) {
-            include 'mcmod.info'
-            expand 'version':project.version, 'mcversion':project.minecraft.version
-        }
-
-        from(sourceSets.main.resources.srcDirs) {
-            exclude 'mcmod.info'
-        }
-    }
-
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'forge-1.12-sources'
-        from sourceSets.main.allSource
-    }
-
-    artifacts {
-        archives sourcesJar
     }
 }
 
@@ -118,7 +39,6 @@ task setupCiWorkspace {
     subprojects.each {
         if (it.tasks.findByName("setupCiWorkspace") != null)
         {
-            println "Detected ci workspace setup infrastructure on: ${it.name}"
             dependsOn("${it.path}:setupCiWorkspace" )
         }
     }

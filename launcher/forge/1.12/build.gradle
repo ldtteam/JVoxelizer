@@ -1,6 +1,75 @@
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'idea'
+
+repositories {
+    maven {
+        name 'LDTTeam - Modding'
+        url 'https://ldtteam.jfrog.io/ldtteam/modding/'
+    }
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+version = System.getenv("Version")
+group = "com.ldtteam"
+archivesBaseName = "JVoxelizer"
+
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+minecraft {
+    version = minecraft_version + "-" + forge_version
+    runDir = "run"
+
+    mappings = "snapshot_20171003"
+}
+
+configurations
+{
+    shade {}
+
+    compile.extendsFrom shade
+}
+
+dependencies {
+    shade project(':api')
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'forge-1.12-sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
 jar {
+    from(configurations.shade.files) {
+        include '*'
+        into 'META-INF/libraries'
+    }
+
     manifest {
         attributes([
+            'ContainedDeps': configurations.shade.files.collect { it.name }.join(' '),
             'Maven-Artifact': "${project.group}:${project.archivesBaseName}:${project.version}:forge-1.12",
             'Timestamp': System.currentTimeMillis(),
             'FMLAT': "jvoxelizer_at.cfg"

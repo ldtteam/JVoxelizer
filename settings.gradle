@@ -11,6 +11,3 @@ rootProject.name = 'JVoxelizer'
 
 include 'api'
 include 'launcher:forge:1.12'
-
-project(':api').name = "JVoxerlizer - Api"
-project(':launcher:forge:1.12').name = "JVoxelizer - Launchers - Forge - 1.12"

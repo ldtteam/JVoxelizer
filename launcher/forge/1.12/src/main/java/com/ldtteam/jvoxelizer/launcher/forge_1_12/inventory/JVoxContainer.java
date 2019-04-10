@@ -424,6 +424,12 @@ public class JVoxContainer<I> extends Container implements IContainer<I>
     }
 
     @Override
+    public void updateListeners()
+    {
+        this.detectAndSendChanges();
+    }
+
+    @Override
     public boolean enchantItem(final IPlayerEntity playerIn, final int id)
     {
         return this.enchantItem(PlayerEntity.asForge(playerIn), id);

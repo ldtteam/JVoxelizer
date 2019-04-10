@@ -46,7 +46,7 @@ public class Container implements IContainer<DummyInstanceData>, IForgeJVoxelize
     }
 
     @Override
-    public void detectAndSendChanges()
+    public void updateListeners()
     {
         forgeContainer.detectAndSendChanges();
     }

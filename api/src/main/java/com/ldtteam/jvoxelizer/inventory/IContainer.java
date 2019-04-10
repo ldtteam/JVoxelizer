@@ -28,7 +28,7 @@ public interface IContainer<I> extends IInstancedObject<I> {
 
     void removeListener(IContainerListener listener);
 
-    void detectAndSendChanges();
+    void updateListeners();
 
     boolean enchantItem(IPlayerEntity playerIn, int id);
 

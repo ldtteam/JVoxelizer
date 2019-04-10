@@ -43,37 +43,26 @@ public class JVoxASMDataTableBasedPluginDiscoverer implements IJVoxModPluginDisc
 
         final ASMDataTable data = (ASMDataTable) discoveryData;
 
-        Loader.instance().getActiveModList().forEach(
-          modContainer -> {
-              SetMultimap<String, ASMDataTable.ASMData> modData = data.getAnnotationsFor(modContainer);
+        final Set<ASMDataTable.ASMData> targets = data.getAll(IJVoxModPlugin.class.getName().replace(".", "/"));
+        ClassLoader mcl = Loader.instance().getModClassLoader();
 
-              if (modData == null)
-              {
-                  return;
-              }
+        for (ASMDataTable.ASMData target : targets)
+        {
+            try
+            {
+                Class<?> subscriptionTarget = Class.forName(target.getClassName(), true, mcl);
 
-              Set<ASMDataTable.ASMData> targets = modData.get(IJVoxModPlugin.class.getName());
-              ClassLoader mcl = Loader.instance().getModClassLoader();
+                final Object pluginObject = subscriptionTarget.newInstance();
+                final IJVoxModPlugin plugin = (IJVoxModPlugin) pluginObject;
 
-              for (ASMDataTable.ASMData target : targets)
-              {
-                  try
-                  {
-                      Class<?> subscriptionTarget = Class.forName(target.getClassName(), true, mcl);
-
-                      final Object pluginObject = subscriptionTarget.newInstance();
-                      final IJVoxModPlugin plugin = (IJVoxModPlugin) pluginObject;
-
-                      plugins.putIfAbsent(plugin.getTargetModId(), new ArrayList<>());
-                      plugins.get(plugin.getTargetModId()).add(plugin);
-                  }
-                  catch (Exception e)
-                  {
-                      throw new LoaderException(e);
-                  }
-              }
-          }
-        );
+                plugins.putIfAbsent(plugin.getTargetModId(), new ArrayList<>());
+                plugins.get(plugin.getTargetModId()).add(plugin);
+            }
+            catch (Exception e)
+            {
+                throw new LoaderException(e);
+            }
+        }
     }
 
     @Override

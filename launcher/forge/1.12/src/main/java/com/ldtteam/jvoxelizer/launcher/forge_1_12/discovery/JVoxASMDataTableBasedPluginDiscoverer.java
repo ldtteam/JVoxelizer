@@ -50,7 +50,7 @@ public class JVoxASMDataTableBasedPluginDiscoverer implements IJVoxModPluginDisc
         {
             try
             {
-                Class<?> subscriptionTarget = Class.forName(target.getClassName(), true, mcl);
+                Class<?> subscriptionTarget = Class.forName(target.getClassName().replace("/", "."), true, mcl);
 
                 final Object pluginObject = subscriptionTarget.newInstance();
                 final IJVoxModPlugin plugin = (IJVoxModPlugin) pluginObject;

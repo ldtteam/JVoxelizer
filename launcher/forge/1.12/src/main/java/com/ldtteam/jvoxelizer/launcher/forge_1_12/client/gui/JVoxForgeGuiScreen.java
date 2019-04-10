@@ -545,6 +545,12 @@ public class JVoxForgeGuiScreen<I> extends GuiScreen implements IGuiScreen<I>
     }
 
     @Override
+    public void initializeGui()
+    {
+        this.initGui();
+    }
+
+    @Override
     public I getInstanceData()
     {
         return instanceData;

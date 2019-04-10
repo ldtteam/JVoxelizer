@@ -785,6 +785,12 @@ public class JVoxForgeGuiContainer<I> extends GuiContainer implements IGuiContai
     }
 
     @Override
+    public void initializeGui()
+    {
+        this.initGui();
+    }
+
+    @Override
     public I getInstanceData()
     {
         return instanceData;

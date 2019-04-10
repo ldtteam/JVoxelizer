@@ -52,7 +52,7 @@ public interface IGuiScreen<I> extends IGui<I>, IGuiYesNoCallback {
 
     void setGuiSize(int w, int h);
 
-    void initGui();
+    void initializeGui();
 
     void handleInput() throws IOException;
 

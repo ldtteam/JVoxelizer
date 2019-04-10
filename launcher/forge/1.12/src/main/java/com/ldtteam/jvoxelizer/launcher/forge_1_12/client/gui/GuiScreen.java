@@ -92,7 +92,7 @@ public class GuiScreen extends Gui implements IGuiScreen<DummyInstanceData>
     }
 
     @Override
-    public void initGui()
+    public void initializeGui()
     {
         forgeGuiScreen.initGui();
     }

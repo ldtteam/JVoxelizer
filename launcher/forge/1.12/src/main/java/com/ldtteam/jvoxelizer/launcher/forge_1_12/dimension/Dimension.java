@@ -4,10 +4,11 @@ import com.ldtteam.jvoxelizer.core.logic.DummyInstanceData;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.entity.IEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.Entity;
 import net.minecraft.world.World;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Dimension extends DimensionReader implements IDimension<DummyInstanceData>
 {
@@ -28,7 +29,7 @@ public class Dimension extends DimensionReader implements IDimension<DummyInstan
     @Override
     public List<IEntity> getLoadedEntities()
     {
-        throw new NotImplementedException();
+        return forgeWorld.getLoadedEntityList().stream().map(Entity::fromForge).collect(Collectors.toList());
     }
 
     private World getForgeWorld()

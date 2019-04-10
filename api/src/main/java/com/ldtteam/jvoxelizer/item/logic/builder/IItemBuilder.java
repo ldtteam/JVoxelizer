@@ -56,8 +56,6 @@ public interface IItemBuilder<C extends AbstractItemBuilder<C, I, O>, I, O exten
 
     C GetTileEntityItemStackRenderer(Function<TypedPipelineElementContext<GetTileEntityItemStackRendererContext, IBlockEntityRenderer, O, I>, IBlockEntityRenderer>... components);
 
-    C GetXpRepairRatio(Function<TypedPipelineElementContext<GetXpRepairRatioContext, Float, O, I>, Float>... components);
-
     C GetArmorModel(Function<TypedPipelineElementContext<GetArmorModelContext, IModelBiped, O, I>, IModelBiped>... components);
 
     C OnEntityItemUpdate(Function<TypedPipelineElementContext<OnEntityItemUpdateContext, Boolean, O, I>, Boolean>... components);
@@ -213,8 +211,6 @@ public interface IItemBuilder<C extends AbstractItemBuilder<C, I, O>, I, O exten
     C GetDurabilityForDisplay(Function<TypedPipelineElementContext<GetDurabilityForDisplayContext, Double, O, I>, Double>... components);
 
     C OnHorseArmorTick(Consumer<VoidPipelineElementContext<OnHorseArmorTickContext, O, I>>... components);
-
-    C CanContinueUsing(Function<TypedPipelineElementContext<CanContinueUsingContext, Boolean, O, I>, Boolean>... components);
 
     C IsFull3D(Function<TypedPipelineElementContext<IsFull3DContext, Boolean, O, I>, Boolean>... components);
 

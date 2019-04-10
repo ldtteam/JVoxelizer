@@ -971,21 +971,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
     }
 
     /**
-     * Determines the amount of durability the mending enchantment
-     * will repair, on average, per point of experience.
-     */
-    @Override
-    public float getXpRepairRatio(final ItemStack stack)
-    {
-        return PipelineProcessor.processTypedPipeline(
-          this,
-          new GetXpRepairRatioContext(fromForge(stack)),
-          pipeline.getGetXpRepairRatioPipeline(),
-          (c) -> super.getXpRepairRatio(asForge(c.getStack()))
-        );
-    }
-
-    /**
      * Override this method to change the NBT data being sent to the client.
      * You should ONLY override this when you have no other choice, as this might change behavior client side!
      * <p>
@@ -1834,25 +1819,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
     }
 
     /**
-     * Called while an item is in 'active' use to determine if usage should continue.
-     * Allows items to continue being used while sustaining damage, for example.
-     *
-     * @param oldStack the previous 'active' stack
-     * @param newStack the stack currently in the active hand
-     * @return true to set the new stack to active and continue using it
-     */
-    @Override
-    public boolean canContinueUsing(final ItemStack oldStack, final ItemStack newStack)
-    {
-        return PipelineProcessor.processTypedPipeline(
-          this,
-          new CanContinueUsingContext(fromForge(oldStack), fromForge(newStack)),
-          pipeline.getCanContinueUsingPipeline(),
-          (c) -> super.canContinueUsing(asForge(c.getOldStack()), asForge(c.getNewStack()))
-        );
-    }
-
-    /**
      * Called to get the Mod ID of the mod that *created* the ItemStack,
      * instead of the real Mod ID that *registered* it.
      * <p>
@@ -2360,12 +2326,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
     }
 
     @Override
-    public float getXpRepairRatio(final IItemStack stack)
-    {
-        return this.getXpRepairRatio(asForge(stack));
-    }
-
-    @Override
     public INBTCompound getNBTShareTag(final IItemStack stack)
     {
         return NBTCompound.fromForge(this.getNBTShareTag(asForge(stack)));
@@ -2635,12 +2595,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
     public boolean shouldCauseBlockBreakReset(final IItemStack oldStack, final IItemStack newStack)
     {
         return this.shouldCauseBlockBreakReset(asForge(oldStack), asForge(newStack));
-    }
-
-    @Override
-    public boolean canContinueUsing(final IItemStack oldStack, final IItemStack newStack)
-    {
-        return this.canContinueUsing(asForge(oldStack), asForge(newStack));
     }
 
     @Override

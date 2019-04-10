@@ -153,12 +153,6 @@ public class ItemGroup implements IItemGroup<DummyInstanceData>, IForgeJVoxelize
     }
 
     @Override
-    public int getLabelColor()
-    {
-        return creativeTab.getLabelColor();
-    }
-
-    @Override
     public void displayAllItems(final List<IItemStack> list)
     {
         NonNullList<net.minecraft.item.ItemStack> stacks = NonNullList.create();

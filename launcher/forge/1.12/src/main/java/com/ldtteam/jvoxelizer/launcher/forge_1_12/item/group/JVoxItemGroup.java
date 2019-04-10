@@ -319,17 +319,6 @@ public class JVoxItemGroup<I> extends CreativeTabs implements IItemGroup<I>
     }
 
     @Override
-    public int getLabelColor()
-    {
-        return PipelineProcessor.processTypedPipeline(
-          this,
-          new GetLabelColorContext(),
-          pipeline.getGetLabelColorPipeline(),
-          (c) -> super.getLabelColor()
-        );
-    }
-
-    @Override
     public ItemStack getTabIconItem()
     {
         return asForge(PipelineProcessor.processTypedPipeline(

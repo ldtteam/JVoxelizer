@@ -151,8 +151,6 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     IItem<I> disableRepair();
 
-    float getXpRepairRatio(IItemStack stack);
-
     INBTCompound getNBTShareTag(IItemStack stack);
 
     void readNBTShareTag(IItemStack stack, INBTCompound nbt);
@@ -236,8 +234,6 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
     boolean shouldCauseReequipAnimation(IItemStack oldStack, IItemStack newStack, boolean slotChanged);
 
     boolean shouldCauseBlockBreakReset(IItemStack oldStack, IItemStack newStack);
-
-    boolean canContinueUsing(IItemStack oldStack, IItemStack newStack);
 
     String getCreatorModId(IItemStack IItemStack);
 

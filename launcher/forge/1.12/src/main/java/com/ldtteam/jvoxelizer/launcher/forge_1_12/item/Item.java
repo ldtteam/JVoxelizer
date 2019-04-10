@@ -428,12 +428,6 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     }
 
     @Override
-    public float getXpRepairRatio(final IItemStack stack)
-    {
-        return forgeItem.getXpRepairRatio(ItemStack.asForge(stack));
-    }
-
-    @Override
     public INBTCompound getNBTShareTag(final IItemStack stack)
     {
         return NBTCompound.fromForge(forgeItem.getNBTShareTag(ItemStack.asForge(stack)));
@@ -687,12 +681,6 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     public boolean shouldCauseBlockBreakReset(final IItemStack oldStack, final IItemStack newStack)
     {
         return forgeItem.shouldCauseBlockBreakReset(ItemStack.asForge(oldStack), ItemStack.asForge(newStack));
-    }
-
-    @Override
-    public boolean canContinueUsing(final IItemStack oldStack, final IItemStack newStack)
-    {
-        return forgeItem.canContinueUsing(ItemStack.asForge(oldStack), ItemStack.asForge(newStack));
     }
 
     @Override

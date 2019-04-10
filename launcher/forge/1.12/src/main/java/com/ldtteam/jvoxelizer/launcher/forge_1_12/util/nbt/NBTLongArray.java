@@ -2,7 +2,6 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt;
 
 import com.ldtteam.jvoxelizer.util.nbt.INBTLongArray;
 import net.minecraft.nbt.NBTTagLongArray;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 class NBTLongArray implements INBTLongArray
 {
@@ -13,7 +12,7 @@ class NBTLongArray implements INBTLongArray
     @Override
     public long[] getValue()
     {
-        throw new NotImplementedException();
+        return forgeNbtLongArray.data;
     }
 
     @Override

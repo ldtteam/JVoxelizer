@@ -31,7 +31,6 @@ public class ItemGroupBuilder<I> extends AbstractItemGroupBuilder<ItemGroupBuild
           this.GetTabLabelPipeline,
           this.SetBackgroundImageNamePipeline,
           this.GetTranslatedTabLabelPipeline,
-          this.GetLabelColorPipeline,
           this.GetSearchbarWidthPipeline,
           this.ShouldHidePlayerInventoryPipeline,
           this.HasSearchBarPipeline,

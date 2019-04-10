@@ -115,14 +115,6 @@ public abstract class AbstractItemBuilder<C extends AbstractItemBuilder<C, I, O>
     protected final List<Function<TypedPipelineElementContext<GetTileEntityItemStackRendererContext, IBlockEntityRenderer, O, I>, IBlockEntityRenderer>> GetTileEntityItemStackRendererPipeline = new ArrayList<>();
 
     @Override
-    public C GetXpRepairRatio(Function<TypedPipelineElementContext<GetXpRepairRatioContext, Float, O, I>, Float>... components) {
-        this.GetXpRepairRatioPipeline.addAll(Arrays.asList(components));
-        return (C) this;
-    }
-
-    protected final List<Function<TypedPipelineElementContext<GetXpRepairRatioContext, Float, O, I>, Float>> GetXpRepairRatioPipeline = new ArrayList<>();
-
-    @Override
     public C GetArmorModel(Function<TypedPipelineElementContext<GetArmorModelContext, IModelBiped, O, I>, IModelBiped>... components) {
         this.GetArmorModelPipeline.addAll(Arrays.asList(components));
         return (C) this;
@@ -745,14 +737,6 @@ public abstract class AbstractItemBuilder<C extends AbstractItemBuilder<C, I, O>
     }
 
     protected final List<Consumer<VoidPipelineElementContext<OnHorseArmorTickContext, O, I>>> OnHorseArmorTickPipeline = new ArrayList<>();
-
-    @Override
-    public C CanContinueUsing(Function<TypedPipelineElementContext<CanContinueUsingContext, Boolean, O, I>, Boolean>... components) {
-        this.CanContinueUsingPipeline.addAll(Arrays.asList(components));
-        return (C) this;
-    }
-
-    protected final List<Function<TypedPipelineElementContext<CanContinueUsingContext, Boolean, O, I>, Boolean>> CanContinueUsingPipeline = new ArrayList<>();
 
     @Override
     public C IsFull3D(Function<TypedPipelineElementContext<IsFull3DContext, Boolean, O, I>, Boolean>... components) {

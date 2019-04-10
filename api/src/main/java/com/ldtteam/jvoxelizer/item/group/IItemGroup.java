@@ -52,6 +52,4 @@ public interface IItemGroup<I> extends IInstancedObject<I> {
     int getSearchbarWidth();
 
     IIdentifier getBackgroundImageIdentifier();
-
-    int getLabelColor();
 }

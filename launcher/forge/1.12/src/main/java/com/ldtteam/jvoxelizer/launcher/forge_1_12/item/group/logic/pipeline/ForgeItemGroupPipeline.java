@@ -24,8 +24,6 @@ public class ForgeItemGroupPipeline<O extends IItemGroup<I>, I>
 
     private final List<Function<TypedPipelineElementContext<GetTranslatedTabLabelContext, String, O, I>, String>> GetTranslatedTabLabelPipeline;
 
-    private final List<Function<TypedPipelineElementContext<GetLabelColorContext, Integer, O, I>, Integer>> GetLabelColorPipeline;
-
     private final List<Function<TypedPipelineElementContext<GetSearchbarWidthContext, Integer, O, I>, Integer>> GetSearchbarWidthPipeline;
 
     private final List<Function<TypedPipelineElementContext<ShouldHidePlayerInventoryContext, Boolean, O, I>, Boolean>> ShouldHidePlayerInventoryPipeline;
@@ -66,7 +64,6 @@ public class ForgeItemGroupPipeline<O extends IItemGroup<I>, I>
       final List<Function<TypedPipelineElementContext<GetTabLabelContext, String, O, I>, String>> getTabLabelPipeline,
       final List<Function<TypedPipelineElementContext<SetBackgroundImageNameContext, IItemGroup<I>, O, I>, IItemGroup<I>>> setBackgroundImageNamePipeline,
       final List<Function<TypedPipelineElementContext<GetTranslatedTabLabelContext, String, O, I>, String>> getTranslatedTabLabelPipeline,
-      final List<Function<TypedPipelineElementContext<GetLabelColorContext, Integer, O, I>, Integer>> getLabelColorPipeline,
       final List<Function<TypedPipelineElementContext<GetSearchbarWidthContext, Integer, O, I>, Integer>> getSearchbarWidthPipeline,
       final List<Function<TypedPipelineElementContext<ShouldHidePlayerInventoryContext, Boolean, O, I>, Boolean>> shouldHidePlayerInventoryPipeline,
       final List<Function<TypedPipelineElementContext<HasSearchBarContext, Boolean, O, I>, Boolean>> hasSearchBarPipeline,
@@ -90,7 +87,6 @@ public class ForgeItemGroupPipeline<O extends IItemGroup<I>, I>
         GetTabLabelPipeline = getTabLabelPipeline;
         SetBackgroundImageNamePipeline = setBackgroundImageNamePipeline;
         GetTranslatedTabLabelPipeline = getTranslatedTabLabelPipeline;
-        GetLabelColorPipeline = getLabelColorPipeline;
         GetSearchbarWidthPipeline = getSearchbarWidthPipeline;
         ShouldHidePlayerInventoryPipeline = shouldHidePlayerInventoryPipeline;
         HasSearchBarPipeline = hasSearchBarPipeline;
@@ -133,11 +129,6 @@ public class ForgeItemGroupPipeline<O extends IItemGroup<I>, I>
     public List<Function<TypedPipelineElementContext<GetTranslatedTabLabelContext, String, O, I>, String>> getGetTranslatedTabLabelPipeline()
     {
         return GetTranslatedTabLabelPipeline;
-    }
-
-    public List<Function<TypedPipelineElementContext<GetLabelColorContext, Integer, O, I>, Integer>> getGetLabelColorPipeline()
-    {
-        return GetLabelColorPipeline;
     }
 
     public List<Function<TypedPipelineElementContext<GetSearchbarWidthContext, Integer, O, I>, Integer>> getGetSearchbarWidthPipeline()

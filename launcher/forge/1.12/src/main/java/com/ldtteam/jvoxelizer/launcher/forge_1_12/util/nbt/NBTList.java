@@ -3,9 +3,9 @@ package com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt;
 import com.google.common.collect.Lists;
 import com.ldtteam.jvoxelizer.util.nbt.INBTBase;
 import com.ldtteam.jvoxelizer.util.nbt.INBTList;
+import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagList;
 import org.jetbrains.annotations.NotNull;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -110,7 +110,18 @@ public class NBTList implements INBTList
     @Override
     public boolean retainAll(@NotNull final Collection<?> c)
     {
-        throw new NotImplementedException();
+        boolean changed = false;
+        final Iterator<NBTBase> iterator = forgeNbtList.iterator();
+        while(iterator.hasNext())
+        {
+            if (!c.contains(NBTConversionHandler.toINbtBase(iterator.next())))
+            {
+                changed = true;
+                iterator.remove();
+            }
+        }
+
+        return changed;
     }
 
     @Override

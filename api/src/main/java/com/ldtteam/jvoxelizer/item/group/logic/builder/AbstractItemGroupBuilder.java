@@ -56,14 +56,6 @@ public abstract class AbstractItemGroupBuilder<C extends AbstractItemGroupBuilde
     protected final List<Function<TypedPipelineElementContext<GetTranslatedTabLabelContext, String, O, I>, String>> GetTranslatedTabLabelPipeline = new ArrayList<>();
 
     @Override
-    public C GetLabelColor(Function<TypedPipelineElementContext<GetLabelColorContext, Integer, O, I>, Integer>... components) {
-        this.GetLabelColorPipeline.addAll(Arrays.asList(components));
-        return (C) this;
-    }
-
-    protected final List<Function<TypedPipelineElementContext<GetLabelColorContext, Integer, O, I>, Integer>> GetLabelColorPipeline = new ArrayList<>();
-
-    @Override
     public C GetSearchbarWidth(Function<TypedPipelineElementContext<GetSearchbarWidthContext, Integer, O, I>, Integer>... components) {
         this.GetSearchbarWidthPipeline.addAll(Arrays.asList(components));
         return (C) this;

@@ -55,8 +55,6 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
     private final List<Function<TypedPipelineElementContext<GetTileEntityItemStackRendererContext, IBlockEntityRenderer, O, I>, IBlockEntityRenderer>>
       GetTileEntityItemStackRendererPipeline;
 
-    private final List<Function<TypedPipelineElementContext<GetXpRepairRatioContext, Float, O, I>, Float>> GetXpRepairRatioPipeline;
-
     private final List<Function<TypedPipelineElementContext<GetArmorModelContext, IModelBiped, O, I>, IModelBiped>> GetArmorModelPipeline;
 
     private final List<Function<TypedPipelineElementContext<OnEntityItemUpdateContext, Boolean, O, I>, Boolean>> OnEntityItemUpdatePipeline;
@@ -217,8 +215,6 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
 
     private final List<Consumer<VoidPipelineElementContext<OnHorseArmorTickContext, O, I>>> OnHorseArmorTickPipeline;
 
-    private final List<Function<TypedPipelineElementContext<CanContinueUsingContext, Boolean, O, I>, Boolean>> CanContinueUsingPipeline;
-
     private final List<Function<TypedPipelineElementContext<IsFull3DContext, Boolean, O, I>, Boolean>> IsFull3DPipeline;
 
     private final List<Function<TypedPipelineElementContext<GetIsRepairableContext, Boolean, O, I>, Boolean>> GetIsRepairablePipeline;
@@ -277,7 +273,6 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
       final List<Function<TypedPipelineElementContext<GetItemEnchantabilityContext, Integer, O, I>, Integer>> getItemEnchantabilityPipeline,
       final List<Function<TypedPipelineElementContext<GetItemEnchantabilityWithStackAsItemStackContext, Integer, O, I>, Integer>> getItemEnchantabilityWithStackAsItemStackPipeline,
       final List<Function<TypedPipelineElementContext<GetTileEntityItemStackRendererContext, IBlockEntityRenderer, O, I>, IBlockEntityRenderer>> getTileEntityItemStackRendererPipeline,
-      final List<Function<TypedPipelineElementContext<GetXpRepairRatioContext, Float, O, I>, Float>> getXpRepairRatioPipeline,
       final List<Function<TypedPipelineElementContext<GetArmorModelContext, IModelBiped, O, I>, IModelBiped>> getArmorModelPipeline,
       final List<Function<TypedPipelineElementContext<OnEntityItemUpdateContext, Boolean, O, I>, Boolean>> onEntityItemUpdatePipeline,
       final List<Function<TypedPipelineElementContext<GetDamageContext, Integer, O, I>, Integer>> getDamagePipeline,
@@ -356,7 +351,6 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
       final List<Function<TypedPipelineElementContext<OnBlockDestroyedContext, Boolean, O, I>, Boolean>> onBlockDestroyedPipeline,
       final List<Function<TypedPipelineElementContext<GetDurabilityForDisplayContext, Double, O, I>, Double>> getDurabilityForDisplayPipeline,
       final List<Consumer<VoidPipelineElementContext<OnHorseArmorTickContext, O, I>>> onHorseArmorTickPipeline,
-      final List<Function<TypedPipelineElementContext<CanContinueUsingContext, Boolean, O, I>, Boolean>> canContinueUsingPipeline,
       final List<Function<TypedPipelineElementContext<IsFull3DContext, Boolean, O, I>, Boolean>> isFull3DPipeline,
       final List<Function<TypedPipelineElementContext<GetIsRepairableContext, Boolean, O, I>, Boolean>> getIsRepairablePipeline,
       final List<Function<TypedPipelineElementContext<OnItemRightClickContext, IActionResult<IItemStack>, O, I>, IActionResult<IItemStack>>> onItemRightClickPipeline,
@@ -391,7 +385,6 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
         GetItemEnchantabilityPipeline = getItemEnchantabilityPipeline;
         GetItemEnchantabilityWithStackAsItemStackPipeline = getItemEnchantabilityWithStackAsItemStackPipeline;
         GetTileEntityItemStackRendererPipeline = getTileEntityItemStackRendererPipeline;
-        GetXpRepairRatioPipeline = getXpRepairRatioPipeline;
         GetArmorModelPipeline = getArmorModelPipeline;
         OnEntityItemUpdatePipeline = onEntityItemUpdatePipeline;
         GetDamagePipeline = getDamagePipeline;
@@ -470,7 +463,6 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
         OnBlockDestroyedPipeline = onBlockDestroyedPipeline;
         GetDurabilityForDisplayPipeline = getDurabilityForDisplayPipeline;
         OnHorseArmorTickPipeline = onHorseArmorTickPipeline;
-        CanContinueUsingPipeline = canContinueUsingPipeline;
         IsFull3DPipeline = isFull3DPipeline;
         GetIsRepairablePipeline = getIsRepairablePipeline;
         OnItemRightClickPipeline = onItemRightClickPipeline;
@@ -544,11 +536,6 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
     public List<Function<TypedPipelineElementContext<GetTileEntityItemStackRendererContext, IBlockEntityRenderer, O, I>, IBlockEntityRenderer>> getGetTileEntityItemStackRendererPipeline()
     {
         return GetTileEntityItemStackRendererPipeline;
-    }
-
-    public List<Function<TypedPipelineElementContext<GetXpRepairRatioContext, Float, O, I>, Float>> getGetXpRepairRatioPipeline()
-    {
-        return GetXpRepairRatioPipeline;
     }
 
     public List<Function<TypedPipelineElementContext<GetArmorModelContext, IModelBiped, O, I>, IModelBiped>> getGetArmorModelPipeline()
@@ -939,11 +926,6 @@ public class ForgeItemPipeline<O extends IItem<I>, I>
     public List<Consumer<VoidPipelineElementContext<OnHorseArmorTickContext, O, I>>> getOnHorseArmorTickPipeline()
     {
         return OnHorseArmorTickPipeline;
-    }
-
-    public List<Function<TypedPipelineElementContext<CanContinueUsingContext, Boolean, O, I>, Boolean>> getCanContinueUsingPipeline()
-    {
-        return CanContinueUsingPipeline;
     }
 
     public List<Function<TypedPipelineElementContext<IsFull3DContext, Boolean, O, I>, Boolean>> getIsFull3DPipeline()

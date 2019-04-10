@@ -33,8 +33,6 @@ public interface IItemGroupBuilder<C extends IItemGroupBuilder<C, I, O>, I, O ex
 
     C GetTranslatedTabLabel(Function<TypedPipelineElementContext<GetTranslatedTabLabelContext, String, O, I>, String>... components);
 
-    C GetLabelColor(Function<TypedPipelineElementContext<GetLabelColorContext, Integer, O, I>, Integer>... components);
-
     C GetSearchbarWidth(Function<TypedPipelineElementContext<GetSearchbarWidthContext, Integer, O, I>, Integer>... components);
 
     C ShouldHidePlayerInventory(Function<TypedPipelineElementContext<ShouldHidePlayerInventoryContext, Boolean, O, I>, Boolean>... components);

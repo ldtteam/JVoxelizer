@@ -18,12 +18,14 @@ public abstract class AbstractForgeMod
 {
 
     private Logger logger;
-
+    private String modId;
     private IForgeJVoxelizerSetupProxy setupProxy;
 
     @Mod.EventHandler
     public void preInit(final FMLPreInitializationEvent event)
     {
+        this.modId = event.getModMetadata().modId;
+
         final Supplier<IForgeJVoxelizerSetupProxy> proxySupplier = DistributionExecutor.getInstance().runOn(
           () -> ClientProxy::new,
           () -> CommonProxy::new
@@ -36,7 +38,6 @@ public abstract class AbstractForgeMod
 
         registerProviders();
         IJVoxModPluginDiscoverer.get().discoverPlugins(event.getAsmData());
-        IJVoxModPluginDiscoverer.get().onPreInit(event.getModMetadata().modId);
     }
 
     private void registerProviders()
@@ -56,4 +57,9 @@ public abstract class AbstractForgeMod
     }
 
     protected abstract IForgeJVoxelizerSetupProxy getModSetupProxy();
+
+    protected void preInitializePlugins()
+    {
+        IJVoxModPluginDiscoverer.get().onPreInit(modId);
+    }
 }

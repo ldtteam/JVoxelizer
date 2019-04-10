@@ -22,6 +22,7 @@ import com.ldtteam.jvoxelizer.core.provider.holder.ProviderResolver;
 import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.dimension.IDimensionType;
 import com.ldtteam.jvoxelizer.dimension.logic.builder.IDimensionReaderBuilder;
+import com.ldtteam.jvoxelizer.discovery.IJVoxModPluginDiscoverer;
 import com.ldtteam.jvoxelizer.event.handler.IEventHandlerManager;
 import com.ldtteam.jvoxelizer.event.manager.IEventManager;
 import com.ldtteam.jvoxelizer.inventory.IContainer;
@@ -56,6 +57,7 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerSetupProx
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.DimensionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.DimensionTypeProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.logic.builder.provider.DimensionReaderBuilderProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.discovery.JVoxASMDataTableBasedPluginDiscoverer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.event.handler.EventHandlerManagerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.event.manager.EventManagerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.inventory.ContainerProvider;
@@ -110,6 +112,9 @@ public class CommonProxy implements IForgeJVoxelizerSetupProxy
         ProviderResolver.getInstance().registerProvider(ICapability.class.getName(), CapabilityLogicProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(IPlayerEntityEvent.class.getName(), PlayerEntityEventProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(IPlayerGameEvent.class.getName(), PlayerGameEventProvider.getInstance());
+
+        //Discovery
+        ProviderResolver.getInstance().registerProvider(IJVoxModPluginDiscoverer.class.getName(), JVoxASMDataTableBasedPluginDiscoverer.getInstance());
 
         //Dimension
         ProviderResolver.getInstance().registerProvider(IDimensionReaderBuilder.class.getName(), DimensionReaderBuilderProvider.getInstance());

@@ -1,5 +1,7 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12;
 
+import com.ldtteam.jvoxelizer.discovery.IJVoxModPlugin;
+import com.ldtteam.jvoxelizer.discovery.IJVoxModPluginDiscoverer;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerSetupProxy;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.proxy.ClientProxy;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.proxy.CommonProxy;
@@ -33,6 +35,8 @@ public abstract class AbstractForgeMod
         logger.info("Initializing JVoxelizer.");
 
         registerProviders();
+        IJVoxModPluginDiscoverer.get().discoverPlugins(event.getAsmData());
+        IJVoxModPluginDiscoverer.get().onPreInit(event.getModMetadata().modId);
     }
 
     private void registerProviders()

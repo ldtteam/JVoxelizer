@@ -40,10 +40,39 @@ A mod that uses JVoxelizer should in most cases not have to deal with providers.
 To make it easy for a modder, JVoxelizer API classes which support instance creation, or for example represent an Enum value, have static methods that allow you 
 either to create an instance or gain access to those enum entries.
 
+### Features
+Okey so now what does JVoxelizer actually support?
+As of writing this page, it supports custom Guis, Containers, Items. But new features are added all the time, so keep an eye open.
+
+#### What happens when a feature is missing entirely?
+In that case please create an issue here on Github, adding entirely new features is easy and can be done pretty easily, but as this project is more 
+of an community effort, we need to know what people use and as such what might be missing.
+
+#### What happens if a feature is missing in a particular Minecraft Version or Platform?
+Then in most cases an exception is thrown, or JVoxelizer will try to back-stuff this with its own logic.
+This also means that when Minecraft changes a particular feature so much that we can not fit it in its original interface, we might need to change this.
+This will however be announced in that case. 
+
 ### What about porting? Let's do this!
 Okey when it comes to using and/or porting a mod to JVoxelizing, there are two ways todo this.
 - Dynamic
 - Straight.
 
 #### Dynamic porting
-With dynamic porting 
+With dynamic porting you add the Minecraft version specific dependency to your Mod. Do not forget to deobfuscate if required.
+You can find a detailed tutorial [Here](https://github.com/ldtteam/JVoxelizer/wiki/Porting-a-mod-Dynamically-to-JVoxelizer).
+
+#### Static porting
+When you perform a static port, you do not use a rolling update.
+Meaning from one update to the next your mod will be fully compatible with JVoxelizer.
+This is harder todo, but also reduces the complexity a bit, since you do not have duplicate classnames to worry about.
+A detailed tutorial for this porting type does not exist yet, but will be created shortly.
+**In a nutshell:**
+
+The general idea is to create a duplicate of your mod in a seperate sourceset or gradle sub-project, and make sure that this copy of your mod does not depend on Minecraft.
+Then add a dependency on the JVoxelizer api, and port to it.
+Remove all the duplicate code from your original.
+Now wire the two up, by making the original depend on the Minecraft version specific jar of JVoxelizer, as well as on your copy.
+Do not forget to shade both into your mods jar.
+After that is setup, wire event handlers and initialization through to the right points in your copy, from the original.
+An example of how this can be achieved with gradle-subprojects is: [BlockOut](https://github.com/ldtteam/BlockOut).

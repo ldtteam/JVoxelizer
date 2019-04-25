@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath group: 'commons-io', name: 'commons-io', version: '2.6'
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
     }
 }
 
@@ -27,7 +28,7 @@ allprojects { project ->
     apply plugin: "com.jfrog.artifactory"
 
     group = "com.ldtteam.jvoxelizer"
-    version = minecraft_version.toString() + "-" + System.getenv().get("Version")
+    version = System.getenv().get("Version")
     archivesBaseName = "jvoxelizer-$project.name"
     
     //Setup for which java version we are compiling

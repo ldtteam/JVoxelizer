@@ -16,13 +16,7 @@ public class JVoxMessageWrapperHandler implements IMessageHandler<JVoxMessageWra
     @Override
     public IMessage onMessage(final JVoxMessageWrapper message, final MessageContext ctx)
     {
-        final com.ldtteam.jvoxelizer.networking.messaging.IMessage message1 =
-          message.getJvoxMessage().onArrived(com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging.MessageContext.fromForge(ctx));
-        if (message1 != null)
-        {
-            return new JVoxMessageWrapper(message1);
-        }
-
+        message.getJvoxMessage().onArrived(com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging.MessageContext.fromForge(ctx));
         return null;
     }
 }

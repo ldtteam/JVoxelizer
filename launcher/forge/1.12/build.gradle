@@ -11,10 +11,6 @@ repositories {
     }
 }
 
-version = System.getenv("Version")
-group = "com.ldtteam"
-archivesBaseName = "JVoxelizer"
-
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
     sourceCompatibility = targetCompatibility = '1.8'
@@ -54,30 +50,19 @@ processResources {
     }
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'forge-1.12-sources'
-    from sourceSets.main.allSource
-}
-
-artifacts {
-    archives sourcesJar
-}
-
 jar {
-    from(configurations.shade.files) {
+    from(project.configurations.shade.files) {
         include '*'
         into 'META-INF/libraries'
     }
 
     manifest {
         attributes([
-            'ContainedDeps': configurations.shade.files.collect { it.name }.join(' '),
+            'ContainedDeps': project.configurations.shade.files.collect { it.name }.join(' '),
             'Maven-Artifact': "${project.group}:${project.archivesBaseName}:${project.version}:forge-1.12",
             'Timestamp': System.currentTimeMillis(),
             'FMLAT': "jvoxelizer_at.cfg"
         ])
     }
-
-    classifier 'forge-1.12'
 }
 

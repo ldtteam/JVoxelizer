@@ -1,9 +1,9 @@
 package com.ldtteam.jvoxelizer.networking.messaging;
 
-import com.ldtteam.jvoxelizer.networking.handler.IServerNetworkHandler;
+import com.ldtteam.jvoxelizer.entity.living.player.IMultiplayerPlayerEntity;
 
 public interface IMessageContext
 {
 
-    IServerNetworkHandler getServerHandler();
+    IMultiplayerPlayerEntity getSendingPlayer();
 }

@@ -54,12 +54,6 @@ public interface IGuiScreen<I> extends IGui<I>, IGuiYesNoCallback {
 
     void initializeGui();
 
-    void handleInput() throws IOException;
-
-    void handleMouseInput() throws IOException;
-
-    void handleKeyboardInput() throws IOException;
-
     void updateScreen();
 
     void onGuiClosed();
@@ -71,8 +65,6 @@ public interface IGuiScreen<I> extends IGui<I>, IGuiYesNoCallback {
     void drawBackground(int tint);
 
     boolean doesGuiPauseGame();
-
-    void confirmClicked(boolean result, int id);
 
     void onResize(IGameEngine mcIn, int w, int h);
 

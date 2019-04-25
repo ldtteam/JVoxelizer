@@ -105,12 +105,6 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     }
 
     @Override
-    public IItem setMaxItemStackSize(final int maxStackSize)
-    {
-        return new Item(forgeItem.setMaxStackSize(maxStackSize));
-    }
-
-    @Override
     public IActionResultType onItemUse(
       final IPlayerEntity player,
       final IDimension worldIn,
@@ -152,39 +146,9 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     }
 
     @Override
-    public int getItemStackLimit()
-    {
-        return forgeItem.getItemStackLimit();
-    }
-
-    @Override
-    public int getMetadata(final int damage)
-    {
-        return forgeItem.getMetadata(damage);
-    }
-
-    @Override
     public boolean getHasSubtypes()
     {
         return forgeItem.getHasSubtypes();
-    }
-
-    @Override
-    public IItem setHasSubItems(final boolean hasSubtypes)
-    {
-        return new Item(forgeItem.setHasSubtypes(hasSubtypes));
-    }
-
-    @Override
-    public int getMaxDamage()
-    {
-        return forgeItem.getMaxDamage();
-    }
-
-    @Override
-    public IItem setMaxSustainableDamage(final int maxDamageIn)
-    {
-        return new Item(forgeItem.setMaxDamage(maxDamageIn));
     }
 
     @Override
@@ -219,12 +183,6 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     }
 
     @Override
-    public IItem setItemIsFull3D()
-    {
-        return new Item(forgeItem.setFull3D());
-    }
-
-    @Override
     public boolean isFull3D()
     {
         return forgeItem.isFull3D();
@@ -234,12 +192,6 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     public boolean shouldRotateAroundWhenRendering()
     {
         return forgeItem.shouldRotateAroundWhenRendering();
-    }
-
-    @Override
-    public IItem setUnlocalizedNameForItem(final String unlocalizedName)
-    {
-        return new Item(forgeItem.setUnlocalizedName(unlocalizedName));
     }
 
     @Override
@@ -258,12 +210,6 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     public String getUnlocalizedName(final IItemStack stack)
     {
         return forgeItem.getUnlocalizedName(ItemStack.asForge(stack));
-    }
-
-    @Override
-    public IItem setContainerItem(final IItem containerItem)
-    {
-        return new Item(forgeItem.setContainerItem(((Item) containerItem).forgeItem));
     }
 
     @Override
@@ -422,12 +368,6 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     }
 
     @Override
-    public IItem disableRepair()
-    {
-        return new Item(forgeItem.setNoRepair());
-    }
-
-    @Override
     public INBTCompound getNBTShareTag(final IItemStack stack)
     {
         return NBTCompound.fromForge(forgeItem.getNBTShareTag(ItemStack.asForge(stack)));
@@ -564,21 +504,9 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     }
 
     @Override
-    public void renderHelmetOverlay(final IItemStack stack, final IPlayerEntity player, final IScaledResolution resolution, final float partialTicks)
-    {
-        forgeItem.renderHelmetOverlay(ItemStack.asForge(stack), PlayerEntity.asForge(player), ScaledResolution.asForge(resolution), partialTicks);
-    }
-
-    @Override
     public int getDamage(final IItemStack stack)
     {
         return forgeItem.getDamage(ItemStack.asForge(stack));
-    }
-
-    @Override
-    public int getMetadata(final IItemStack stack)
-    {
-        return forgeItem.getMetadata(ItemStack.asForge(stack));
     }
 
     @Override
@@ -615,12 +543,6 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     public void setDamage(final IItemStack stack, final int damage)
     {
         forgeItem.setDamage(ItemStack.asForge(stack), damage);
-    }
-
-    @Override
-    public boolean canDestroyBlockInCreative(final IDimension IDimension, final IBlockCoordinate pos, final IItemStack stack, final IPlayerEntity player)
-    {
-        return forgeItem.canDestroyBlockInCreative(Dimension.asForge(IDimension), BlockCoordinate.asForge(pos), ItemStack.asForge(stack), PlayerEntity.asForge(player));
     }
 
     @Override
@@ -728,12 +650,6 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     }
 
     @Override
-    public String getHorseArmorTexture(final ILivingEntity wearer, final IItemStack stack)
-    {
-        return forgeItem.getHorseArmorTexture(LivingEntity.asForge(wearer), ItemStack.asForge(stack));
-    }
-
-    @Override
     public void onHorseArmorTick(final IDimension world, final ILivingEntity horse, final IItemStack armor)
     {
         forgeItem.onHorseArmorTick(Dimension.asForge(world), LivingEntity.asForge(horse), ItemStack.asForge(armor));
@@ -746,12 +662,6 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     }
 
     @Override
-    public void setBlockEntityItemStackRenderer(final IBlockEntityRenderer teisr)
-    {
-        forgeItem.setTileEntityItemStackRenderer(BlockEntityRenderer.asForge(teisr));
-    }
-
-    @Override
     public IItemStack createDefaultItemStack()
     {
         return ItemStack.fromForge(forgeItem.getDefaultInstance());
@@ -761,12 +671,6 @@ public class Item implements IItem<DummyInstanceData>, IForgeJVoxelizerWrapper
     public String getTranslationKey(final IItemStack pItemStack1)
     {
         return forgeItem.getUnlocalizedName();
-    }
-
-    @Override
-    public IItem setItemGroup(final IItemGroup tab)
-    {
-        return new Item(forgeItem.setCreativeTab(ItemGroup.asForge(tab)));
     }
 
     @Override

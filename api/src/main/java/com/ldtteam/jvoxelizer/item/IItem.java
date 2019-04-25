@@ -49,8 +49,6 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     boolean hasCustomProperties();
 
-    IItem<I> setMaxItemStackSize(int maxStackSize);
-
     IActionResultType onItemUse(IPlayerEntity player, IDimension worldIn, IBlockCoordinate pos, IHand hand, IFacing facing, float hitX, float hitY, float hitZ);
 
     float getDestroySpeed(IItemStack stack, IBlockState state);
@@ -59,17 +57,7 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     IItemStack onItemUseFinish(IItemStack stack, IDimension worldIn, ILivingBaseEntity entityLiving);
 
-    int getItemStackLimit();
-
-    int getMetadata(int damage);
-
     boolean getHasSubtypes();
-
-    IItem<I> setHasSubItems(boolean hasSubtypes);
-
-    int getMaxDamage();
-
-    IItem<I> setMaxSustainableDamage(int maxDamageIn);
 
     boolean isDamageable();
 
@@ -81,21 +69,15 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     boolean itemInteractionForEntity(IItemStack stack, IPlayerEntity playerIn, ILivingBaseEntity target, IHand hand);
 
-    IItem<I> setItemIsFull3D();
-
     boolean isFull3D();
 
     boolean shouldRotateAroundWhenRendering();
-
-    IItem<I> setUnlocalizedNameForItem(String unlocalizedName);
 
     String getUnlocalizedNameInefficiently(IItemStack stack);
 
     String getUnlocalizedName();
 
     String getUnlocalizedName(IItemStack stack);
-
-    IItem<I> setContainerItem(IItem<I> containerItem);
 
     boolean getShareTag();
 
@@ -131,8 +113,6 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     IItemGroup<?> getItemGroup();
 
-    IItem<I> setItemGroup(IItemGroup<?> tab);
-
     boolean canItemEditBlocks();
 
     boolean getIsRepairable(IItemStack toRepair, IItemStack repair);
@@ -148,8 +128,6 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
     IActionResultType onItemUseFirst(IPlayerEntity player, IDimension IDimension, IBlockCoordinate pos, IFacing side, float hitX, float hitY, float hitZ, IHand hand);
 
     boolean isRepairable();
-
-    IItem<I> disableRepair();
 
     INBTCompound getNBTShareTag(IItemStack stack);
 
@@ -195,11 +173,7 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     boolean onEntitySwing(ILivingBaseEntity entityLiving, IItemStack stack);
 
-    void renderHelmetOverlay(IItemStack stack, IPlayerEntity player, IScaledResolution resolution, float partialTicks);
-
     int getDamage(IItemStack stack);
-
-    int getMetadata(IItemStack stack);
 
     boolean showDurabilityBar(IItemStack stack);
 
@@ -212,8 +186,6 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
     boolean isDamaged(IItemStack stack);
 
     void setDamage(IItemStack stack, int damage);
-
-    boolean canDestroyBlockInCreative(IDimension IDimension, IBlockCoordinate pos, IItemStack stack, IPlayerEntity player);
 
     boolean canHarvestBlock(IBlockState state, IItemStack stack);
 
@@ -247,13 +219,9 @@ public interface IItem<I> extends IRegistryEntry<IItem<I>>, IInstancedObject<I>
 
     IHorseArmorType getHorseArmorType(IItemStack stack);
 
-    String getHorseArmorTexture(ILivingEntity wearer, IItemStack stack);
-
     void onHorseArmorTick(IDimension IDimension, ILivingEntity horse, IItemStack armor);
 
     IBlockEntityRenderer getBlockEntityItemStackRenderer();
-
-    void setBlockEntityItemStackRenderer(IBlockEntityRenderer teisr);
 
     IItemStack createDefaultItemStack();
 

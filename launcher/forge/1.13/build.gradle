@@ -1,0 +1,90 @@
+buildscript {
+    repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+    }
+}
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'idea'
+
+repositories {
+    maven {
+        name 'LDTTeam - Modding'
+        url 'https://ldtteam.jfrog.io/ldtteam/modding/'
+    }
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+minecraft {
+    mappings channel: 'snapshot', version: '20180921-1.13'
+    accessTransformer = file('src/main/resources/META-INF/jvoxelizer_at.cfg')
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+        }
+
+        server {
+            workingDirectory project.file('run')
+
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+        }
+    }
+}
+
+configurations
+        {
+            shade {
+                transitive = false;
+            }
+
+            compile.extendsFrom shade
+        }
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.13.2-25.0.141'
+    shade project(':api')
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'forge-1.13-sources'
+    from sourceSets.main.allSource
+}
+
+tasks.build.dependsOn sourcesJar
+
+artifacts {
+    archives jar
+    archives sourcesJar
+}
+
+jar {
+    from(configurations.shade.files) {
+        include '*'
+        into 'META-INF/libraries'
+    }
+
+    manifest {
+        attributes([
+                'ContainedDeps': configurations.shade.files.collect { it.name }.join(' '),
+                'Maven-Artifact': "${project.group}:${project.archivesBaseName}:${project.version}:forge-1.13",
+                'Timestamp': System.currentTimeMillis(),
+                'FMLAT': "jvoxelizer_at.cfg"
+        ])
+    }
+}

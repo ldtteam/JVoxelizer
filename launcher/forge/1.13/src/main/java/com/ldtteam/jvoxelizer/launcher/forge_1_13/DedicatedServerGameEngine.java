@@ -1,0 +1,106 @@
+package com.ldtteam.jvoxelizer.launcher.forge_1_13;
+
+import com.ldtteam.jvoxelizer.IGameEngine;
+import com.ldtteam.jvoxelizer.IGameEngineProvider;
+import com.ldtteam.jvoxelizer.client.gui.IGuiScreen;
+import com.ldtteam.jvoxelizer.client.renderer.block.IBlockRenderDispatcher;
+import com.ldtteam.jvoxelizer.client.renderer.font.IFontRenderer;
+import com.ldtteam.jvoxelizer.client.renderer.item.IItemRenderer;
+import com.ldtteam.jvoxelizer.client.renderer.texture.ISpriteMap;
+import com.ldtteam.jvoxelizer.client.textures.ITextureManager;
+import com.ldtteam.jvoxelizer.entity.living.player.ISingleplayerPlayerEntity;
+import com.ldtteam.jvoxelizer.launcher.forge_1_13.server.ServerInstance;
+import com.ldtteam.jvoxelizer.server.IServerInstance;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
+
+public class DedicatedServerGameEngine implements IGameEngineProvider, IGameEngine
+{
+    private static DedicatedServerGameEngine ourInstance = new DedicatedServerGameEngine();
+
+    public static DedicatedServerGameEngine getInstance()
+    {
+        return ourInstance;
+    }
+
+    @Override
+    public boolean isDedicatedServer()
+    {
+        return true;
+    }
+
+    @Override
+    public ISingleplayerPlayerEntity getSinglePlayerPlayerEntity()
+    {
+        return null;
+    }
+
+    @Override
+    public int getDisplayWidth()
+    {
+        return 0;
+    }
+
+    @Override
+    public int getDisplayHeight()
+    {
+        return 0;
+    }
+
+    @Override
+    public IGuiScreen<?> getCurrentGui()
+    {
+        return null;
+    }
+
+    @Override
+    public void displayGuiScreen(final IGuiScreen<?> gui)
+    {
+
+    }
+
+    @Override
+    public IServerInstance getCurrentServerInstance()
+    {
+        return ServerInstance.fromForge(ServerLifecycleHooks.getCurrentServer());
+    }
+
+    @Override
+    public ITextureManager getTextureManager()
+    {
+        return null;
+    }
+
+    @Override
+    public ISpriteMap getTextureMapBlocks()
+    {
+        return null;
+    }
+
+    @Override
+    public IFontRenderer getDefaultFontRenderer()
+    {
+        return null;
+    }
+
+    @Override
+    public IBlockRenderDispatcher getBlockRendererDispatcher()
+    {
+        return null;
+    }
+
+    @Override
+    public IItemRenderer getItemRenderer()
+    {
+        return null;
+    }
+
+    private DedicatedServerGameEngine()
+    {
+    }
+
+    @Override
+    public IGameEngine provide()
+    {
+        return this;
+    }
+}

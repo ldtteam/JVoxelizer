@@ -11,3 +11,4 @@ rootProject.name = 'JVoxelizer'
 
 include 'api'
 include 'launcher:forge:1.12'
+include 'launcher:forge:1.13'

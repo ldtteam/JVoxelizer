@@ -17,24 +17,6 @@ public class NetworkTargetPoint implements INetworkTargetPoint
         this.target = target;
     }
 
-    @Override
-    public IEntityCoordinate getTarget()
-    {
-        return new EntityCoordinate(ThreeDoubleVector.fromForge(new Vec3d(target.x, target.y, target.z)));
-    }
-
-    @Override
-    public double getRange()
-    {
-        return target.range;
-    }
-
-    @Override
-    public int getDimensionId()
-    {
-        return target.dimension;
-    }
-
     private NetworkRegistry.TargetPoint getForgeTargetPoint()
     {
         return this.target;

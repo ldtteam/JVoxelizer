@@ -1,14 +1,16 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
         maven { url = "https://files.minecraftforge.net/maven" }
     }
     dependencies {
+        classpath group: 'commons-io', name: 'commons-io', version: '2.6'
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
 
-subprojects {
+allprojects { project ->
     repositories {
         maven {
             name 'LDTTeam - Modding'
@@ -18,6 +20,116 @@ subprojects {
             dirs 'libs'
         }
     }
+
+    apply plugin: 'idea'
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+    apply plugin: "com.jfrog.artifactory"
+
+    group = "com.ldtteam.jvoxelizer"
+    version = minecraft_version.toString() + "-" + System.getenv().get("Version")
+    archivesBaseName = "jvoxelizer-$project.name"
+    
+    //Setup for which java version we are compiling
+    //Minecraft defaults to 1.8, anything higher does currently not work with Forge.
+    sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+    compileJava {
+        sourceCompatibility = targetCompatibility = '1.8'
+    }
+
+    //Setup the compiler to output all information we need.
+    compileJava {
+        options.encoding = 'UTF-8'
+        options.compilerArgs << "-Xlint"
+    }
+
+    //Create a sources jar.
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+        from sourceSets.test.allSource
+    }
+
+    //Create a javadoc jar.
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from javadoc.destinationDir
+    }
+
+    artifacts {
+        archives jar
+        archives sourcesJar
+        archives javadocJar
+    }
+
+    //The primary jar needs to have a javadoc jar build
+    //Ensures it is created and ready to upload.
+    jar {
+        dependsOn tasks.javadocJar
+        dependsOn tasks.sourcesJar
+    }
+
+    artifacts {
+        archives jar
+        archives javadocJar
+        archives sourcesJar
+    }
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                from components.java
+
+                pom {
+                    name = project.name
+                    url = 'https://github.com/ldtteam/JVoxelizer'
+                    licenses {
+                        license {
+                            name = 'GNU GENERAL PUBLIC LICENSE Version 3'
+                            url = 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'OrionDevelopment'
+                            name = 'Marc Hermans'
+                            email = 'oriondevelopment@outlook.com'
+                        }
+                    }
+                    contributors {
+                        contributor {
+                            id = 'ldtteam'
+                            name = 'Let\'s Develop Together - Team'
+                            email = 'info@ldtteam.com'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:git://github.com/ldtteam/jvoxelizer.git'
+                        developerConnection = 'scm:git:ssh://github.com/ldtteam/jvoxelizer.git'
+                        url = 'https://github.com/ldtteam/JVoxelizer'
+                    }
+                }
+            }
+        }
+    }
+
+    artifactory {
+        publish {
+            defaults {
+                publications('maven')
+                publishConfigs('archives', 'published')
+                publishBuildInfo = true   //Publish build-info to Artifactory (true by default)
+                publishArtifacts = true   //Publish artifacts to Artifactory (true by default)
+                publishPom = true   //Publish generated POM files to Artifactory (true by default).
+                publishIvy = true   //Publish generated Ivy descriptor files to Artifactory (true by default).
+            }
+        }
+    }
+    
+    task wrapper(type: Wrapper) {
+        gradleVersion = '4.9'
+    }
+
 }
 
 task setupDecompWorkspace {

@@ -98,24 +98,6 @@ public class GuiScreen extends Gui implements IGuiScreen<DummyInstanceData>
     }
 
     @Override
-    public void handleInput() throws IOException
-    {
-        forgeGuiScreen.handleInput();
-    }
-
-    @Override
-    public void handleMouseInput() throws IOException
-    {
-        forgeGuiScreen.handleMouseInput();
-    }
-
-    @Override
-    public void handleKeyboardInput() throws IOException
-    {
-        forgeGuiScreen.handleKeyboardInput();
-    }
-
-    @Override
     public void updateScreen()
     {
         forgeGuiScreen.updateScreen();
@@ -149,12 +131,6 @@ public class GuiScreen extends Gui implements IGuiScreen<DummyInstanceData>
     public boolean doesGuiPauseGame()
     {
         return forgeGuiScreen.doesGuiPauseGame();
-    }
-
-    @Override
-    public void confirmClicked(final boolean result, final int id)
-    {
-        forgeGuiScreen.confirmClicked(result, id);
     }
 
     @Override

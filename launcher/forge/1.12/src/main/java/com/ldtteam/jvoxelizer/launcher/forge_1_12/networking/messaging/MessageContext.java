@@ -1,6 +1,8 @@
 package com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.messaging;
 
+import com.ldtteam.jvoxelizer.entity.living.player.IMultiplayerPlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.entity.living.player.MultiplayerPlayerEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.handler.ServerNetworkHandler;
 import com.ldtteam.jvoxelizer.networking.handler.IServerNetworkHandler;
 import com.ldtteam.jvoxelizer.networking.messaging.IMessageContext;
@@ -12,12 +14,6 @@ public class MessageContext implements IMessageContext, IForgeJVoxelizerWrapper
     private MessageContext(final net.minecraftforge.fml.common.network.simpleimpl.MessageContext context)
     {
         this.context = context;
-    }
-
-    @Override
-    public IServerNetworkHandler getServerHandler()
-    {
-        return ServerNetworkHandler.fromForge(context.getServerHandler());
     }
 
     private net.minecraftforge.fml.common.network.simpleimpl.MessageContext getContext()
@@ -59,5 +55,11 @@ public class MessageContext implements IMessageContext, IForgeJVoxelizerWrapper
     public <T> T getForgeInstance()
     {
         return (T) getContext();
+    }
+
+    @Override
+    public IMultiplayerPlayerEntity getSendingPlayer()
+    {
+        return MultiplayerPlayerEntity.fromForge(context.getServerHandler().player);
     }
 }

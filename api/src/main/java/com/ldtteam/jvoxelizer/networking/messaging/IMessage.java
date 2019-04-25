@@ -24,7 +24,6 @@ public interface IMessage {
     /**
      * Called by the messaging system to indicate that this message arrived at target side.
      * @param ctx The message context.
-     * @return A reply if need be. Null if no reply is required.
      */
-    IMessage onArrived(IMessageContext ctx);
+    void onArrived(IMessageContext ctx);
 }

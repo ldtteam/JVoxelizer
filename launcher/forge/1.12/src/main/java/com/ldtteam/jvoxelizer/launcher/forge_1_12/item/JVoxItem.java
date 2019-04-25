@@ -2015,13 +2015,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
     }
 
     @Override
-    public IItem<I> setMaxItemStackSize(final int maxStackSize)
-    {
-        this.setMaxStackSize(maxStackSize);
-        return this;
-    }
-
-    @Override
     public IActionResultType onItemUse(
       final IPlayerEntity player,
       final IDimension worldIn,
@@ -2077,20 +2070,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
     }
 
     @Override
-    public IItem<I> setHasSubItems(final boolean hasSubtypes)
-    {
-        this.setHasSubtypes(hasSubtypes);
-        return this;
-    }
-
-    @Override
-    public IItem<I> setMaxSustainableDamage(final int maxDamageIn)
-    {
-        this.setMaxDamage(maxDamageIn);
-        return this;
-    }
-
-    @Override
     public boolean hitEntity(
       final IItemStack stack, final ILivingBaseEntity target, final ILivingBaseEntity attacker)
     {
@@ -2135,20 +2114,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
     }
 
     @Override
-    public IItem<I> setItemIsFull3D()
-    {
-        this.setFull3D();
-        return this;
-    }
-
-    @Override
-    public IItem<I> setUnlocalizedNameForItem(final String unlocalizedName)
-    {
-        this.setUnlocalizedName(unlocalizedName);
-        return this;
-    }
-
-    @Override
     public String getUnlocalizedNameInefficiently(final IItemStack stack)
     {
         return this.getUnlocalizedNameInefficiently(asForge(stack));
@@ -2158,13 +2123,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
     public String getUnlocalizedName(final IItemStack stack)
     {
         return this.getUnlocalizedName(asForge(stack));
-    }
-
-    @Override
-    public IItem<I> setContainerItem(final IItem<I> containerItem)
-    {
-        this.setContainerItem(com.ldtteam.jvoxelizer.launcher.forge_1_12.item.Item.asForge(containerItem));
-        return this;
     }
 
     @Override
@@ -2254,13 +2212,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
     }
 
     @Override
-    public IItem<I> setItemGroup(final IItemGroup<?> tab)
-    {
-        this.setCreativeTab(ItemGroup.asForge(tab));
-        return this;
-    }
-
-    @Override
     public boolean getIsRepairable(final IItemStack toRepair, final IItemStack repair)
     {
         return this.getIsRepairable(asForge(toRepair), asForge(repair));
@@ -2316,13 +2267,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
             Hand.asForge(hand)
           )
         );
-    }
-
-    @Override
-    public IItem<I> disableRepair()
-    {
-        this.setNoRepair();
-        return this;
     }
 
     @Override
@@ -2477,26 +2421,10 @@ public class JVoxItem<I> extends Item implements IItem<I>
         return this.onEntitySwing(LivingBaseEntity.asForge(entityLiving), asForge(stack));
     }
 
-    @Override
-    public void renderHelmetOverlay(
-      final IItemStack stack, final IPlayerEntity player, final IScaledResolution resolution, final float partialTicks)
-    {
-        this.renderHelmetOverlay(asForge(stack),
-          PlayerEntity.asForge(player),
-          com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolution.asForge(resolution),
-          partialTicks);
-    }
-
-    @Override
+   @Override
     public int getDamage(final IItemStack stack)
     {
         return this.getDamage(asForge(stack));
-    }
-
-    @Override
-    public int getMetadata(final IItemStack stack)
-    {
-        return this.getMetadata(asForge(stack));
     }
 
     @Override
@@ -2533,13 +2461,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
     public void setDamage(final IItemStack stack, final int damage)
     {
         this.setDamage(asForge(stack), damage);
-    }
-
-    @Override
-    public boolean canDestroyBlockInCreative(
-      final IDimension IDimension, final IBlockCoordinate pos, final IItemStack stack, final IPlayerEntity player)
-    {
-        return this.canDestroyBlockInCreative(Dimension.asForge(IDimension), BlockCoordinate.asForge(pos), asForge(stack), PlayerEntity.asForge(player));
     }
 
     @Override
@@ -2642,12 +2563,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
     }
 
     @Override
-    public String getHorseArmorTexture(final ILivingEntity wearer, final IItemStack stack)
-    {
-        return this.getHorseArmorTexture(LivingEntity.asForge(wearer), asForge(stack));
-    }
-
-    @Override
     public void onHorseArmorTick(
       final IDimension IDimension, final ILivingEntity horse, final IItemStack armor)
     {
@@ -2658,12 +2573,6 @@ public class JVoxItem<I> extends Item implements IItem<I>
     public IBlockEntityRenderer getBlockEntityItemStackRenderer()
     {
         return BlockEntityRenderer.fromForge(this.getTileEntityItemStackRenderer());
-    }
-
-    @Override
-    public void setBlockEntityItemStackRenderer(final IBlockEntityRenderer teisr)
-    {
-        this.setTileEntityItemStackRenderer(BlockEntityRenderer.asForge(teisr));
     }
 
     @Override

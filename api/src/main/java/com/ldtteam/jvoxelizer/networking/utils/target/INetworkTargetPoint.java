@@ -9,10 +9,4 @@ public interface INetworkTargetPoint
     {
         return INetworkTargetPointProviderHolder.getInstance().provide(coordinate, range, dimension);
     }
-
-    IEntityCoordinate getTarget();
-
-    double getRange();
-
-    int getDimensionId();
 }

@@ -12,3 +12,19 @@ rootProject.name = 'JVoxelizer'
 include 'api'
 include 'launcher:forge:1.12'
 include 'launcher:forge:1.13'
+
+ext.isPush = Boolean.valueOf(getProperty('gradle.cache.push'))
+logger.lifecycle("Pushing to build cache: " + isPush.toString())
+
+buildCache {
+    local {
+        enabled = !isPush
+    }
+    remote(HttpBuildCache) {
+        url = "${artifactory_url}/build-cache-gradle/"
+        push = isPush
+    }
+}
+
+gradle.startParameter.setProjectProperties(new HashMap<>(gradle.startParameter.getProjectProperties()))
+gradle.startParameter.getProjectProperties().put("build.start", Long.toString(System.currentTimeMillis()))

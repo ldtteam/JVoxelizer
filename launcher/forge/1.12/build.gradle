@@ -1,5 +1,16 @@
+buildscript {
+    repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+
+
 apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'idea'
 
 repositories {
     maven {

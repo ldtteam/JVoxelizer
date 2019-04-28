@@ -10,7 +10,7 @@ buildscript {
     }
 }
 
-subprojects { project ->
+allprojects { project ->
     repositories {
         maven {
             name 'LDTTeam - Modding'

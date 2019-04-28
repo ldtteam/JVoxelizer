@@ -81,7 +81,7 @@ allprojects { project ->
                 from components.java
 
                 pom {
-                    name = "jvoxelizer-$project.name"
+                    name = ("jvoxelizer-$project.name").toString();
                     url = 'https://github.com/ldtteam/JVoxelizer'
                     licenses {
                         license {

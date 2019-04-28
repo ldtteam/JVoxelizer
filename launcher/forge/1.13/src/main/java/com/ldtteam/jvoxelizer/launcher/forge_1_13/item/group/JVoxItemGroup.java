@@ -177,7 +177,7 @@ public class JVoxItemGroup<I> extends net.minecraft.item.ItemGroup implements II
     }
 
     /**
-     * returns tabIndex < 6
+     * returns {@code tabIndex < 6}
      */
     @Override
     public boolean isOnTopRow()

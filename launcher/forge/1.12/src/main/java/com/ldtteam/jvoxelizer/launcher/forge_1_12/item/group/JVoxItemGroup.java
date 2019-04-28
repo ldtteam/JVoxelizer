@@ -180,7 +180,7 @@ public class JVoxItemGroup<I> extends CreativeTabs implements IItemGroup<I>
     }
 
     /**
-     * returns tabIndex < 6
+     * returns {@code tabIndex < 6}
      */
     @Override
     public boolean isTabInFirstRow()

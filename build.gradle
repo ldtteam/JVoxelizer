@@ -69,19 +69,13 @@ allprojects { project ->
         dependsOn tasks.sourcesJar
     }
 
-    artifacts {
-        archives jar
-        archives javadocJar
-        archives sourcesJar
-    }
-
     publishing {
         publications {
             maven(MavenPublication) {
                 from components.java
 
                 pom {
-                    name = ("jvoxelizer-$project.name").toString();
+                    name = ("jvoxelizer-$project.name").toString()
                     url = 'https://github.com/ldtteam/JVoxelizer'
                     licenses {
                         license {
@@ -117,7 +111,6 @@ allprojects { project ->
         publish {
             defaults {
                 publications('maven')
-                publishConfigs('archives', 'published')
                 publishBuildInfo = true   //Publish build-info to Artifactory (true by default)
                 publishArtifacts = true   //Publish artifacts to Artifactory (true by default)
                 publishPom = true   //Publish generated POM files to Artifactory (true by default).

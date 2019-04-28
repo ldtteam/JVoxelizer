@@ -10,8 +10,8 @@
 rootProject.name = 'JVoxelizer'
 
 include 'api'
-include 'launcher:forge:1.12'
-include 'launcher:forge:1.13'
+include 'launcher:forge-1.12'
+include 'launcher:forge-1.13'
 
 ext.isPush = Boolean.valueOf(getProperty('gradle.cache.push'))
 logger.lifecycle("Pushing to build cache: " + isPush.toString())

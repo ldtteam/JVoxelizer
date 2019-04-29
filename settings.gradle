@@ -18,10 +18,10 @@ logger.lifecycle("Pushing to build cache: " + isPush.toString())
 
 buildCache {
     local {
-        enabled = !isPush
+        enabled = false
     }
     remote(HttpBuildCache) {
-        url = "${artifactory_url}/build-cache-gradle/"
+        url = "${artifactory_url}/gradle-build-artifact-storage/"
         push = isPush
     }
 }

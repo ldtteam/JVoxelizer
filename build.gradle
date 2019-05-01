@@ -1,3 +1,7 @@
+import org.w3c.dom.Element
+import org.w3c.dom.Node
+import org.w3c.dom.NodeList
+
 buildscript {
     repositories {
         jcenter()
@@ -117,6 +121,17 @@ allprojects { project ->
                         connection = 'scm:git:git://github.com/ldtteam/jvoxelizer.git'
                         developerConnection = 'scm:git:ssh://github.com/ldtteam/jvoxelizer.git'
                         url = 'https://github.com/ldtteam/JVoxelizer'
+                    }
+                }
+
+                //Replace all deobf dependencies with normal jar references.
+                pom.withXml { xmlProvider ->
+                    final Element document = xmlProvider.asElement()
+                    final NodeList groupIdNodes = document.getElementsByTagName("groupId")
+                    groupIdNodes.each { groupIdNodeObject ->
+                        final Node groupIdNode = (Node) groupIdNodeObject
+                        final String groupId = groupIdNode.getFirstChild().getTextContent().trim()
+                        groupIdNode.setTextContent(groupId.replace("deobf.", ""))
                     }
                 }
             }

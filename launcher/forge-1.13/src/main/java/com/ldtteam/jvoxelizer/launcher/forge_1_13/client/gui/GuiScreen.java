@@ -180,4 +180,16 @@ public class GuiScreen extends Gui implements IGuiScreen<DummyInstanceData>
 
         return new GuiScreen(guiScreen);
     }
+
+    @Override
+    public int getWidth()
+    {
+        return forgeGuiScreen.width;
+    }
+
+    @Override
+    public int getHeight()
+    {
+        return forgeGuiScreen.height;
+    }
 }

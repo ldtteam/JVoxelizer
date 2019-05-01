@@ -44,18 +44,6 @@ public class GuiContainer extends GuiScreen implements IGuiContainer<DummyInstan
     }
 
     @Override
-    public int getWidth()
-    {
-        return forgeGuiContainer.width;
-    }
-
-    @Override
-    public int getHeight()
-    {
-        return forgeGuiContainer.height;
-    }
-
-    @Override
     public int getXSize()
     {
         return forgeGuiContainer.getXSize();

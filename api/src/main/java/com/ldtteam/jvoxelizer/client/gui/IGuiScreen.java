@@ -69,4 +69,8 @@ public interface IGuiScreen<I> extends IGui<I>, IGuiYesNoCallback {
     void onResize(IGameEngine mcIn, int w, int h);
 
     IItemRenderer getItemRenderer();
+
+    int getWidth();
+
+    int getHeight();
 }

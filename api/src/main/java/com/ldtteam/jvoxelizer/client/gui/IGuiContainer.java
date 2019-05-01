@@ -14,10 +14,6 @@ public interface IGuiContainer<I> extends IGuiScreen<I> {
 
     int getGuiTop();
 
-    int getWidth();
-
-    int getHeight();
-
     int getXSize();
 
     void setXSize(int xSize);

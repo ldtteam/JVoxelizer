@@ -145,6 +145,18 @@ public class GuiScreen extends Gui implements IGuiScreen<DummyInstanceData>
         return IGameEngine.getInstance().getItemRenderer();
     }
 
+    @Override
+    public int getWidth()
+    {
+        return forgeGuiScreen.width;
+    }
+
+    @Override
+    public int getHeight()
+    {
+        return forgeGuiScreen.height;
+    }
+
     private net.minecraft.client.gui.GuiScreen getForgeGuiScreen()
     {
         return forgeGuiScreen;

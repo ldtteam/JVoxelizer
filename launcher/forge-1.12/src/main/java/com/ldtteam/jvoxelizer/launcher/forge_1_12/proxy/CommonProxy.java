@@ -75,6 +75,7 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.networking.utils.target.Networ
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.profiler.ProfilerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.progressmanager.ProgressManagerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.sound.SoundHandlerProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.translation.TranslatorProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.DistributionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.executor.DistributionExecutor;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.IdentifierProvider;
@@ -87,6 +88,7 @@ import com.ldtteam.jvoxelizer.networking.utils.target.INetworkTargetPoint;
 import com.ldtteam.jvoxelizer.profiler.IProfiler;
 import com.ldtteam.jvoxelizer.progressmanager.IProgressManager;
 import com.ldtteam.jvoxelizer.sound.ISoundHandler;
+import com.ldtteam.jvoxelizer.translation.ITranslator;
 import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
 import com.ldtteam.jvoxelizer.util.distribution.executor.IDistributionExecutor;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
@@ -153,6 +155,9 @@ public class CommonProxy implements IForgeJVoxelizerSetupProxy
 
         //Sound
         ProviderResolver.getInstance().registerProvider(ISoundHandler.class.getName(), SoundHandlerProvider.getInstance());
+
+        //Translation
+        ProviderResolver.getInstance().registerProvider(ITranslator.class.getName(), TranslatorProvider.getInstance());
 
         //Util
         ProviderResolver.getInstance().registerProvider(IDistribution.class.getName(), DistributionProvider.getInstance());

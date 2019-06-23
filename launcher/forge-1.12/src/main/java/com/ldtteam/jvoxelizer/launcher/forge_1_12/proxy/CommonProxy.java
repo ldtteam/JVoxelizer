@@ -169,5 +169,8 @@ public class CommonProxy implements IForgeJVoxelizerSetupProxy
 
         //JVox
         ProviderResolver.getInstance().registerProvider(IGameEngine.class.getName(), DedicatedServerGameEngine.getInstance());
+
+        //BlockCoordinate
+        ProviderResolver.getInstance().registerProvider(IBlockCoordinate.class.getName(), BlockCoordinateProviderHolder.getInstance());
     }
 }

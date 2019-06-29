@@ -4,17 +4,6 @@ import com.ldtteam.jvoxelizer.IGameEngine;
 import com.ldtteam.jvoxelizer.biome.IBiome;
 import com.ldtteam.jvoxelizer.block.state.IBlockState;
 import com.ldtteam.jvoxelizer.bootstrap.IGameEngineBootstrapper;
-import com.ldtteam.jvoxelizer.client.gui.IGuiScreen;
-import com.ldtteam.jvoxelizer.client.gui.IScaledResolution;
-import com.ldtteam.jvoxelizer.client.gui.logic.builder.IGuiBuilder;
-import com.ldtteam.jvoxelizer.client.gui.logic.builder.IGuiButtonBuilder;
-import com.ldtteam.jvoxelizer.client.gui.logic.builder.IGuiContainerBuilder;
-import com.ldtteam.jvoxelizer.client.gui.logic.builder.IGuiScreenBuilder;
-import com.ldtteam.jvoxelizer.client.mouse.IMouse;
-import com.ldtteam.jvoxelizer.client.renderer.opengl.IOpenGl;
-import com.ldtteam.jvoxelizer.client.renderer.opengl.util.vertexformat.IVertexFormat;
-import com.ldtteam.jvoxelizer.client.renderer.tessellator.ITessellator;
-import com.ldtteam.jvoxelizer.client.renderer.texture.ISpriteMap;
 import com.ldtteam.jvoxelizer.common.capability.ICapability;
 import com.ldtteam.jvoxelizer.common.gameevent.event.player.IPlayerEntityEvent;
 import com.ldtteam.jvoxelizer.common.gameevent.event.player.IPlayerGameEvent;
@@ -35,21 +24,9 @@ import com.ldtteam.jvoxelizer.item.group.logic.builder.IItemGroupBuilder;
 import com.ldtteam.jvoxelizer.item.handling.IItemHandler;
 import com.ldtteam.jvoxelizer.item.logic.builder.IItemBuilder;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.DedicatedServerGameEngine;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.GameEngineProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.biome.BiomeProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.block.state.BlockStateProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.bootstrap.GameEngineBootstrapperProvider;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.ScaledResolutionProvider;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.GuiScreenProvider;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.builder.provider.GuiBuilderProvider;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.builder.provider.GuiButtonBuilderProvider;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.builder.provider.GuiContainerBuilderProvider;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.gui.logic.builder.provider.GuiScreenBuilderProvider;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.mouse.MouseProvider;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.opengl.OpenGlProvider;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.opengl.vertexformat.VertexFormatProvider;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.tessellator.TessellatorProvider;
-import com.ldtteam.jvoxelizer.launcher.forge_1_12.client.renderer.texture.SpriteMapProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability.CapabilityLogicProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.gameevent.event.player.PlayerEntityEventProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.gameevent.event.player.PlayerGameEventProvider;
@@ -79,6 +56,10 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.translation.TranslatorProvider
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.DistributionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.executor.DistributionExecutor;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.IdentifierProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block.BlockCoordinateProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.entity.EntityCoordinateProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.vector.floatingpoint.ThreeDoubleVectorProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.vector.integer.ThreeIntVectorProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.nbt.NBTProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.textformatting.TextFormattingProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.tuple.TupleProvider;
@@ -92,6 +73,10 @@ import com.ldtteam.jvoxelizer.translation.ITranslator;
 import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
 import com.ldtteam.jvoxelizer.util.distribution.executor.IDistributionExecutor;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
+import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
+import com.ldtteam.jvoxelizer.util.math.coordinate.entity.IEntityCoordinate;
+import com.ldtteam.jvoxelizer.util.math.vector.floatingpoint.I3DoubleVectorProvider;
+import com.ldtteam.jvoxelizer.util.math.vector.integer.I3IntVectorProvider;
 import com.ldtteam.jvoxelizer.util.nbt.INBTBase;
 import com.ldtteam.jvoxelizer.util.textformatting.ITextFormatting;
 import com.ldtteam.jvoxelizer.util.tuple.ITuple;
@@ -166,11 +151,12 @@ public class CommonProxy implements IForgeJVoxelizerSetupProxy
         ProviderResolver.getInstance().registerProvider(IIdentifier.class.getName(), IdentifierProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(ITextFormatting.class.getName(), TextFormattingProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(ITuple.class.getName(), TupleProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(IBlockCoordinate.class.getName(), BlockCoordinateProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(IEntityCoordinate.class.getName(), EntityCoordinateProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(I3DoubleVectorProvider.class.getName(), ThreeDoubleVectorProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(I3IntVectorProvider.class.getName(), ThreeIntVectorProvider.getInstance());
 
         //JVox
         ProviderResolver.getInstance().registerProvider(IGameEngine.class.getName(), DedicatedServerGameEngine.getInstance());
-
-        //BlockCoordinate
-        ProviderResolver.getInstance().registerProvider(IBlockCoordinate.class.getName(), BlockCoordinateProviderHolder.getInstance());
     }
 }

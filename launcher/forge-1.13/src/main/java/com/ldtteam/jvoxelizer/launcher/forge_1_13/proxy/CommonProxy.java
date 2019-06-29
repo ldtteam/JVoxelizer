@@ -56,6 +56,10 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_13.translation.TranslatorProvider
 import com.ldtteam.jvoxelizer.launcher.forge_1_13.util.distribution.DistributionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_13.util.distribution.executor.DistributionExecutor;
 import com.ldtteam.jvoxelizer.launcher.forge_1_13.util.identifier.IdentifierProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_13.util.math.coordinate.block.BlockCoordinateProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_13.util.math.coordinate.entity.EntityCoordinateProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_13.util.math.vector.floatingpoint.ThreeDoubleVectorProvider;
+import com.ldtteam.jvoxelizer.launcher.forge_1_13.util.math.vector.integer.ThreeIntVectorProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_13.util.nbt.NBTProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_13.util.textformatting.TextFormattingProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_13.util.tuple.TupleProvider;
@@ -69,6 +73,10 @@ import com.ldtteam.jvoxelizer.translation.ITranslator;
 import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
 import com.ldtteam.jvoxelizer.util.distribution.executor.IDistributionExecutor;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
+import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
+import com.ldtteam.jvoxelizer.util.math.coordinate.entity.IEntityCoordinate;
+import com.ldtteam.jvoxelizer.util.math.vector.floatingpoint.I3DoubleVectorProvider;
+import com.ldtteam.jvoxelizer.util.math.vector.integer.I3IntVectorProvider;
 import com.ldtteam.jvoxelizer.util.nbt.INBTBase;
 import com.ldtteam.jvoxelizer.util.textformatting.ITextFormatting;
 import com.ldtteam.jvoxelizer.util.tuple.ITuple;
@@ -143,6 +151,10 @@ public class CommonProxy implements IForgeJVoxelizerSetupProxy
         ProviderResolver.getInstance().registerProvider(IIdentifier.class.getName(), IdentifierProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(ITextFormatting.class.getName(), TextFormattingProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(ITuple.class.getName(), TupleProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(IBlockCoordinate.class.getName(), BlockCoordinateProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(IEntityCoordinate.class.getName(), EntityCoordinateProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(I3DoubleVectorProvider.class.getName(), ThreeDoubleVectorProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(I3IntVectorProvider.class.getName(), ThreeIntVectorProvider.getInstance());
 
         //JVox
         ProviderResolver.getInstance().registerProvider(IGameEngine.class.getName(), DedicatedServerGameEngine.getInstance());

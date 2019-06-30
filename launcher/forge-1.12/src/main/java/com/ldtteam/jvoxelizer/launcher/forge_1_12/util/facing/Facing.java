@@ -61,11 +61,19 @@ public class Facing implements IFacing
 
     public static EnumFacing asForge(IFacing facing)
     {
+        if ( facing == null )
+        {
+            return null;
+        }
         return ((Facing) facing).getForgeSide();
     }
 
     public static IFacing fromForge(EnumFacing facing)
     {
+        if ( facing == null )
+        {
+            return null;
+        }
         return new Facing(facing);
     }
 }

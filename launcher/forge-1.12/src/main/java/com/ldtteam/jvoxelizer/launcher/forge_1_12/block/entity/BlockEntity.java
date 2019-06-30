@@ -6,11 +6,13 @@ import com.ldtteam.jvoxelizer.dimension.IDimension;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability.Capability;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.dimension.Dimension;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.handling.ItemHandler;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.facing.Facing;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block.BlockCoordinate;
 import com.ldtteam.jvoxelizer.util.facing.IFacing;
 import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.items.IItemHandler;
 
 /**
  * Forge implementation of the IBlockEntity interface.
@@ -43,7 +45,11 @@ public class BlockEntity implements IBlockEntity, IForgeJVoxelizerWrapper
     @Override
     public <T> T getCapability(final ICapability<T> capability, final IFacing facing)
     {
-        return (T) forgeTileEntity.getCapability(Capability.asForge(capability), Facing.asForge(facing));
+        final T t = (T) forgeTileEntity.getCapability(Capability.asForge(capability), Facing.asForge(facing));
+        if (t instanceof net.minecraftforge.items.IItemHandler) {
+            return (T) ItemHandler.fromForge((IItemHandler) t);
+        }
+        return t;
     }
 
     public TileEntity getForgeTileEntity()

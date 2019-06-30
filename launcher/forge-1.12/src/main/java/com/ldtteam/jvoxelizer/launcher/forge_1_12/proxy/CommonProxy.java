@@ -55,6 +55,7 @@ import com.ldtteam.jvoxelizer.launcher.forge_1_12.sound.SoundHandlerProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.translation.TranslatorProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.DistributionProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.distribution.executor.DistributionExecutor;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.facing.FacingProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.identifier.IdentifierProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block.BlockCoordinateProvider;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.entity.EntityCoordinateProvider;
@@ -72,6 +73,7 @@ import com.ldtteam.jvoxelizer.sound.ISoundHandler;
 import com.ldtteam.jvoxelizer.translation.ITranslator;
 import com.ldtteam.jvoxelizer.util.distribution.IDistribution;
 import com.ldtteam.jvoxelizer.util.distribution.executor.IDistributionExecutor;
+import com.ldtteam.jvoxelizer.util.facing.IFacing;
 import com.ldtteam.jvoxelizer.util.identifier.IIdentifier;
 import com.ldtteam.jvoxelizer.util.math.coordinate.block.IBlockCoordinate;
 import com.ldtteam.jvoxelizer.util.math.coordinate.entity.IEntityCoordinate;
@@ -155,6 +157,7 @@ public class CommonProxy implements IForgeJVoxelizerSetupProxy
         ProviderResolver.getInstance().registerProvider(IEntityCoordinate.class.getName(), EntityCoordinateProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(I3DoubleVectorProvider.class.getName(), ThreeDoubleVectorProvider.getInstance());
         ProviderResolver.getInstance().registerProvider(I3IntVectorProvider.class.getName(), ThreeIntVectorProvider.getInstance());
+        ProviderResolver.getInstance().registerProvider(IFacing.class.getName(), FacingProvider.getInstance());
 
         //JVox
         ProviderResolver.getInstance().registerProvider(IGameEngine.class.getName(), DedicatedServerGameEngine.getInstance());

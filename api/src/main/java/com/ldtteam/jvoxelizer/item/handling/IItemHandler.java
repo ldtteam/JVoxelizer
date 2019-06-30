@@ -15,4 +15,6 @@ public interface IItemHandler
     }
 
     IItemStack getStackInSlot(int inventoryIndex);
+
+    int getSize();
 }

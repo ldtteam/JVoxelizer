@@ -17,6 +17,12 @@ public class ItemHandler implements IItemHandler, IForgeJVoxelizerWrapper
         return ItemStack.fromForge(forgeItemHandler.getStackInSlot(inventoryIndex));
     }
 
+    @Override
+    public int getSize()
+    {
+        return forgeItemHandler.getSlots();
+    }
+
     private net.minecraftforge.items.IItemHandler getForgeItemHandler()
     {
         return forgeItemHandler;

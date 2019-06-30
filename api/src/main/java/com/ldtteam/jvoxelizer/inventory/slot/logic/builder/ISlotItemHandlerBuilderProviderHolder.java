@@ -15,7 +15,7 @@ final class ISlotItemHandlerBuilderProviderHolder extends AbstractHolder<ISlotIt
 
     private ISlotItemHandlerBuilderProviderHolder()
     {
-        super(ISlotItemHandler.class.getName());
+        super(ISlotItemHandlerBuilder.class.getName());
     }
 
     @Override

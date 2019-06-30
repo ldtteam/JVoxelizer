@@ -45,11 +45,11 @@ public class BlockEntity implements IBlockEntity, IForgeJVoxelizerWrapper
     @Override
     public <T> T getCapability(final ICapability<T> capability, final IFacing facing)
     {
-        final T t = (T) forgeTileEntity.getCapability(Capability.asForge(capability), Facing.asForge(facing));
+        final Object t = forgeTileEntity.getCapability(Capability.asForge(capability), Facing.asForge(facing));
         if (t instanceof net.minecraftforge.items.IItemHandler) {
             return (T) ItemHandler.fromForge((IItemHandler) t);
         }
-        return t;
+        return (T) t;
     }
 
     public TileEntity getForgeTileEntity()

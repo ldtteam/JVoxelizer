@@ -4,6 +4,7 @@ import com.ldtteam.jvoxelizer.common.capability.ICapability;
 import com.ldtteam.jvoxelizer.entity.IEntity;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.common.capability.Capability;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.core.IForgeJVoxelizerWrapper;
+import com.ldtteam.jvoxelizer.launcher.forge_1_12.item.handling.ItemHandler;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.facing.Facing;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.block.BlockCoordinate;
 import com.ldtteam.jvoxelizer.launcher.forge_1_12.util.math.coordinate.entity.EntityCoordinate;
@@ -15,6 +16,7 @@ import com.ldtteam.jvoxelizer.util.nbt.INBTCompound;
 import com.ldtteam.jvoxelizer.util.ticking.data.IReadOnlyTickingDataEntry;
 import com.ldtteam.jvoxelizer.util.ticking.data.ITickingDataEntry;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -251,7 +253,11 @@ public class Entity implements IEntity, IForgeJVoxelizerWrapper
     @Override
     public <T> T getCapability(final ICapability<T> capability, final IFacing facing)
     {
-        return (T) forgeEntity.getCapability(Capability.asForge(capability), Facing.asForge(facing));
+        final Object t = forgeEntity.getCapability(Capability.asForge(capability), Facing.asForge(facing));
+        if (t instanceof net.minecraftforge.items.IItemHandler) {
+            return (T) ItemHandler.fromForge((IItemHandler) t);
+        }
+        return (T) t;
     }
 
     @Override

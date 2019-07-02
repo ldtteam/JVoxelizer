@@ -75,6 +75,11 @@ public class FontRenderer implements IFontRenderer, IForgeJVoxelizerWrapper
 
     public static IFontRenderer fromForge(net.minecraft.client.gui.FontRenderer fontRenderer)
     {
+        if (fontRenderer == null)
+        {
+            return null;
+        }
+
         if (fontRenderer instanceof IFontRenderer)
         {
             return (IFontRenderer) fontRenderer;

@@ -74,6 +74,11 @@ public class Sprite implements ISprite, IForgeJVoxelizerWrapper
 
     public static ISprite fromForge(TextureAtlasSprite sprite)
     {
+        if (sprite == null)
+        {
+            return null;
+        }
+
         if (sprite instanceof ISprite)
         {
             return (ISprite) sprite;

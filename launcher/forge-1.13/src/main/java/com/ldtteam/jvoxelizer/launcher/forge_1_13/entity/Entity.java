@@ -252,11 +252,7 @@ public class Entity implements IEntity, IForgeJVoxelizerWrapper
     @Override
     public <T> T getCapability(final ICapability<T> capability, final IFacing facing)
     {
-        final Object t = forgeEntity.getCapability(Capability.asForge(capability), Facing.asForge(facing));
-        if (t instanceof net.minecraftforge.items.IItemHandler) {
-            return (T) ItemHandler.fromForge((IItemHandler) t);
-        }
-        return (T) t;
+        return capability.convertToJVoxInstanceOrNull(forgeEntity.getCapability(Capability.asForge(capability), Facing.asForge(facing)));
     }
 
     @Override

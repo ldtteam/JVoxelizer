@@ -22,7 +22,7 @@ public class CapabilityProvider implements ICapabilityProvider, IForgeJVoxelizer
     @Override
     public <T> T getCapability(final ICapability<T> capability, final IFacing facing)
     {
-        return Capability.convertFromForgeToJVox(capability, getForgeCapabilityProvider().getCapability(Capability.asForge(capability), Facing.asForge(facing)));
+        return capability.convertToJVoxInstanceOrNull(getForgeCapabilityProvider().getCapability(Capability.asForge(capability), Facing.asForge(facing)));
     }
 
     private net.minecraftforge.common.capabilities.ICapabilityProvider getForgeCapabilityProvider()

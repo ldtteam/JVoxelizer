@@ -185,6 +185,11 @@ public class Slot implements ISlot<DummyInstanceData>, IForgeJVoxelizerWrapper
 
     public static ISlot<?> fromForge(net.minecraft.inventory.Slot slot)
     {
+        if (slot == null)
+        {
+            return null;
+        }
+
         if (slot instanceof ISlot)
         {
             return (ISlot<?>) slot;

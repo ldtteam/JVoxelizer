@@ -22,6 +22,6 @@ public class CapabilityLogicProvider implements ICapabilityLogicProvider
     @Override
     public ICapability<IItemHandler> getItemHandlerCapability()
     {
-        return Capability.fromForge(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, ItemHandler::fromForge);
+        return Capability.fromForge(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, ItemHandler::fromForge, net.minecraftforge.items.IItemHandler.class);
     }
 }

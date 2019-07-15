@@ -76,7 +76,7 @@ configurations
         }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.13.2-25.0.141'
+    minecraft 'net.minecraftforge:forge:1.14.3-27.0.51'
     shade project(':api')
 }
 

@@ -64,6 +64,11 @@ public interface IContainer<I> extends IInstancedObject<I> {
 
     List<ISlot<?>> getInventorySlots();
 
+    /**
+     * Clears the container inventory completely!
+     */
+    void clearInventory();
+
     List<IItemStack> getInventoryItemStacks();
 
     boolean mergeItemStack(final IItemStack stack, final int startIndex, final int endIndex, final boolean reverseDirection);

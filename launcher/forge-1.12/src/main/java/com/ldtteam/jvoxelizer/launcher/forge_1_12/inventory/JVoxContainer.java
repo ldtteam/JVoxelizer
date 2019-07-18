@@ -525,9 +525,7 @@ public class JVoxContainer<I> extends Container implements IContainer<I>
         return this.inventorySlots.stream().map(i -> fromForge(i)).collect(Collectors.toList());
     }
 
-    /**
-     * Clears the container inventory completely!
-     */
+    @Override
     public void clearInventory()
     {
         this.inventorySlots.clear();

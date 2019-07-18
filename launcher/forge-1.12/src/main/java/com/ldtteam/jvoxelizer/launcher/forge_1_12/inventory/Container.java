@@ -153,6 +153,15 @@ public class Container implements IContainer<DummyInstanceData>, IForgeJVoxelize
         return forgeContainer.inventorySlots.stream().map(Slot::fromForge).collect(Collectors.toList());
     }
 
+    /**
+     * Clears the container inventory completely!
+     */
+    public void clearInventory()
+    {
+        forgeContainer.inventorySlots.clear();
+        forgeContainer.inventoryItemStacks.clear();
+    }
+
     @Override
     public List<IItemStack> getInventoryItemStacks()
     {

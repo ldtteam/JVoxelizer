@@ -7,7 +7,7 @@ dependencies {
     compile 'com.intellij:annotations:+@jar'
     compile 'io.netty:netty-all:4.1.9.Final'
     compile 'org.lwjgl.lwjgl:lwjgl_util:2.9.3'
-    compile 'it.unimi.dsi:fastutil:7.1.0'
+    compile 'it.unimi.dsi:fastutil:8.2.3'
 }
 
 jar {

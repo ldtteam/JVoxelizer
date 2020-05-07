@@ -10,7 +10,7 @@ buildscript {
     }
     dependencies {
         classpath group: 'commons-io', name: 'commons-io', version: '2.6'
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.9.6"
     }
 }
 
